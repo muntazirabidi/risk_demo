@@ -1,0 +1,237 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@theme {
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+
+  --color-risk-critical: #dc2626;
+  --color-risk-high: #ea580c;
+  --color-risk-medium: #eab308;
+  --color-risk-low: #3b82f6;
+  --color-risk-positive: #22c55e;
+
+  --color-brand-primary: #2563eb;
+  --color-brand-secondary: #1e40af;
+  --color-brand-accent: #3b82f6;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 50%, #faf5ff 100%);
+  min-height: 100vh;
+}
+
+/* Smooth animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+.animate-slide-in {
+  animation: slide-in-right 0.6s ease-out;
+}
+
+/* Custom component classes using Tailwind v4 syntax */
+.btn-primary {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 14px 0 rgb(37 99 235 / 0.39);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 20px 0 rgb(37 99 235 / 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary > * {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-secondary {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  background-color: white;
+  color: rgb(55 65 81);
+  font-weight: 600;
+  border-radius: 0.75rem;
+  border: 2px solid rgb(229 231 235);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+}
+
+.btn-secondary:hover {
+  background-color: rgb(249 250 251);
+  border-color: rgb(209 213 219);
+  box-shadow: 0 4px 12px 0 rgb(0 0 0 / 0.1);
+  transform: translateY(-1px);
+}
+
+.card {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -1px rgb(0 0 0 / 0.03);
+  padding: 1.75rem;
+  border: 1px solid rgb(243 244 246);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -2px rgb(0 0 0 / 0.03);
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.875rem 1.125rem;
+  border: 2px solid rgb(229 231 235);
+  border-radius: 0.75rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  background-color: white;
+}
+
+.input-field:hover {
+  border-color: rgb(209 213 219);
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: rgb(59 130 246);
+  box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1);
+  background-color: rgb(249 250 251);
+}
+
+.badge-critical {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: rgb(254 226 226);
+  color: rgb(153 27 27);
+}
+
+.badge-high {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: rgb(255 237 213);
+  color: rgb(154 52 18);
+}
+
+.badge-medium {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: rgb(254 249 195);
+  color: rgb(133 77 14);
+}
+
+.badge-low {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: rgb(219 234 254);
+  color: rgb(30 64 175);
+}
+
+.badge-positive {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: rgb(220 252 231);
+  color: rgb(22 101 52);
+}
+
+.gradient-risk-critical {
+  background: linear-gradient(to right, rgb(239 68 68), rgb(185 28 28));
+}
+
+.gradient-risk-high {
+  background: linear-gradient(to right, rgb(249 115 22), rgb(239 68 68));
+}
+
+.gradient-risk-medium {
+  background: linear-gradient(to right, rgb(250 204 21), rgb(249 115 22));
+}
+
+.gradient-risk-low {
+  background: linear-gradient(to right, rgb(96 165 250), rgb(37 99 235));
+}
