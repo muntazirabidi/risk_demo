@@ -108,7 +108,7 @@ function App() {
                 <h1 className="text-2xl font-bold text-gray-900 tracking-tight bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text">
                   Spectrum
                 </h1>
-                <p className="text-xs text-gray-500 font-medium">Risk Intelligence Platform</p>
+                <p className="text-xs text-gray-500 font-medium">Vendor Due Diligence</p>
               </div>
             </div>
             {state.assessment && (
@@ -130,10 +130,10 @@ function App() {
             {/* Hero Section */}
             <div className="text-center mb-12 animate-fade-in">
               <h1 className="text-5xl md:text-6xl font-black text-gray-900 mb-4 tracking-tight">
-                Real-Time Risk Intelligence
+                Vendor Due Diligence
               </h1>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Automated risk assessment for any company
+                Fast risk assessment for suppliers, vendors, and partners
               </p>
             </div>
 
@@ -202,10 +202,10 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold text-gray-700 mb-1">
-              Intelligence at the speed of business
+              Vendor intelligence at the speed of business
             </p>
             <p className="text-xs text-gray-500">
-              Powered by real-time data and advanced analytics
+              Fast risk assessment for your supply chain
             </p>
           </div>
         </div>
