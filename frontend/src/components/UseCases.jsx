@@ -99,11 +99,17 @@ export default function UseCases() {
 
       {/* Section Header */}
       <div className="text-center mb-16">
+        <div className="inline-flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full mb-4">
+          <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+          </svg>
+          <span className="text-sm font-bold text-blue-700">MULTI-AGENT PLATFORM</span>
+        </div>
         <h2 className="text-3xl font-bold text-gray-900 mb-3">
-          Coverage
+          Specialized Risk Agents
         </h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          End-to-end risk assessment across all business relationships
+        <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          Deploy specialized AI agents to build custom vendor reports. Mix and match agents based on your requirements - each vendor assessment is tailored to your needs.
         </p>
       </div>
 
@@ -157,10 +163,10 @@ export default function UseCases() {
               <span className="text-sm font-bold text-blue-700">Industry Coverage</span>
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-2">
-              Serving Critical Industries
+              Enterprise-Grade Customization
             </h3>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Trusted by leaders in high-stakes sectors where risk intelligence is mission-critical
+              Serving procurement and risk teams across industries with tailored agent combinations
             </p>
           </div>
           <div className="flex flex-wrap justify-center gap-3">

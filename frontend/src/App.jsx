@@ -133,7 +133,7 @@ function App() {
                 Vendor Due Diligence
               </h1>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Fast risk assessment for suppliers, vendors, and partners
+                Multi-agent AI system for customized supplier risk reports
               </p>
             </div>
 
