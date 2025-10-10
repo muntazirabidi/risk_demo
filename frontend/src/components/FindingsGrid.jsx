@@ -37,29 +37,68 @@ export default function FindingsGrid({ findings }) {
   // Show top 5 findings
   const topFindings = findings.slice(0, 5);
 
+  // Get card styling based on risk level
+  const getCardStyle = (riskLevel) => {
+    const styles = {
+      Critical: {
+        bg: 'from-red-50/80 via-white to-red-50/50',
+        border: 'border-red-200',
+        borderLeft: '#dc2626',
+        ring: 'hover:ring-2 hover:ring-red-300/50',
+        shadow: 'hover:shadow-red-200/50'
+      },
+      High: {
+        bg: 'from-orange-50/80 via-white to-orange-50/50',
+        border: 'border-orange-200',
+        borderLeft: '#ea580c',
+        ring: 'hover:ring-2 hover:ring-orange-300/50',
+        shadow: 'hover:shadow-orange-200/50'
+      },
+      Medium: {
+        bg: 'from-yellow-50/80 via-white to-yellow-50/50',
+        border: 'border-yellow-200',
+        borderLeft: '#eab308',
+        ring: 'hover:ring-2 hover:ring-yellow-300/50',
+        shadow: 'hover:shadow-yellow-200/50'
+      },
+      Positive: {
+        bg: 'from-green-50/80 via-white to-green-50/50',
+        border: 'border-green-200',
+        borderLeft: '#22c55e',
+        ring: 'hover:ring-2 hover:ring-green-300/50',
+        shadow: 'hover:shadow-green-200/50'
+      },
+      Low: {
+        bg: 'from-blue-50/80 via-white to-blue-50/50',
+        border: 'border-blue-200',
+        borderLeft: '#3b82f6',
+        ring: 'hover:ring-2 hover:ring-blue-300/50',
+        shadow: 'hover:shadow-blue-200/50'
+      }
+    };
+    return styles[riskLevel] || styles.Low;
+  };
+
   return (
     <div className="mb-10 animate-fade-in">
       <div className="flex items-center gap-3 mb-6">
         <h3 className="text-2xl font-bold text-gray-900">Key Findings</h3>
-        <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
+        <span className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-lg">
           Top {topFindings.length}
         </span>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {topFindings.map((finding, index) => (
-          <div
-            key={index}
-            className="card hover:shadow-2xl transition-all duration-300 cursor-pointer border-l-4 hover:-translate-y-1 animate-fade-in group"
-            style={{
-              borderLeftColor:
-                finding.riskLevel === 'Critical' ? '#dc2626' :
-                finding.riskLevel === 'High' ? '#ea580c' :
-                finding.riskLevel === 'Medium' ? '#eab308' :
-                finding.riskLevel === 'Positive' ? '#22c55e' :
-                '#3b82f6',
-              animationDelay: `${index * 0.1}s`
-            }}
-          >
+        {topFindings.map((finding, index) => {
+          const cardStyle = getCardStyle(finding.riskLevel);
+          return (
+            <div
+              key={index}
+              className={`relative overflow-hidden rounded-xl p-6 border-2 ${cardStyle.border} bg-gradient-to-br ${cardStyle.bg} backdrop-blur-sm hover:shadow-2xl ${cardStyle.shadow} ${cardStyle.ring} transition-all duration-300 cursor-pointer border-l-4 hover:-translate-y-1 animate-fade-in group`}
+              style={{
+                borderLeftColor: cardStyle.borderLeft,
+                animationDelay: `${index * 0.1}s`
+              }}
+            >
             <div className="flex items-start gap-3 mb-4">
               <div className="transform group-hover:scale-110 transition-transform duration-300">
                 {getRiskIcon(finding.riskLevel)}
@@ -112,7 +151,8 @@ export default function FindingsGrid({ findings }) {
               )}
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
