@@ -7,7 +7,16 @@ const USE_CASES = [
     ),
     title: "Third-Party Risk Assessment",
     description: "Automated due diligence on vendors, suppliers, contractors, and service providers",
-    metrics: ["Risk Scoring", "Compliance Status", "Continuous Monitoring"]
+    metrics: ["Risk Scoring", "Compliance Status", "Continuous Monitoring"],
+    colors: {
+      iconBg: "from-blue-500 to-indigo-600",
+      iconText: "text-white",
+      border: "border-blue-200/50",
+      cardBg: "from-blue-50/30 via-white to-indigo-50/30",
+      shadow: "hover:shadow-blue-200/50",
+      glow: "hover:ring-2 hover:ring-blue-300/50",
+      dotColor: "bg-blue-500"
+    }
   },
   {
     icon: (
@@ -17,7 +26,16 @@ const USE_CASES = [
     ),
     title: "Cybersecurity Risk",
     description: "Security posture assessment, breach history, and vulnerability exposure analysis",
-    metrics: ["Security Incidents", "Threat Intelligence", "Attack Surface"]
+    metrics: ["Security Incidents", "Threat Intelligence", "Attack Surface"],
+    colors: {
+      iconBg: "from-red-500 to-orange-600",
+      iconText: "text-white",
+      border: "border-red-200/50",
+      cardBg: "from-red-50/30 via-white to-orange-50/30",
+      shadow: "hover:shadow-red-200/50",
+      glow: "hover:ring-2 hover:ring-red-300/50",
+      dotColor: "bg-red-500"
+    }
   },
   {
     icon: (
@@ -27,7 +45,16 @@ const USE_CASES = [
     ),
     title: "Vendor Financial Health",
     description: "Financial stability assessment to prevent supply chain disruptions",
-    metrics: ["Credit Risk", "Payment Patterns", "Business Continuity"]
+    metrics: ["Credit Risk", "Payment Patterns", "Business Continuity"],
+    colors: {
+      iconBg: "from-emerald-500 to-green-600",
+      iconText: "text-white",
+      border: "border-emerald-200/50",
+      cardBg: "from-emerald-50/30 via-white to-green-50/30",
+      shadow: "hover:shadow-emerald-200/50",
+      glow: "hover:ring-2 hover:ring-emerald-300/50",
+      dotColor: "bg-emerald-500"
+    }
   },
   {
     icon: (
@@ -37,7 +64,16 @@ const USE_CASES = [
     ),
     title: "Regulatory Compliance",
     description: "Track compliance with SEC, GDPR, SOX, DORA, and industry regulations",
-    metrics: ["Compliance Status", "Regulatory Changes", "Audit Readiness"]
+    metrics: ["Compliance Status", "Regulatory Changes", "Audit Readiness"],
+    colors: {
+      iconBg: "from-purple-500 to-violet-600",
+      iconText: "text-white",
+      border: "border-purple-200/50",
+      cardBg: "from-purple-50/30 via-white to-violet-50/30",
+      shadow: "hover:shadow-purple-200/50",
+      glow: "hover:ring-2 hover:ring-purple-300/50",
+      dotColor: "bg-purple-500"
+    }
   },
   {
     icon: (
@@ -47,7 +83,16 @@ const USE_CASES = [
     ),
     title: "Geopolitical Risk",
     description: "Sanctions screening, trade restrictions, and political instability monitoring",
-    metrics: ["Sanctions Lists", "Trade Compliance", "Country Risk"]
+    metrics: ["Sanctions Lists", "Trade Compliance", "Country Risk"],
+    colors: {
+      iconBg: "from-amber-500 to-yellow-600",
+      iconText: "text-white",
+      border: "border-amber-200/50",
+      cardBg: "from-amber-50/30 via-white to-yellow-50/30",
+      shadow: "hover:shadow-amber-200/50",
+      glow: "hover:ring-2 hover:ring-amber-300/50",
+      dotColor: "bg-amber-500"
+    }
   },
   {
     icon: (
@@ -57,7 +102,16 @@ const USE_CASES = [
     ),
     title: "Supply Chain Disruption",
     description: "Real-time alerts on supplier operational risks and alternative sourcing",
-    metrics: ["Disruption Events", "Dependency Analysis", "Risk Mitigation"]
+    metrics: ["Disruption Events", "Dependency Analysis", "Risk Mitigation"],
+    colors: {
+      iconBg: "from-orange-500 to-red-600",
+      iconText: "text-white",
+      border: "border-orange-200/50",
+      cardBg: "from-orange-50/30 via-white to-red-50/30",
+      shadow: "hover:shadow-orange-200/50",
+      glow: "hover:ring-2 hover:ring-orange-300/50",
+      dotColor: "bg-orange-500"
+    }
   },
   {
     icon: (
@@ -67,7 +121,16 @@ const USE_CASES = [
     ),
     title: "ESG & Sustainability",
     description: "Environmental, social, and governance risk across your partner network",
-    metrics: ["Carbon Footprint", "Labor Standards", "Ethics Violations"]
+    metrics: ["Carbon Footprint", "Labor Standards", "Ethics Violations"],
+    colors: {
+      iconBg: "from-teal-500 to-green-600",
+      iconText: "text-white",
+      border: "border-teal-200/50",
+      cardBg: "from-teal-50/30 via-white to-green-50/30",
+      shadow: "hover:shadow-teal-200/50",
+      glow: "hover:ring-2 hover:ring-teal-300/50",
+      dotColor: "bg-teal-500"
+    }
   },
   {
     icon: (
@@ -77,7 +140,16 @@ const USE_CASES = [
     ),
     title: "Continuous Monitoring",
     description: "Automated ongoing surveillance of all third-party relationships",
-    metrics: ["Real-Time Alerts", "Risk Score Changes", "Portfolio View"]
+    metrics: ["Real-Time Alerts", "Risk Score Changes", "Portfolio View"],
+    colors: {
+      iconBg: "from-cyan-500 to-blue-600",
+      iconText: "text-white",
+      border: "border-cyan-200/50",
+      cardBg: "from-cyan-50/30 via-white to-blue-50/30",
+      shadow: "hover:shadow-cyan-200/50",
+      glow: "hover:ring-2 hover:ring-cyan-300/50",
+      dotColor: "bg-cyan-500"
+    }
   }
 ];
 
@@ -119,26 +191,38 @@ export default function UseCases() {
           <div
             key={index}
             style={{ animationDelay: `${index * 0.05}s` }}
-            className="card hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 cursor-pointer group animate-fade-in"
+            className={`relative overflow-hidden rounded-2xl p-6 border-2 ${useCase.colors.border} bg-gradient-to-br ${useCase.colors.cardBg} backdrop-blur-sm hover:-translate-y-2 hover:shadow-2xl ${useCase.colors.shadow} ${useCase.colors.glow} transition-all duration-300 cursor-pointer group animate-fade-in`}
           >
-            <div className="flex items-start gap-4 mb-4">
-              <div className="p-3 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl text-blue-700 group-hover:from-blue-600 group-hover:to-purple-600 group-hover:text-white transition-all duration-300 group-hover:scale-110">
-                {useCase.icon}
-              </div>
+            {/* Subtle inner glow */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className={`absolute inset-0 bg-gradient-to-br ${useCase.colors.cardBg} blur-xl`}></div>
             </div>
-            <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-700 transition-colors">
-              {useCase.title}
-            </h3>
-            <p className="text-sm text-gray-600 mb-4 leading-relaxed">
-              {useCase.description}
-            </p>
-            <div className="space-y-1.5">
-              {useCase.metrics.map((metric, i) => (
-                <div key={i} className="flex items-center gap-2 text-xs text-gray-500">
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
-                  <span className="font-medium">{metric}</span>
+
+            <div className="relative z-10">
+              {/* Icon */}
+              <div className="mb-4">
+                <div className={`inline-flex p-3 bg-gradient-to-br ${useCase.colors.iconBg} ${useCase.colors.iconText} rounded-xl shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
+                  {useCase.icon}
                 </div>
-              ))}
+              </div>
+
+              {/* Content */}
+              <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-gray-800 transition-colors">
+                {useCase.title}
+              </h3>
+              <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+                {useCase.description}
+              </p>
+
+              {/* Metrics */}
+              <div className="space-y-1.5">
+                {useCase.metrics.map((metric, i) => (
+                  <div key={i} className="flex items-center gap-2 text-xs text-gray-600">
+                    <div className={`w-1.5 h-1.5 rounded-full ${useCase.colors.dotColor} group-hover:scale-125 transition-transform`}></div>
+                    <span className="font-medium">{metric}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         ))}
