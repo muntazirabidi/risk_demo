@@ -76,7 +76,7 @@ export default function UpgradeCard({ companyName, riskScore, riskLevel }) {
               Want the Full Story?
             </h2>
             <p className="text-xl text-blue-100 max-w-2xl mx-auto">
-              This quick screen only scratches the surface. Get a comprehensive vendor due diligence report with timeline reconstruction and multi-source verification.
+              This quick screen only scratches the surface. Get a comprehensive vendor due diligence report with detailed risk history and multi-source research.
             </p>
           </div>
 
@@ -122,13 +122,13 @@ export default function UpgradeCard({ companyName, riskScore, riskLevel }) {
                   <svg className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span><strong>10-20 detailed incident reports</strong> with full context</span>
+                  <span><strong>Detailed incident analysis</strong> with full context</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <svg className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span><strong>Timeline reconstruction</strong> (2015 incident → 2024 fine)</span>
+                  <span><strong>5-10 year risk history</strong> with chronological timeline</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <svg className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -140,19 +140,19 @@ export default function UpgradeCard({ companyName, riskScore, riskLevel }) {
                   <svg className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span><strong>Multi-source verification</strong> (regulatory, legal, news)</span>
+                  <span><strong>Multi-source research</strong> (regulatory filings, legal records, news)</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <svg className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span><strong>Professional report</strong> (PDF + Excel, 30-50 pages)</span>
+                  <span><strong>Professional report</strong> (PDF + Excel)</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <svg className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span><strong>Fast delivery</strong> (1-2 hours vs 2-4 weeks)</span>
+                  <span><strong>Fast delivery</strong> (1-2 hours vs weeks)</span>
                 </li>
               </ul>
             </div>
@@ -170,7 +170,7 @@ export default function UpgradeCard({ companyName, riskScore, riskLevel }) {
                 </svg>
                 Request Comprehensive Report for {companyName}
               </button>
-              <p className="text-sm text-blue-100 mt-3">Delivered in 1-2 hours • 30-50 pages • Custom pricing</p>
+              <p className="text-sm text-blue-100 mt-3">Delivered in 1-2 hours • Custom pricing</p>
             </div>
           )}
 
