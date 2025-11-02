@@ -10,6 +10,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Trust proxy - required for Railway/production deployments
+app.set('trust proxy', 1);
+
 // CORS Configuration
 const corsOptions = {
   origin: process.env.ALLOWED_ORIGINS
