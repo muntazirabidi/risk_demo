@@ -1,6 +1,6 @@
 # Supply Chain Vendor Risk Assessment Platform
 
-![Demo Status](https://img.shields.io/badge/status-demo-blue)
+![Demo Status](https://img.shields.io/badge/status-live-green)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 ## Overview
