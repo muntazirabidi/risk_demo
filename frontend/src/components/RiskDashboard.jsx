@@ -4,6 +4,7 @@ import FindingsGrid from './FindingsGrid';
 import DetailedBreakdown from './DetailedBreakdown';
 import UpgradeCard from './UpgradeCard';
 import Toast from './Toast';
+import { downloadExcelReport } from '../utils/excelExport';
 
 export default function RiskDashboard({ assessment, metadata, onNewAssessment }) {
   const [toast, setToast] = useState(null);
@@ -25,6 +26,29 @@ export default function RiskDashboard({ assessment, metadata, onNewAssessment })
     const dataStr = JSON.stringify({ assessment, metadata }, null, 2);
     navigator.clipboard.writeText(dataStr);
     setToast({ message: 'Assessment data copied to clipboard!', type: 'success' });
+  };
+
+  const handleDownloadExcel = async () => {
+    try {
+      setToast({ message: 'Generating Excel report...', type: 'info' });
+      const result = await downloadExcelReport(assessment, metadata);
+      if (result.success) {
+        setToast({ 
+          message: `Excel report downloaded: ${result.filename}`, 
+          type: 'success' 
+        });
+      } else {
+        setToast({ 
+          message: `Export failed: ${result.error}`, 
+          type: 'error' 
+        });
+      }
+    } catch (error) {
+      setToast({ 
+        message: `Export failed: ${error.message}`, 
+        type: 'error' 
+      });
+    }
   };
 
   return (
@@ -112,6 +136,17 @@ export default function RiskDashboard({ assessment, metadata, onNewAssessment })
         </button>
 
         {/* Secondary Actions */}
+        <button
+          onClick={handleDownloadExcel}
+          className="group relative px-8 py-4 bg-gradient-to-r from-green-600 via-emerald-600 to-green-700 text-white rounded-xl font-bold text-base shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-3"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-green-700 via-emerald-700 to-green-800 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <svg className="w-6 h-6 relative z-10 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <span className="relative z-10">Download Excel Report</span>
+        </button>
+
         <button
           onClick={handleDownloadJSON}
           className="group px-6 py-4 bg-white border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:border-blue-500 hover:text-blue-700 hover:shadow-lg hover:scale-105 transition-all duration-200 flex items-center gap-2"

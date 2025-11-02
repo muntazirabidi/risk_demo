@@ -122,6 +122,117 @@ Open your browser and navigate to:
 http://localhost:5173
 ```
 
+## Deployment
+
+> 📖 **Detailed Guide**: See [DEPLOYMENT.md](./DEPLOYMENT.md) for complete step-by-step instructions.
+
+Deploy both frontend and backend to cloud platforms for live demos. Recommended stack:
+
+- **Frontend**: Vercel (recommended) or Netlify
+- **Backend**: Railway (recommended), Render, or Fly.io
+
+### Quick Deployment Guide
+
+#### Option 1: Vercel (Frontend) + Railway (Backend) - Recommended
+
+**Backend (Railway):**
+
+1. **Sign up**: Go to [railway.app](https://railway.app) and sign in with GitHub
+2. **Create new project**: Click "New Project" → "Deploy from GitHub repo"
+3. **Select repository**: Choose your `risk_demo` repository
+4. **Configure service**:
+   - Set **Root Directory** to `backend`
+   - Railway will auto-detect Node.js
+5. **Add environment variables**:
+   - `OPENAI_API_KEY` = Your OpenAI API key
+   - `PORT` = 3001 (optional, Railway auto-assigns)
+   - `NODE_ENV` = production
+   - `ALLOWED_ORIGINS` = Your frontend URL (will get this after deploying frontend)
+6. **Deploy**: Railway will automatically deploy and provide a URL like `https://your-backend.railway.app`
+7. **Copy the backend URL** - You'll need this for the frontend
+
+**Frontend (Vercel):**
+
+1. **Sign up**: Go to [vercel.com](https://vercel.com) and sign in with GitHub
+2. **Import project**: Click "Add New Project" → Import your `risk_demo` repository
+3. **Configure project**:
+   - **Framework Preset**: Vite
+   - **Root Directory**: `frontend`
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+4. **Add environment variable**:
+   - `VITE_API_BASE_URL` = Your Railway backend URL (e.g., `https://your-backend.railway.app/api`)
+5. **Deploy**: Click "Deploy" - Vercel will build and deploy your frontend
+6. **Update backend CORS**: Go back to Railway and update `ALLOWED_ORIGINS` to include your Vercel URL (e.g., `https://your-frontend.vercel.app`)
+
+**After deployment:**
+- Frontend URL: `https://your-app.vercel.app`
+- Backend URL: `https://your-backend.railway.app`
+
+#### Option 2: Netlify (Frontend) + Render (Backend)
+
+**Backend (Render):**
+
+1. Go to [render.com](https://render.com) and sign up
+2. Click "New +" → "Web Service"
+3. Connect your GitHub repository
+4. Configure:
+   - **Name**: `risk-demo-backend`
+   - **Root Directory**: `backend`
+   - **Environment**: Node
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+5. Add environment variables:
+   - `OPENAI_API_KEY`
+   - `NODE_ENV=production`
+   - `ALLOWED_ORIGINS=https://your-frontend.netlify.app`
+6. Deploy and copy the URL
+
+**Frontend (Netlify):**
+
+1. Go to [netlify.com](https://netlify.com) and sign up
+2. Click "Add new site" → "Import an existing project"
+3. Connect your GitHub repository
+4. Configure:
+   - **Base directory**: `frontend`
+   - **Build command**: `npm run build`
+   - **Publish directory**: `frontend/dist`
+5. Add environment variable:
+   - `VITE_API_BASE_URL` = Your Render backend URL + `/api`
+6. Deploy
+
+### Environment Variables Summary
+
+**Backend (Railway/Render):**
+```env
+OPENAI_API_KEY=your_api_key_here
+NODE_ENV=production
+PORT=3001
+ALLOWED_ORIGINS=https://your-frontend.vercel.app,https://your-frontend.vercel.app
+OPENAI_MODEL=gpt-4-turbo-preview
+```
+
+**Frontend (Vercel/Netlify):**
+```env
+VITE_API_BASE_URL=https://your-backend.railway.app/api
+```
+
+### Deployment Tips
+
+1. **CORS Configuration**: Always update `ALLOWED_ORIGINS` in backend after getting frontend URL
+2. **Environment Variables**: Never commit `.env` files - use platform environment variable settings
+3. **Node Version**: Both platforms support Node.js 20.19.5 (specified in `.nvmrc`)
+4. **Free Tiers**: Both Vercel and Railway offer generous free tiers for demos
+5. **Custom Domain**: Both platforms allow custom domains on paid plans
+
+### Testing Deployment
+
+After deployment, test:
+1. ✅ Frontend loads without errors
+2. ✅ Backend health check: `https://your-backend.railway.app/api/health`
+3. ✅ Full assessment flow works end-to-end
+4. ✅ CORS is configured correctly (no console errors)
+
 ## Usage
 
 ### Quick Demo

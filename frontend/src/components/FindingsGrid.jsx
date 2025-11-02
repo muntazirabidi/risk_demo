@@ -1,158 +1,99 @@
 const getRiskBadgeClass = (riskLevel) => {
   const classes = {
-    Critical: 'badge-critical',
-    High: 'badge-high',
-    Medium: 'badge-medium',
-    Low: 'badge-low',
-    Positive: 'badge-positive',
+    Critical: 'bg-red-100 text-red-800 border border-red-200',
+    High: 'bg-orange-100 text-orange-800 border border-orange-200',
+    Medium: 'bg-yellow-100 text-yellow-800 border border-yellow-200',
+    Low: 'bg-blue-100 text-blue-800 border border-blue-200',
+    Positive: 'bg-green-100 text-green-800 border border-green-200',
   };
-  return classes[riskLevel] || 'badge-low';
+  return classes[riskLevel] || classes.Low;
 };
 
-const getRiskIcon = (riskLevel) => {
-  if (riskLevel === 'Positive') {
-    return (
-      <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-      </svg>
-    );
-  }
-  
-  if (riskLevel === 'Critical' || riskLevel === 'High') {
-    return (
-      <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-      </svg>
-    );
-  }
-  
-  return (
-    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  );
+const getRiskAccentColor = (riskLevel) => {
+  const colors = {
+    Critical: '#dc2626',
+    High: '#ea580c', 
+    Medium: '#eab308',
+    Low: '#3b82f6',
+    Positive: '#22c55e',
+  };
+  return colors[riskLevel] || colors.Low;
 };
 
 export default function FindingsGrid({ findings }) {
   // Show top 5 findings
   const topFindings = findings.slice(0, 5);
 
-  // Get card styling based on risk level
-  const getCardStyle = (riskLevel) => {
-    const styles = {
-      Critical: {
-        bg: 'from-red-50/80 via-white to-red-50/50',
-        border: 'border-red-200',
-        borderLeft: '#dc2626',
-        ring: 'hover:ring-2 hover:ring-red-300/50',
-        shadow: 'hover:shadow-red-200/50'
-      },
-      High: {
-        bg: 'from-orange-50/80 via-white to-orange-50/50',
-        border: 'border-orange-200',
-        borderLeft: '#ea580c',
-        ring: 'hover:ring-2 hover:ring-orange-300/50',
-        shadow: 'hover:shadow-orange-200/50'
-      },
-      Medium: {
-        bg: 'from-yellow-50/80 via-white to-yellow-50/50',
-        border: 'border-yellow-200',
-        borderLeft: '#eab308',
-        ring: 'hover:ring-2 hover:ring-yellow-300/50',
-        shadow: 'hover:shadow-yellow-200/50'
-      },
-      Positive: {
-        bg: 'from-green-50/80 via-white to-green-50/50',
-        border: 'border-green-200',
-        borderLeft: '#22c55e',
-        ring: 'hover:ring-2 hover:ring-green-300/50',
-        shadow: 'hover:shadow-green-200/50'
-      },
-      Low: {
-        bg: 'from-blue-50/80 via-white to-blue-50/50',
-        border: 'border-blue-200',
-        borderLeft: '#3b82f6',
-        ring: 'hover:ring-2 hover:ring-blue-300/50',
-        shadow: 'hover:shadow-blue-200/50'
-      }
-    };
-    return styles[riskLevel] || styles.Low;
-  };
-
   return (
-    <div className="mb-10 animate-fade-in">
+    <div className="mb-10">
       <div className="flex items-center gap-3 mb-6">
         <h3 className="text-2xl font-bold text-gray-900">Key Findings</h3>
-        <span className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-lg">
+        <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
           Top {topFindings.length}
         </span>
       </div>
+      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {topFindings.map((finding, index) => {
-          const cardStyle = getCardStyle(finding.riskLevel);
-          return (
-            <div
-              key={index}
-              className={`relative overflow-hidden rounded-xl p-6 border-2 ${cardStyle.border} bg-gradient-to-br ${cardStyle.bg} backdrop-blur-sm hover:shadow-2xl ${cardStyle.shadow} ${cardStyle.ring} transition-all duration-300 cursor-pointer border-l-4 hover:-translate-y-1 animate-fade-in group`}
-              style={{
-                borderLeftColor: cardStyle.borderLeft,
-                animationDelay: `${index * 0.1}s`
-              }}
-            >
-            <div className="flex items-start gap-3 mb-4">
-              <div className="transform group-hover:scale-110 transition-transform duration-300">
-                {getRiskIcon(finding.riskLevel)}
-              </div>
-              <div className="flex-1">
-                <h4 className="font-bold text-gray-900 mb-2 text-base group-hover:text-blue-700 transition-colors">
+        {topFindings.map((finding, index) => (
+          <div
+            key={index}
+            className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-gray-300 transition-all duration-200"
+            style={{ 
+              borderTopColor: getRiskAccentColor(finding.riskLevel),
+              borderTopWidth: '4px',
+              animationDelay: `${index * 0.1}s`
+            }}
+          >
+            {/* Header */}
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex-1 pr-3">
+                <h4 className="font-semibold text-gray-900 text-base mb-1 leading-tight">
                   {finding.title || finding.riskIndicator}
                 </h4>
-                <span className={getRiskBadgeClass(finding.riskLevel) + ' text-xs font-semibold'}>
-                  {finding.riskLevel}
-                </span>
-              </div>
-            </div>
-
-            {finding.quantifiedImpact && (
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 border-l-3 border-blue-400 px-4 py-3 mb-4 rounded-md">
-                <p className="text-sm font-bold text-gray-800 flex items-center gap-2">
-                  <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                  </svg>
-                  {finding.quantifiedImpact}
-                </p>
-              </div>
-            )}
-
-            <p className="text-gray-600 text-sm mb-4 line-clamp-3 leading-relaxed">
-              {finding.description}
-            </p>
-
-            <div className="space-y-2">
-              <div className="flex items-center justify-between text-xs text-gray-500">
-                <span className="bg-gray-100 px-2 py-1 rounded">
+                <span className="text-xs text-gray-500 font-medium">
                   {finding.category}
                 </span>
               </div>
-
-              {(finding.evidenceUrl || finding.sourceUrl) && finding.evidenceUrl !== 'Multiple sources' && (
-                <a
-                  href={finding.evidenceUrl || finding.sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1 hover:underline"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <svg className="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                  </svg>
-                  <span className="line-clamp-1">{finding.evidenceTitle || 'View source'}</span>
-                </a>
-              )}
+              <span className={`px-2 py-1 rounded text-xs font-medium flex-shrink-0 ${getRiskBadgeClass(finding.riskLevel)}`}>
+                {finding.riskLevel}
+              </span>
             </div>
+
+            {/* Impact (if available) */}
+            {finding.quantifiedImpact && (
+              <div className="bg-gray-50 rounded-md px-3 py-2 mb-4">
+                <div className="flex items-center gap-2">
+                  <svg className="w-3.5 h-3.5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
+                  <span className="text-sm font-medium text-gray-800">
+                    {finding.quantifiedImpact}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Description */}
+            <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+              {finding.description}
+            </p>
+
+            {/* Source Link (if available) */}
+            {(finding.evidenceUrl || finding.sourceUrl) && finding.evidenceUrl !== 'Multiple sources' && (
+              <a
+                href={finding.evidenceUrl || finding.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs text-blue-600 hover:text-blue-800 hover:underline font-medium"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                View source
+              </a>
+            )}
           </div>
-          );
-        })}
+        ))}
       </div>
     </div>
   );
