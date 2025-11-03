@@ -90,12 +90,13 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start server
-app.listen(PORT, () => {
+// Start server - bind to 0.0.0.0 for Railway/cloud hosting
+const HOST = '0.0.0.0';
+app.listen(PORT, HOST, () => {
   console.log('\n===========================================');
   console.log('Supply Chain Risk Assessment API');
   console.log('===========================================');
-  console.log(`Server running on: http://localhost:${PORT}`);
+  console.log(`Server running on: http://${HOST}:${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`Model: ${process.env.OPENAI_MODEL || 'gpt-4-turbo-preview'}`);
   console.log('===========================================\n');
