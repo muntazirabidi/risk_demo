@@ -15,9 +15,31 @@ app.set('trust proxy', 1);
 
 // CORS Configuration
 const corsOptions = {
-  origin: process.env.ALLOWED_ORIGINS
-    ? process.env.ALLOWED_ORIGINS.split(',')
-    : ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:5174', 'http://localhost:5175'], // Common dev ports
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    // Allow all vercel.app domains and localhost
+    const allowedPatterns = [
+      /\.vercel\.app$/,
+      /^http:\/\/localhost:\d+$/
+    ];
+
+    // Also allow specific origins from env var
+    const allowedOrigins = process.env.ALLOWED_ORIGINS
+      ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim())
+      : [];
+
+    // Check if origin matches any pattern or is in allowed list
+    const isAllowed = allowedPatterns.some(pattern => pattern.test(origin)) ||
+                     allowedOrigins.includes(origin);
+
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   optionsSuccessStatus: 200,
 };
