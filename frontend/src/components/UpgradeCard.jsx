@@ -68,15 +68,15 @@ export default function UpgradeCard({ companyName, riskScore, riskLevel }) {
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-4">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-              <span className="text-sm font-bold">UPGRADE TO COMPREHENSIVE</span>
+              <span className="text-sm font-bold">FULL DUE DILIGENCE REPORT</span>
             </div>
             <h2 className="text-3xl font-black mb-3">
-              Want the Full Story?
+              Need Comprehensive Vendor Intelligence?
             </h2>
             <p className="text-xl text-blue-100 max-w-2xl mx-auto">
-              This quick screen only scratches the surface. Get a comprehensive vendor due diligence report with detailed risk history and multi-source research.
+              Get a complete due diligence package with contract playbook, risk monitoring triggers, and procurement-ready recommendations.
             </p>
           </div>
 
@@ -115,44 +115,44 @@ export default function UpgradeCard({ companyName, riskScore, riskLevel }) {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                 </svg>
-                What You'll Get (Comprehensive)
+                Full Due Diligence Package
               </h3>
               <ul className="space-y-2 text-sm text-gray-700">
                 <li className="flex items-start gap-2">
                   <svg className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span><strong>Detailed incident analysis</strong> with full context</span>
+                  <span><strong>Altman Z-Score & Credit Analysis</strong> with peer benchmarking</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <svg className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span><strong>5-10 year risk history</strong> with chronological timeline</span>
+                  <span><strong>Supplier Ecosystem Mapping</strong> (Tier 2/3 dependencies)</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <svg className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span><strong>Financial + Regulatory + Operational</strong> risk analysis</span>
+                  <span><strong>Contract Playbook</strong> with recommended protective clauses</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <svg className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span><strong>Multi-source research</strong> (regulatory filings, legal records, news)</span>
+                  <span><strong>Risk Monitoring Dashboard</strong> with KPIs and alert thresholds</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <svg className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span><strong>Professional report</strong> (PDF + Excel)</span>
+                  <span><strong>Sanctions & Compliance Screening</strong> (OFAC, UN, EU lists)</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <svg className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span><strong>Fast delivery</strong> (1-2 hours vs weeks)</span>
+                  <span><strong>Procurement-Ready Report</strong> (PDF + Excel) in 1-2 hours</span>
                 </li>
               </ul>
             </div>
@@ -168,9 +168,9 @@ export default function UpgradeCard({ companyName, riskScore, riskLevel }) {
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                Request Comprehensive Report for {companyName}
+                Request Full Due Diligence for {companyName}
               </button>
-              <p className="text-sm text-blue-100 mt-3">Delivered in 1-2 hours • Custom pricing</p>
+              <p className="text-sm text-blue-100 mt-3">Delivered in 1-2 hours • Procurement-ready format</p>
             </div>
           )}
 

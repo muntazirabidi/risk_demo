@@ -1,23 +1,25 @@
+// Supplier/Vendor focused demo companies across key industries
 const DEMO_COMPANIES = [
-  { name: 'TSMC', industry: 'Technology', location: 'Taiwan' },
-  { name: 'Boeing', industry: 'Aerospace', location: 'United States' },
-  { name: 'Apple', industry: 'Technology', location: 'United States' },
-  { name: 'Toyota', industry: 'Automotive', location: 'Japan' },
-  { name: 'Pfizer', industry: 'Pharmaceuticals', location: 'United States' },
-  { name: 'ExxonMobil', industry: 'Energy', location: 'United States' },
-  { name: 'Tesla', industry: 'Automotive', location: 'United States' },
-  { name: 'Microsoft', industry: 'Technology', location: 'United States' },
-  { name: 'Walmart', industry: 'Retail', location: 'United States' },
-  { name: 'JP Morgan Chase', industry: 'Financial Services', location: 'United States' },
+  { name: 'TSMC', industry: 'Semiconductor Manufacturing', location: 'Taiwan' },
+  { name: 'Foxconn', industry: 'Electronics Manufacturing', location: 'Taiwan' },
+  { name: 'Johnson & Johnson', industry: 'Pharmaceuticals & Medical Devices', location: 'United States' },
+  { name: 'Siemens', industry: 'Industrial Manufacturing', location: 'Germany' },
+  { name: 'BASF', industry: 'Chemicals & Materials', location: 'Germany' },
+  { name: 'Caterpillar', industry: 'Heavy Equipment Manufacturing', location: 'United States' },
+  { name: 'Honeywell', industry: 'Industrial Technology', location: 'United States' },
+  { name: 'Accenture', industry: 'IT Services & Consulting', location: 'Ireland' },
+  { name: 'Maersk', industry: 'Shipping & Logistics', location: 'Denmark' },
+  { name: 'Flex Ltd', industry: 'Contract Manufacturing', location: 'Singapore' },
 ];
 
 export default function QuickDemoButtons({ onSelectCompany, isLoading }) {
   return (
     <div className="max-w-5xl mx-auto mb-10 animate-fade-in">
       <div className="text-center mb-6">
-        <h3 className="text-lg font-semibold text-gray-700 mb-3">
-          Select a company to analyze
+        <h3 className="text-lg font-semibold text-gray-700 mb-2">
+          Select a vendor to assess
         </h3>
+        <p className="text-sm text-gray-500">Click any vendor or enter your own below</p>
       </div>
       <div className="flex flex-wrap justify-center gap-3">
         {DEMO_COMPANIES.map((company, index) => (

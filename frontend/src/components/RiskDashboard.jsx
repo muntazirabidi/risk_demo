@@ -67,7 +67,7 @@ export default function RiskDashboard({ assessment, metadata, onNewAssessment })
         <h1 className="text-5xl font-black text-gray-900 mb-2 tracking-tight bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text">
           {metadata.companyName}
         </h1>
-        <p className="text-sm text-gray-500 font-medium mb-6">Vendor Risk Assessment</p>
+        <p className="text-sm text-gray-500 font-medium mb-6">Vendor Due Diligence Report</p>
 
         <div className="flex flex-wrap items-center justify-center gap-3 text-sm">
           {metadata.industry !== 'Not specified' && (
@@ -97,7 +97,7 @@ export default function RiskDashboard({ assessment, metadata, onNewAssessment })
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            <span className="font-semibold text-green-700">Quick Screen</span>
+            <span className="font-semibold text-green-700">Quick Due Diligence</span>
             <span className="text-xs text-green-600 font-bold">• {metadata.processingTime}s</span>
           </span>
         </div>
@@ -132,7 +132,7 @@ export default function RiskDashboard({ assessment, metadata, onNewAssessment })
           <svg className="w-6 h-6 relative z-10 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
-          <span className="relative z-10">Analyze Another Company</span>
+          <span className="relative z-10">Assess Another Vendor</span>
         </button>
 
         {/* Secondary Actions */}

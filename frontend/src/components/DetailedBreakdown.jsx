@@ -12,12 +12,17 @@ const getRiskBadgeClass = (riskLevel) => {
 };
 
 const categories = [
+  'Financial Stability',
+  'Operational Reliability',
+  'Supply Chain',
+  'Legal & Compliance',
+  'Market Position',
+  'Strategic',
+  // Legacy categories for backward compatibility
   'Credit & Financial',
   'Operations',
-  'Market Position',
   'Payment Risk',
   'Business Continuity',
-  'Strategic',
 ];
 
 export default function DetailedBreakdown({ findings }) {
@@ -145,6 +150,21 @@ export default function DetailedBreakdown({ findings }) {
 
                       {/* Summary Description */}
                       <p className="text-gray-700 mb-4 leading-relaxed">{finding.description}</p>
+
+                      {/* Procurement Implication Box */}
+                      {finding.procurementImplication && (
+                        <div className="bg-purple-50 border border-purple-200 rounded-lg p-3 mt-3">
+                          <div className="flex items-start gap-2">
+                            <svg className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                            </svg>
+                            <div className="flex-1">
+                              <p className="text-xs text-purple-700 font-bold mb-1">PROCUREMENT IMPLICATION</p>
+                              <p className="text-sm text-purple-900 font-medium">{finding.procurementImplication}</p>
+                            </div>
+                          </div>
+                        </div>
+                      )}
 
                       {/* Source URL - Prominent Display */}
                       {(finding.evidenceUrl || finding.sourceUrl) && finding.evidenceUrl !== 'Multiple sources' && (
