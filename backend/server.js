@@ -46,6 +46,7 @@ const corsOptions = {
 
 // Middleware
 app.use(cors(corsOptions)); // Enable CORS with configuration
+app.options('*', cors(corsOptions)); // Handle all preflight requests to avoid CORS failures
 app.use(express.json({ limit: '10mb' })); // Parse JSON request bodies with size limit
 app.use(express.urlencoded({ extended: true, limit: '10mb' })); // Parse URL-encoded bodies
 

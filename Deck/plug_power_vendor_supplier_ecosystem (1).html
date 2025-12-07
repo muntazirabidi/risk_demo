@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plug Power - Vendor & Supplier Ecosystem Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c5f2d 0%, #97bc62 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .report-meta {
+            background-color: #f8f9fa;
+            padding: 20px 40px;
+            border-bottom: 3px solid #2c5f2d;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .report-meta .meta-item {
+            margin: 10px 0;
+        }
+        
+        .report-meta .meta-label {
+            font-weight: bold;
+            color: #2c5f2d;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #2c5f2d;
+            border-bottom: 3px solid #2c5f2d;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .subsection {
+            margin-bottom: 25px;
+        }
+        
+        .subsection-title {
+            font-size: 1.3em;
+            color: #97bc62;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .vendor-card {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        .vendor-card:hover {
+            border-color: #2c5f2d;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .vendor-card .vendor-name {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2c5f2d;
+            margin-bottom: 10px;
+        }
+        
+        .vendor-card .vendor-type {
+            display: inline-block;
+            padding: 5px 12px;
+            background-color: #97bc62;
+            color: white;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .vendor-card .vendor-description {
+            margin-top: 10px;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .vendor-card .vendor-details {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .vendor-card .detail-item {
+            margin: 8px 0;
+            font-size: 0.95em;
+        }
+        
+        .vendor-card .detail-label {
+            font-weight: bold;
+            color: #2c5f2d;
+        }
+        
+        .category-header {
+            background: linear-gradient(135deg, #2c5f2d 0%, #97bc62 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        
+        .summary-box {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #2c5f2d;
+            margin: 20px 0;
+        }
+        
+        .summary-box h3 {
+            color: #2c5f2d;
+            margin-bottom: 15px;
+        }
+        
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            border: 2px solid #97bc62;
+        }
+        
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #2c5f2d;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding: 20px 0 20px 40px;
+            border-left: 3px solid #2c5f2d;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 25px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #97bc62;
+            border: 3px solid #2c5f2d;
+        }
+        
+        .timeline-year {
+            font-weight: bold;
+            color: #2c5f2d;
+            font-size: 1.2em;
+        }
+        
+        .timeline-content {
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            background-color: #2c5f2d;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .vendor-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>PLUG POWER VENDOR & SUPPLIER ECOSYSTEM</h1>
+            <div class="subtitle">Comprehensive Analysis of Strategic Partners, Suppliers & Acquisitions</div>
+        </div>
+        
+        <!-- Report Metadata -->
+        <div class="report-meta">
+            <div class="meta-item">
+                <span class="meta-label">Report Date:</span> November 27, 2025
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Company:</span> Plug Power Inc. (NASDAQ: PLUG)
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Analysis Type:</span> Vendor & Supply Chain Ecosystem
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="content">
+            
+            <!-- Executive Summary -->
+            <div class="section">
+                <h2 class="section-title">Executive Summary</h2>
+                <div class="summary-box">
+                    <h3>Overview</h3>
+                    <p style="margin-bottom: 15px;">
+                        Plug Power has built an extensive vendor and supplier ecosystem through strategic acquisitions, joint ventures, and partnerships to create a vertically integrated hydrogen value chain. The company has pursued an aggressive inorganic growth strategy to control key components of hydrogen production, storage, distribution, and fuel cell manufacturing.
+                    </p>
+                    <p>
+                        This ecosystem analysis identifies Plug Power's key suppliers, technology partners, joint venture collaborators, and acquired companies that now form part of their integrated operations.
+                    </p>
+                </div>
+                
+                <div class="summary-stats">
+                    <div class="stat-card">
+                        <div class="stat-value">8+</div>
+                        <div class="stat-label">Major Acquisitions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">5+</div>
+                        <div class="stat-label">Joint Ventures</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">10+</div>
+                        <div class="stat-label">Strategic Partners</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">25+</div>
+                        <div class="stat-label">Years Operating</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 1. Key Fuel Cell Stack Suppliers -->
+            <div class="section">
+                <h2 class="section-title">1. Fuel Cell Stack Suppliers & Technology Partners</h2>
+                <div class="category-header">Critical Technology Component Suppliers</div>
+                
+                <div class="vendor-grid">
+                    <div class="vendor-card">
+                        <div class="vendor-type">Fuel Cell Stack Supplier</div>
+                        <div class="vendor-name">Ballard Power Systems</div>
+                        <div class="vendor-description">
+                            Canadian fuel cell manufacturer that has been a long-term strategic supplier of fuel cell stacks for Plug Power's GenDrive systems.
+                        </div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Products Supplied:</span> FCgen-1020ACS air-cooled stacks (Class 3 pallet jacks), FCvelocity-9SSL liquid-cooled stacks (Class 1 & 2 forklifts)</div>
+                            <div class="detail-item"><span class="detail-label">Relationship History:</span> Supply agreements from 2010, extended through 2014, 2017, and beyond</div>
+                            <div class="detail-item"><span class="detail-label">Strategic Importance:</span> Formerly exclusive supplier for Plug's material handling applications</div>
+                            <div class="detail-item"><span class="detail-label">Status:</span> Plug has since internalized fuel cell stack production but historically relied heavily on Ballard</div>
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-card">
+                        <div class="vendor-type">MEA Component Supplier</div>
+                        <div class="vendor-name">Johnson Matthey (JM)</div>
+                        <div class="vendor-description">
+                            Global leader in sustainable technologies providing critical MEA (Membrane Electrode Assembly) components including catalysts, membranes, and catalyst coated membranes.
+                        </div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Products Supplied:</span> Catalysts, Membranes, Catalyst Coated Membranes (CCM)</div>
+                            <div class="detail-item"><span class="detail-label">Strategic Partnership:</span> Long-term supply agreement established for substantial portion of Plug's MEA demand</div>
+                            <div class="detail-item"><span class="detail-label">Joint Investment:</span> Co-investment in 5GW CCM manufacturing facility in the US (scaling to 10GW), expected to be world's largest</div>
+                            <div class="detail-item"><span class="detail-label">Expected Operation:</span> Facility production began in 2025</div>
+                            <div class="detail-item"><span class="detail-label">Strategic Value:</span> Ensures security of supply for precious metals, unique recycling capabilities</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2. Hydrogen Supply Partners -->
+            <div class="section">
+                <h2 class="section-title">2. Hydrogen Supply & Production Partners</h2>
+                <div class="category-header">Key Hydrogen Sourcing Relationships</div>
+                
+                <div class="vendor-grid">
+                    <div class="vendor-card">
+                        <div class="vendor-type">Hydrogen Supplier</div>
+                        <div class="vendor-name">Leading U.S. Industrial Gas Company (Unnamed)</div>
+                        <div class="vendor-description">
+                            Major U.S.-based industrial gas company serving as Plug's longtime strategic hydrogen partner with extended multi-year supply agreement.
+                        </div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Products Supplied:</span> Liquid hydrogen</div>
+                            <div class="detail-item"><span class="detail-label">Contract Term:</span> Extended through 2030 (announced July 2025)</div>
+                            <div class="detail-item"><span class="detail-label">Benefits:</span> Reduced cost structure, improved cash flows, reliable supply for growing applications business</div>
+                            <div class="detail-item"><span class="detail-label">Strategic Importance:</span> Critical for material handling customer base while Plug scales internal production</div>
+                            <div class="detail-item"><span class="detail-label">Note:</span> Plug is largest buyer of liquid hydrogen globally</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 3. Joint Ventures -->
+            <div class="section">
+                <h2 class="section-title">3. Joint Ventures & Strategic Partnerships</h2>
+                <div class="category-header">50/50 Partnerships & Collaborative Ventures</div>
+                
+                <div class="vendor-grid">
+                    <div class="vendor-card">
+                        <div class="vendor-type">Joint Venture - Hydrogen Production</div>
+                        <div class="vendor-name">Hidrogenii (with Olin Corporation)</div>
+                        <div class="vendor-description">
+                            50/50 joint venture combining Plug's hydrogen technology leadership with Olin's industrial expertise as North America's largest producer of electrolytic hydrogen.
+                        </div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Established:</span> 2022</div>
+                            <div class="detail-item"><span class="detail-label">Facility Location:</span> St. Gabriel, Louisiana</div>
+                            <div class="detail-item"><span class="detail-label">Capacity:</span> 15 metric tons per day of hydrogen liquefaction</div>
+                            <div class="detail-item"><span class="detail-label">Commissioned:</span> April 2025 (grand opening April 23, 2025)</div>
+                            <div class="detail-item"><span class="detail-label">Significance:</span> Among largest electrolytic hydrogen liquefaction facilities in North America</div>
+                            <div class="detail-item"><span class="detail-label">Operations:</span> Liquefies hydrogen produced by Olin from by-product of chlorine production</div>
+                            <div class="detail-item"><span class="detail-label">Safety Record:</span> 412,000+ safe working hours, zero recordable injuries</div>
+                            <div class="detail-item"><span class="detail-label">Contribution:</span> Increased Plug's total production capacity to 40 tons per day</div>
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-card">
+                        <div class="vendor-type">Joint Venture - European Mobility</div>
+                        <div class="vendor-name">HYVIA (with Renault Group)</div>
+                        <div class="vendor-description">
+                            50/50 joint venture with French automaker Renault Group to lead hydrogen-powered light commercial vehicle market in Europe with integrated ecosystem.
+                        </div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Established:</span> January 2021, MOU signed; Operations began 2021</div>
+                            <div class="detail-item"><span class="detail-label">EU Approval:</span> European Commission approved full acquisition by partners July 2024</div>
+                            <div class="detail-item"><span class="detail-label">CEO:</span> David Holderbach (20+ years Renault experience)</div>
+                            <div class="detail-item"><span class="detail-label">Headquarters:</span> France with operations across 4 sites</div>
+                            <div class="detail-item"><span class="detail-label">Employees:</span> Started with 12, now 130+</div>
+                            <div class="detail-item"><span class="detail-label">Target:</span> 30% market share in hydrogen LCVs in Europe by 2030</div>
+                            <div class="detail-item"><span class="detail-label">Flagship Product:</span> Renault Master Van H2-TECH (500km range, 3-minute refueling)</div>
+                            <div class="detail-item"><span class="detail-label">Technology:</span> Plug's 30kW ProGen fuel cell, 33kWh battery, 6.4kg hydrogen capacity</div>
+                            <div class="detail-item"><span class="detail-label">Manufacturing:</span> Vehicle at Batilly, fuel cells at Flins HYVIA plant, integration at Gretz-Armainvilliers</div>
+                            <div class="detail-item"><span class="detail-label">Revenue Contribution:</span> ~$7M past two years, significant future potential</div>
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-card">
+                        <div class="vendor-type">Joint Venture - Asian Markets</div>
+                        <div class="vendor-name">SK Group Partnership (South Korea)</div>
+                        <div class="vendor-description">
+                            Strategic partnership with South Korean conglomerate SK Group to accelerate hydrogen adoption in Asian markets.
+                        </div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Announced:</span> January 2021</div>
+                            <div class="detail-item"><span class="detail-label">Investment:</span> $1.5 billion for ~10% stake in Plug Power</div>
+                            <div class="detail-item"><span class="detail-label">Objective:</span> Form joint venture in South Korea to supply hydrogen fuel cell products to Asian markets</div>
+                            <div class="detail-item"><span class="detail-label">Strategic Value:</span> Major capital injection + market access to Asia</div>
+                            <div class="detail-item"><span class="detail-label">Market Focus:</span> Material handling, mobility, and stationary power applications</div>
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-card">
+                        <div class="vendor-type">Partnership - Renewable Fuels</div>
+                        <div class="vendor-name">Edgewood Renewables</div>
+                        <div class="vendor-description">
+                            Strategic partnership to develop advanced renewable fuel facility processing waste biomass into sustainable aviation fuel, renewable diesel, and biomethanol.
+                        </div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Announced:</span> October 2025</div>
+                            <div class="detail-item"><span class="detail-label">Location:</span> North Las Vegas, Nevada</div>
+                            <div class="detail-item"><span class="detail-label">Plug's Role:</span> Engineering design, key product supply, fabrication, project oversight</div>
+                            <div class="detail-item"><span class="detail-label">Products:</span> Sustainable Aviation Fuel (SAF), Renewable Diesel (RD), Biomethanol</div>
+                            <div class="detail-item"><span class="detail-label">Hydrogen Use:</span> Facility utilizes low-carbon hydrogen in production process</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 4. Major Acquisitions -->
+            <div class="section">
+                <h2 class="section-title">4. Acquisitions & Vertical Integration</h2>
+                <div class="category-header">Companies Acquired & Integrated into Plug Power</div>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">2020 - Hydrogen Production & Electrolysis</div>
+                        <div class="timeline-content">
+                            <div class="vendor-grid">
+                                <div class="vendor-card">
+                                    <div class="vendor-name">United Hydrogen Group Inc.</div>
+                                    <div class="vendor-description">
+                                        One of largest privately held merchant hydrogen producers in North America, acquired to enhance hydrogen generation, liquefaction, and distribution logistics capabilities.
+                                    </div>
+                                    <div class="vendor-details">
+                                        <div class="detail-item"><span class="detail-label">Completed:</span> June 2020</div>
+                                        <div class="detail-item"><span class="detail-label">Capacity Added:</span> 6.4 tons/day initially, expandable to 10 tons/day</div>
+                                        <div class="detail-item"><span class="detail-label">Strategic Value:</span> Hydrogen generation, liquefaction expertise, distribution logistics</div>
+                                        <div class="detail-item"><span class="detail-label">Impact:</span> Enabled transition from low-carbon to zero-carbon hydrogen solutions</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="vendor-card">
+                                    <div class="vendor-name">Giner ELX</div>
+                                    <div class="vendor-description">
+                                        PEM electrolysis technology company with world's most experienced team (20+ years in field), providing large-scale, efficient hydrogen generators.
+                                    </div>
+                                    <div class="vendor-details">
+                                        <div class="detail-item"><span class="detail-label">Completed:</span> June 2020</div>
+                                        <div class="detail-item"><span class="detail-label">Cost:</span> $123 million combined with United Hydrogen</div>
+                                        <div class="detail-item"><span class="detail-label">Technology:</span> World's largest, most efficient PEM hydrogen generators</div>
+                                        <div class="detail-item"><span class="detail-label">Products:</span> Grid-level energy storage, on-site H2 generation for refueling</div>
+                                        <div class="detail-item"><span class="detail-label">Market Access:</span> Strong European sales channel</div>
+                                        <div class="detail-item"><span class="detail-label">Impact:</span> Dramatically increased green hydrogen supply capabilities</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-year">2021 - Cryogenics & Liquefaction</div>
+                        <div class="timeline-content">
+                            <div class="vendor-grid">
+                                <div class="vendor-card">
+                                    <div class="vendor-name">Applied Cryo Technologies</div>
+                                    <div class="vendor-description">
+                                        Cryogenic technology company acquired to expand hydrogen liquefaction capabilities and cryogenic expertise.
+                                    </div>
+                                    <div class="vendor-details">
+                                        <div class="detail-item"><span class="detail-label">Year:</span> 2021</div>
+                                        <div class="detail-item"><span class="detail-label">Focus:</span> Cryogenics technology and hydrogen liquefaction</div>
+                                        <div class="detail-item"><span class="detail-label">Strategic Value:</span> Enhanced ability to produce and store liquid hydrogen</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="vendor-card">
+                                    <div class="vendor-name">Joule Processing LLC</div>
+                                    <div class="vendor-description">
+                                        Acquired to further expand hydrogen liquefaction and cryogenics capabilities for the growing hydrogen ecosystem.
+                                    </div>
+                                    <div class="vendor-details">
+                                        <div class="detail-item"><span class="detail-label">Year:</span> 2021</div>
+                                        <div class="detail-item"><span class="detail-label">Focus:</span> Hydrogen liquefaction and cryogenics</div>
+                                        <div class="detail-item"><span class="detail-label">Integration:</span> Supports large-scale liquid hydrogen production network</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-year">2019-2021 - Electrolyzer Manufacturing</div>
+                        <div class="timeline-content">
+                            <div class="vendor-grid">
+                                <div class="vendor-card">
+                                    <div class="vendor-name">Frames Group</div>
+                                    <div class="vendor-description">
+                                        Electrolyzer technology company acquired to strengthen manufacturing capabilities for hydrogen generation equipment.
+                                    </div>
+                                    <div class="vendor-details">
+                                        <div class="detail-item"><span class="detail-label">Year:</span> 2021</div>
+                                        <div class="detail-item"><span class="detail-label">Focus:</span> Electrolyzer systems</div>
+                                        <div class="detail-item"><span class="detail-label">Impact:</span> Enhanced GenEco electrolyzer product line</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-year">2015-2019 - Fuel Cell Stack Production</div>
+                        <div class="timeline-content">
+                            <div class="vendor-grid">
+                                <div class="vendor-card">
+                                    <div class="vendor-name">ReliOn</div>
+                                    <div class="vendor-description">
+                                        Fuel cell stack technology and stationary power products company acquired to bring critical technology in-house.
+                                    </div>
+                                    <div class="vendor-details">
+                                        <div class="detail-item"><span class="detail-label">Year:</span> Pre-2019</div>
+                                        <div class="detail-item"><span class="detail-label">Technology:</span> Fuel cell stack technology</div>
+                                        <div class="detail-item"><span class="detail-label">Products:</span> Stationary power solutions</div>
+                                        <div class="detail-item"><span class="detail-label">Impact:</span> Reduced dependence on external suppliers like Ballard</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="vendor-card">
+                                    <div class="vendor-name">American Fuel Cell</div>
+                                    <div class="vendor-description">
+                                        MEA (Membrane Electrode Assembly) production company acquired to bring critical fuel cell component manufacturing in-house.
+                                    </div>
+                                    <div class="vendor-details">
+                                        <div class="detail-item"><span class="detail-label">Year:</span> Pre-2019</div>
+                                        <div class="detail-item"><span class="detail-label">Technology:</span> Fuel cell MEA production</div>
+                                        <div class="detail-item"><span class="detail-label">Strategic Value:</span> Vertical integration of critical components</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-year">2019 - Specialized Applications</div>
+                        <div class="timeline-content">
+                            <div class="vendor-grid">
+                                <div class="vendor-card">
+                                    <div class="vendor-name">EnergyOr (Canada)</div>
+                                    <div class="vendor-description">
+                                        Canadian hydrogen specialist acquired for expertise in ultra-lightweight fuel cell applications for robotics, drones, aerospace.
+                                    </div>
+                                    <div class="vendor-details">
+                                        <div class="detail-item"><span class="detail-label">Year:</span> 2019</div>
+                                        <div class="detail-item"><span class="detail-label">Specialization:</span> Ultra-lightweight fuel cells</div>
+                                        <div class="detail-item"><span class="detail-label">Applications:</span> Drones, robots, aerospace, small-scale material handling</div>
+                                        <div class="detail-item"><span class="detail-label">Strategic Value:</span> Entry into emerging high-tech applications</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 5. Strategic Investors -->
+            <div class="section">
+                <h2 class="section-title">5. Major Investors & Financial Partners</h2>
+                <div class="category-header">Key Equity & Debt Providers</div>
+                
+                <div class="vendor-grid">
+                    <div class="vendor-card">
+                        <div class="vendor-type">Strategic Investor</div>
+                        <div class="vendor-name">SK Group (South Korea)</div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Investment:</span> $1.5 billion (January 2021)</div>
+                            <div class="detail-item"><span class="detail-label">Stake:</span> ~10% ownership</div>
+                            <div class="detail-item"><span class="detail-label">Type:</span> Strategic equity investor and JV partner</div>
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-card">
+                        <div class="vendor-type">Government Financing</div>
+                        <div class="vendor-name">U.S. Department of Energy (DOE)</div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Loan Guarantee:</span> $1.66 billion</div>
+                            <div class="detail-item"><span class="detail-label">Purpose:</span> Clean hydrogen production and liquefaction</div>
+                            <div class="detail-item"><span class="detail-label">Strategic Importance:</span> Critical for financing hydrogen plant buildout</div>
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-card">
+                        <div class="vendor-type">Credit Facility</div>
+                        <div class="vendor-name">Yorkville Advisors</div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Amount:</span> $525 million secured credit facility</div>
+                            <div class="detail-item"><span class="detail-label">Closed:</span> May 2025</div>
+                            <div class="detail-item"><span class="detail-label">Type:</span> Secured lending facility</div>
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-card">
+                        <div class="vendor-type">Institutional Investors</div>
+                        <div class="vendor-name">Major Shareholders</div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">BlackRock Inc:</span> Major institutional holder</div>
+                            <div class="detail-item"><span class="detail-label">Vanguard Group Inc:</span> Major institutional holder</div>
+                            <div class="detail-item"><span class="detail-label">Allianz Asset Management:</span> Institutional holder</div>
+                            <div class="detail-item"><span class="detail-label">BNP Paribas Asset Management:</span> Institutional holder</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 6. Equipment Integrators & OEM Partners -->
+            <div class="section">
+                <h2 class="section-title">6. Equipment & Integration Partners</h2>
+                <div class="category-header">Forklift Manufacturers & Vehicle OEMs</div>
+                
+                <div class="vendor-grid">
+                    <div class="vendor-card">
+                        <div class="vendor-type">Material Handling Partner</div>
+                        <div class="vendor-name">Toyota Material Handling Europe</div>
+                        <div class="vendor-description">
+                            Partnership to supply hydrogen-powered forklifts to customers like STEF for cold storage distribution centers.
+                        </div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Relationship:</span> Toyota provides fuel cell-ready forklift models</div>
+                            <div class="detail-item"><span class="detail-label">Plug's Role:</span> Fuel cell systems, hydrogen infrastructure, refueling solutions</div>
+                            <div class="detail-item"><span class="detail-label">Recent Projects:</span> STEF sites in France (48 forklifts) and Spain (67 forklifts)</div>
+                            <div class="detail-item"><span class="detail-label">Market:</span> European material handling and logistics</div>
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-card">
+                        <div class="vendor-type">Mobility Partner</div>
+                        <div class="vendor-name">Renault Group</div>
+                        <div class="vendor-description">
+                            Beyond HYVIA JV, Renault provides vehicle platform (Master) for hydrogen integration and manufacturing facilities.
+                        </div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Vehicle Platform:</span> Renault Master</div>
+                            <div class="detail-item"><span class="detail-label">Manufacturing:</span> Batilly plant (vehicle assembly)</div>
+                            <div class="detail-item"><span class="detail-label">Integration Subsidiary:</span> PVI (Gretz-Armainvilliers)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 7. Customer-Partners -->
+            <div class="section">
+                <h2 class="section-title">7. Major Customer-Partners</h2>
+                <div class="category-header">Key Customers with Strategic Relationships</div>
+                
+                <div class="summary-box">
+                    <h3>Note on Customer-Partners</h3>
+                    <p>
+                        Many of Plug Power's largest customers function as strategic partners, co-developing solutions and providing feedback for product development. These relationships often include multi-year commitments and collaborative innovation.
+                    </p>
+                </div>
+                
+                <div class="vendor-grid">
+                    <div class="vendor-card">
+                        <div class="vendor-type">Major Customer</div>
+                        <div class="vendor-name">Walmart</div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Relationship:</span> Long-standing customer, multiple site deployments</div>
+                            <div class="detail-item"><span class="detail-label">Applications:</span> Material handling (forklifts) in distribution centers</div>
+                            <div class="detail-item"><span class="detail-label">Hydrogen Supply:</span> Supported by Plug's hydrogen network</div>
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-card">
+                        <div class="vendor-type">Major Customer</div>
+                        <div class="vendor-name">Amazon</div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Relationship:</span> Blockbuster partnership, multi-site deployments</div>
+                            <div class="detail-item"><span class="detail-label">Scale:</span> One of largest fuel cell customers globally</div>
+                            <div class="detail-item"><span class="detail-label">Applications:</span> Fulfillment center material handling</div>
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-card">
+                        <div class="vendor-type">Major Customer</div>
+                        <div class="vendor-name">Home Depot</div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Applications:</span> Distribution center forklifts</div>
+                            <div class="detail-item"><span class="detail-label">Deployment:</span> Multiple facilities across North America</div>
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-card">
+                        <div class="vendor-type">Major Customer</div>
+                        <div class="vendor-name">BMW</div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Applications:</span> Material handling and mobility solutions</div>
+                            <div class="detail-item"><span class="detail-label">Geography:</span> European operations</div>
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-card">
+                        <div class="vendor-type">Major Customer</div>
+                        <div class="vendor-name">BP</div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Project:</span> 100MW PEM electrolyzer for Lingen green hydrogen project (Germany)</div>
+                            <div class="detail-item"><span class="detail-label">Technology:</span> Plug's HyLYZER PEM electrolyzer (largest system to date)</div>
+                            <div class="detail-item"><span class="detail-label">Date:</span> Agreement February 2025</div>
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-card">
+                        <div class="vendor-type">Major Customer</div>
+                        <div class="vendor-name">Southwire</div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Project:</span> Green hydrogen ecosystem at Dallas-Fort Worth distribution site</div>
+                            <div class="detail-item"><span class="detail-label">Applications:</span> Material handling for wire and cable manufacturing</div>
+                            <div class="detail-item"><span class="detail-label">Focus:</span> Supply chain carbon reduction</div>
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-card">
+                        <div class="vendor-type">Major Customer</div>
+                        <div class="vendor-name">MOL Group</div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Project:</span> MOL Danube Refinery green hydrogen plant (Hungary)</div>
+                            <div class="detail-item"><span class="detail-label">Capacity:</span> 10 megawatts</div>
+                            <div class="detail-item"><span class="detail-label">Significance:</span> Largest green hydrogen plant in Central and Eastern Europe</div>
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-card">
+                        <div class="vendor-type">Major Customer</div>
+                        <div class="vendor-name">Galp Energy</div>
+                        <div class="vendor-details">
+                            <div class="detail-item"><span class="detail-label">Project:</span> Sines Refinery electrolyzers (Portugal)</div>
+                            <div class="detail-item"><span class="detail-label">Order:</span> First of ten 10MW GenEco electrolyzers delivered October 2025</div>
+                            <div class="detail-item"><span class="detail-label">Application:</span> Refinery hydrogen supply</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 8. Supply Chain Summary -->
+            <div class="section">
+                <h2 class="section-title">8. Vendor Ecosystem Summary</h2>
+                
+                <div class="summary-box">
+                    <h3>Vertical Integration Strategy</h3>
+                    <p style="margin-bottom: 15px;">
+                        Plug Power has pursued aggressive vertical integration through acquisitions and joint ventures to control the entire hydrogen value chain:
+                    </p>
+                    <ul style="margin-left: 30px; line-height: 2;">
+                        <li><strong>Upstream:</strong> Electrolyzer manufacturing (Giner ELX, Frames), hydrogen production (United Hydrogen)</li>
+                        <li><strong>Midstream:</strong> Liquefaction (Applied Cryo, Joule), storage, transportation and distribution</li>
+                        <li><strong>Downstream:</strong> Fuel cell manufacturing (ReliOn, American Fuel Cell), vehicle integration (HYVIA, PVI)</li>
+                        <li><strong>Components:</strong> MEA production (American Fuel Cell) with strategic supply from Johnson Matthey</li>
+                        <li><strong>Applications:</strong> Material handling, on-road mobility, stationary power, industrial uses</li>
+                    </ul>
+                </div>
+                
+                <div class="summary-box">
+                    <h3>Risk Considerations</h3>
+                    <p style="margin-bottom: 15px;"><strong>Supply Chain Strengths:</strong></p>
+                    <ul style="margin-left: 30px; margin-bottom: 15px; line-height: 1.8;">
+                        <li>Reduced dependence on external suppliers through acquisitions</li>
+                        <li>Strategic partnerships with financially stable partners (Olin, Renault, SK Group)</li>
+                        <li>Long-term supply agreements with key vendors (Johnson Matthey, industrial gas suppliers)</li>
+                        <li>Geographic diversification across North America, Europe, Asia</li>
+                    </ul>
+                    
+                    <p style="margin-bottom: 15px;"><strong>Supply Chain Risks:</strong></p>
+                    <ul style="margin-left: 30px; line-height: 1.8;">
+                        <li>Historical dependence on Ballard for fuel cell stacks (now largely mitigated)</li>
+                        <li>Reliance on precious metals (platinum, iridium) for catalysts - mitigated by JM partnership</li>
+                        <li>Dependence on external hydrogen supply while scaling internal production</li>
+                        <li>Integration risks from multiple acquisitions over short time period</li>
+                        <li>JV partners (Renault, Olin, SK) have their own strategic priorities that may not always align</li>
+                    </ul>
+                </div>
+                
+                <div class="summary-box">
+                    <h3>Key Takeaways for Vendor Assessment</h3>
+                    <ul style="margin-left: 30px; line-height: 2;">
+                        <li>Plug Power has strategically moved from supplier dependency to vertical integration</li>
+                        <li>The company now controls most critical components of the hydrogen value chain</li>
+                        <li>Joint ventures provide market access and share capital requirements</li>
+                        <li>Remaining external dependencies are managed through long-term contracts with major suppliers</li>
+                        <li>Supply chain complexity has increased significantly with rapid expansion</li>
+                        <li>Integration execution will be critical to realize benefits of acquisition strategy</li>
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>Plug Power Vendor & Supplier Ecosystem Analysis</p>
+            <p style="margin-top: 10px;">Report Date: November 27, 2025 | For Internal Use Only</p>
+        </div>
+    </div>
+</body>
+</html>
