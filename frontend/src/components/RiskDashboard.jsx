@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import RiskScoreCard from './RiskScoreCard';
+import FivePillars from './FivePillars';
 import FindingsGrid from './FindingsGrid';
 import DetailedBreakdown from './DetailedBreakdown';
 import UpgradeCard from './UpgradeCard';
@@ -107,6 +108,9 @@ export default function RiskDashboard({ assessment, metadata, onNewAssessment })
       <div className="mb-8">
         <RiskScoreCard assessment={assessment} />
       </div>
+
+      {/* 5 Pillars of Intelligence */}
+      <FivePillars findings={assessment.findings} />
 
       {/* Upgrade CTA */}
       <UpgradeCard

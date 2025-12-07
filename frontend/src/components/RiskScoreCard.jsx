@@ -147,41 +147,87 @@ export default function RiskScoreCard({ assessment }) {
             </div>
           )}
 
-          {/* Key Metrics Grid */}
+          {/* Key Metrics Grid - Enhanced with prominent Altman Z-Score */}
           {keyMetrics && (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+            <div className="mb-4">
+              {/* Altman Z-Score - Featured Card */}
               {keyMetrics.estimatedAltmanZScore && (
-                <div className="bg-gray-50 rounded-lg p-3 text-center">
-                  <p className="text-xs text-gray-500 font-medium mb-1">Altman Z-Score</p>
-                  <p className={`text-sm font-bold ${keyMetrics.estimatedAltmanZScore.includes('Safe') ? 'text-green-700' : keyMetrics.estimatedAltmanZScore.includes('Grey') ? 'text-yellow-700' : 'text-red-700'}`}>
-                    {keyMetrics.estimatedAltmanZScore.split(' ')[0]} {keyMetrics.estimatedAltmanZScore.split(' ')[1]}
-                  </p>
+                <div className={`mb-3 p-4 rounded-xl border-2 ${
+                  keyMetrics.estimatedAltmanZScore.includes('Safe')
+                    ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-green-300'
+                    : keyMetrics.estimatedAltmanZScore.includes('Grey')
+                    ? 'bg-gradient-to-r from-yellow-50 to-amber-50 border-yellow-300'
+                    : 'bg-gradient-to-r from-red-50 to-orange-50 border-red-300'
+                }`}>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className={`p-2 rounded-lg ${
+                        keyMetrics.estimatedAltmanZScore.includes('Safe')
+                          ? 'bg-green-500'
+                          : keyMetrics.estimatedAltmanZScore.includes('Grey')
+                          ? 'bg-yellow-500'
+                          : 'bg-red-500'
+                      }`}>
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-600 font-medium">Altman Z-Score (Bankruptcy Predictor)</p>
+                        <p className={`text-lg font-black ${
+                          keyMetrics.estimatedAltmanZScore.includes('Safe')
+                            ? 'text-green-700'
+                            : keyMetrics.estimatedAltmanZScore.includes('Grey')
+                            ? 'text-yellow-700'
+                            : 'text-red-700'
+                        }`}>
+                          {keyMetrics.estimatedAltmanZScore}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs text-gray-500">Industry Standard</p>
+                      <p className="text-xs text-gray-400">&gt;2.99 Safe | 1.81-2.99 Grey | &lt;1.81 Distress</p>
+                    </div>
+                  </div>
                 </div>
               )}
-              {keyMetrics.paymentRiskLevel && (
-                <div className="bg-gray-50 rounded-lg p-3 text-center">
-                  <p className="text-xs text-gray-500 font-medium mb-1">Payment Risk</p>
-                  <p className={`text-sm font-bold ${keyMetrics.paymentRiskLevel === 'Low' ? 'text-green-700' : keyMetrics.paymentRiskLevel === 'Medium' ? 'text-yellow-700' : 'text-red-700'}`}>
-                    {keyMetrics.paymentRiskLevel}
-                  </p>
-                </div>
-              )}
-              {keyMetrics.supplyDisruptionRisk && (
-                <div className="bg-gray-50 rounded-lg p-3 text-center">
-                  <p className="text-xs text-gray-500 font-medium mb-1">Supply Risk</p>
-                  <p className={`text-sm font-bold ${keyMetrics.supplyDisruptionRisk === 'Low' ? 'text-green-700' : keyMetrics.supplyDisruptionRisk === 'Medium' ? 'text-yellow-700' : 'text-red-700'}`}>
-                    {keyMetrics.supplyDisruptionRisk}
-                  </p>
-                </div>
-              )}
-              {keyMetrics.recommendedContractTerms && (
-                <div className="bg-gray-50 rounded-lg p-3 text-center">
-                  <p className="text-xs text-gray-500 font-medium mb-1">Contract Terms</p>
-                  <p className="text-sm font-bold text-gray-800">
-                    {keyMetrics.recommendedContractTerms}
-                  </p>
-                </div>
-              )}
+
+              {/* Other Metrics - Compact Grid */}
+              <div className="grid grid-cols-3 gap-3">
+                {keyMetrics.paymentRiskLevel && (
+                  <div className={`rounded-lg p-3 text-center border ${
+                    keyMetrics.paymentRiskLevel === 'Low' ? 'bg-green-50 border-green-200' :
+                    keyMetrics.paymentRiskLevel === 'Medium' ? 'bg-yellow-50 border-yellow-200' :
+                    'bg-red-50 border-red-200'
+                  }`}>
+                    <p className="text-xs text-gray-500 font-medium mb-1">Payment Risk</p>
+                    <p className={`text-sm font-bold ${keyMetrics.paymentRiskLevel === 'Low' ? 'text-green-700' : keyMetrics.paymentRiskLevel === 'Medium' ? 'text-yellow-700' : 'text-red-700'}`}>
+                      {keyMetrics.paymentRiskLevel}
+                    </p>
+                  </div>
+                )}
+                {keyMetrics.supplyDisruptionRisk && (
+                  <div className={`rounded-lg p-3 text-center border ${
+                    keyMetrics.supplyDisruptionRisk === 'Low' ? 'bg-green-50 border-green-200' :
+                    keyMetrics.supplyDisruptionRisk === 'Medium' ? 'bg-yellow-50 border-yellow-200' :
+                    'bg-red-50 border-red-200'
+                  }`}>
+                    <p className="text-xs text-gray-500 font-medium mb-1">Supply Risk</p>
+                    <p className={`text-sm font-bold ${keyMetrics.supplyDisruptionRisk === 'Low' ? 'text-green-700' : keyMetrics.supplyDisruptionRisk === 'Medium' ? 'text-yellow-700' : 'text-red-700'}`}>
+                      {keyMetrics.supplyDisruptionRisk}
+                    </p>
+                  </div>
+                )}
+                {keyMetrics.recommendedContractTerms && (
+                  <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 text-center">
+                    <p className="text-xs text-gray-500 font-medium mb-1">Contract Terms</p>
+                    <p className="text-sm font-bold text-slate-800">
+                      {keyMetrics.recommendedContractTerms}
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           )}
 
