@@ -37,3 +37,9 @@ yarn-error.log*
 
 # Misc
 .cache/
+
+# Deck folder (contains large files and sensitive materials)
+# HTML reports are copied to frontend/public/reports/ for serving
+Deck/
+backend/.env.render
+*.env.*
