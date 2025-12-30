@@ -5,8 +5,8 @@ const USE_CASES = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
       </svg>
     ),
-    title: "Third-Party Risk Assessment",
-    description: "Automated due diligence on vendors, suppliers, contractors, and service providers",
+    title: "Third-Party Risk Intelligence",
+    description: "Comprehensive due diligence across vendors, suppliers, contractors, and service providers with evidence-based risk scoring",
     metrics: ["Risk Scoring", "Compliance Status", "Continuous Monitoring"],
     colors: {
       iconBg: "from-blue-500 to-indigo-600",
@@ -24,8 +24,8 @@ const USE_CASES = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
       </svg>
     ),
-    title: "Cybersecurity Risk",
-    description: "Security posture assessment, breach history, and vulnerability exposure analysis",
+    title: "Cybersecurity Intelligence",
+    description: "Enterprise security posture evaluation, breach history analysis, and real-time vulnerability exposure monitoring",
     metrics: ["Security Incidents", "Threat Intelligence", "Attack Surface"],
     colors: {
       iconBg: "from-red-500 to-orange-600",
@@ -43,8 +43,8 @@ const USE_CASES = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
       </svg>
     ),
-    title: "Vendor Financial Health",
-    description: "Financial stability assessment to prevent supply chain disruptions",
+    title: "Financial Health Analysis",
+    description: "Forensic financial stability assessment and predictive insolvency modeling to prevent supply chain disruptions",
     metrics: ["Credit Risk", "Payment Patterns", "Business Continuity"],
     colors: {
       iconBg: "from-emerald-500 to-green-600",
@@ -139,7 +139,7 @@ const USE_CASES = [
       </svg>
     ),
     title: "Continuous Monitoring",
-    description: "Automated ongoing surveillance of all third-party relationships",
+    description: "Autonomous ongoing surveillance and predictive risk signaling across your entire third-party ecosystem",
     metrics: ["Real-Time Alerts", "Risk Score Changes", "Portfolio View"],
     colors: {
       iconBg: "from-cyan-500 to-blue-600",
@@ -171,17 +171,17 @@ export default function UseCases() {
 
       {/* Section Header */}
       <div className="text-center mb-16">
-        <div className="inline-flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full mb-4">
-          <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+        <div className="inline-flex items-center gap-2 bg-slate-900 text-white px-4 py-2 mb-4">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
           </svg>
-          <span className="text-sm font-bold text-blue-700">MULTI-AGENT PLATFORM</span>
+          <span className="text-xs font-medium uppercase tracking-wider">Autonomous Intelligence</span>
         </div>
-        <h2 className="text-3xl font-bold text-gray-900 mb-3">
-          Specialized Risk Agents
+        <h2 className="text-3xl font-light text-gray-900 mb-3">
+          Multi-Agent Analysis Engine
         </h2>
-        <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-          Deploy specialized AI agents to build custom vendor reports. Mix and match agents based on your requirements - each vendor assessment is tailored to your needs.
+        <p className="text-base text-gray-600 max-w-3xl mx-auto">
+          Our specialized AI agents work autonomously behind the scenes to deliver your comprehensive reports. Each vendor assessment leverages multiple intelligence agents across financial, ESG, sanctions, cyber, and operational risk—orchestrated automatically to generate decision-ready intelligence in 24-48 hours.
         </p>
       </div>
 
