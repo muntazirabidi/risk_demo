@@ -101,10 +101,9 @@ function LandingPage() {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <Logo className="w-10 h-10" />
+              <Logo />
               <div className="border-l border-slate-200 pl-3">
-                <h1 className="text-xl font-semibold text-slate-900 tracking-tight">Spectrum</h1>
-                <p className="text-xs text-slate-500 font-medium">Vendor Intelligence</p>
+                <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Vendor Intelligence</p>
               </div>
             </div>
             {state.assessment ? (
@@ -319,13 +318,16 @@ function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-50 border-t border-slate-200 mt-20">
+      <footer className="bg-white border-t border-slate-200 mt-20">
         <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             {/* Logo */}
             <div className="flex items-center justify-center gap-2.5 mb-4">
-              <Logo className="w-10 h-10" />
-              <span className="text-xl font-semibold text-slate-900">Spectrum</span>
+              <img
+                src="/spectrum-logo.png"
+                alt="Spectrum"
+                style={{ height: '60px', width: 'auto', objectFit: 'contain' }}
+              />
             </div>
             <p className="text-base font-medium text-slate-900 mb-2">
               Vendor Intelligence Reports for Modern Procurement

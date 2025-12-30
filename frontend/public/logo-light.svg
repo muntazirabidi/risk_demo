@@ -1,0 +1,24 @@
+<svg width="200" height="200" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Diamond outline and facets - Light version for dark backgrounds -->
+  <g stroke="#FFFFFF" stroke-width="3" stroke-linejoin="miter" stroke-linecap="square" fill="none">
+    <!-- Outer diamond shape -->
+    <path d="M 50 10 L 85 35 L 50 90 L 15 35 Z" />
+
+    <!-- Top facets -->
+    <path d="M 30 20 L 50 10 L 70 20" />
+    <path d="M 15 35 L 30 20" />
+    <path d="M 85 35 L 70 20" />
+
+    <!-- Middle horizontal line -->
+    <path d="M 15 35 L 85 35" />
+
+    <!-- Vertical center line -->
+    <path d="M 50 35 L 50 90" />
+
+    <!-- Bottom facets -->
+    <path d="M 15 35 L 50 90" />
+    <path d="M 85 35 L 50 90" />
+    <path d="M 30 20 L 50 35" />
+    <path d="M 70 20 L 50 35" />
+  </g>
+</svg>

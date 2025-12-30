@@ -173,21 +173,21 @@ function ContractPlaybook({ assessment, companyName }) {
 
   return (
     <div className="mb-8">
-      <div className="bg-white border-2 border-slate-200 rounded-2xl shadow-lg overflow-hidden">
+      <div className="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-indigo-600 to-purple-700 p-6">
+        <div className="bg-slate-900 p-6">
           <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-white/10 backdrop-blur rounded-lg">
+            <div className="p-2 bg-white/10 rounded">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
             <h3 className="text-2xl font-bold text-white">Contract Playbook</h3>
           </div>
-          <p className="text-indigo-100 text-sm mb-4">
+          <p className="text-slate-300 text-sm mb-4">
             Risk-based contract recommendations tailored to {companyName}'s risk profile
           </p>
-          <div className={`inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur rounded-lg border-2 border-white/20`}>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded border border-white/20">
             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -207,12 +207,12 @@ function ContractPlaybook({ assessment, companyName }) {
                   className="w-full flex items-center justify-between group"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-indigo-100 rounded-lg group-hover:bg-indigo-200 transition-colors">
-                      <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="p-2 bg-slate-100 rounded group-hover:bg-slate-200 transition-colors">
+                      <svg className="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         {section.icon}
                       </svg>
                     </div>
-                    <h4 className="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                    <h4 className="text-lg font-bold text-slate-900 group-hover:text-slate-700 transition-colors">
                       {section.title}
                     </h4>
                   </div>
@@ -233,7 +233,7 @@ function ContractPlaybook({ assessment, companyName }) {
                         <h5 className="text-sm font-bold text-slate-900 mb-2">{clause.title}</h5>
                         <div className="space-y-2">
                           <div>
-                            <p className="text-xs font-semibold text-indigo-600 mb-1">RECOMMENDED CLAUSE:</p>
+                            <p className="text-xs font-semibold text-slate-700 mb-1">RECOMMENDED CLAUSE:</p>
                             <p className="text-sm text-slate-800 leading-relaxed">{clause.recommendation}</p>
                           </div>
                           <div>

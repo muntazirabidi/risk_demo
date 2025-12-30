@@ -91,12 +91,11 @@ export default function RiskScoreCard({ assessment }) {
   const approvalStyle = getApprovalStatusStyle(vendorApprovalStatus);
 
   return (
-    <div className="card bg-gradient-to-br from-white via-gray-50 to-white animate-fade-in">
+    <div className="bg-white border border-slate-200 rounded-lg p-8 shadow-sm animate-fade-in">
       <div className="flex flex-col md:flex-row items-center gap-10">
         {/* Circular Score Display */}
         <div className="relative flex-shrink-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full blur-2xl opacity-30"></div>
-          <svg className="transform -rotate-90 w-44 h-44 relative z-10">
+          <svg className="transform -rotate-90 w-44 h-44">
             {/* Background circle */}
             <circle
               cx="88"
@@ -174,9 +173,9 @@ export default function RiskScoreCard({ assessment }) {
 
           {/* Procurement Recommendation Box */}
           {procurementRecommendation && (
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4 mb-4">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
               <div className="flex items-start gap-3">
-                <div className="p-1.5 bg-blue-600 rounded-lg flex-shrink-0">
+                <div className="p-1.5 bg-blue-600 rounded flex-shrink-0">
                   <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                   </svg>
@@ -194,16 +193,16 @@ export default function RiskScoreCard({ assessment }) {
             <div className="mb-4">
               {/* Altman Z-Score - Featured Card */}
               {keyMetrics.estimatedAltmanZScore && (
-                <div className={`mb-3 p-4 rounded-xl border-2 ${
+                <div className={`mb-3 p-4 rounded-lg border ${
                   keyMetrics.estimatedAltmanZScore.includes('Safe')
-                    ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-green-300'
+                    ? 'bg-green-50 border-green-300'
                     : keyMetrics.estimatedAltmanZScore.includes('Grey')
-                    ? 'bg-gradient-to-r from-yellow-50 to-amber-50 border-yellow-300'
-                    : 'bg-gradient-to-r from-red-50 to-orange-50 border-red-300'
+                    ? 'bg-yellow-50 border-yellow-300'
+                    : 'bg-red-50 border-red-300'
                 }`}>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className={`p-2 rounded-lg ${
+                      <div className={`p-2 rounded ${
                         keyMetrics.estimatedAltmanZScore.includes('Safe')
                           ? 'bg-green-500'
                           : keyMetrics.estimatedAltmanZScore.includes('Grey')

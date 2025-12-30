@@ -13,10 +13,9 @@ const PILLARS = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
-    color: 'from-blue-500 to-blue-600',
-    bgColor: 'bg-blue-50',
-    textColor: 'text-blue-700',
-    borderColor: 'border-blue-200',
+    accentColor: 'bg-blue-600',
+    iconBgColor: 'bg-blue-50',
+    iconTextColor: 'text-blue-600',
   },
   {
     id: 'cybersecurity',
@@ -27,10 +26,9 @@ const PILLARS = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
       </svg>
     ),
-    color: 'from-red-500 to-orange-500',
-    bgColor: 'bg-red-50',
-    textColor: 'text-red-700',
-    borderColor: 'border-red-200',
+    accentColor: 'bg-red-600',
+    iconBgColor: 'bg-red-50',
+    iconTextColor: 'text-red-600',
   },
   {
     id: 'esg',
@@ -41,10 +39,9 @@ const PILLARS = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
-    color: 'from-green-500 to-emerald-500',
-    bgColor: 'bg-green-50',
-    textColor: 'text-green-700',
-    borderColor: 'border-green-200',
+    accentColor: 'bg-green-600',
+    iconBgColor: 'bg-green-50',
+    iconTextColor: 'text-green-600',
   },
   {
     id: 'humanRights',
@@ -55,10 +52,9 @@ const PILLARS = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
       </svg>
     ),
-    color: 'from-purple-500 to-violet-500',
-    bgColor: 'bg-purple-50',
-    textColor: 'text-purple-700',
-    borderColor: 'border-purple-200',
+    accentColor: 'bg-purple-600',
+    iconBgColor: 'bg-purple-50',
+    iconTextColor: 'text-purple-600',
   },
   {
     id: 'antiBribery',
@@ -69,10 +65,9 @@ const PILLARS = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
       </svg>
     ),
-    color: 'from-amber-500 to-yellow-500',
-    bgColor: 'bg-amber-50',
-    textColor: 'text-amber-700',
-    borderColor: 'border-amber-200',
+    accentColor: 'bg-amber-600',
+    iconBgColor: 'bg-amber-50',
+    iconTextColor: 'text-amber-600',
   },
 ];
 
@@ -154,23 +149,23 @@ export default function FivePillars({ findings }) {
                 opacity: 0,
                 animationFillMode: 'forwards'
               }}
-              className={`group relative rounded-xl p-5 border-2 ${pillar.borderColor} ${pillar.bgColor} hover:shadow-xl hover:-translate-y-1 transition-all duration-300 animate-fade-in overflow-hidden`}
+              className="relative bg-white rounded-lg p-5 border border-slate-200 hover:shadow-md hover:border-slate-300 transition-all duration-200 animate-fade-in"
             >
-              {/* Animated background glow on hover */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${pillar.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}></div>
+              {/* Left accent bar */}
+              <div className={`absolute left-0 top-0 bottom-0 w-1 ${pillar.accentColor} rounded-l-lg`}></div>
 
-              {/* Icon with hover effect */}
-              <div className={`relative inline-flex p-2.5 rounded-lg bg-gradient-to-br ${pillar.color} text-white mb-3 shadow-md group-hover:scale-110 group-hover:shadow-lg transition-all duration-300`}>
+              {/* Icon */}
+              <div className={`inline-flex p-2.5 rounded ${pillar.iconBgColor} ${pillar.iconTextColor} mb-3`}>
                 {pillar.icon}
               </div>
 
               {/* Title */}
-              <h3 className={`relative font-bold ${pillar.textColor} mb-2`}>
+              <h3 className="font-bold text-slate-900 mb-2">
                 {pillar.name}
               </h3>
 
               {/* Description */}
-              <p className="relative text-xs text-gray-600 leading-relaxed mb-3">
+              <p className="text-xs text-slate-600 leading-relaxed mb-3">
                 {pillar.description}
               </p>
 
@@ -193,11 +188,11 @@ export default function FivePillars({ findings }) {
                 )}
               </div>
 
-              {/* Checkmark for covered pillars - enhanced */}
+              {/* Checkmark for covered pillars */}
               {coverage.covered && (
-                <div className="absolute top-3 right-3">
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center shadow-lg shadow-green-500/30 group-hover:scale-110 transition-transform">
-                    <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="absolute top-4 right-4">
+                  <div className="w-5 h-5 rounded-full bg-green-600 flex items-center justify-center">
+                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>

@@ -79,7 +79,7 @@ export default function FindingsGrid({ findings }) {
         {topFindings.map((finding, index) => (
           <div
             key={index}
-            className="group relative bg-white rounded-xl border border-gray-200 p-6 hover:shadow-xl hover:border-gray-300 hover:-translate-y-1 transition-all duration-300 overflow-hidden animate-fade-in"
+            className="relative bg-white rounded-lg border border-slate-200 p-6 hover:shadow-md hover:border-slate-300 transition-all duration-200 overflow-hidden animate-fade-in"
             style={{
               animationDelay: `${index * 0.1}s`,
               opacity: 0,
@@ -125,28 +125,64 @@ export default function FindingsGrid({ findings }) {
               </div>
             )}
 
-            {/* Description */}
-            <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+            {/* Description - Full Risk Story */}
+            <p className="text-gray-700 text-sm leading-relaxed mb-4">
               {finding.description}
             </p>
 
-            {/* Source Link (if available) */}
-            {(finding.evidenceUrl || finding.sourceUrl) && finding.evidenceUrl !== 'Multiple sources' && (
-              <a
-                href={finding.evidenceUrl || finding.sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs text-blue-600 hover:text-blue-800 font-semibold group-hover:underline transition-all"
-              >
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-                View source
-              </a>
+            {/* Procurement Implication */}
+            {finding.procurementImplication && (
+              <div className="bg-amber-50 border-l-2 border-amber-400 rounded px-3 py-2 mb-3">
+                <div className="flex items-start gap-2">
+                  <svg className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="text-xs text-amber-900 font-medium">
+                    <strong>Impact:</strong> {finding.procurementImplication}
+                  </span>
+                </div>
+              </div>
             )}
 
-            {/* Hover glow effect */}
-            <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ background: `linear-gradient(135deg, ${getRiskAccentColor(finding.riskLevel)}08, transparent)` }} />
+            {/* Date and Source Info */}
+            <div className="flex items-center justify-between gap-3 mb-3 text-xs text-gray-500">
+              {finding.assessmentDate && (
+                <div className="flex items-center gap-1">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span className="font-medium">{new Date(finding.assessmentDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                </div>
+              )}
+              {finding.pillar && (
+                <span className="text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-medium">
+                  {finding.pillar}
+                </span>
+              )}
+            </div>
+
+            {/* Source Link with Evidence Title */}
+            {(finding.evidenceUrl || finding.sourceUrl) && finding.evidenceUrl !== 'Multiple sources' && (
+              <div className="border-t border-gray-100 pt-3">
+                {finding.evidenceTitle && (
+                  <p className="text-xs text-gray-600 mb-1.5 line-clamp-1 font-medium">
+                    {finding.evidenceTitle}
+                  </p>
+                )}
+                <a
+                  href={finding.evidenceUrl || finding.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs text-blue-600 hover:text-blue-800 font-semibold hover:underline transition-all"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                  View source
+                </a>
+              </div>
+            )}
+
           </div>
         ))}
       </div>

@@ -1,0 +1,5 @@
+# Ignore all cached assessment files
+*.json
+
+# Keep the directory structure
+!.gitignore

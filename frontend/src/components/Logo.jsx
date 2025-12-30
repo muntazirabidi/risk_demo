@@ -1,25 +1,29 @@
-// Spectrum Logo - Intelligence Wave Design
-// Represents: Risk spectrum, data analysis waves, comprehensive intelligence
+// Spectrum Logo - Professional Isometric S Design
+// Represents: Clarity, precision, value discovery, quality intelligence
 
 export default function Logo({ variant = 'default', className = '' }) {
+  return (
+    <img
+      src="/spectrum-logo.png"
+      alt="Spectrum"
+      className={className}
+      style={{ height: '45px', width: 'auto', objectFit: 'contain' }}
+    />
+  );
+}
+
+// Alternative: Sight Line (Perspective/Vision)
+export function LogoSightLine({ variant = 'default', className = '' }) {
   const variants = {
-    // Dark logo (for light backgrounds)
     default: {
-      primary: '#0F172A',   // slate-900
-      secondary: '#334155',  // slate-700
-      accent: '#64748B'      // slate-500
+      primary: '#0F172A',
+      secondary: '#334155',
+      accent: '#64748B'
     },
-    // Light logo (for dark backgrounds)
     light: {
       primary: '#FFFFFF',
       secondary: '#E2E8F0',
       accent: '#CBD5E1'
-    },
-    // Single color
-    mono: {
-      primary: '#0F172A',
-      secondary: '#0F172A',
-      accent: '#0F172A'
     }
   };
 
@@ -30,44 +34,73 @@ export default function Logo({ variant = 'default', className = '' }) {
       className={className}
       width="40"
       height="40"
-      viewBox="0 0 40 40"
+      viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      {/* Wave/Spectrum Pattern representing risk analysis */}
+      {/* Three converging lines creating perspective */}
+      <path d="M 20 80 L 50 20" stroke={colors.primary} strokeWidth="3" strokeLinecap="round" />
+      <path d="M 50 85 L 50 20" stroke={colors.secondary} strokeWidth="3" strokeLinecap="round" />
+      <path d="M 80 80 L 50 20" stroke={colors.primary} strokeWidth="3" strokeLinecap="round" />
+
+      {/* Horizon point */}
+      <circle cx="50" cy="20" r="4" fill={colors.primary} />
+
+      {/* Base indicators */}
+      <circle cx="20" cy="80" r="2.5" fill={colors.accent} />
+      <circle cx="80" cy="80" r="2.5" fill={colors.accent} />
+    </svg>
+  );
+}
+
+// Alternative: Spectrum Arc (Modern gradient feel)
+export function LogoSpectrumArc({ variant = 'default', className = '' }) {
+  const variants = {
+    default: {
+      primary: '#0F172A',
+      secondary: '#334155',
+      accent: '#64748B'
+    }
+  };
+
+  const colors = variants[variant] || variants.default;
+
+  return (
+    <svg
+      className={className}
+      width="40"
+      height="40"
+      viewBox="0 0 100 100"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Forward-leaning arc bands */}
       <path
-        d="M8 20 Q12 12, 16 20 T24 20 Q28 12, 32 20"
+        d="M 30 70 Q 45 35, 70 20"
         stroke={colors.primary}
-        strokeWidth="2.5"
+        strokeWidth="4"
         strokeLinecap="round"
         fill="none"
       />
       <path
-        d="M6 25 Q10 18, 14 25 T22 25 Q26 18, 30 25"
+        d="M 27 75 Q 42 40, 67 25"
         stroke={colors.secondary}
-        strokeWidth="2"
+        strokeWidth="3.5"
         strokeLinecap="round"
         fill="none"
         opacity="0.7"
       />
       <path
-        d="M10 30 Q13 24, 16 30 T22 30 Q25 24, 28 30"
+        d="M 24 80 Q 39 45, 64 30"
         stroke={colors.accent}
-        strokeWidth="1.5"
+        strokeWidth="3"
         strokeLinecap="round"
         fill="none"
         opacity="0.5"
       />
 
-      {/* Circular container */}
-      <circle
-        cx="20"
-        cy="20"
-        r="18"
-        stroke={colors.primary}
-        strokeWidth="1.5"
-        fill="none"
-      />
+      {/* Forward momentum indicator */}
+      <circle cx="70" cy="20" r="3" fill={colors.primary} />
     </svg>
   );
 }

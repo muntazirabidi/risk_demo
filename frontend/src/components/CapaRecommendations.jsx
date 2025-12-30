@@ -9,15 +9,18 @@ function CapaRecommendations({ findings, companyName }) {
     let capaId = 1;
 
     findings.forEach((finding) => {
-      if (finding.riskLevel === 'high' || finding.riskLevel === 'medium') {
+      const riskLevel = (finding.riskLevel || '').toLowerCase();
+
+      // Generate CAPAs for High, Critical, and Medium risks
+      if (riskLevel === 'high' || riskLevel === 'critical' || riskLevel === 'medium') {
         const capa = {
           id: `CAPA-${String(capaId).padStart(3, '0')}`,
-          priority: finding.riskLevel.toUpperCase(),
+          priority: riskLevel === 'critical' ? 'HIGH' : riskLevel.toUpperCase(),
           title: `Address ${finding.category} Concerns`,
-          description: finding.details,
+          description: finding.details || finding.description,
           recommendation: generateRecommendation(finding),
           owner: assignOwner(finding.category),
-          dueDate: calculateDueDate(finding.riskLevel),
+          dueDate: calculateDueDate(riskLevel),
           verificationCriteria: generateVerification(finding.category),
           category: finding.category
         };
@@ -53,7 +56,8 @@ function CapaRecommendations({ findings, companyName }) {
 
   const calculateDueDate = (riskLevel) => {
     const today = new Date();
-    const daysToAdd = riskLevel === 'high' ? 30 : 90;
+    const level = (riskLevel || '').toLowerCase();
+    const daysToAdd = (level === 'high' || level === 'critical') ? 30 : 90;
     const dueDate = new Date(today);
     dueDate.setDate(today.getDate() + daysToAdd);
     return dueDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -110,11 +114,11 @@ function CapaRecommendations({ findings, companyName }) {
 
   return (
     <div className="mb-8">
-      <div className="bg-white border-2 border-slate-200 rounded-2xl shadow-lg overflow-hidden">
+      <div className="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-slate-800 to-slate-900 p-6">
+        <div className="bg-slate-900 p-6">
           <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-white/10 backdrop-blur rounded-lg">
+            <div className="p-2 bg-white/10 rounded">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
@@ -150,7 +154,7 @@ function CapaRecommendations({ findings, companyName }) {
                       </div>
                       <button
                         onClick={() => setExpandedCapa(isExpanded ? null : capa.id)}
-                        className="ml-4 text-teal-600 hover:text-teal-700 font-semibold text-sm transition-colors"
+                        className="ml-4 text-slate-700 hover:text-slate-900 font-semibold text-sm transition-colors"
                       >
                         {isExpanded ? 'Show Less' : 'Show More'} →
                       </button>
@@ -184,7 +188,7 @@ function CapaRecommendations({ findings, companyName }) {
                           <ul className="space-y-1">
                             {capa.verificationCriteria.map((criteria, idx) => (
                               <li key={idx} className="flex items-start gap-2 text-sm text-slate-700">
-                                <svg className="w-4 h-4 text-teal-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-4 h-4 text-slate-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 <span>{criteria}</span>

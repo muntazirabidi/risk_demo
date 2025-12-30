@@ -49,12 +49,9 @@ function VendorPortfolio() {
       <div className="border-b border-gray-200">
         <div className="max-w-[1400px] mx-auto px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Logo className="w-9 h-9" />
+            <Logo />
             <div className="h-4 w-px bg-gray-200"></div>
-            <div>
-              <div className="text-sm font-medium text-black tracking-tight">Spectrum</div>
-              <div className="text-[10px] text-gray-500 uppercase tracking-wider">Vendor Intelligence</div>
-            </div>
+            <div className="text-[10px] text-gray-500 uppercase tracking-wider">Vendor Intelligence</div>
           </div>
           <div className="flex items-center gap-4">
             <button
