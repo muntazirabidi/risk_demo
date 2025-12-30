@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 const getRiskColor = (riskLevel) => {
   const colors = {
     Critical: 'text-risk-critical',
@@ -6,6 +8,42 @@ const getRiskColor = (riskLevel) => {
     Low: 'text-risk-low',
   };
   return colors[riskLevel] || 'text-gray-600';
+};
+
+// Animated counter hook
+const useAnimatedCounter = (targetValue, duration = 1500) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTime;
+    let animationFrame;
+
+    const animate = (currentTime) => {
+      if (!startTime) startTime = currentTime;
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Easing function for smooth deceleration
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentCount = Math.round(easeOutQuart * targetValue);
+
+      setCount(currentCount);
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, [targetValue, duration]);
+
+  return count;
 };
 
 const getRiskBadgeClass = (riskLevel) => {
@@ -45,7 +83,11 @@ const getScoreGradient = (score) => {
 export default function RiskScoreCard({ assessment }) {
   const { overallRiskScore, riskLevel, executiveSummary, assessmentDate, vendorApprovalStatus, procurementRecommendation, keyMetrics } = assessment;
   const circumference = 2 * Math.PI * 70;
-  const strokeDashoffset = circumference - (overallRiskScore / 100) * circumference;
+
+  // Animated score counter
+  const animatedScore = useAnimatedCounter(overallRiskScore, 1800);
+  const animatedStrokeDashoffset = circumference - (animatedScore / 100) * circumference;
+
   const approvalStyle = getApprovalStatusStyle(vendorApprovalStatus);
 
   return (
@@ -74,9 +116,9 @@ export default function RiskScoreCard({ assessment }) {
               strokeWidth="14"
               fill="none"
               strokeDasharray={circumference}
-              strokeDashoffset={strokeDashoffset}
+              strokeDashoffset={animatedStrokeDashoffset}
               strokeLinecap="round"
-              className="transition-all duration-1000 ease-out drop-shadow-lg"
+              className="drop-shadow-lg"
             />
             <defs>
               <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -97,8 +139,8 @@ export default function RiskScoreCard({ assessment }) {
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <span className="text-xs text-gray-400 font-semibold uppercase tracking-wide">Viability</span>
-            <span className={`text-5xl font-black ${getRiskColor(riskLevel)} drop-shadow-sm`}>
-              {overallRiskScore}
+            <span className={`text-5xl font-black ${getRiskColor(riskLevel)} drop-shadow-sm tabular-nums`}>
+              {animatedScore}
             </span>
             <span className="text-sm text-gray-400 font-medium">/ 100</span>
           </div>

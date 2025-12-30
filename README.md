@@ -1,11 +1,13 @@
-# Supply Chain Vendor Risk Assessment Platform
+# Spectrum - Vendor Due Diligence Platform
 
 ![Demo Status](https://img.shields.io/badge/status-live-green)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+> **Current Branch**: `tahakum-demo` - Customized for Tahakum (Saudi Arabia) client demo
+
 ## Overview
 
-An AI-powered supply chain vendor risk assessment platform that delivers comprehensive financial due diligence in under 60 seconds. This proof-of-concept demonstrates how AI agents can replace traditional $5K-$15K manual reports that take 2-4 weeks.
+**Spectrum** is an AI-powered vendor due diligence platform that delivers comprehensive risk assessments in under 60 seconds. Using multi-agent AI with real-time web search, Spectrum replaces traditional $10K-$15K manual reports that take 2-4 weeks.
 
 ### Key Features
 
@@ -20,15 +22,15 @@ An AI-powered supply chain vendor risk assessment platform that delivers compreh
 
 ### Backend
 - **Node.js** with Express
-- **OpenAI API** (GPT-4 Turbo) for AI analysis
-- **Real-time web search** integration
-- RESTful API with CORS support
+- **OpenAI GPT-4o** for AI analysis with web search
+- **Tavily API** for real-time data gathering
+- RESTful API with rate limiting and CORS
 
 ### Frontend
-- **React 18** with modern hooks
-- **Vite** for blazing-fast development
-- **Tailwind CSS** for professional styling
-- Smooth animations and loading states
+- **React 19** with modern hooks
+- **Vite** for fast development
+- **Tailwind CSS 4** for modern styling
+- Responsive design with smooth animations
 
 ## Project Structure
 
@@ -69,12 +71,9 @@ supply-chain-risk-demo/
 ### Prerequisites
 
 - Node.js 18+ installed
-- OpenAI API key with GPT-4 access
+- OpenAI API key with GPT-4o access
+- Tavily API key (optional, for enhanced search)
 - Terminal/command line access
-
-### 🔐 Security Notice
-
-**IMPORTANT**: Before running the application, review `SECURITY.md` for critical security information.
 
 ### 1. Backend Setup
 
@@ -124,9 +123,9 @@ http://localhost:5173
 
 ## Deployment
 
-> 📖 **Detailed Guide**: See [DEPLOYMENT.md](./DEPLOYMENT.md) for complete step-by-step instructions.
+> 📖 **Detailed Guide**: See [DEPLOYMENT.md](./DEPLOYMENT.md) for complete deployment instructions.
 
-Deploy both frontend and backend to cloud platforms for live demos. Recommended stack:
+Deploy both frontend and backend to cloud platforms. Recommended stack:
 
 - **Frontend**: Vercel (recommended) or Netlify
 - **Backend**: Railway (recommended), Render, or Fly.io
@@ -389,14 +388,12 @@ Custom risk colors are defined in `frontend/tailwind.config.js`:
 ## Security Features
 
 ✅ **Environment variable validation** - Fails fast if API key is missing
-✅ **Rate limiting** - Prevents API abuse (100 req/15min general, 20 req/15min assessments)
+✅ **Rate limiting** - Prevents API abuse (20 assessments/15min per IP)
 ✅ **Input sanitization** - Protects against injection attacks
-✅ **CORS configuration** - Restricts allowed origins
-✅ **Request timeouts** - Prevents hanging requests
+✅ **CORS configuration** - Restricts allowed origins in production
+✅ **Request timeouts** - Prevents hanging requests (150s timeout)
 ✅ **Error handling** - No sensitive data in error messages
-✅ **Body size limits** - Prevents memory exhaustion
-
-See `SECURITY.md` for complete security documentation.
+✅ **Body size limits** - Prevents memory exhaustion (10MB limit)
 
 ## Future Roadmap
 
@@ -414,6 +411,8 @@ See `SECURITY.md` for complete security documentation.
 - [ ] API key management for end users
 
 ## Development
+
+> 📋 **Development Guide**: See [claude.md](./claude.md) for coding standards, branch guidelines, and Tahakum demo requirements.
 
 ### Backend Development
 ```bash
@@ -437,19 +436,25 @@ npm run preview  # Preview production build
 # Backend is production-ready as-is
 ```
 
+### Branch Information
+- **main**: Production-ready base version
+- **tahakum-demo**: Customized for Tahakum (Saudi Arabia) client demo
+
 ## Demo Companies
 
-The platform includes quick demo buttons for:
-- TSMC (Technology, Taiwan)
-- Boeing (Aerospace, USA)
-- Apple (Technology, USA)
-- Toyota (Automotive, Japan)
-- Pfizer (Pharmaceuticals, USA)
-- ExxonMobil (Energy, USA)
-- Tesla (Automotive, USA)
-- Microsoft (Technology, USA)
-- Walmart (Retail, USA)
-- JP Morgan Chase (Financial Services, USA)
+### Featured (Full Reports Available)
+- **Palantir Technologies** - Data Analytics & AI (USA)
+- **Plug Power** - Clean Energy & Hydrogen (USA)
+
+### Quick Demo Companies
+- **TSMC** - Semiconductor Manufacturing (Taiwan)
+- **Foxconn** - Electronics Manufacturing (Taiwan)
+- **Johnson & Johnson** - Pharmaceuticals & Medical Devices (USA)
+- **Siemens** - Industrial Manufacturing (Germany)
+- **BASF** - Chemicals & Materials (Germany)
+- **Caterpillar** - Heavy Equipment Manufacturing (USA)
+- **Honeywell** - Industrial Technology (USA)
+- **Accenture** - IT Services & Consulting (Ireland)
 
 ## Troubleshooting
 
@@ -479,20 +484,28 @@ The platform includes quick demo buttons for:
 
 MIT License - This is a demo/proof-of-concept project.
 
+## Project Documentation
+
+- **[README.md](./README.md)** - This file, complete project documentation
+- **[claude.md](./claude.md)** - Development guidelines and Tahakum demo requirements
+- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Detailed deployment instructions
+
 ## Support
 
-For questions or issues, please review:
-1. This README
+For questions or issues:
+1. Review this README and project documentation
 2. Check browser console for errors
 3. Verify backend logs in terminal
+4. Ensure all environment variables are set correctly
 
 ## Acknowledgments
 
-- OpenAI for GPT-4 API
+- OpenAI for GPT-4o API
+- Tavily for real-time search capabilities
 - Tailwind CSS for styling utilities
-- Vite for blazing-fast development
+- Vite for fast development experience
 - React team for excellent documentation
 
 ---
 
-**Built with ❤️ for modern supply chain management**
+**Built for modern vendor due diligence** | **Current Branch**: `tahakum-demo`

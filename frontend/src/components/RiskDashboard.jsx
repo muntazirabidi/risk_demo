@@ -4,6 +4,8 @@ import FivePillars from './FivePillars';
 import FindingsGrid from './FindingsGrid';
 import DetailedBreakdown from './DetailedBreakdown';
 import UpgradeCard from './UpgradeCard';
+import CapaRecommendations from './CapaRecommendations';
+import ContractPlaybook from './ContractPlaybook';
 import Toast from './Toast';
 import { downloadExcelReport } from '../utils/excelExport';
 
@@ -111,6 +113,12 @@ export default function RiskDashboard({ assessment, metadata, onNewAssessment })
 
       {/* 5 Pillars of Intelligence */}
       <FivePillars findings={assessment.findings} />
+
+      {/* CAPA Recommendations */}
+      <CapaRecommendations findings={assessment.findings} companyName={metadata.companyName} />
+
+      {/* Contract Playbook */}
+      <ContractPlaybook assessment={assessment} companyName={metadata.companyName} />
 
       {/* Upgrade CTA */}
       <UpgradeCard
