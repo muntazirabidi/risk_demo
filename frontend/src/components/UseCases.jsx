@@ -229,28 +229,20 @@ export default function UseCases() {
       </div>
 
       {/* Industries Section */}
-      <div className="relative overflow-hidden card bg-gradient-to-br from-blue-50 via-white to-purple-50 border-2 border-blue-100">
-        {/* Subtle background pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, rgb(59 130 246) 1px, transparent 0)',
-            backgroundSize: '40px 40px'
-          }}></div>
-        </div>
-
+      <div className="relative overflow-hidden card bg-slate-50 border border-slate-200 p-8">
         <div className="relative z-10">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur px-4 py-2 rounded-full mb-4 border border-blue-200">
-              <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            <div className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 mb-4">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span className="text-sm font-bold text-blue-700">Industry Coverage</span>
+              <span className="text-xs font-medium uppercase tracking-wider">Global Coverage</span>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">
-              Enterprise-Grade Customization
+            <h3 className="text-2xl font-light text-black mb-2">
+              Trusted Across Industries
             </h3>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Serving procurement and risk teams across industries with tailored agent combinations
+            <p className="text-sm text-gray-600 max-w-2xl mx-auto">
+              Delivering comprehensive vendor intelligence reports to procurement teams in manufacturing, technology, healthcare, financial services, and beyond
             </p>
           </div>
           <div className="flex flex-wrap justify-center gap-3">
@@ -258,7 +250,7 @@ export default function UseCases() {
               <span
                 key={index}
                 style={{ animationDelay: `${index * 0.03}s` }}
-                className="px-4 py-2 bg-white/90 backdrop-blur border-2 border-gray-200 rounded-full text-sm font-semibold text-gray-700 hover:border-blue-500 hover:text-blue-700 hover:shadow-lg hover:scale-105 transition-all duration-200 animate-fade-in"
+                className="px-4 py-2 bg-white border border-slate-200 text-xs font-medium text-slate-700 hover:border-slate-900 hover:text-slate-900 transition-all duration-200 animate-fade-in uppercase tracking-wider"
               >
                 {industry}
               </span>

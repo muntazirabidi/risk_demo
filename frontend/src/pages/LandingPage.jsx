@@ -322,52 +322,52 @@ function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-b from-slate-50 to-slate-100 border-t border-slate-200 mt-20">
+      <footer className="bg-slate-50 border-t border-slate-200 mt-20">
         <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             {/* Logo */}
             <div className="flex items-center justify-center gap-2.5 mb-4">
               <div className="flex items-center gap-1.5">
-                <div className="w-2.5 h-2.5 bg-gradient-to-br from-teal-600 to-teal-700 rounded-full shadow-lg shadow-teal-500/50"></div>
-                <div className="w-2 h-2 bg-gradient-to-br from-teal-500 to-teal-600 rounded-full"></div>
-                <div className="w-1.5 h-1.5 bg-gradient-to-br from-teal-400 to-teal-500 rounded-full"></div>
+                <div className="w-2.5 h-2.5 bg-slate-900 rounded-full"></div>
+                <div className="w-2 h-2 bg-slate-600 rounded-full"></div>
+                <div className="w-1.5 h-1.5 bg-slate-400 rounded-full"></div>
               </div>
-              <span className="text-xl font-bold text-slate-900">Spectrum</span>
+              <span className="text-xl font-semibold text-slate-900">Spectrum</span>
             </div>
-            <p className="text-base font-semibold text-slate-700 mb-2">
-              Vendor intelligence at the speed of business
+            <p className="text-base font-medium text-slate-900 mb-2">
+              Vendor Intelligence Reports for Modern Procurement
             </p>
-            <p className="text-sm text-slate-500 max-w-md mx-auto">
-              AI-powered due diligence for modern procurement teams. Assess vendor risk in seconds, not weeks.
+            <p className="text-sm text-slate-600 max-w-xl mx-auto">
+              Comprehensive due diligence reports delivered in 24-48 hours, not 90+ days. We handle the analysis, you make the decisions.
             </p>
           </div>
 
           {/* Trust indicators */}
           <div className="flex flex-wrap justify-center gap-6 mb-8">
-            <div className="flex items-center gap-2 text-sm text-slate-600">
-              <svg className="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            <div className="flex items-center gap-2 text-sm text-slate-700">
+              <svg className="w-5 h-5 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6-2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span className="font-medium">SOC 2 Compliant</span>
+              <span className="font-medium">Evidence-Based Analysis</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-slate-600">
-              <svg className="w-5 h-5 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            <div className="flex items-center gap-2 text-sm text-slate-700">
+              <svg className="w-5 h-5 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-              <span className="font-medium">Enterprise Security</span>
+              <span className="font-medium">Audit-Ready Documentation</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-slate-600">
-              <svg className="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            <div className="flex items-center gap-2 text-sm text-slate-700">
+              <svg className="w-5 h-5 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
               </svg>
-              <span className="font-medium">Real-time Analysis</span>
+              <span className="font-medium">5-Pillar Risk Assessment</span>
             </div>
           </div>
 
           {/* Copyright */}
           <div className="text-center pt-6 border-t border-slate-200">
             <p className="text-xs text-slate-400">
-              &copy; {new Date().getFullYear()} Spectrum. All rights reserved.
+              &copy; {new Date().getFullYear()} Spectrum. All rights reserved. • Reports-as-a-Service
             </p>
           </div>
         </div>
