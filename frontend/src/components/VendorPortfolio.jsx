@@ -31,8 +31,21 @@ function VendorPortfolio() {
     localStorage.setItem('liveVendors', JSON.stringify(updated));
   };
 
-  // Combine live vendors with mock vendors
-  const allVendors = [...liveVendors, ...mockVendors];
+  // Combine and sort vendors: Full Reports first, then Recently Assessed, then Samples
+  const allVendors = [...liveVendors, ...mockVendors].sort((a, b) => {
+    // Priority 1: Full Report vendors (highest priority)
+    if (a.fullReport && !b.fullReport) return -1;
+    if (!a.fullReport && b.fullReport) return 1;
+
+    // Priority 2: Recently Assessed vendors (second priority)
+    if (a.isLiveAssessment && !b.isLiveAssessment) return -1;
+    if (!a.isLiveAssessment && b.isLiveAssessment) return 1;
+
+    // Priority 3: Within same type, sort by date (newest first)
+    const dateA = new Date(a.lastAssessment || a.assessmentDate);
+    const dateB = new Date(b.lastAssessment || b.assessmentDate);
+    return dateB - dateA;
+  });
 
   // Separate featured vendors (with full reports) from sample vendors
   const featuredVendors = mockVendors.filter(vendor => vendor.fullReport === true);
