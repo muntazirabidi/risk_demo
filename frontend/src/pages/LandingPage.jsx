@@ -151,11 +151,20 @@ function LandingPage() {
           <>
             {/* Hero Section */}
             <div className="text-center mb-12 animate-fade-in">
-              <h1 className="text-5xl md:text-6xl font-black mb-4 tracking-tight">
-                <span className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent">Vendor Due Diligence</span>
+              <div className="inline-flex items-center gap-2 bg-slate-100 px-4 py-2 mb-4 border border-slate-200">
+                <svg className="w-4 h-4 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                <span className="text-xs font-medium text-slate-700 uppercase tracking-wider">Live Demo</span>
+              </div>
+              <h1 className="text-4xl md:text-5xl font-light mb-4 tracking-tight text-black">
+                AI-Powered Vendor Intelligence
               </h1>
-              <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-8">
-                Multi-agent AI system for customized supplier risk reports
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-3">
+                See our multi-agent AI system analyze vendor risk in real-time
+              </p>
+              <p className="text-sm text-slate-500 max-w-xl mx-auto mb-8">
+                Enter any company name below to watch our AI perform instant risk assessment across 5 critical dimensions
               </p>
 
               {/* How it works - 3 steps */}
@@ -216,6 +225,83 @@ function LandingPage() {
                 </div>
               </div>
             )}
+
+            {/* Value Proposition Section */}
+            <div className="max-w-5xl mx-auto mt-16 mb-8">
+              <div className="bg-slate-50 border border-slate-200 p-8">
+                <h3 className="text-xl font-light text-black text-center mb-8">Why Procurement Teams Choose Spectrum</h3>
+                <div className="grid grid-cols-2 gap-8">
+                  <div>
+                    <div className="text-xs font-medium text-red-700 uppercase tracking-wider mb-3 flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                      Traditional Process
+                    </div>
+                    <ul className="space-y-3 text-sm text-slate-700">
+                      <li className="flex items-start gap-2">
+                        <span className="text-red-600 mt-1">•</span>
+                        <span>90+ days average assessment time</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-red-600 mt-1">•</span>
+                        <span>$15-20K cost per vendor assessment</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-red-600 mt-1">•</span>
+                        <span>Manual data collection across scattered sources</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-red-600 mt-1">•</span>
+                        <span>Point-in-time snapshots, no continuous monitoring</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-red-600 mt-1">•</span>
+                        <span>Subjective scoring without audit trails</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div className="text-xs font-medium text-emerald-700 uppercase tracking-wider mb-3 flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      With Spectrum
+                    </div>
+                    <ul className="space-y-3 text-sm text-slate-700">
+                      <li className="flex items-start gap-2">
+                        <span className="text-emerald-600 mt-1">✓</span>
+                        <span><strong>24-48 hours</strong> comprehensive report delivery</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-emerald-600 mt-1">✓</span>
+                        <span><strong>Fixed per-report pricing</strong> with volume discounts</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-emerald-600 mt-1">✓</span>
+                        <span>AI aggregates data from 100+ verified sources</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-emerald-600 mt-1">✓</span>
+                        <span>Continuous monitoring with real-time alerts</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-emerald-600 mt-1">✓</span>
+                        <span>Evidence-based analysis with full audit trails</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="mt-8 text-center">
+                  <button
+                    onClick={() => navigate('/portfolio')}
+                    className="px-6 py-3 bg-black text-white text-sm font-medium hover:bg-slate-800 transition-colors uppercase tracking-wider"
+                  >
+                    View Sample Reports →
+                  </button>
+                </div>
+              </div>
+            </div>
 
             {/* Use Cases Section - Only show on landing page */}
             <UseCases />

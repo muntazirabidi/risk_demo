@@ -74,22 +74,44 @@ function VendorPortfolio() {
       </div>
 
       <div className="max-w-[1400px] mx-auto px-8 py-12">
-        {/* Minimal page title */}
-        <div className="mb-8">
-          <h1 className="text-2xl font-light text-black tracking-tight mb-1">Vendor Portfolio</h1>
-          <p className="text-sm text-gray-500">Comprehensive due diligence reports and risk monitoring</p>
+        {/* Value Proposition Hero */}
+        <div className="mb-12 text-center max-w-4xl mx-auto">
+          <h1 className="text-4xl font-light text-black tracking-tight mb-3">
+            Autonomous Vendor Due Diligence
+          </h1>
+          <p className="text-lg text-gray-600 mb-6">
+            Transform 90-day vendor assessments into 30-minute decision-ready intelligence
+          </p>
+          <div className="flex items-center justify-center gap-8 text-sm">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-emerald-600"></div>
+              <span className="text-gray-700">Comprehensive 5-pillar analysis</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-emerald-600"></div>
+              <span className="text-gray-700">Actionable CAPA recommendations</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-emerald-600"></div>
+              <span className="text-gray-700">Risk-based contract playbooks</span>
+            </div>
+          </div>
         </div>
 
         {/* Featured Reports Section */}
-        <div className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h2 className="text-lg font-medium text-black tracking-tight mb-1">Featured Intelligence Reports</h2>
-              <p className="text-xs text-gray-500">Full comprehensive due diligence with deep analysis across all five pillars</p>
+        <div className="mb-16">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 mb-3">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <span className="text-xs font-medium uppercase tracking-wider">Sample Intelligence Reports</span>
             </div>
-            <div className="px-3 py-1 bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-medium uppercase tracking-wider">
-              Full Reports Available
-            </div>
+            <h2 className="text-2xl font-light text-black tracking-tight mb-2">See What You Receive</h2>
+            <p className="text-sm text-gray-600 max-w-2xl mx-auto">
+              These comprehensive reports showcase our deep forensic analysis across Financial Health,
+              ESG & Sustainability, Human Rights, Sanctions & Anti-Bribery, and Cybersecurity
+            </p>
           </div>
 
           <div className="grid grid-cols-3 gap-6 mb-12">
@@ -158,11 +180,39 @@ function VendorPortfolio() {
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-gray-300 mb-12">
-          <div className="flex items-center justify-center -mt-3">
-            <span className="bg-white px-4 text-xs text-gray-400 uppercase tracking-wider">Additional Portfolio Vendors</span>
+        {/* How It Works Section */}
+        <div className="bg-slate-50 border-y border-gray-200 py-12 -mx-8 px-8 mb-12">
+          <div className="max-w-4xl mx-auto">
+            <h3 className="text-xl font-light text-black text-center mb-8">How Spectrum Works</h3>
+            <div className="grid grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="w-12 h-12 bg-black text-white flex items-center justify-center mx-auto mb-3 text-lg font-bold">1</div>
+                <h4 className="text-sm font-medium text-black mb-2">Send Vendor Names</h4>
+                <p className="text-xs text-gray-600">Share your supplier list via email, spreadsheet, or API integration</p>
+              </div>
+              <div className="text-center">
+                <div className="w-12 h-12 bg-black text-white flex items-center justify-center mx-auto mb-3 text-lg font-bold">2</div>
+                <h4 className="text-sm font-medium text-black mb-2">AI Analysis Engine</h4>
+                <p className="text-xs text-gray-600">Multi-agent AI autonomously gathers data and performs comprehensive risk analysis</p>
+              </div>
+              <div className="text-center">
+                <div className="w-12 h-12 bg-black text-white flex items-center justify-center mx-auto mb-3 text-lg font-bold">3</div>
+                <h4 className="text-sm font-medium text-black mb-2">Receive Reports</h4>
+                <p className="text-xs text-gray-600">Get decision-ready intelligence reports with CAPA plans and contract recommendations</p>
+              </div>
+            </div>
+            <div className="text-center mt-8">
+              <p className="text-sm text-gray-700">
+                <span className="font-semibold">Turnaround:</span> 24-48 hours vs. 90+ days manual process
+              </p>
+            </div>
           </div>
+        </div>
+
+        {/* Divider */}
+        <div className="mb-12">
+          <h3 className="text-lg font-light text-black text-center mb-6">Active Vendor Portfolio</h3>
+          <p className="text-xs text-gray-500 text-center mb-8">Continuous monitoring and risk tracking for your existing suppliers</p>
         </div>
 
         {/* Data-forward stats */}
