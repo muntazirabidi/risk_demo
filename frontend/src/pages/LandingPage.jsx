@@ -53,6 +53,42 @@ function LandingPage() {
         assessment: result.data,
         metadata: result.metadata,
       });
+
+      // Save to localStorage for portfolio integration
+      const portfolioVendor = {
+        id: `live-${Date.now()}`,
+        name: result.metadata.companyName,
+        industry: result.metadata.industry || 'Not specified',
+        location: result.metadata.location || 'Not specified',
+        riskScore: result.data.overallRiskScore,
+        riskLevel: result.data.riskLevel,
+        status: result.data.overallRiskScore >= 80 ? 'Qualified' :
+                result.data.overallRiskScore >= 70 ? 'Conditional' : 'Monitoring',
+        lastAssessment: result.metadata.timestamp || new Date().toISOString(),
+        assessmentDate: result.data.assessmentDate,
+        criticality: result.data.overallRiskScore >= 80 ? 'Low' :
+                     result.data.overallRiskScore >= 65 ? 'Medium' : 'High',
+        isLiveAssessment: true,
+        findings: result.data.findings,
+        executiveSummary: result.data.executiveSummary,
+        cached: result.metadata.cached || false,
+      };
+
+      // Save to localStorage
+      const existingVendors = JSON.parse(localStorage.getItem('liveVendors') || '[]');
+
+      // Check if vendor already exists (by name), if so, update it
+      const existingIndex = existingVendors.findIndex(v =>
+        v.name.toLowerCase() === portfolioVendor.name.toLowerCase()
+      );
+
+      if (existingIndex >= 0) {
+        existingVendors[existingIndex] = portfolioVendor;
+      } else {
+        existingVendors.unshift(portfolioVendor); // Add to beginning
+      }
+
+      localStorage.setItem('liveVendors', JSON.stringify(existingVendors));
     } catch (error) {
       console.error('Assessment error:', error);
 

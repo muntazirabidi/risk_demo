@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mockVendors } from '../data/mockVendors';
 import Logo from './Logo';
@@ -7,25 +7,51 @@ function VendorPortfolio() {
   const navigate = useNavigate();
   const [filterStatus, setFilterStatus] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [liveVendors, setLiveVendors] = useState([]);
+
+  // Load live vendors from localStorage on mount
+  useEffect(() => {
+    const loadLiveVendors = () => {
+      const stored = localStorage.getItem('liveVendors');
+      if (stored) {
+        setLiveVendors(JSON.parse(stored));
+      }
+    };
+    loadLiveVendors();
+
+    // Listen for storage changes (if multiple tabs)
+    window.addEventListener('storage', loadLiveVendors);
+    return () => window.removeEventListener('storage', loadLiveVendors);
+  }, []);
+
+  // Remove a live vendor from portfolio
+  const removeLiveVendor = (vendorId) => {
+    const updated = liveVendors.filter(v => v.id !== vendorId);
+    setLiveVendors(updated);
+    localStorage.setItem('liveVendors', JSON.stringify(updated));
+  };
+
+  // Combine live vendors with mock vendors
+  const allVendors = [...liveVendors, ...mockVendors];
 
   // Separate featured vendors (with full reports) from sample vendors
   const featuredVendors = mockVendors.filter(vendor => vendor.fullReport === true);
   const sampleVendors = mockVendors.filter(vendor => !vendor.fullReport);
 
-  const filteredVendors = mockVendors.filter(vendor => {
-    const matchesStatus = filterStatus === 'all' || vendor.status === filterStatus;
+  const filteredVendors = allVendors.filter(vendor => {
+    const matchesStatus = filterStatus === 'all' || vendor.status.toLowerCase() === filterStatus.toLowerCase();
     const matchesSearch = vendor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           vendor.industry.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesStatus && matchesSearch;
   });
 
   const stats = {
-    total: mockVendors.length,
-    qualified: mockVendors.filter(v => v.status === 'qualified').length,
-    conditional: mockVendors.filter(v => v.status === 'conditional').length,
-    monitoring: mockVendors.filter(v => v.status === 'monitoring').length,
-    capaOverdue: mockVendors.reduce((sum, v) => sum + v.capaDue, 0),
-    avgRiskScore: Math.round(mockVendors.reduce((sum, v) => sum + v.riskScore, 0) / mockVendors.length)
+    total: allVendors.length,
+    qualified: allVendors.filter(v => v.status === 'Qualified' || v.status === 'qualified').length,
+    conditional: allVendors.filter(v => v.status === 'Conditional' || v.status === 'conditional').length,
+    monitoring: allVendors.filter(v => v.status === 'Monitoring' || v.status === 'monitoring').length,
+    capaOverdue: allVendors.reduce((sum, v) => sum + (v.capaDue || 0), 0),
+    avgRiskScore: Math.round(allVendors.reduce((sum, v) => sum + v.riskScore, 0) / allVendors.length)
   };
 
   const getStatusStyle = (status) => {
@@ -346,6 +372,11 @@ function VendorPortfolio() {
                           Full Report
                         </span>
                       )}
+                      {vendor.isLiveAssessment && (
+                        <span className="px-1.5 py-0.5 bg-green-600 text-white text-[9px] font-medium uppercase tracking-wider">
+                          Recently Assessed
+                        </span>
+                      )}
                     </div>
                   </td>
                   <td className="px-6 py-4">
@@ -398,19 +429,34 @@ function VendorPortfolio() {
                     </div>
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (vendor.fullReport) {
-                          navigate(`/report/${vendor.id}`);
-                        } else {
-                          navigate(`/portfolio/${vendor.id}`);
-                        }
-                      }}
-                      className="text-[10px] font-medium text-black opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-wider"
-                    >
-                      {vendor.fullReport ? 'View Full Report →' : 'View →'}
-                    </button>
+                    {vendor.isLiveAssessment ? (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (confirm(`Remove ${vendor.name} from portfolio?`)) {
+                            removeLiveVendor(vendor.id);
+                          }
+                        }}
+                        className="px-2 py-1 text-[10px] font-medium text-red-600 hover:text-red-800 hover:bg-red-50 transition-colors uppercase tracking-wider opacity-0 group-hover:opacity-100"
+                        title="Remove from portfolio"
+                      >
+                        Remove ×
+                      </button>
+                    ) : (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (vendor.fullReport) {
+                            navigate(`/report/${vendor.id}`);
+                          } else {
+                            navigate(`/portfolio/${vendor.id}`);
+                          }
+                        }}
+                        className="text-[10px] font-medium text-black opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-wider"
+                      >
+                        {vendor.fullReport ? 'View Full Report →' : 'View →'}
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}
