@@ -3,67 +3,90 @@
 ![Demo Status](https://img.shields.io/badge/status-live-green)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-> **Current Branch**: `tahakum-demo` - Customized for Tahakum (Saudi Arabia) client demo
+> **Production-Ready**: Deployed on Vercel | Customized for enterprise B2B procurement teams
 
 ## Overview
 
-**Spectrum** is an AI-powered vendor due diligence platform that delivers comprehensive risk assessments in under 60 seconds. Using multi-agent AI with real-time web search, Spectrum replaces traditional $10K-$15K manual reports that take 2-4 weeks.
+**Spectrum** is an AI-powered vendor due diligence platform that delivers comprehensive risk assessments in under 60 seconds. Using multi-agent AI with real-time web search and intelligent caching, Spectrum replaces traditional $10K-$15K manual reports that take 2-4 weeks.
 
 ### Key Features
 
 - 🚀 **Real-time Analysis**: Complete risk assessment in under 60 seconds
-- 🤖 **AI-Powered**: GPT-4 analyzes credit ratings, financial performance, and operational risks
-- 📊 **Comprehensive Reports**: 6-10 detailed findings across multiple risk categories
-- 🎯 **Actionable Insights**: Color-coded risk levels with business impact analysis
-- 💼 **Professional UI**: Modern B2B SaaS interface with responsive design
-- 📥 **Export Options**: Download results as JSON or copy to clipboard
+- 🤖 **AI-Powered**: GPT-4o with 3 parallel web searches across 5 intelligence pillars
+- 📊 **Comprehensive Reports**: 8-12 detailed findings across Financial, ESG, Human Rights, Sanctions, and Cybersecurity
+- 🎯 **Actionable Insights**: Auto-generated CAPA plans and risk-based contract recommendations
+- ⚡ **Smart Caching**: File-based caching with force-refresh option for repeat assessments
+- 💼 **Professional UI**: Enterprise B2B design inspired by Stripe, Linear, and Bloomberg
+- 📥 **Export Options**: Excel, JSON, and PDF reports with full audit trails
 
 ## Tech Stack
 
 ### Backend
 - **Node.js** with Express
-- **OpenAI GPT-4o** for AI analysis with web search
-- **Tavily API** for real-time data gathering
-- RESTful API with rate limiting and CORS
+- **OpenAI GPT-4o** with Responses API for AI analysis with real-time web search
+- **File-based caching system** for performance optimization
+- **Multi-agent architecture**: 3 parallel web searches (Financial, Compliance, Cyber)
+- RESTful API with rate limiting, CORS, and input sanitization
 
 ### Frontend
-- **React 19** with modern hooks
-- **Vite** for fast development
-- **Tailwind CSS 4** for modern styling
-- Responsive design with smooth animations
+- **React 19** with React Router for multi-page navigation
+- **Vite** for fast development and optimized builds
+- **Tailwind CSS 4** with custom enterprise design system
+- **ExcelJS** for professional Excel report exports
+- Responsive design with minimal, professional animations
 
 ## Project Structure
 
 ```
-supply-chain-risk-demo/
+risk_demo/
 ├── backend/
 │   ├── services/
 │   │   ├── openai.js          # OpenAI client configuration
-│   │   ├── search.js           # Web search utilities
-│   │   └── riskAgent.js        # Main AI agent workflow
+│   │   ├── riskAgent.js        # Multi-agent AI workflow (3 parallel searches)
+│   │   └── cacheService.js     # File-based caching system
 │   ├── routes/
-│   │   └── assessment.js       # API endpoints
+│   │   └── assessment.js       # API endpoints with cache support
+│   ├── data/
+│   │   └── assessments/        # Cached assessment storage
+│   ├── middleware/
+│   │   └── rateLimiter.js      # Rate limiting middleware
 │   ├── server.js               # Express server
 │   ├── package.json
 │   └── .env                    # Environment variables
 ├── frontend/
 │   ├── src/
+│   │   ├── pages/
+│   │   │   ├── LandingPage.jsx      # Main assessment page
+│   │   │   ├── VendorPortfolio.jsx  # Portfolio dashboard
+│   │   │   ├── VendorDetail.jsx     # Individual vendor reports
+│   │   │   └── ReportViewer.jsx     # Full HTML report viewer
 │   │   ├── components/
 │   │   │   ├── AssessmentForm.jsx
+│   │   │   ├── RiskDashboard.jsx
+│   │   │   ├── RiskScoreCard.jsx
+│   │   │   ├── FivePillars.jsx
+│   │   │   ├── FindingsGrid.jsx
+│   │   │   ├── CapaRecommendations.jsx   # Auto-generated action plans
+│   │   │   ├── ContractPlaybook.jsx      # Risk-based contract clauses
 │   │   │   ├── QuickDemoButtons.jsx
 │   │   │   ├── LoadingState.jsx
-│   │   │   ├── RiskScoreCard.jsx
-│   │   │   ├── FindingsGrid.jsx
-│   │   │   ├── DetailedBreakdown.jsx
-│   │   │   └── RiskDashboard.jsx
-│   │   ├── App.jsx
+│   │   │   └── Logo.jsx
+│   │   ├── data/
+│   │   │   └── mockVendors.js        # Sample vendor portfolio data
+│   │   ├── utils/
+│   │   │   └── excelExport.js        # Excel report generation
+│   │   ├── App.jsx                   # Router configuration
 │   │   ├── main.jsx
 │   │   └── index.css
+│   ├── public/
+│   │   ├── reports/                  # Featured full HTML reports
+│   │   └── logo*.svg                 # Brand assets
 │   ├── tailwind.config.js
 │   ├── package.json
 │   └── index.html
-├── .gitignore
-└── README.md
+├── CLAUDE.md                         # Development guide for Claude sessions
+├── README.md                         # This file
+└── .gitignore
 ```
 
 ## Setup Instructions
@@ -122,8 +145,6 @@ http://localhost:5173
 ```
 
 ## Deployment
-
-> 📖 **Detailed Guide**: See [DEPLOYMENT.md](./DEPLOYMENT.md) for complete deployment instructions.
 
 Deploy both frontend and backend to cloud platforms. Recommended stack:
 
@@ -258,16 +279,23 @@ After deployment, test:
 ## API Endpoints
 
 ### POST `/api/assess-risk`
-Performs comprehensive risk assessment for a company.
+Performs comprehensive risk assessment for a company with intelligent caching.
 
 **Request:**
 ```json
 {
   "companyName": "TSMC",
   "industry": "Technology",
-  "location": "Taiwan"
+  "location": "Taiwan",
+  "forceRefresh": false
 }
 ```
+
+**Parameters:**
+- `companyName` (required): Company name to assess
+- `industry` (optional): Industry/sector
+- `location` (optional): Country/region
+- `forceRefresh` (optional): Set `true` to bypass cache and run fresh analysis
 
 **Response:**
 ```json
@@ -277,16 +305,30 @@ Performs comprehensive risk assessment for a company.
     "overallRiskScore": 85,
     "riskLevel": "Low",
     "executiveSummary": "...",
-    "assessmentDate": "2025-10-05",
-    "findings": [...]
+    "assessmentDate": "2025-12-30",
+    "findings": [
+      {
+        "riskIndicator": "Strong Financial Performance",
+        "title": "Q4 2024 Revenue Growth",
+        "description": "...",
+        "evidenceUrl": "https://source.com/article",
+        "evidenceTitle": "TSMC Q4 Results",
+        "riskLevel": "Positive",
+        "category": "Financial Health",
+        "pillar": "1-Financial",
+        "procurementImplication": "Safe for long-term contracts"
+      }
+    ]
   },
   "metadata": {
-    "processingTime": 45,
+    "processingTime": 2,
     "companyName": "TSMC",
     "industry": "Technology",
     "location": "Taiwan",
-    "model": "gpt-4-turbo-preview",
-    "timestamp": "2025-10-05T..."
+    "model": "gpt-4o",
+    "timestamp": "2025-12-30T...",
+    "cached": true,
+    "originalAssessmentDate": "2025-12-30T..."
   }
 }
 ```
@@ -294,39 +336,44 @@ Performs comprehensive risk assessment for a company.
 ### GET `/api/health`
 Health check endpoint.
 
-## Risk Assessment Framework
+## Risk Assessment Framework: The 5 Pillars of Intelligence
 
-The AI analyzes six key dimensions:
+The AI analyzes five critical procurement dimensions using 3 parallel web searches:
 
-1. **Credit & Financial Stability**
-   - Credit ratings
-   - Debt levels
-   - Liquidity
+### 1. **Financial Health**
+   - Viability analysis and going-concern indicators
+   - Liquidity assessment (cash flow, working capital, debt)
+   - Bankruptcy signals (Altman Z-Score, credit downgrades)
+   - Revenue trends and profitability (QoQ, YoY changes)
+   - Payment risk: Can they fulfill long-term contracts?
 
-2. **Operational Performance**
-   - Revenue trends
-   - Profit margins
-   - Cash flow
+### 2. **ESG & Sustainability**
+   - Carbon emissions tracking and reduction commitments
+   - CSRD/LkSG alignment (EU supply chain due diligence laws)
+   - Environmental compliance violations and fines
+   - Sustainability commitments vs. actual performance
+   - Greenwashing accusations or ESG controversies
 
-3. **Market Position**
-   - Competitive standing
-   - Market share
-   - Customer concentration
+### 3. **Human Rights & Ethics**
+   - Modern slavery screening and forced labor indicators
+   - UFLPA compliance (Uyghur Forced Labor Prevention Act)
+   - Labor practice verification (working conditions, wages, safety)
+   - Ethical sourcing and supply chain traceability
+   - Child labor, discrimination, or worker exploitation incidents
 
-4. **Payment Risk**
-   - Working capital
-   - Payment history
-   - Financial distress signals
+### 4. **Sanctions & Anti-Bribery**
+   - Real-time OFAC/UN/EU sanctions monitoring
+   - Corruption risk scoring and bribery cases
+   - Enforcement action tracking (SEC, DOJ, international bodies)
+   - Export control violations (ITAR, EAR breaches)
+   - Politically exposed persons (PEP) and beneficial ownership risks
 
-5. **Business Continuity**
-   - Operational disruptions
-   - Legal issues
-   - Management changes
-
-6. **Strategic Risks**
-   - M&A activity
-   - Restructuring
-   - Geographic/political exposure
+### 5. **Cybersecurity**
+   - Security posture evaluation (SOC2, ISO 27001 certifications)
+   - Data breach history and incident response capability
+   - Ransomware attacks and hack incidents (specific dates)
+   - Threat intelligence and vulnerability disclosures
+   - IT infrastructure resilience and business continuity
 
 ## Risk Levels
 
@@ -437,8 +484,7 @@ npm run preview  # Preview production build
 ```
 
 ### Branch Information
-- **main**: Production-ready base version
-- **tahakum-demo**: Customized for Tahakum (Saudi Arabia) client demo
+- **main**: Production-ready version with all enterprise features deployed on Vercel
 
 ## Demo Companies
 
@@ -508,4 +554,4 @@ For questions or issues:
 
 ---
 
-**Built for modern vendor due diligence** | **Current Branch**: `tahakum-demo`
+**Built for modern vendor due diligence** | **Production-Ready** | **Last Updated**: 2025-12-30

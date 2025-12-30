@@ -1,12 +1,12 @@
-# Claude Development Guide - Tahakum Demo
+# Claude Development Guide - Spectrum
 
 ## Project Overview
 **Spectrum** is an AI-powered vendor due diligence service that automates manual supplier assessments. We generate comprehensive risk reports that replace 90-day manual processes with 30-second AI analysis.
 
-**Current Branch**: `tahakum-demo`
-**Purpose**: First client demo for Tahakum (Saudi Arabia) - Procurement & Supplier Qualification Team
-**Demo Date**: [TBD]
-**Version**: v2.0-tahakum-enterprise
+**Current Branch**: `main` (production-ready, deployed on Vercel)
+**Primary Use Case**: Enterprise B2B procurement teams (Tahakum Saudi Arabia, others)
+**Version**: v2.1-production
+**Last Major Update**: 2025-12-30
 
 ## Business Model (Important!)
 **We are selling REPORTS, not platform access**
@@ -95,6 +95,31 @@
   - `plugpower-report.html` - 48KB
   - `techvendor-report.html` - 65KB
 - **Demo Value**: Shows depth of analysis beyond simple scores - full forensic-level due diligence
+
+### 7. **Performance Optimization** (✅ NEW - Dec 30, 2025)
+- **File-based caching system** (`backend/services/cacheService.js`)
+  - Stores assessment results in `backend/data/assessments/`
+  - Instant retrieval for repeat queries (<1 second vs 30+ seconds)
+  - Cache key based on company name + industry + location (normalized)
+  - Force refresh option available via UI checkbox
+- **Multi-agent search architecture**:
+  - 3 parallel web searches for comprehensive coverage
+  - Search 1: Financial Health & Operations
+  - Search 2: Compliance & Controversies (ESG, Human Rights, Sanctions)
+  - Search 3: Cybersecurity & Supply Chain Risks
+- **Result**: Faster assessments with better quality and no redundant API calls
+
+### 8. **Design Refinements** (✅ UPDATED - Dec 30, 2025)
+- **Color-with-purpose philosophy**: Color reserved for status, not decoration
+  - Metadata badges (industry, location): Neutral slate
+  - Status indicators (success, warning): Green, amber
+  - Risk levels: Red (critical), orange (high), yellow (medium), blue (low), green (positive)
+- **Removed decorative elements**:
+  - Purple/indigo gradients on company avatars ❌
+  - Multi-color metadata badges ❌
+  - Teal accent colors ❌
+  - Text gradients and unnecessary effects ❌
+- **Result**: Professional enterprise aesthetic matching Stripe, Linear, GitHub standards
 
 ---
 
@@ -251,19 +276,31 @@
 
 ### Components Style Guide
 - **Buttons**: Flat slate-900, no gradients, subtle hover states
-- **Cards**: White background, slate-200 border, minimal shadow
-- **Badges**: Border-based with background tint (not solid fills)
+- **Cards**: White background, slate-200 border, minimal shadow (shadow-sm)
+- **Badges**: Color only for status, neutral slate for metadata
+  - ✅ Metadata (industry, location): `bg-slate-50 border-slate-200`
+  - ✅ Success status: `bg-green-50 border-green-200`
+  - ✅ Warning status: `bg-amber-50 border-amber-200`
+  - ❌ No decorative blue/purple badges
 - **Tables**: Clean lines, slate-50 header background
 - **Inputs**: slate-300 border, focus ring-2 ring-slate-900
+- **Avatars**: Solid slate-900 background, rounded-lg (not rounded-2xl)
+
+### Design Principle: Color with Purpose
+**Rule**: Color conveys meaning (status, risk level), not decoration.
+- **Good**: Green badge = positive status, Red badge = critical risk
+- **Bad**: Blue badge just because "industry" needs a different color
 
 ### What We Removed (To Look Professional)
 - ❌ Teal/turquoise colors (AI tool stereotype)
+- ❌ Purple/indigo for decorative purposes (metadata badges)
 - ❌ Heavy gradients and glassmorphism
-- ❌ Excessive rounded corners (rounded-2xl → sharp edges)
+- ❌ Multi-color badge systems without semantic meaning
+- ❌ Excessive rounded corners (rounded-2xl → rounded-lg)
 - ❌ Animated pulsing effects
-- ❌ Heavy box shadows
+- ❌ Heavy box shadows (shadow-lg → shadow-sm)
 - ❌ Scale transforms on hover
-- ❌ Playful animations
+- ❌ Playful animations and text gradients
 
 ---
 
@@ -272,7 +309,7 @@
 ### Current Environment
 - **Backend**: http://localhost:3001
 - **Frontend**: http://localhost:5173
-- **Branch**: `tahakum-demo`
+- **Branch**: `main` (production-ready)
 
 ### Running the Demo
 ```bash
@@ -628,11 +665,21 @@ Cmd+Shift+R (Mac) or Ctrl+Shift+R (Windows)
 
 ---
 
-**Last Updated**: 2025-12-29
-**Demo Version**: v2.0-tahakum-enterprise
-**Status**: ✅ READY FOR DEMO
+**Last Updated**: 2025-12-30
+**Version**: v2.1-production
+**Status**: ✅ PRODUCTION-READY (Deployed on Vercel)
 **Design**: ✅ PREMIUM ENTERPRISE AESTHETIC
-**Features**: ✅ ALL CLIENT DECK PROMISES DELIVERED
+**Performance**: ✅ CACHING SYSTEM ACTIVE
+**Features**: ✅ ALL CLIENT REQUIREMENTS DELIVERED
+
+## Recent Updates (Dec 30, 2025)
+1. ✅ Merged tahakum-demo branch to main
+2. ✅ Implemented file-based caching system
+3. ✅ Enhanced 5-pillar analysis with 3 parallel web searches
+4. ✅ Added force refresh option
+5. ✅ Refined design: color-only-for-status principle
+6. ✅ Removed purple/teal decorative colors
+7. ✅ Simplified badge system (slate for metadata, colors for status)
 
 ---
 
@@ -640,13 +687,15 @@ Cmd+Shift+R (Mac) or Ctrl+Shift+R (Windows)
 
 If you're picked up by a future Claude session, here's what you need to know:
 
-1. **This is a demo**, not production - mock data is intentional
-2. **Premium design is critical** - no teal colors, keep slate palette
-3. **Saudi market focus** - 8 vendors pre-populated with regional companies
-4. **Three-page app**: Landing (assessment), Portfolio (dashboard), Vendor Detail (reports)
-5. **Key differentiators**: CAPA recommendations + Contract Playbook (not just scores)
-6. **Don't over-engineer** - keep it simple, focused on demo value
-7. **Client materials shared** - they've seen the deck and sample report, demo must match
-8. **Design inspiration**: Stripe, Linear, Notion - not Anthropic Claude colors!
+1. **Production app** deployed on Vercel - main branch is live
+2. **Caching system** is active - assessments are cached in `backend/data/assessments/`
+3. **Premium design is critical** - color only for status, not decoration
+4. **Saudi market focus** - 8 vendors pre-populated, Tahakum is primary client
+5. **Multi-page app**: Landing (assessment), Portfolio (dashboard), Vendor Detail (reports), Report Viewer (full HTML)
+6. **Key differentiators**: CAPA recommendations + Contract Playbook + 5-Pillar Intelligence
+7. **Design inspiration**: Stripe, Linear, GitHub - minimal, professional, data-focused
+8. **Color philosophy**: Slate for metadata, status colors (green/amber/red) for indicators only
+9. **Don't add illustrations** - keep it data-focused, not decorative
+10. **Keep it simple** - no over-engineering, focus on demo and production value
 
-Good luck with the demo! 🚀
+Good luck with demos and development! 🚀
