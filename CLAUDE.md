@@ -162,6 +162,56 @@
 
 ---
 
+## Sales Demo Guide (Updated Dec 30, 2025)
+
+### **Primary Demo URL**: http://localhost:5173/portfolio
+
+### Recommended Demo Flow (15 min)
+
+**1. Start at Portfolio Page** - Primary showcase
+   - Hero: "Transform 90-day assessments → 24-48 hours"
+   - Featured Reports: "See What You Receive" - Click Palantir/Plug Power to show depth
+   - How It Works: 3-step visual (Send names → AI analyzes → Get reports)
+   - Portfolio Table: Continuous monitoring after assessment
+
+**2. Optional: Live Demo** - http://localhost:5173/
+   - "Live Demo" badge shows AI capability in real-time
+   - Before/After comparison (Traditional vs Spectrum)
+   - Run assessment with well-known company (TSMC, Siemens)
+
+### Key Sales Messages (Built Into UI)
+- ✅ **"24-48 hours vs 90+ days"** - Speed differentiation
+- ✅ **"Beyond scores"** - CAPA plans + Contract Playbooks
+- ✅ **"No platform training"** - Reports-as-a-Service model
+- ✅ **"5 critical pillars"** - Comprehensive forensic analysis
+- ✅ **"Continuous monitoring"** - Not point-in-time snapshots
+
+### Demo Talking Points
+**Positioning:**
+- "We sell comprehensive intelligence REPORTS, not software"
+- "Send us vendor names → We deliver reports in 24-48 hours"
+- "Phase 1: Reports-as-a-Service, Phase 2: Platform access as you scale"
+
+**Value Props:**
+- Replaces 90-day manual process
+- $15-20K traditional cost → Fixed per-report pricing
+- Evidence-based analysis with audit trails
+- Actionable: CAPA recommendations + Risk-based contract clauses
+
+**Common Objections:**
+- *"We use [competitor]"* → "We're augmenting with autonomous intelligence, not replacing questionnaires"
+- *"Do we get platform access?"* → "Start with reports to prove value, then scale to platform"
+- *"How accurate?"* → [Show full report with evidence sources]
+
+### Pre-Demo Checklist
+- [ ] Backend running (port 3001)
+- [ ] Frontend running (port 5173)
+- [ ] Navigate: Portfolio → Click featured report → Back
+- [ ] Test live assessment (one quick company)
+- [ ] Close unnecessary tabs
+
+---
+
 ## Design System (Updated Dec 2025)
 
 ### Premium Color Palette
