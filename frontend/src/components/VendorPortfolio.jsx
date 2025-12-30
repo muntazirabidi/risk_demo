@@ -8,20 +8,27 @@ function VendorPortfolio() {
   const [filterStatus, setFilterStatus] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [liveVendors, setLiveVendors] = useState([]);
+  const [hiddenMockVendors, setHiddenMockVendors] = useState([]);
+  const [showHidden, setShowHidden] = useState(false);
 
-  // Load live vendors from localStorage on mount
+  // Load live vendors and hidden mock vendors from localStorage on mount
   useEffect(() => {
-    const loadLiveVendors = () => {
-      const stored = localStorage.getItem('liveVendors');
-      if (stored) {
-        setLiveVendors(JSON.parse(stored));
+    const loadData = () => {
+      const storedLive = localStorage.getItem('liveVendors');
+      if (storedLive) {
+        setLiveVendors(JSON.parse(storedLive));
+      }
+
+      const storedHidden = localStorage.getItem('hiddenMockVendors');
+      if (storedHidden) {
+        setHiddenMockVendors(JSON.parse(storedHidden));
       }
     };
-    loadLiveVendors();
+    loadData();
 
     // Listen for storage changes (if multiple tabs)
-    window.addEventListener('storage', loadLiveVendors);
-    return () => window.removeEventListener('storage', loadLiveVendors);
+    window.addEventListener('storage', loadData);
+    return () => window.removeEventListener('storage', loadData);
   }, []);
 
   // Remove a live vendor from portfolio
@@ -31,8 +38,28 @@ function VendorPortfolio() {
     localStorage.setItem('liveVendors', JSON.stringify(updated));
   };
 
+  // Hide a mock vendor
+  const hideMockVendor = (vendorId) => {
+    if (!hiddenMockVendors.includes(vendorId)) {
+      const updated = [...hiddenMockVendors, vendorId];
+      setHiddenMockVendors(updated);
+      localStorage.setItem('hiddenMockVendors', JSON.stringify(updated));
+    }
+  };
+
+  // Restore a hidden mock vendor
+  const restoreMockVendor = (vendorId) => {
+    const updated = hiddenMockVendors.filter(id => id !== vendorId);
+    setHiddenMockVendors(updated);
+    localStorage.setItem('hiddenMockVendors', JSON.stringify(updated));
+  };
+
+  // Filter out hidden mock vendors
+  const visibleMockVendors = mockVendors.filter(v => !hiddenMockVendors.includes(v.id));
+  const hiddenVendorsList = mockVendors.filter(v => hiddenMockVendors.includes(v.id));
+
   // Combine and sort vendors: Full Reports first, then Recently Assessed, then Samples
-  const allVendors = [...liveVendors, ...mockVendors].sort((a, b) => {
+  const allVendors = [...liveVendors, ...visibleMockVendors].sort((a, b) => {
     // Priority 1: Full Report vendors (highest priority)
     if (a.fullReport && !b.fullReport) return -1;
     if (!a.fullReport && b.fullReport) return 1;
@@ -48,8 +75,8 @@ function VendorPortfolio() {
   });
 
   // Separate featured vendors (with full reports) from sample vendors
-  const featuredVendors = mockVendors.filter(vendor => vendor.fullReport === true);
-  const sampleVendors = mockVendors.filter(vendor => !vendor.fullReport);
+  const featuredVendors = visibleMockVendors.filter(vendor => vendor.fullReport === true);
+  const sampleVendors = visibleMockVendors.filter(vendor => !vendor.fullReport);
 
   const filteredVendors = allVendors.filter(vendor => {
     const matchesStatus = filterStatus === 'all' || vendor.status.toLowerCase() === filterStatus.toLowerCase();
@@ -456,19 +483,31 @@ function VendorPortfolio() {
                         Remove ×
                       </button>
                     ) : (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          if (vendor.fullReport) {
-                            navigate(`/report/${vendor.id}`);
-                          } else {
-                            navigate(`/portfolio/${vendor.id}`);
-                          }
-                        }}
-                        className="text-[10px] font-medium text-black opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-wider"
-                      >
-                        {vendor.fullReport ? 'View Full Report →' : 'View →'}
-                      </button>
+                      <div className="flex items-center gap-2 justify-end">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            hideMockVendor(vendor.id);
+                          }}
+                          className="px-2 py-1 text-[10px] font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors uppercase tracking-wider opacity-0 group-hover:opacity-100"
+                          title="Hide from portfolio"
+                        >
+                          Hide
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (vendor.fullReport) {
+                              navigate(`/report/${vendor.id}`);
+                            } else {
+                              navigate(`/portfolio/${vendor.id}`);
+                            }
+                          }}
+                          className="text-[10px] font-medium text-black opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-wider"
+                        >
+                          {vendor.fullReport ? 'View Full Report →' : 'View →'}
+                        </button>
+                      </div>
                     )}
                   </td>
                 </tr>
@@ -489,6 +528,94 @@ function VendorPortfolio() {
             >
               Clear filters
             </button>
+          </div>
+        )}
+
+        {/* Hidden Vendors Section */}
+        {hiddenVendorsList.length > 0 && (
+          <div className="mt-8">
+            <button
+              onClick={() => setShowHidden(!showHidden)}
+              className="flex items-center gap-2 text-xs font-medium text-gray-500 hover:text-gray-700 uppercase tracking-wider mb-4"
+            >
+              <svg
+                className={`w-4 h-4 transition-transform ${showHidden ? 'rotate-90' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+              Hidden Vendors ({hiddenVendorsList.length})
+            </button>
+
+            {showHidden && (
+              <div className="border border-gray-200">
+                <table className="w-full">
+                  <thead>
+                    <tr className="bg-gray-50 border-b border-gray-200">
+                      <th className="px-6 py-3 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">
+                        Vendor
+                      </th>
+                      <th className="px-6 py-3 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">
+                        Industry
+                      </th>
+                      <th className="px-6 py-3 text-right text-[10px] font-medium text-gray-500 uppercase tracking-wider">
+                        Risk
+                      </th>
+                      <th className="px-6 py-3 text-center text-[10px] font-medium text-gray-500 uppercase tracking-wider">
+                        Status
+                      </th>
+                      <th className="px-6 py-3 text-right text-[10px] font-medium text-gray-500 uppercase tracking-wider">
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {hiddenVendorsList.map((vendor) => (
+                      <tr key={vendor.id} className="hover:bg-gray-50 transition-colors group">
+                        <td className="px-6 py-4">
+                          <div className="flex items-center gap-2">
+                            <div>
+                              <div className="font-medium text-sm text-gray-400">{vendor.name}</div>
+                              <div className="text-xs text-gray-400">{vendor.location}</div>
+                            </div>
+                            {vendor.fullReport && (
+                              <span className="px-1.5 py-0.5 bg-gray-300 text-gray-600 text-[9px] font-medium uppercase tracking-wider">
+                                Full Report
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="text-xs text-gray-400">{vendor.industry}</div>
+                        </td>
+                        <td className="px-6 py-4 text-right">
+                          <div className="text-2xl font-light text-gray-400">
+                            {vendor.riskScore}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex justify-center">
+                            <span className="inline-flex px-2 py-0.5 text-[10px] font-medium border uppercase tracking-wider text-gray-400 bg-gray-50 border-gray-200">
+                              {vendor.status}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-right">
+                          <button
+                            onClick={() => restoreMockVendor(vendor.id)}
+                            className="px-2 py-1 text-[10px] font-medium text-green-600 hover:text-green-800 hover:bg-green-50 transition-colors uppercase tracking-wider"
+                            title="Restore to portfolio"
+                          >
+                            Restore
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         )}
       </div>

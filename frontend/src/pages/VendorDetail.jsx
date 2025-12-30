@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { mockVendors } from '../data/mockVendors';
 import RiskDashboard from '../components/RiskDashboard';
+import Logo from '../components/Logo';
 
 function VendorDetail() {
   const { vendorId } = useParams();
@@ -135,14 +136,9 @@ function VendorDetail() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-slate-900"></div>
-                <div className="w-2 h-2 rounded-full bg-slate-600"></div>
-                <div className="w-2 h-2 rounded-full bg-slate-400"></div>
-              </div>
+              <Logo />
               <div className="border-l border-slate-200 pl-3">
-                <h1 className="text-xl font-semibold text-slate-900 tracking-tight">Spectrum</h1>
-                <p className="text-xs text-slate-500 font-medium">Vendor Due Diligence</p>
+                <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Vendor Intelligence</p>
               </div>
             </div>
             <div className="flex items-center gap-3">

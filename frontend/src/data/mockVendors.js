@@ -56,10 +56,10 @@ export const mockVendors = [
     reportUrl: '/reports/plugpower-report.html'
   },
   {
-    id: 'techvendor-featured',
-    name: 'TechVendor Solutions Inc.',
-    industry: 'IT Services & Solutions',
-    location: 'San Francisco, California, USA',
+    id: 'servicenow-featured',
+    name: 'ServiceNow, Inc.',
+    industry: 'Enterprise Software & Cloud Services',
+    location: 'Santa Clara, California, USA',
     riskScore: 78,
     status: 'qualified',
     tier: 'Tier 1',
@@ -76,10 +76,10 @@ export const mockVendors = [
       sanctions: 85,
       cybersecurity: 82
     },
-    summary: 'Comprehensive IT solutions provider with solid financial health and moderate risk profile across all pillars.',
+    summary: 'Leading enterprise cloud platform provider with strong financial health, comprehensive security controls, and solid ESG practices.',
     criticality: 'Medium',
     fullReport: true,
-    reportUrl: '/reports/techvendor-report.html'
+    reportUrl: '/reports/servicenow-report.html'
   },
 
   // SAMPLE VENDORS - Mock data for demo purposes
