@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
 
-const LOADING_MESSAGES = [
-  { message: 'Searching financial databases...', duration: 3000 },
-  { message: 'Analyzing credit data...', duration: 4000 },
-  { message: 'Evaluating market position...', duration: 4000 },
-  { message: 'Assessing operational risks...', duration: 4000 },
-  { message: 'Reviewing business continuity...', duration: 3000 },
-  { message: 'Generating comprehensive report...', duration: 5000 },
+// Dynamic messages that include company name
+const getLoadingMessages = (companyName) => [
+  { message: `Searching financial databases for ${companyName}...`, icon: '💰', duration: 3000 },
+  { message: `Analyzing ${companyName}'s credit profile...`, icon: '📊', duration: 4000 },
+  { message: `Evaluating market position & competitors...`, icon: '🎯', duration: 4000 },
+  { message: `Assessing operational & supply chain risks...`, icon: '⚙️', duration: 4000 },
+  { message: `Reviewing compliance & certifications...`, icon: '✅', duration: 3000 },
+  { message: `Generating comprehensive risk report...`, icon: '📋', duration: 5000 },
 ];
 
-export default function LoadingState() {
+export default function LoadingState({ companyName = 'company' }) {
+  const LOADING_MESSAGES = getLoadingMessages(companyName);
   const [currentStep, setCurrentStep] = useState(0);
   const [progress, setProgress] = useState(0);
 
@@ -38,15 +40,15 @@ export default function LoadingState() {
     <div className="max-w-3xl mx-auto animate-fade-in">
       <div className="card relative overflow-hidden">
         {/* Background gradient animation */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 opacity-50"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-teal-50 via-white to-slate-50 opacity-50"></div>
 
         <div className="relative z-10">
           {/* Animated Icon */}
           <div className="flex justify-center mb-8">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full opacity-20 animate-ping"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full opacity-30 animate-ping" style={{ animationDelay: '0.5s' }}></div>
-              <div className="relative bg-gradient-to-br from-blue-600 to-blue-700 rounded-full p-5 shadow-2xl shadow-blue-500/50">
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-500 to-teal-600 rounded-full opacity-20 animate-ping"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-400 to-teal-500 rounded-full opacity-30 animate-ping" style={{ animationDelay: '0.5s' }}></div>
+              <div className="relative bg-gradient-to-br from-teal-600 to-teal-700 rounded-full p-5 shadow-2xl shadow-teal-500/50">
                 <svg
                   className="w-14 h-14 text-white animate-pulse"
                   fill="none"
@@ -65,35 +67,38 @@ export default function LoadingState() {
           </div>
 
           {/* Title */}
-          <h2 className="text-3xl font-bold text-gray-900 text-center mb-2">
-            Analyzing Risk Profile
+          <h2 className="text-3xl font-bold text-slate-900 text-center mb-2">
+            Analyzing <span className="bg-gradient-to-r from-teal-600 to-teal-700 bg-clip-text text-transparent">{companyName}</span>
           </h2>
-          <p className="text-center text-gray-500 text-sm mb-6">
-            Gathering intelligence from multiple sources
+          <p className="text-center text-slate-500 text-sm mb-6">
+            Our AI agents are gathering intelligence from multiple sources
           </p>
 
-          {/* Current Step Message */}
-          <p className="text-center text-gray-600 font-medium mb-8 h-6 transition-all duration-300">
-            {LOADING_MESSAGES[currentStep].message}
-          </p>
+          {/* Current Step Message with Icon */}
+          <div className="flex items-center justify-center gap-3 mb-8 h-8 transition-all duration-300">
+            <span className="text-2xl animate-bounce">{LOADING_MESSAGES[currentStep].icon}</span>
+            <p className="text-slate-700 font-semibold">
+              {LOADING_MESSAGES[currentStep].message}
+            </p>
+          </div>
 
           {/* Progress Bar */}
           <div className="mb-8">
-            <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden shadow-inner">
+            <div className="w-full bg-slate-200 rounded-full h-3 overflow-hidden shadow-inner">
               <div
-                className="bg-gradient-to-r from-blue-600 via-blue-500 to-purple-600 h-3 rounded-full transition-all duration-300 ease-out shadow-lg"
+                className="bg-gradient-to-r from-teal-600 via-teal-500 to-emerald-500 h-3 rounded-full transition-all duration-300 ease-out shadow-lg"
                 style={{ width: `${Math.min(progress, 95)}%` }}
               ></div>
             </div>
-            <div className="flex justify-between mt-2 text-xs text-gray-500">
+            <div className="flex justify-between mt-2 text-xs text-slate-500">
               <span>Starting...</span>
-              <span className="font-semibold text-blue-600">{Math.min(progress, 95)}%</span>
+              <span className="font-semibold text-teal-600">{Math.min(progress, 95)}%</span>
               <span>Complete</span>
             </div>
           </div>
 
           {/* Step Indicators */}
-          <div className="flex justify-between items-center text-xs text-gray-500 mb-6">
+          <div className="flex justify-between items-center text-xs text-slate-500 mb-6">
             {LOADING_MESSAGES.map((step, index) => (
               <div
                 key={index}
@@ -104,10 +109,10 @@ export default function LoadingState() {
                 <div
                   className={`w-9 h-9 rounded-full flex items-center justify-center mb-1 transition-all duration-300 ${
                     index < currentStep
-                      ? 'bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg'
+                      ? 'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg'
                       : index === currentStep
-                      ? 'bg-gradient-to-br from-blue-600 to-blue-700 text-white animate-pulse shadow-lg shadow-blue-500/50'
-                      : 'bg-gray-200 text-gray-500 border-2 border-gray-300'
+                      ? 'bg-gradient-to-br from-teal-600 to-teal-700 text-white animate-pulse shadow-lg shadow-teal-500/50'
+                      : 'bg-slate-200 text-slate-500 border-2 border-slate-300'
                   }`}
                 >
                   {index < currentStep ? (
@@ -127,8 +132,8 @@ export default function LoadingState() {
           </div>
 
           {/* Estimated Time */}
-          <div className="text-center bg-blue-50 border border-blue-100 rounded-lg py-3 px-4">
-            <p className="text-sm text-blue-800 font-medium flex items-center justify-center gap-2">
+          <div className="text-center bg-teal-50 border border-teal-100 rounded-lg py-3 px-4">
+            <p className="text-sm text-teal-800 font-medium flex items-center justify-center gap-2">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>

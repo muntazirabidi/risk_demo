@@ -18,6 +18,7 @@ export default function AssessmentForm({ onSubmit, isLoading, initialData = null
     companyName: initialData?.companyName || '',
     industry: initialData?.industry || '',
     location: initialData?.location || '',
+    forceRefresh: false,
   });
 
   // Update form when initialData changes (when quick demo button is clicked)
@@ -27,6 +28,7 @@ export default function AssessmentForm({ onSubmit, isLoading, initialData = null
         companyName: initialData.companyName || initialData.name || '',
         industry: initialData.industry || '',
         location: initialData.location || '',
+        forceRefresh: false,
       });
     }
   }, [initialData]);
@@ -46,21 +48,16 @@ export default function AssessmentForm({ onSubmit, isLoading, initialData = null
 
   return (
     <form onSubmit={handleSubmit} className="max-w-3xl mx-auto animate-fade-in">
-      <div className="relative overflow-hidden card space-y-6 bg-gradient-to-br from-white via-blue-50/20 to-white border-2 border-blue-100/50">
-        {/* Subtle corner accent */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-100/40 to-transparent rounded-bl-full"></div>
-        <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-purple-100/40 to-transparent rounded-tr-full"></div>
-
-        <div className="relative z-10 border-b border-blue-100 pb-4">
-          <h2 className="text-xl font-bold text-gray-900 mb-1">
+      <div className="bg-white border border-slate-200 rounded-lg p-8 shadow-sm space-y-6">
+        <div className="border-b border-slate-200 pb-4">
+          <h2 className="text-xl font-bold text-slate-900 mb-1">
             Or enter any company
           </h2>
         </div>
 
         {/* Company Name */}
-        <div className="relative z-10">
-          <label htmlFor="companyName" className="block text-sm font-bold text-gray-700 mb-2 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+        <div>
+          <label htmlFor="companyName" className="block text-sm font-bold text-slate-700 mb-2">
             Company Name <span className="text-red-500">*</span>
           </label>
           <input
@@ -79,10 +76,9 @@ export default function AssessmentForm({ onSubmit, isLoading, initialData = null
         </div>
 
         {/* Industry */}
-        <div className="relative z-10">
-          <label htmlFor="industry" className="block text-sm font-bold text-gray-700 mb-2 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
-            Industry <span className="text-gray-400 font-normal">(optional)</span>
+        <div>
+          <label htmlFor="industry" className="block text-sm font-bold text-slate-700 mb-2">
+            Industry <span className="text-slate-400 font-normal">(optional)</span>
           </label>
           <select
             id="industry"
@@ -104,7 +100,7 @@ export default function AssessmentForm({ onSubmit, isLoading, initialData = null
         {/* Location */}
         <div className="relative z-10">
           <label htmlFor="location" className="block text-sm font-bold text-gray-700 mb-2 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-teal-500"></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
             Location/Country <span className="text-gray-400 font-normal">(optional)</span>
           </label>
           <input
@@ -120,12 +116,33 @@ export default function AssessmentForm({ onSubmit, isLoading, initialData = null
           />
         </div>
 
+        {/* Force Refresh Option */}
+        <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+          <label className="flex items-start gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={formData.forceRefresh}
+              onChange={(e) => setFormData({ ...formData, forceRefresh: e.target.checked })}
+              disabled={isLoading}
+              className="mt-1 w-4 h-4 text-slate-900 border-slate-300 rounded focus:ring-slate-500"
+            />
+            <div className="flex-1">
+              <div className="text-sm font-semibold text-slate-900 mb-1">
+                Force new assessment
+              </div>
+              <div className="text-xs text-slate-600">
+                Bypass cache and run fresh analysis (useful if you need updated data or ran assessment earlier today)
+              </div>
+            </div>
+          </label>
+        </div>
+
         {/* Submit Button */}
-        <div className="relative z-10">
+        <div>
           <button
             type="submit"
             disabled={!formData.companyName.trim() || isLoading}
-            className="w-full btn-primary text-lg py-4 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="w-full bg-slate-900 text-white rounded-lg text-lg py-4 font-semibold hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-sm transition-all duration-200"
           >
           {isLoading ? (
             <>

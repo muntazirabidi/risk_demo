@@ -1,6 +1,7 @@
 import express from 'express';
 import { assessCompanyRisk } from '../services/riskAgent.js';
 import { assessmentLimiter } from '../middleware/rateLimiter.js';
+import { getCachedAssessment, saveAssessmentToCache } from '../services/cacheService.js';
 
 const router = express.Router();
 
@@ -50,12 +51,16 @@ function sanitizeOptionalString(value, maxLength = 100) {
  * {
  *   companyName: string (required),
  *   industry: string (optional),
- *   location: string (optional)
+ *   location: string (optional),
+ *   forceRefresh: boolean (optional, default: false)
  * }
+ *
+ * Query parameters:
+ * - forceRefresh=true : Bypass cache and run fresh assessment
  */
 router.post('/assess-risk', assessmentLimiter, async (req, res) => {
   try {
-    const { companyName, industry, location } = req.body;
+    const { companyName, industry, location, forceRefresh } = req.body;
 
     // Sanitize and validate inputs
     const sanitizedName = sanitizeCompanyName(companyName);
@@ -74,14 +79,61 @@ router.post('/assess-risk', assessmentLimiter, async (req, res) => {
     console.log(`Company: ${sanitizedName}`);
     console.log(`Industry: ${sanitizedIndustry || 'Not specified'}`);
     console.log(`Location: ${sanitizedLocation || 'Not specified'}`);
+    console.log(`Force Refresh: ${forceRefresh ? 'YES' : 'NO'}`);
     console.log(`IP: ${req.ip}`);
     console.log(`Time: ${new Date().toISOString()}`);
 
-    // Execute risk assessment
+    // Check cache first (unless force refresh is requested)
+    if (!forceRefresh) {
+      console.log('\nChecking cache...');
+      const cachedData = await getCachedAssessment(
+        sanitizedName,
+        sanitizedIndustry,
+        sanitizedLocation
+      );
+
+      if (cachedData) {
+        console.log('✓ Returning cached assessment (no API calls made)');
+        console.log(`   Risk Score: ${cachedData.data.overallRiskScore}/100`);
+        console.log(`   Findings: ${cachedData.data.findings.length}\n`);
+
+        // Mark metadata as cached
+        const cachedMetadata = {
+          ...cachedData.metadata,
+          cached: true,
+          originalAssessmentDate: cachedData.metadata.assessmentTimestamp
+        };
+
+        return res.status(200).json({
+          success: true,
+          data: cachedData.data,
+          metadata: cachedMetadata,
+        });
+      }
+    } else {
+      console.log('\n⟳ Force refresh requested - bypassing cache');
+    }
+
+    // Execute risk assessment (cache miss or force refresh)
     const assessment = await assessCompanyRisk(
       sanitizedName,
       sanitizedIndustry,
       sanitizedLocation
+    );
+
+    // Save to cache for future requests
+    await saveAssessmentToCache(
+      sanitizedName,
+      sanitizedIndustry,
+      sanitizedLocation,
+      {
+        overallRiskScore: assessment.overallRiskScore,
+        riskLevel: assessment.riskLevel,
+        executiveSummary: assessment.executiveSummary,
+        assessmentDate: assessment.assessmentDate,
+        findings: assessment.findings,
+      },
+      assessment.metadata
     );
 
     // Return successful response
@@ -94,7 +146,10 @@ router.post('/assess-risk', assessmentLimiter, async (req, res) => {
         assessmentDate: assessment.assessmentDate,
         findings: assessment.findings,
       },
-      metadata: assessment.metadata,
+      metadata: {
+        ...assessment.metadata,
+        cached: false
+      },
     });
 
   } catch (error) {

@@ -11,52 +11,44 @@ VENDOR UNDER ASSESSMENT: ${companyName}
 Industry: ${industry || 'Not specified'}
 Location: ${location || 'Not specified'}
 
-MISSION: Conduct comprehensive vendor due diligence to help procurement leaders make informed decisions about supplier relationships, contract terms, and risk mitigation strategies.
+MISSION: Conduct autonomous AI-powered vendor due diligence across all FIVE CRITICAL PILLARS to help procurement leaders make informed decisions about supplier relationships, contract terms, and risk mitigation strategies.
 
-VENDOR DUE DILIGENCE FRAMEWORK:
-Evaluate these critical procurement dimensions:
+===== FIVE PILLARS OF VENDOR INTELLIGENCE =====
 
-1. FINANCIAL STABILITY & CREDITWORTHINESS
-   - Altman Z-Score indicators (bankruptcy probability)
-   - Credit ratings (D&B, S&P, Moody's)
-   - Cash position and liquidity ratios
-   - Revenue trends and profitability
-   - Debt levels and leverage
+PILLAR 1: FINANCIAL HEALTH
+   → Viability analysis and going-concern indicators
+   → Liquidity assessment (cash flow, working capital, debt levels)
+   → Bankruptcy signals (Altman Z-Score, credit downgrades)
+   → Revenue trends and profitability (QoQ, YoY changes with specific %)
+   → Payment risk: Can they fulfill long-term contracts?
 
-2. OPERATIONAL RELIABILITY
-   - Production capacity and utilization
-   - Quality certifications (ISO, SOC2, etc.)
-   - Historical delivery performance
-   - Workforce stability (layoffs, strikes)
-   - Technology and infrastructure investments
+PILLAR 2: ESG & SUSTAINABILITY
+   → Carbon emissions tracking and reduction commitments
+   → CSRD/LkSG alignment (EU supply chain due diligence laws)
+   → Environmental compliance violations and fines
+   → Sustainability commitments vs. actual performance
+   → Greenwashing accusations or ESG controversies
 
-3. SUPPLY CHAIN RESILIENCE
-   - Geographic concentration risks
-   - Single-source dependencies
-   - Tier-2/Tier-3 supplier exposure
-   - Inventory management practices
-   - Business continuity planning
+PILLAR 3: HUMAN RIGHTS & ETHICS
+   → Modern slavery screening and forced labor indicators
+   → UFLPA compliance (Uyghur Forced Labor Prevention Act)
+   → Labor practice verification (working conditions, wages, safety)
+   → Ethical sourcing and supply chain traceability
+   → Child labor, discrimination, or worker exploitation incidents
 
-4. LEGAL & COMPLIANCE
-   - Regulatory compliance status
-   - Active litigation and disputes
-   - Sanctions and watchlist screening
-   - Environmental and labor practices
-   - Data security certifications
+PILLAR 4: SANCTIONS & ANTI-BRIBERY
+   → Real-time OFAC/UN/EU sanctions monitoring
+   → Corruption risk scoring and bribery cases
+   → Enforcement action tracking (SEC, DOJ, international bodies)
+   → Export control violations (ITAR, EAR breaches)
+   → Politically exposed persons (PEP) and beneficial ownership risks
 
-5. MARKET POSITION & COMPETITIVE STANDING
-   - Market share and competitive moat
-   - Customer concentration risks
-   - Innovation and R&D investment
-   - Industry reputation and references
-   - Pricing power and stability
-
-6. STRATEGIC ALIGNMENT
-   - M&A activity and ownership changes
-   - Management stability
-   - Long-term viability outlook
-   - ESG and sustainability practices
-   - Partnership and collaboration track record
+PILLAR 5: CYBERSECURITY
+   → Security posture evaluation (SOC2, ISO 27001 certifications)
+   → Data breach history and incident response capability
+   → Ransomware attacks and hack incidents (specific dates)
+   → Threat intelligence and vulnerability disclosures
+   → IT infrastructure resilience and business continuity
 
 VENDOR VIABILITY SCORE (0-100):
 - 90-100: APPROVED - Preferred Vendor (Excellent stability, recommend multi-year contracts)
@@ -85,71 +77,158 @@ Return a valid JSON object with this exact structure:
     {
       "riskIndicator": "<Short name of the risk or strength>",
       "title": "<Headline summarizing the finding>",
-      "description": "<2-3 sentences with QUANTIFIED impact: Include specific numbers, percentages, dollar amounts, timeframes. Example: 'Revenue declined 15% ($2.3B to $1.96B) in Q3 2024'>",
+      "description": "<COMPREHENSIVE RISK STORY (4-6 sentences): Tell the FULL story with context, impact, and implications. Structure: (1) What happened and when, (2) Specific quantified impact with numbers/percentages/dollars, (3) Why this matters to procurement, (4) Current status or ongoing concerns. Example: 'Boeing reported a net loss of $11.83 billion for 2024, marking its largest loss since 2020. The losses were primarily driven by a prolonged machinists strike that disrupted production of the 737 Max, 777, and 767 aircraft for seven weeks, costing nearly $3 billion in charges. Production delays and quality control issues have led to significant delivery backlogs, with over 4,500 aircraft on order but limited near-term delivery capacity. For procurement teams, this indicates potential supply chain disruption risks and delivery timeline uncertainty for any Boeing-dependent contracts.'>"
       "evidenceUrl": "<REQUIRED: Direct URL to the source article/report. NEVER use 'Multiple sources' - provide the primary source URL>",
       "evidenceTitle": "<Title of the source article/report>",
       "assessmentDate": "<YYYY-MM-DD>",
       "riskLevel": "<Critical|High|Medium|Low|Positive>",
-      "quantifiedImpact": "<Specific number/percentage of financial impact. Examples: '-$2.3B revenue', '+15% debt', '-25% stock price', '$500M loss'>",
-      "financialImpact": "<Supply Disruption Risk|Payment Default Risk|Price Volatility Risk|Contract Breach Risk|Delivery Delay Risk|Stable Partnership|Competitive Advantage>",
-      "category": "<Financial Stability|Operational Reliability|Supply Chain|Legal & Compliance|Market Position|Strategic>",
-      "procurementImplication": "<Direct impact on procurement: e.g., 'May require payment in advance', 'Dual-sourcing recommended', 'Safe for long-term contracts'>"
+      "quantifiedImpact": "<Specific number/percentage of financial impact. Examples: '-$2.3B revenue', '+15% debt', '-25% stock price', '$500M loss', '$2.5M fine', '50K customers affected'>",
+      "financialImpact": "<Supply Disruption Risk|Payment Default Risk|Price Volatility Risk|Contract Breach Risk|Delivery Delay Risk|Reputational Risk|Regulatory Risk|Stable Partnership|Competitive Advantage>",
+      "category": "<Financial Health|ESG & Sustainability|Human Rights & Ethics|Sanctions & Anti-Bribery|Cybersecurity>",
+      "pillar": "<1-Financial|2-ESG|3-Human Rights|4-Sanctions|5-Cybersecurity>",
+      "procurementImplication": "<Direct impact on procurement: e.g., 'May require payment in advance', 'Dual-sourcing recommended', 'Safe for long-term contracts', 'Enhanced due diligence required', 'Reputational risk to buyer'>"
     }
   ]
 }
 
 CRITICAL REQUIREMENTS FOR VENDOR DUE DILIGENCE:
 - Return ONLY valid JSON, no markdown code blocks or explanations
-- Include 6-10 findings covering different vendor risk dimensions
+- Include 8-12 findings covering ALL FIVE PILLARS (spread across Financial, ESG, Human Rights, Sanctions, Cybersecurity)
 - MANDATORY: Every finding MUST have a real, working evidenceUrl (direct link to source)
 - MANDATORY: Include evidenceTitle (title of the source article)
-- MANDATORY: Quantify ALL impacts with specific numbers (revenue $, %, timeframes)
+- MANDATORY: Quantify ALL impacts with specific numbers (revenue $, %, timeframes, fines, people affected)
 - MANDATORY: Include procurementImplication for each finding (actionable for buyers)
-- Focus on information relevant to PROCUREMENT DECISIONS
-- Prioritize recent information (2024-2025)
-- Be specific: "Revenue fell 23% ($4.2B to $3.2B)" NOT "Revenue declined significantly"
-- Include dates for all events: "Q3 2024", "January 2025", "FY 2024"
-- Think like a procurement leader: What would I need to know before signing a contract?`;
+- MANDATORY: Assign each finding to the correct "pillar" (1-Financial, 2-ESG, 3-Human Rights, 4-Sanctions, 5-Cybersecurity)
+
+FOCUS ON RED FLAGS & CONTROVERSIES:
+- Prioritize NEGATIVE findings: violations, fines, scandals, breaches, incidents, lawsuits
+- Look for: "fined $X", "violated", "breach affecting X customers", "sued for $X", "sanctioned", "forced labor found"
+- Recent incidents (2023-2025) are CRITICAL - these are active procurement risks
+- Include POSITIVE findings too, but balance should favor risk identification
+
+DESCRIPTION WRITING REQUIREMENTS:
+Write COMPREHENSIVE RISK STORIES (4-6 sentences each), not bullet points:
+
+Structure each description:
+1. Opening: "What happened" with specific date/timeframe
+2. Impact: Quantified consequences with exact numbers/percentages/dollars
+3. Context: Why this occurred, contributing factors, or background
+4. Procurement Impact: What this means for buyers/contract decisions
+5. Status: Current situation, ongoing concerns, or resolution
+
+GOOD EXAMPLE (Comprehensive):
+"Boeing reported a net loss of $11.83 billion for 2024, marking its largest annual loss since 2020. The losses were primarily driven by a seven-week machinists' strike that disrupted production of the 737 Max, 777, and 767 aircraft, resulting in nearly $3 billion in charges and significant delivery delays. Production halts and quality control issues have created a backlog of over 4,500 aircraft orders with limited near-term delivery capacity. For procurement teams considering Boeing as a supplier or partner, this indicates elevated supply chain disruption risks, potential timeline uncertainty, and the need for dual-sourcing strategies. The company is currently working to stabilize production, but delivery schedules remain uncertain through 2025."
+
+BAD EXAMPLE (Too short):
+"Boeing reported losses of $11.83B in 2024 due to strikes and production issues."
+
+QUANTIFICATION EXAMPLES - Always include in descriptions:
+- "Fined $2.5M for GDPR violations affecting 50K customers (May 2024)"
+- "Revenue declined 23% YoY ($4.2B to $3.2B) in Q3 2024"
+- "Stock price fell 35% following ransomware attack (March 2024)"
+- "Lost 3 major contracts worth $180M after ESG scandal (January 2025)"
+- "Plant shutdown affected 30% of production capacity for 6 weeks"
+
+PROCUREMENT-FIRST MINDSET:
+- Think: "If I'm signing a $5M contract with this vendor, what could go wrong?"
+- Ask: "Would my board approve this vendor given these risks?"
+- Consider: "What would regulators ask during an audit?"
+- Remember: Procurement teams need EVIDENCE to defend their decisions`;
 }
 
 /**
- * Stage 1: Research Phase - Use Responses API with Real Web Search
+ * Stage 1: Research Phase - THREE Parallel Web Searches for Comprehensive Due Diligence
+ * Each search focuses on different risk dimensions aligned with the Five Pillars framework
  */
 async function gatherCompanyInformation(companyName, industry, location) {
-  console.log('Stage 1: Using OpenAI Responses API with real web search...');
+  console.log('Stage 1: Launching 3 parallel web searches for comprehensive due diligence...\n');
 
-  const searchQuery = `Search the web for current financial information about ${companyName} (${industry || 'unspecified industry'}, ${location || 'unspecified location'}):
+  // Search 1: Financial Health & Operational Stability
+  const financialSearchQuery = `Search for CURRENT financial health and operational stability information about ${companyName} (${industry || 'company'}, ${location || 'global'}):
 
-1. Latest quarterly earnings (2024-2025) - revenue, profit, specific numbers
-2. Credit ratings from S&P, Moody's, or Fitch
-3. Major business developments: layoffs, acquisitions, restructuring
-4. Stock performance and analyst ratings
-5. Financial health indicators: debt levels, cash flow
+FOCUS ON PROCUREMENT RISKS - Search for:
+1. Latest financial results (2024-2025): Revenue trends, profit/loss, cash flow problems
+2. Credit ratings and bankruptcy risks (Altman Z-Score indicators, S&P/Moody's ratings)
+3. Liquidity concerns: Debt levels, payment delays, cash crunch warnings
+4. Operational issues: Plant closures, layoffs, production problems, supply shortages
+5. Market position: Market share losses, customer defections, competitive threats
 
-For each finding, provide:
-- Specific numbers, percentages, and dates
-- The source publication name
-- The exact URL where you found this information
-- Publication date
+CRITICAL: Find SPECIFIC numbers, dates, and URLs. Look for negative signals like "revenue declined", "losses", "restructuring", "credit downgrade", "layoff"`;
 
-Use web search to find recent, credible sources with real URLs.`;
+  // Search 2: Compliance, ESG & Controversies (CRITICAL FOR DUE DILIGENCE)
+  const complianceSearchQuery = `Search for COMPLIANCE VIOLATIONS, CONTROVERSIES, and ESG ISSUES about ${companyName}:
+
+FOCUS ON RED FLAGS FOR PROCUREMENT - Search for:
+1. ESG scandals: Environmental violations, carbon emissions failures, greenwashing accusations
+2. Human rights issues: Modern slavery, forced labor, UFLPA violations, unethical sourcing
+3. Sanctions & corruption: OFAC/EU/UN sanctions, bribery cases, anti-corruption violations, export control breaches
+4. Legal problems: Lawsuits, regulatory fines, compliance failures, SEC investigations
+5. Ethical controversies: Worker exploitation, child labor, discrimination, safety violations
+
+CRITICAL: Find RECENT incidents (2023-2025). Look for keywords like "fined", "violated", "sued", "investigation", "scandal", "breach", "banned"`;
+
+  // Search 3: Cybersecurity & Supply Chain Risks
+  const cyberSearchQuery = `Search for CYBERSECURITY INCIDENTS and SUPPLY CHAIN DISRUPTIONS about ${companyName}:
+
+FOCUS ON OPERATIONAL RISKS - Search for:
+1. Data breaches: Ransomware attacks, hacks, customer data leaks, security incidents
+2. Cyber vulnerabilities: SOC2 failures, ISO 27001 issues, security audit findings
+3. Supply chain disruptions: Supplier failures, geographic concentration risks, single-source dependencies
+4. Production disruptions: Factory fires, natural disasters, logistics problems, quality issues
+5. Technology failures: IT outages, system failures, cybersecurity weaknesses
+
+CRITICAL: Find SPECIFIC incidents with dates and impacts. Look for "breach", "hacked", "ransomware", "disruption", "outage", "shutdown"`;
 
   try {
-    // Use Responses API with web search tool
-    const response = await openai.responses.create({
-      model: 'gpt-4o',
-      input: searchQuery,
-      tools: [{ type: 'web_search_preview' }],
-    });
+    // Execute all three searches in parallel for speed
+    console.log('→ Search 1: Financial Health & Operations...');
+    console.log('→ Search 2: Compliance & Controversies...');
+    console.log('→ Search 3: Cybersecurity & Supply Chain...\n');
 
-    const researchData = response.output_text || response.content || '';
-    console.log(`✓ Web search completed: ${researchData.length} characters\n`);
+    const [financialData, complianceData, cyberData] = await Promise.all([
+      openai.responses.create({
+        model: 'gpt-4o',
+        input: financialSearchQuery,
+        tools: [{ type: 'web_search_preview' }],
+      }),
+      openai.responses.create({
+        model: 'gpt-4o',
+        input: complianceSearchQuery,
+        tools: [{ type: 'web_search_preview' }],
+      }),
+      openai.responses.create({
+        model: 'gpt-4o',
+        input: cyberSearchQuery,
+        tools: [{ type: 'web_search_preview' }],
+      }),
+    ]);
 
-    return researchData;
+    const financialResults = financialData.output_text || financialData.content || '';
+    const complianceResults = complianceData.output_text || complianceData.content || '';
+    const cyberResults = cyberData.output_text || cyberData.content || '';
+
+    console.log(`✓ Financial search: ${financialResults.length} chars`);
+    console.log(`✓ Compliance search: ${complianceResults.length} chars`);
+    console.log(`✓ Cyber/Supply Chain search: ${cyberResults.length} chars\n`);
+
+    // Combine all research data with clear sections
+    const combinedResearch = `
+===== FINANCIAL HEALTH & OPERATIONAL STABILITY =====
+${financialResults}
+
+===== COMPLIANCE, ESG & CONTROVERSIES =====
+${complianceResults}
+
+===== CYBERSECURITY & SUPPLY CHAIN RISKS =====
+${cyberResults}
+`;
+
+    console.log(`✓ Total intelligence gathered: ${combinedResearch.length} characters\n`);
+    return combinedResearch;
+
   } catch (error) {
-    console.error('Responses API web search error:', error.message);
-    console.log('Error details:', error);
-    throw new Error(`Web search failed: ${error.message}`);
+    console.error('Parallel web search error:', error.message);
+    throw new Error(`Multi-agent web search failed: ${error.message}`);
   }
 }
 
@@ -157,23 +236,47 @@ Use web search to find recent, credible sources with real URLs.`;
  * Stage 2: Analysis Phase - Create structured risk assessment from research
  */
 async function analyzeRiskFromResearch(companyName, industry, location, researchData) {
-  console.log('Stage 2: Analyzing risk and creating structured JSON...');
+  console.log('Stage 2: Synthesizing multi-pillar intelligence and creating structured JSON...');
 
-  const analysisPrompt = `Based ONLY on the research data below, create a comprehensive financial risk assessment for ${companyName}.
+  const analysisPrompt = `You have THREE comprehensive intelligence reports covering all FIVE PILLARS of vendor due diligence for ${companyName}.
 
-===== RESEARCH DATA =====
+Your task: Synthesize these findings into a unified risk assessment that helps procurement teams make evidence-based decisions.
+
+===== INTELLIGENCE GATHERED (3 PARALLEL SEARCHES) =====
 ${researchData}
-===== END RESEARCH DATA =====
+===== END INTELLIGENCE =====
 
 ${getSystemPrompt(companyName, industry, location)}
 
+ANALYSIS PRIORITIES:
+1. SPREAD FINDINGS ACROSS ALL FIVE PILLARS - Don't focus only on financial
+   - At least 2 findings from Financial Health
+   - At least 2 findings from ESG & Sustainability
+   - At least 1 finding from Human Rights & Ethics (if data available)
+   - At least 1 finding from Sanctions & Anti-Bribery (if data available)
+   - At least 2 findings from Cybersecurity (if data available)
+
+2. PRIORITIZE CONTROVERSIES AND RED FLAGS
+   - Violations, fines, lawsuits, breaches, scandals, incidents
+   - Recent events (2023-2025) that indicate ACTIVE RISKS
+   - Regulatory actions, enforcement, compliance failures
+
+3. EXTRACT EVIDENCE PRECISELY
+   - Use ACTUAL URLs provided in the research data
+   - Copy exact numbers, percentages, dates from the intelligence
+   - Quote specific dollar amounts, timeframes, quantities
+   - Include evidenceTitle that matches the source article
+
+4. MAKE IT ACTIONABLE FOR PROCUREMENT
+   - Every finding must have a "procurementImplication"
+   - Think: "How does this affect our contract terms, pricing, or vendor selection?"
+   - Consider: "What would a risk committee want to know?"
+
 CRITICAL INSTRUCTIONS:
 - Extract ONLY information present in the research data above
-- For each finding, use the ACTUAL URL provided in the research data
-- Copy exact numbers, percentages, and dates from the research
-- The evidenceUrl field MUST contain a real URL from the research data
-- The evidenceTitle should match the source name from the research data
-- If the research provides a URL, use it exactly as provided
+- Use the ACTUAL URLs provided - do not invent or generalize
+- Quantify EVERYTHING with specific numbers from the research
+- Balance negative findings with positive where appropriate
 - Return ONLY valid JSON (no markdown, no code blocks, no explanations)`;
 
   const apiParams = {
@@ -181,7 +284,7 @@ CRITICAL INSTRUCTIONS:
     messages: [
       {
         role: 'system',
-        content: 'You are a risk analyst creating a structured JSON risk assessment from research data. Extract URLs and data exactly as provided.',
+        content: 'You are a vendor due diligence analyst synthesizing multi-source intelligence into a comprehensive five-pillar risk assessment. Focus on controversies, violations, and evidence-based findings that procurement teams need to make informed decisions.',
       },
       {
         role: 'user',
@@ -224,18 +327,19 @@ export async function assessCompanyRisk(companyName, industry, location) {
 
   try {
     console.log(`\n========================================`);
-    console.log(`Starting Two-Stage Risk Assessment`);
+    console.log(`MULTI-AGENT DUE DILIGENCE ASSESSMENT`);
     console.log(`Company: ${companyName}`);
+    console.log(`Framework: Five Pillars Intelligence`);
     console.log(`Model: ${MODEL_CONFIG.model}`);
     console.log(`========================================\n`);
 
-    // Stage 1: Research Phase - Gather information with sources
+    // Stage 1: Multi-Agent Research Phase - 3 parallel searches covering all pillars
     const researchData = await gatherCompanyInformation(companyName, industry, location);
-    console.log(`✓ Research completed (${researchData.length} characters)\n`);
+    console.log(`✓ Multi-agent research completed (${researchData.length} characters)\n`);
 
-    // Stage 2: Analysis Phase - Structure into JSON risk assessment
+    // Stage 2: Synthesis Phase - Combine intelligence into unified five-pillar assessment
     const analysisJson = await analyzeRiskFromResearch(companyName, industry, location, researchData);
-    console.log('✓ Analysis completed, parsing JSON...\n');
+    console.log('✓ Five-pillar synthesis completed, parsing JSON...\n');
 
     // Parse and validate the JSON response
     let riskAssessment;
