@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mockVendors } from '../data/mockVendors';
+import Logo from './Logo';
 
 function VendorPortfolio() {
   const navigate = useNavigate();
@@ -48,11 +49,7 @@ function VendorPortfolio() {
       <div className="border-b border-gray-200">
         <div className="max-w-[1400px] mx-auto px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="flex gap-1">
-              <div className="w-1.5 h-1.5 bg-black"></div>
-              <div className="w-1.5 h-1.5 bg-gray-400"></div>
-              <div className="w-1.5 h-1.5 bg-gray-300"></div>
-            </div>
+            <Logo className="w-9 h-9" />
             <div className="h-4 w-px bg-gray-200"></div>
             <div>
               <div className="text-sm font-medium text-black tracking-tight">Spectrum</div>

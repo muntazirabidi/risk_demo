@@ -5,6 +5,7 @@ import QuickDemoButtons from '../components/QuickDemoButtons';
 import LoadingState from '../components/LoadingState';
 import RiskDashboard from '../components/RiskDashboard';
 import UseCases from '../components/UseCases';
+import Logo from '../components/Logo';
 
 // Use environment variable for API URL with fallback
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api';
@@ -100,14 +101,10 @@ function LandingPage() {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-slate-900"></div>
-                <div className="w-2 h-2 rounded-full bg-slate-600"></div>
-                <div className="w-2 h-2 rounded-full bg-slate-400"></div>
-              </div>
+              <Logo className="w-10 h-10" />
               <div className="border-l border-slate-200 pl-3">
                 <h1 className="text-xl font-semibold text-slate-900 tracking-tight">Spectrum</h1>
-                <p className="text-xs text-slate-500 font-medium">Vendor Due Diligence</p>
+                <p className="text-xs text-slate-500 font-medium">Vendor Intelligence</p>
               </div>
             </div>
             {state.assessment ? (
@@ -327,11 +324,7 @@ function LandingPage() {
           <div className="text-center mb-8">
             {/* Logo */}
             <div className="flex items-center justify-center gap-2.5 mb-4">
-              <div className="flex items-center gap-1.5">
-                <div className="w-2.5 h-2.5 bg-slate-900 rounded-full"></div>
-                <div className="w-2 h-2 bg-slate-600 rounded-full"></div>
-                <div className="w-1.5 h-1.5 bg-slate-400 rounded-full"></div>
-              </div>
+              <Logo className="w-10 h-10" />
               <span className="text-xl font-semibold text-slate-900">Spectrum</span>
             </div>
             <p className="text-base font-medium text-slate-900 mb-2">
