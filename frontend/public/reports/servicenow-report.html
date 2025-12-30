@@ -3,397 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supplier Risk Intelligence Report - TechVendor Solutions Inc.</title>
+    <title>Vendor Risk Intelligence: ServiceNow, Inc. (NOW)</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary: #0f172a;
+            --secondary: #334155;
+            --accent: #2563eb;
+            --success: #16a34a;
+            --warning: #ca8a04;
+            --danger: #dc2626;
+            --light: #f8fafc;
+            --border: #e2e8f0;
         }
-        
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: #f5f5f5;
+            color: #334155;
+            background-color: #f1f5f9;
         }
-        
+
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            max-width: 1280px;
+            margin: 20px auto;
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
-        
+
+        /* Dashboard Header */
         .header {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: white;
-            padding: 40px 50px;
-            border-bottom: 4px solid #1e40af;
-        }
-        
-        .header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-        
-        .header .subtitle {
-            font-size: 18px;
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-        
-        .report-meta {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        .meta-item {
-            font-size: 14px;
-        }
-        
-        .meta-item strong {
-            display: block;
-            font-size: 12px;
-            opacity: 0.8;
-            margin-bottom: 5px;
-        }
-        
-        .content {
-            padding: 50px;
-        }
-        
-        .executive-summary {
-            background: #f8fafc;
-            border-left: 4px solid #3b82f6;
-            padding: 30px;
-            margin-bottom: 40px;
-            border-radius: 4px;
-        }
-        
-        .risk-badge {
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-        
-        .risk-low {
-            background: #d1fae5;
-            color: #065f46;
-        }
-        
-        .risk-medium {
-            background: #fef3c7;
-            color: #92400e;
-        }
-        
-        .risk-high {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-        
-        .section {
-            margin-bottom: 50px;
-        }
-        
-        .section-header {
+            padding: 30px 40px;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-branding h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 5px; }
+        .header-branding .badge {
+            background: var(--accent);
+            font-size: 0.75em;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        /* Health Score Gauge */
+        .score-box {
+            background: rgba(255,255,255,0.1);
+            padding: 20px 30px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        .score-val { font-size: 2.5em; font-weight: 800; line-height: 1; }
+        .score-label { font-size: 0.8em; opacity: 0.8; text-transform: uppercase; margin-top: 8px; }
+        .score-risk-low { color: #86efac; }
+        .score-risk-med { color: #fde047; }
+        .score-risk-high { color: #fca5a5; }
+
+        .meta-bar {
+            background: white;
+            padding: 15px 40px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 30px;
+            font-size: 0.9em;
+            color: #64748b;
+            flex-wrap: wrap;
+        }
+
+        .content { padding: 40px; }
+
+        /* Modular Sections */
+        .module { margin-bottom: 45px; }
+        .module-header {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
             margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #e5e7eb;
+            border-bottom: 3px solid var(--border);
+            padding-bottom: 12px;
         }
-        
-        .section-number {
-            background: #3b82f6;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            margin-right: 15px;
-            font-size: 18px;
-        }
-        
-        .section-title {
-            font-size: 24px;
-            color: #1e3a8a;
-            font-weight: 600;
-        }
-        
-        .subsection {
-            margin-bottom: 30px;
-        }
-        
-        .subsection h3 {
-            font-size: 18px;
-            color: #1e40af;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .info-item {
-            background: #f9fafb;
-            padding: 15px;
-            border-radius: 4px;
-            border-left: 3px solid #3b82f6;
-        }
-        
-        .info-item .label {
-            font-size: 12px;
-            color: #6b7280;
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .info-item .value {
-            font-size: 15px;
-            color: #111827;
-            font-weight: 500;
-        }
-        
-        .finding-box {
-            background: #fffbeb;
-            border-left: 4px solid #f59e0b;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-        }
-        
-        .finding-box.positive {
-            background: #f0fdf4;
-            border-left-color: #10b981;
-        }
-        
-        .finding-box.negative {
-            background: #fef2f2;
-            border-left-color: #ef4444;
-        }
-        
-        .finding-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #111827;
-            font-size: 15px;
-        }
-        
-        .key-findings {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .key-findings li {
-            padding: 12px 0;
-            padding-left: 30px;
-            position: relative;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        
-        .key-findings li:last-child {
-            border-bottom: none;
-        }
-        
-        .key-findings li:before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: #3b82f6;
-            font-weight: bold;
-            font-size: 18px;
-        }
-        
-        .table-container {
-            overflow-x: auto;
-            margin: 20px 0;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        
-        th {
-            background: #f3f4f6;
-            padding: 12px;
-            text-align: left;
-            font-weight: 600;
-            color: #1f2937;
-            border-bottom: 2px solid #d1d5db;
-        }
-        
-        td {
-            padding: 12px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        
-        tr:hover {
-            background: #f9fafb;
-        }
-        
-        .status-indicator {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-        
-        .status-green {
-            background: #10b981;
-        }
-        
-        .status-yellow {
-            background: #f59e0b;
-        }
-        
-        .status-red {
-            background: #ef4444;
-        }
-        
-        .recommendation-box {
-            background: #eff6ff;
-            border: 2px solid #3b82f6;
-            padding: 25px;
-            border-radius: 8px;
-            margin-top: 30px;
-        }
-        
-        .recommendation-box h3 {
-            color: #1e40af;
-            margin-bottom: 15px;
-            font-size: 20px;
-        }
-        
-        .timeline {
-            position: relative;
-            padding-left: 30px;
-            margin: 20px 0;
-        }
-        
-        .timeline:before {
-            content: '';
-            position: absolute;
-            left: 8px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: #d1d5db;
-        }
-        
-        .timeline-item {
-            position: relative;
-            padding-bottom: 25px;
-        }
-        
-        .timeline-item:before {
-            content: '';
-            position: absolute;
-            left: -25px;
-            top: 5px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #3b82f6;
-            border: 2px solid white;
-            box-shadow: 0 0 0 2px #3b82f6;
-        }
-        
-        .timeline-date {
-            font-size: 13px;
-            color: #6b7280;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .timeline-content {
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        .metric-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .metric-value {
-            font-size: 32px;
-            font-weight: 700;
-            color: #1e3a8a;
-            margin-bottom: 5px;
-        }
-        
-        .metric-label {
-            font-size: 13px;
-            color: #6b7280;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-        
+        .module-title { font-size: 1.5em; color: var(--primary); font-weight: 700; }
+        .module-subtitle { font-size: 0.9em; color: #64748b; font-weight: 400; }
+
+        /* Metric Cards */
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
+            margin-bottom: 30px;
+        }
+        .metric-card {
+            background: var(--light);
+            padding: 22px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        .metric-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-color: var(--accent);
+        }
+        .metric-title {
+            font-size: 0.8em;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        .metric-value { font-size: 2em; font-weight: 700; color: var(--primary); margin: 8px 0; }
+        .metric-trend { font-size: 0.85em; display: flex; align-items: center; gap: 5px; margin-top: 5px; }
+        .trend-up { color: var(--success); }
+        .trend-down { color: var(--danger); }
+        .trend-neutral { color: #64748b; }
+
+        /* Data Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95em;
+            margin-top: 20px;
+        }
+        .data-table th {
+            text-align: left;
+            padding: 14px 12px;
+            background: #f1f5f9;
+            color: #475569;
+            font-weight: 600;
+            border-bottom: 2px solid #cbd5e1;
+        }
+        .data-table td {
+            padding: 14px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .data-table tr:last-child td { border-bottom: none; }
+        .data-table tr:hover { background: #fafbfc; }
+
+        /* Forensic Alerts */
+        .alert-box {
+            background: linear-gradient(to right, #fff5f5, #ffffff);
+            border-left: 4px solid var(--danger);
+            padding: 18px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: start;
+            border-radius: 4px;
+        }
+        .alert-box.warning {
+            background: linear-gradient(to right, #fffbeb, #ffffff);
+            border-left-color: var(--warning);
+        }
+        .alert-box.success {
+            background: linear-gradient(to right, #f0fdf4, #ffffff);
+            border-left-color: var(--success);
+        }
+        .alert-box.info {
+            background: linear-gradient(to right, #eff6ff, #ffffff);
+            border-left-color: var(--accent);
+        }
+        .alert-icon { font-size: 1.3em; }
+
+        /* Benchmarking Graph Simulation */
+        .benchmark-container {
+            margin: 15px 0;
+        }
+        .benchmark-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            margin-bottom: 6px;
+            color: #475569;
+        }
+        .benchmark-bar {
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        .benchmark-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        .fill-green { background: linear-gradient(to right, #86efac, #4ade80); }
+        .fill-yellow { background: linear-gradient(to right, #fde047, #facc15); }
+        .fill-red { background: linear-gradient(to right, #fca5a5, #f87171); }
+
+        .summary-box {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            line-height: 1.8;
+        }
+
+        .pillar-score {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-weight: 700;
+            margin-left: 10px;
+        }
+        .pillar-score-high { background: #d1fae5; color: #065f46; }
+        .pillar-score-med { background: #fef3c7; color: #92400e; }
+        .pillar-score-low { background: #fee2e2; color: #991b1b; }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 35px;
             margin: 25px 0;
         }
-        
-        .footer {
-            background: #f9fafb;
-            padding: 30px 50px;
-            border-top: 1px solid #e5e7eb;
-            font-size: 13px;
-            color: #6b7280;
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 5px;
+            bottom: 5px;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--accent), #94a3b8);
         }
-        
-        .sources-list {
-            font-size: 12px;
-            line-height: 1.8;
-            color: #4b5563;
+        .timeline-item {
+            position: relative;
+            padding-bottom: 25px;
         }
-        
-        .sources-list li {
-            margin-bottom: 8px;
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--accent);
         }
-        
-        .disclaimer {
-            background: #fffbeb;
-            border: 1px solid #fbbf24;
-            padding: 20px;
-            border-radius: 4px;
-            margin-top: 20px;
-            font-size: 13px;
+        .timeline-date {
+            font-size: 0.8em;
+            color: #64748b;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .timeline-content {
+            font-size: 0.9em;
             line-height: 1.6;
+            color: #475569;
         }
-        
-        @media print {
-            body {
-                background: white;
-            }
-            .container {
-                box-shadow: none;
-            }
+
+        /* Governance Indicators */
+        .governance-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .governance-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .governance-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+        .governance-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.9em;
+        }
+        .governance-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Risk Matrix */
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .risk-item {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 15px;
+            border-radius: 6px;
+        }
+        .risk-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .risk-category { font-weight: 600; color: var(--primary); font-size: 0.95em; }
+        .risk-level {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .risk-low { background: #d1fae5; color: #065f46; }
+        .risk-medium { background: #fef3c7; color: #92400e; }
+        .risk-high { background: #fee2e2; color: #991b1b; }
+
+        .sources { margin-top: 40px; padding-top: 20px; border-top: 2px solid var(--border); }
+        .sources h3 { margin-bottom: 15px; color: var(--primary); }
+        .sources ul { padding-left: 20px; }
+        .sources li { margin-bottom: 8px; }
+        .sources a { color: var(--accent); text-decoration: none; }
+        .sources a:hover { text-decoration: underline; }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .metrics-grid { grid-template-columns: 1fr 1fr; }
+            .header { flex-direction: column; text-align: center; gap: 20px; }
+            .meta-bar { flex-direction: column; gap: 10px; padding: 20px; }
+            .risk-matrix { grid-template-columns: 1fr; }
+            .governance-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -401,980 +346,1335 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <h1>Supplier Risk Intelligence Report</h1>
-            <div class="subtitle">TechVendor Solutions Inc.</div>
-            
-            <div class="report-meta">
-                <div class="meta-item">
-                    <strong>Report ID</strong>
-                    <div>SRI-2024-11-7482</div>
-                </div>
-                <div class="meta-item">
-                    <strong>Generated</strong>
-                    <div>November 27, 2024 14:32 UTC</div>
-                </div>
-                <div class="meta-item">
-                    <strong>Client Reference</strong>
-                    <div>PO-45823-VS</div>
+            <div class="header-branding">
+                <span class="badge">Tier 1 Intelligence Report</span>
+                <h1>Vendor Risk Intelligence: ServiceNow, Inc.</h1>
+                <div style="opacity: 0.85; margin-top: 8px; font-size: 0.95em;">
+                    NYSE: NOW | DUNS: 18-772-4668 | Sector: Enterprise Cloud Platform
                 </div>
             </div>
+            <div class="score-box">
+                <div class="score-label">Vendor Viability Score</div>
+                <div class="score-val score-risk-med">78<span style="font-size:0.4em; opacity: 0.5;">/100</span></div>
+                <div class="score-label" style="margin-top:8px; color:#fde047; font-weight: 600;">CONDITIONAL APPROVAL</div>
+            </div>
+        </div>
+
+        <!-- Meta Information Bar -->
+        <div class="meta-bar">
+            <div><strong>Report Generated:</strong> December 30, 2025</div>
+            <div><strong>Report ID:</strong> VIR-2025-NOW-3891</div>
+            <div><strong>Industry Vertical:</strong> Enterprise Software / Cloud Platform</div>
+            <div><strong>Analyst:</strong> AI-Powered + Expert Review</div>
+            <div><strong>Risk Trend (12mo):</strong> <span style="color:var(--warning); font-weight: 600;">▼ Elevated (DOJ Investigation)</span></div>
+            <div><strong>Next Review:</strong> Q1 2026</div>
         </div>
 
         <!-- Main Content -->
         <div class="content">
-            
-            <!-- Executive Summary -->
-            <div class="executive-summary">
-                <h2 style="color: #1e3a8a; margin-bottom: 20px; font-size: 26px;">Executive Summary</h2>
-                
-                <div class="risk-badge risk-medium">OVERALL RISK RATING: MEDIUM</div>
-                
-                <p style="font-size: 16px; margin-bottom: 20px; line-height: 1.8;">
-                    TechVendor Solutions Inc. is a Delaware-registered software development and IT services provider established in 2016, specializing in cloud infrastructure management and DevOps automation. The company demonstrates solid operational capabilities and maintains key security certifications. However, recent financial performance concerns, concentration risk with major clients, and pending litigation require careful consideration before engagement.
-                </p>
-                
-                <h3 style="color: #1e40af; margin-bottom: 15px; font-size: 18px;">Key Findings</h3>
-                <ul class="key-findings">
-                    <li><strong>Positive:</strong> SOC 2 Type II and ISO 27001 certified; strong cybersecurity posture with no reported breaches</li>
-                    <li><strong>Positive:</strong> Backed by reputable VC firms (Sequoia Capital, Accel Partners) with $45M total funding</li>
-                    <li><strong>Concern:</strong> Revenue declined 18% YoY in 2023; operating at a loss with burn rate of ~$2M/month</li>
-                    <li><strong>Concern:</strong> Single customer represents 42% of revenue, creating concentration risk</li>
-                    <li><strong>Concern:</strong> Pending employment-related lawsuit filed by former CTO in Q3 2024</li>
-                    <li><strong>Neutral:</strong> No sanctions, AML, or corruption-related adverse findings</li>
-                </ul>
-            </div>
 
-            <!-- Section 1: Corporate Background -->
-            <div class="section">
-                <div class="section-header">
-                    <div class="section-number">1</div>
-                    <h2 class="section-title">Corporate Background & Ownership</h2>
-                </div>
-                
-                <div class="subsection">
-                    <h3>Corporate Structure</h3>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <div class="label">Legal Name</div>
-                            <div class="value">TechVendor Solutions Inc.</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Incorporation</div>
-                            <div class="value">Delaware, USA (2016)</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Registration Number</div>
-                            <div class="value">6234891</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Tax ID (EIN)</div>
-                            <div class="value">XX-XXXXXXX</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Headquarters</div>
-                            <div class="value">Austin, Texas, USA</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Employee Count</div>
-                            <div class="value">~185 (as of Q3 2024)</div>
-                        </div>
+            <!-- Section 1: Executive Forensic Brief -->
+            <div class="module">
+                <div class="module-header">
+                    <div>
+                        <h2 class="module-title">1. Executive Forensic Brief</h2>
+                        <div class="module-subtitle">Financial Health, Liquidity Analysis & Strategic Position</div>
                     </div>
                 </div>
 
-                <div class="subsection">
-                    <h3>Ownership & Key Stakeholders</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Shareholder/Entity</th>
-                                <th>Type</th>
-                                <th>Stake %</th>
-                                <th>Notes</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Michael Chen</td>
-                                <td>Founder/CEO</td>
-                                <td>32%</td>
-                                <td>Previously VP Engineering at Oracle (2011-2016)</td>
-                            </tr>
-                            <tr>
-                                <td>Sequoia Capital</td>
-                                <td>VC Investor</td>
-                                <td>24%</td>
-                                <td>Series B lead investor (2021)</td>
-                            </tr>
-                            <tr>
-                                <td>Accel Partners</td>
-                                <td>VC Investor</td>
-                                <td>18%</td>
-                                <td>Series A investor (2018)</td>
-                            </tr>
-                            <tr>
-                                <td>Sarah Williams</td>
-                                <td>Co-Founder/COO</td>
-                                <td>15%</td>
-                                <td>Previously at AWS (2013-2016)</td>
-                            </tr>
-                            <tr>
-                                <td>Other investors & employees</td>
-                                <td>Various</td>
-                                <td>11%</td>
-                                <td>Employee stock options, angel investors</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="subsection">
-                    <h3>Leadership Team</h3>
-                    <div class="finding-box">
-                        <div class="finding-title">CEO - Michael Chen</div>
-                        <p>15+ years in enterprise software. Previously VP of Engineering at Oracle (2011-2016), where he led cloud infrastructure teams. MS Computer Science from Stanford. No adverse findings in background screening.</p>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-title">FY2024 Revenue</div>
+                        <div class="metric-value" style="color: var(--success);">$10.98B</div>
+                        <div class="metric-trend trend-up">
+                            <span>▲ +22.4% YoY</span>
+                        </div>
+                        <div style="font-size: 0.75em; color:#94a3b8; margin-top:5px;">Subscription: 96.8% of total revenue</div>
                     </div>
-                    
-                    <div class="finding-box">
-                        <div class="finding-title">COO - Sarah Williams</div>
-                        <p>12+ years in cloud services and operations. Worked at AWS (2013-2016) in solutions architecture. MBA from MIT Sloan. Active in tech community; speaker at AWS re:Invent and KubeCon.</p>
+                    <div class="metric-card">
+                        <div class="metric-title">Q3 2024 Revenue</div>
+                        <div class="metric-value">$2.797B</div>
+                        <div class="metric-trend trend-up">
+                            <span style="color: var(--success);">▲ +22% YoY</span>
+                        </div>
+                        <div style="font-size: 0.75em; color:#94a3b8; margin-top:5px;">Beat analyst est. of $2.743B</div>
                     </div>
-                    
-                    <div class="finding-box negative">
-                        <div class="finding-title">CTO Position - Currently Vacant</div>
-                        <p><strong>Risk Alert:</strong> Former CTO David Patel departed in August 2024 under contentious circumstances. A lawsuit was filed in September 2024 alleging wrongful termination and breach of employment contract. Position has been vacant for 3+ months, with engineering leadership distributed among VPs.</p>
+                    <div class="metric-card">
+                        <div class="metric-title">Customer Base</div>
+                        <div class="metric-value" style="color: var(--success);">2,109</div>
+                        <div class="metric-trend trend-up">
+                            <span>$1M+ ACV Customers</span>
+                        </div>
+                        <div style="font-size: 0.75em; color:#94a3b8; margin-top:5px;">~500 with $5M+ ACV (+21% YoY)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title">Free Cash Flow</div>
+                        <div class="metric-value" style="color: var(--success);">$471M</div>
+                        <div class="metric-trend trend-up">
+                            <span style="color: var(--success);">▲ +17% YoY</span>
+                        </div>
+                        <div style="font-size: 0.75em; color:#94a3b8; margin-top:5px;">Q3 2024; Strong cash generation</div>
                     </div>
                 </div>
 
-                <div class="subsection">
-                    <h3>Corporate History & Evolution</h3>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-date">March 2016</div>
-                            <div class="timeline-content">Company founded by Michael Chen and Sarah Williams; initial focus on DevOps consulting</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">June 2018</div>
-                            <div class="timeline-content">Series A funding: $8M led by Accel Partners; launched cloud automation platform</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">January 2020</div>
-                            <div class="timeline-content">Achieved SOC 2 Type II certification; expanded to 75 employees</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">September 2021</div>
-                            <div class="timeline-content">Series B funding: $37M led by Sequoia Capital; valuation at $180M</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">March 2023</div>
-                            <div class="timeline-content">Announced enterprise expansion; peaked at 220 employees</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">Q2 2024</div>
-                            <div class="timeline-content">15% workforce reduction (layoff of 33 employees) due to cost optimization</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">August 2024</div>
-                            <div class="timeline-content">CTO departure and subsequent legal dispute initiated</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 2: Regulatory & Compliance -->
-            <div class="section">
-                <div class="section-header">
-                    <div class="section-number">2</div>
-                    <h2 class="section-title">Regulatory & Compliance Assessment</h2>
-                </div>
-
-                <div class="subsection">
-                    <h3>Sanctions Screening Results</h3>
-                    <div class="finding-box positive">
-                        <div class="finding-title"><span class="status-indicator status-green"></span>No Adverse Findings</div>
-                        <p>Comprehensive screening conducted against the following lists:</p>
-                        <ul style="margin-top: 10px; margin-left: 20px;">
-                            <li>OFAC Specially Designated Nationals (SDN) List</li>
-                            <li>UN Security Council Consolidated Sanctions List</li>
-                            <li>EU Consolidated Financial Sanctions List</li>
-                            <li>UK HM Treasury Sanctions List</li>
-                            <li>INTERPOL Wanted Persons</li>
-                        </ul>
-                        <p style="margin-top: 10px;"><strong>Result:</strong> No matches found for the company, its beneficial owners, or key management personnel.</p>
+                <div class="alert-box success">
+                    <div class="alert-icon">✓</div>
+                    <div>
+                        <strong>Strong Financial Performance:</strong> ServiceNow demonstrates exceptional financial health with $10.98B in FY2024 revenue, representing 22.4% YoY growth. The company maintains near-perfect subscription revenue concentration (96.8%), indicating strong recurring revenue model. Q3 2024 results exceeded analyst expectations across all key metrics with subscription revenues of $2.715B (+23% YoY). Remaining performance obligations (RPO) reached $19.5B (+36% YoY), indicating robust future revenue pipeline. The company serves 85%+ of Fortune 500 companies and maintains GAAP profitability with strong cash flow generation.
                     </div>
                 </div>
 
-                <div class="subsection">
-                    <h3>Litigation & Legal Proceedings</h3>
-                    
-                    <div class="finding-box negative">
-                        <div class="finding-title"><span class="status-indicator status-red"></span>Active Employment Litigation</div>
-                        <p><strong>Case:</strong> Patel v. TechVendor Solutions Inc. (Case No. 1:24-cv-08764, N.D. California)</p>
-                        <p><strong>Filed:</strong> September 2024</p>
-                        <p><strong>Claims:</strong> Wrongful termination, breach of employment contract, unpaid stock compensation</p>
-                        <p><strong>Status:</strong> Discovery phase; no settlement announced as of November 2024</p>
-                        <p><strong>Potential Exposure:</strong> Plaintiff seeking $2.5M in damages plus equity compensation</p>
+                <div class="alert-box warning">
+                    <div class="alert-icon">⚠</div>
+                    <div>
+                        <strong>2025 Growth Moderation Concern:</strong> ServiceNow guided 2025 subscription revenue to $12.6-12.7B, representing ~15-16% growth - a notable deceleration from 2024's 22.5% growth rate. Stock declined 11.4% post-earnings on this guidance miss. Full-year 2024 stock performance was negative at -23% YTD, underperforming broader software sector amid competitive pressure concerns from Microsoft, SAP, and emerging AI-native workflow platforms. Analyst consensus remains "Strong Buy" but with tempered growth expectations. Average 12-month price target: $228.25 (post-5:1 split in December 2025).
                     </div>
-
-                    <div class="finding-box">
-                        <div class="finding-title"><span class="status-indicator status-yellow"></span>Resolved Contract Dispute</div>
-                        <p><strong>Case:</strong> CloudTech Partners LLC v. TechVendor Solutions (2022)</p>
-                        <p><strong>Resolution:</strong> Settled out of court in March 2023; terms confidential</p>
-                        <p><strong>Nature:</strong> Contract performance dispute with a former client over SLA compliance</p>
-                    </div>
-
-                    <table style="margin-top: 20px;">
-                        <thead>
-                            <tr>
-                                <th>Regulatory Body</th>
-                                <th>Investigation/Action</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>SEC</td>
-                                <td>None identified</td>
-                                <td><span class="status-indicator status-green"></span>Clear</td>
-                            </tr>
-                            <tr>
-                                <td>FTC</td>
-                                <td>None identified</td>
-                                <td><span class="status-indicator status-green"></span>Clear</td>
-                            </tr>
-                            <tr>
-                                <td>Department of Labor</td>
-                                <td>None identified</td>
-                                <td><span class="status-indicator status-green"></span>Clear</td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
 
-                <div class="subsection">
-                    <h3>Industry Certifications & Compliance</h3>
-                    
-                    <div class="metrics-grid">
-                        <div class="metric-card">
-                            <div class="metric-value" style="color: #10b981;">✓</div>
-                            <div class="metric-label">SOC 2 Type II</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-value" style="color: #10b981;">✓</div>
-                            <div class="metric-label">ISO 27001</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-value" style="color: #10b981;">✓</div>
-                            <div class="metric-label">GDPR Compliant</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-value" style="color: #f59e0b;">Δ</div>
-                            <div class="metric-label">PCI DSS</div>
-                        </div>
-                    </div>
+                <h3 style="font-size: 1.15em; margin: 30px 0 18px 0; color: var(--primary);">Key Financial Metrics - Detailed Analysis</h3>
 
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Certification/Standard</th>
-                                <th>Status</th>
-                                <th>Valid Until</th>
-                                <th>Notes</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>SOC 2 Type II</td>
-                                <td><span class="status-indicator status-green"></span>Active</td>
-                                <td>March 2025</td>
-                                <td>Audited by Deloitte; covers security, availability, confidentiality</td>
-                            </tr>
-                            <tr>
-                                <td>ISO 27001:2013</td>
-                                <td><span class="status-indicator status-green"></span>Active</td>
-                                <td>June 2025</td>
-                                <td>Information security management system certified</td>
-                            </tr>
-                            <tr>
-                                <td>GDPR Compliance</td>
-                                <td><span class="status-indicator status-green"></span>Verified</td>
-                                <td>Ongoing</td>
-                                <td>Privacy policy updated May 2024; DPO designated</td>
-                            </tr>
-                            <tr>
-                                <td>PCI DSS</td>
-                                <td><span class="status-indicator status-yellow"></span>In Progress</td>
-                                <td>Expected Q1 2025</td>
-                                <td>Certification process initiated but not yet completed</td>
-                            </tr>
-                            <tr>
-                                <td>HIPAA Compliance</td>
-                                <td><span class="status-indicator status-red"></span>Not Applicable</td>
-                                <td>N/A</td>
-                                <td>Company does not handle healthcare data</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Q3 2024</th>
+                            <th>FY2024 (Est)</th>
+                            <th>YoY Growth</th>
+                            <th>Assessment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Total Revenue</strong></td>
+                            <td>$2.797B</td>
+                            <td>$10.98B</td>
+                            <td style="color: var(--success);">+22.4%</td>
+                            <td>Exceeds guidance, beat estimates</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Subscription Revenue</strong></td>
+                            <td>$2.715B</td>
+                            <td>~$10.63B</td>
+                            <td style="color: var(--success);">+23%</td>
+                            <td>96.8% of total (extremely healthy mix)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Net Income (GAAP)</strong></td>
+                            <td>$432M</td>
+                            <td>-</td>
+                            <td>Profitable</td>
+                            <td>Sustained GAAP profitability achieved</td>
+                        </tr>
+                        <tr>
+                            <td><strong>EPS (Diluted)</strong></td>
+                            <td>$2.07</td>
+                            <td>-</td>
+                            <td>Beat est. $1.98</td>
+                            <td>Consistent earnings beat streak</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Free Cash Flow</strong></td>
+                            <td>$471M</td>
+                            <td>-</td>
+                            <td style="color: var(--success);">+17%</td>
+                            <td>Strong cash generation capability</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RPO (Remaining Perf. Obligations)</strong></td>
+                            <td>$19.5B</td>
+                            <td>-</td>
+                            <td style="color: var(--success);">+36%</td>
+                            <td>Backlog indicates strong future revenue</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Current RPO (cRPO)</strong></td>
+                            <td>$9.36B</td>
+                            <td>-</td>
+                            <td style="color: var(--success);">+26%</td>
+                            <td>Revenue recognizable within 12 months</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Customers ($1M+ ACV)</strong></td>
+                            <td>2,109</td>
+                            <td>-</td>
+                            <td style="color: var(--success);">+12%</td>
+                            <td>Growing enterprise customer base</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Customers ($5M+ ACV)</strong></td>
+                            <td>~500</td>
+                            <td>-</td>
+                            <td style="color: var(--success);">+21%</td>
+                            <td>Strong expansion in largest accounts</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="font-size: 1.15em; margin: 30px 0 18px 0; color: var(--primary);">Strategic M&A Activity - $12B+ Acquisition Spree (2025)</h3>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Target Company</th>
+                            <th>Deal Value</th>
+                            <th>Status</th>
+                            <th>Strategic Rationale</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Armis Security</strong></td>
+                            <td>$7.75B (Cash)</td>
+                            <td>Announced Dec 2025; Close H2 2026</td>
+                            <td>Cyber exposure management for IT/OT/IoT/medical devices. Expected to 3x ServiceNow's security TAM. Integrates with AI Control Tower. Armis ARR: $340M growing 50%+ YoY.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Moveworks</strong></td>
+                            <td>$2.85B</td>
+                            <td>Announced 2025</td>
+                            <td>Agentic AI for autonomous workflow automation. Enhances ServiceNow's GenAI capabilities. Accelerates roadmap to autonomous proactive operations.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Veza</strong></td>
+                            <td>~$1B (est.)</td>
+                            <td>Announced 2025</td>
+                            <td>Non-human identity security. Expands zero-trust architecture offerings. Addresses machine identity proliferation risks.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="alert-box warning">
+                    <div class="alert-icon">⚠</div>
+                    <div>
+                        <strong>M&A Integration Risks:</strong> ServiceNow's $12+ billion 2025 acquisition spree represents CEO Bill McDermott's aggressive growth strategy, echoing his SAP tenure (market cap grew from $39B to $156B under his leadership). While strategically sound, the scale and complexity introduce material integration risks: (1) Cultural alignment challenges across three acquisitions, (2) Technology integration complexity, particularly Armis's asset visibility platform with ServiceNow's CMDB, (3) Customer overlap management, (4) Retention of acquired talent ($500M allocated for Armis employee retention), (5) Execution bandwidth strain. Recommend establishing dedicated PMO (Program Management Office) oversight, quarterly integration milestone reviews, and synergy realization tracking. Armis acquisition alone represents ServiceNow's largest-ever deal at nearly 8x current valuation.
+                    </div>
                 </div>
 
-                <div class="subsection">
-                    <h3>Data Privacy & Protection</h3>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <div class="label">Data Protection Officer</div>
-                            <div class="value">Jennifer Martinez (Appointed May 2023)</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Privacy Policy Last Updated</div>
-                            <div class="value">May 15, 2024</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Data Breach History</div>
-                            <div class="value">No reported breaches</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Data Centers</div>
-                            <div class="value">AWS (US-East, EU-West)</div>
-                        </div>
-                    </div>
-
-                    <div class="finding-box positive">
-                        <div class="finding-title">Strong Data Protection Practices</div>
-                        <p>Company maintains comprehensive data protection policies including encryption at rest and in transit, regular penetration testing (quarterly), and incident response procedures. No data breach notifications filed with any regulatory authority since inception.</p>
+                <div class="alert-box info">
+                    <div class="alert-icon">ℹ</div>
+                    <div>
+                        <strong>Market Position & Competitive Dynamics:</strong> ServiceNow maintains market leadership in IT Service Management with 40% market share as of 2024. However, competitive pressure is intensifying: Microsoft (Power Platform, Dynamics 365), SAP (Signavio, Process Automation), and emerging AI-native platforms (Asana, Monday.com with AI features) are targeting workflow automation market. ServiceNow's AI differentiation (AIP - AI Platform with 300+ customers in bootcamp, Now Assist GenAI capabilities) is critical for maintaining competitive moat. Company serves 85%+ of Fortune 500, indicating strong enterprise penetration but also market saturation concerns in core segments.
                     </div>
                 </div>
             </div>
 
-            <!-- Section 3: Operational Risk -->
-            <div class="section">
-                <div class="section-header">
-                    <div class="section-number">3</div>
-                    <h2 class="section-title">Operational Risk Assessment</h2>
+            <!-- Section 2: ESG & Sustainability (Pillar 1) -->
+            <div class="module">
+                <div class="module-header">
+                    <div>
+                        <h2 class="module-title">2. ESG & Sustainability Assessment <span class="pillar-score pillar-score-high">82/100</span></h2>
+                        <div class="module-subtitle">Environmental commitments, carbon neutrality, sustainability reporting</div>
+                    </div>
                 </div>
 
-                <div class="subsection">
-                    <h3>Business Continuity & Resilience</h3>
-                    
-                    <div class="finding-box positive">
-                        <div class="finding-title">Documented BCP/DR Plans</div>
-                        <p>Company maintains comprehensive Business Continuity Plan (BCP) and Disaster Recovery (DR) procedures. Infrastructure hosted on AWS with multi-region redundancy. Published RTO (Recovery Time Objective) of 4 hours and RPO (Recovery Point Objective) of 15 minutes for critical systems.</p>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-title">Carbon Neutrality</div>
+                        <div class="metric-value" style="color: var(--success);">✓</div>
+                        <div class="metric-trend trend-up">
+                            <span>Since 2022</span>
+                        </div>
+                        <div style="font-size: 0.75em; color:#94a3b8; margin-top:5px;">100% renewable electricity</div>
                     </div>
-
-                    <div class="finding-box">
-                        <div class="finding-title"><span class="status-indicator status-yellow"></span>Single Office Location Risk</div>
-                        <p>While 40% of workforce is remote, primary office and core engineering team concentrated in Austin, Texas. Natural disaster or regional disruption could impact operations. No secondary physical office established.</p>
+                    <div class="metric-card">
+                        <div class="metric-title">Net-Zero Target</div>
+                        <div class="metric-value" style="color: var(--success);">2030</div>
+                        <div class="metric-trend trend-up">
+                            <span>SBTi Approved</span>
+                        </div>
+                        <div style="font-size: 0.75em; color:#94a3b8; margin-top:5px;">Science Based Targets initiative</div>
                     </div>
-
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Risk Category</th>
-                                <th>Assessment</th>
-                                <th>Mitigation Measures</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Infrastructure Availability</td>
-                                <td><span class="status-indicator status-green"></span>Low Risk</td>
-                                <td>Multi-region AWS deployment; 99.9% uptime SLA</td>
-                            </tr>
-                            <tr>
-                                <td>Key Person Dependency</td>
-                                <td><span class="status-indicator status-yellow"></span>Medium Risk</td>
-                                <td>CTO vacancy creates leadership gap; succession plans not public</td>
-                            </tr>
-                            <tr>
-                                <td>Supply Chain Dependencies</td>
-                                <td><span class="status-indicator status-green"></span>Low Risk</td>
-                                <td>Relies on major cloud providers (AWS, GCP) with strong SLAs</td>
-                            </tr>
-                            <tr>
-                                <td>Geographic Concentration</td>
-                                <td><span class="status-indicator status-yellow"></span>Medium Risk</td>
-                                <td>Single office location; partial remote work mitigates but doesn't eliminate</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="metric-card">
+                        <div class="metric-title">Supplier Diversity</div>
+                        <div class="metric-value" style="color: var(--success);">21%</div>
+                        <div class="metric-trend trend-up">
+                            <span>▲ +2pp YoY</span>
+                        </div>
+                        <div style="font-size: 0.75em; color:#94a3b8; margin-top:5px;">vs. Industry avg: 3-5%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title">GHG Verification</div>
+                        <div class="metric-value" style="color: var(--success);">✓</div>
+                        <div class="metric-trend trend-neutral">
+                            <span>3rd Party Verified</span>
+                        </div>
+                        <div style="font-size: 0.75em; color:#94a3b8; margin-top:5px;">Apex / ISO 14064-3</div>
+                    </div>
                 </div>
 
-                <div class="subsection">
-                    <h3>Cybersecurity Posture</h3>
-                    
-                    <div class="finding-box positive">
-                        <div class="finding-title"><span class="status-indicator status-green"></span>Strong Security Track Record</div>
-                        <p><strong>Key Strengths:</strong></p>
-                        <ul style="margin-left: 20px; margin-top: 10px;">
-                            <li>No reported security breaches or incidents since founding</li>
-                            <li>Regular third-party penetration testing (quarterly by Bishop Fox)</li>
-                            <li>Bug bounty program active on HackerOne (private program)</li>
-                            <li>Security team of 8 dedicated professionals</li>
-                            <li>CISO: Amanda Rogers (formerly at Cisco, 12+ years security experience)</li>
+                <div class="alert-box success">
+                    <div class="alert-icon">✓</div>
+                    <div>
+                        <strong>Industry-Leading Climate Commitments:</strong> ServiceNow achieved carbon-neutral cloud operations in 2022 and maintains this status through 100% renewable electricity procurement and verified carbon offset programs. The company has committed to net-zero GHG emissions before 2030 with Science Based Targets initiative (SBTi) approved near-term targets. Third-party verification by Apex under ISO 14064-3 standard of 2023 greenhouse gas emissions, renewable energy procurement, carbon offsets, and net emissions provides credibility and transparency to environmental claims.
+                    </div>
+                </div>
+
+                <h3 style="font-size: 1.15em; margin: 30px 0 18px 0; color: var(--primary);">Environmental Performance Metrics</h3>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Environmental Metric</th>
+                            <th>Current Status</th>
+                            <th>Target / Standard</th>
+                            <th>Verification Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Carbon Neutrality (Scope 1 & 2)</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">✓ Achieved (Since 2022)</td>
+                            <td>Cloud operations carbon neutral</td>
+                            <td>Third-party verified by Apex</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Renewable Electricity</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">100%</td>
+                            <td>All global operations</td>
+                            <td>ISO 14064-3 verified</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Net-Zero Commitment</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">Committed</td>
+                            <td>Before 2030 (all scopes)</td>
+                            <td>SBTi approved targets</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Scope 3 Emissions Tracking</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">Comprehensive</td>
+                            <td>Value chain emissions reported</td>
+                            <td>Included in GHG inventory</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GHG Emissions Reporting</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">Annual (Verified)</td>
+                            <td>Scope 1, 2, 3 disclosed</td>
+                            <td>ISO 14064-3 / Apex verification</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ESG Reporting Framework</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">Multi-standard</td>
+                            <td>GRI, SASB, TCFD, UN SDGs</td>
+                            <td>Global Impact Report 2024 published</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Environmental Policy</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">Published</td>
+                            <td>Publicly available</td>
+                            <td>Board-approved, updated annually</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="font-size: 1.15em; margin: 30px 0 18px 0; color: var(--primary);">ESG Strategy Framework - Three Pillars</h3>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px;">
+                    <div style="background: #f0fdf4; padding: 20px; border-radius: 8px; border-left: 4px solid var(--success);">
+                        <h4 style="color: var(--primary); margin-bottom: 10px; font-size: 1.05em;">Sustaining Our Planet</h4>
+                        <ul style="padding-left: 20px; font-size: 0.9em; color: #475569; line-height: 1.8;">
+                            <li>Carbon-neutral cloud operations</li>
+                            <li>100% renewable energy procurement</li>
+                            <li>Net-zero GHG target before 2030</li>
+                            <li>SBTi-approved emission reduction targets</li>
+                            <li>Scope 3 supply chain engagement</li>
+                            <li>Water conservation programs</li>
+                            <li>Circular economy initiatives</li>
                         </ul>
                     </div>
 
-                    <div class="info-grid" style="margin-top: 20px;">
-                        <div class="info-item">
-                            <div class="label">Last Penetration Test</div>
-                            <div class="value">September 2024 (Bishop Fox)</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Vulnerability Disclosure</div>
-                            <div class="value">security@techvendor.com</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Incident Response Time</div>
-                            <div class="value">&lt; 2 hours (critical)</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Employee Security Training</div>
-                            <div class="value">Quarterly mandatory sessions</div>
-                        </div>
+                    <div style="background: #eff6ff; padding: 20px; border-radius: 8px; border-left: 4px solid var(--accent);">
+                        <h4 style="color: var(--primary); margin-bottom: 10px; font-size: 1.05em;">Creating Access to Opportunity</h4>
+                        <ul style="padding-left: 20px; font-size: 0.9em; color: #475569; line-height: 1.8;">
+                            <li>Supplier diversity: 21% (industry-leading)</li>
+                            <li>Technology skills programs for underserved</li>
+                            <li>Intersectional DEI strategy</li>
+                            <li>Community investment & philanthropy</li>
+                            <li>Digital divide initiatives</li>
+                            <li>Veteran hiring programs</li>
+                            <li>STEM education partnerships</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: #fef3c7; padding: 20px; border-radius: 8px; border-left: 4px solid var(--warning);">
+                        <h4 style="color: var(--primary); margin-bottom: 10px; font-size: 1.05em;">Acting with Integrity</h4>
+                        <ul style="padding-left: 20px; font-size: 0.9em; color: #475569; line-height: 1.8;">
+                            <li>Transparent ESG reporting (GRI, SASB)</li>
+                            <li>Board-level ESG oversight</li>
+                            <li>Ethics & compliance programs</li>
+                            <li>Whistleblower protections</li>
+                            <li>Anti-corruption policies (FCPA, UK Bribery Act)</li>
+                            <li>Data privacy & security (GDPR, CCPA)</li>
+                            <li>Stakeholder engagement</li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="subsection">
-                    <h3>Customer Concentration Risk</h3>
-                    
-                    <div class="finding-box negative">
-                        <div class="finding-title"><span class="status-indicator status-red"></span>High Customer Concentration</div>
-                        <p><strong>Critical Risk Factor:</strong> Top customer (Fortune 500 financial services firm) represents 42% of annual recurring revenue. Loss of this client would have severe financial impact. Additionally, top 3 customers represent 67% of revenue.</p>
+                <div class="benchmark-container" style="margin-top: 30px;">
+                    <div class="benchmark-label">
+                        <span><strong>Supplier Diversity Performance (2023)</strong></span>
+                        <span style="color: var(--success); font-weight: 600;">21%</span>
                     </div>
-
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Customer Segment</th>
-                                <th>% of Revenue</th>
-                                <th>Contract Terms</th>
-                                <th>Risk Assessment</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Top Customer (Financial Services)</td>
-                                <td>42%</td>
-                                <td>Multi-year, expires Dec 2025</td>
-                                <td><span class="status-indicator status-red"></span>High concentration risk</td>
-                            </tr>
-                            <tr>
-                                <td>Customer #2 (Technology)</td>
-                                <td>15%</td>
-                                <td>Annual contract, auto-renewal</td>
-                                <td><span class="status-indicator status-yellow"></span>Moderate risk</td>
-                            </tr>
-                            <tr>
-                                <td>Customer #3 (Healthcare)</td>
-                                <td>10%</td>
-                                <td>2-year contract, expires June 2025</td>
-                                <td><span class="status-indicator status-yellow"></span>Moderate risk</td>
-                            </tr>
-                            <tr>
-                                <td>Other Customers (45+)</td>
-                                <td>33%</td>
-                                <td>Various</td>
-                                <td><span class="status-indicator status-green"></span>Diversified</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="benchmark-bar">
+                        <div class="benchmark-fill fill-green" style="width: 21%;"></div>
+                    </div>
+                    <div style="font-size: 0.85em; color: #64748b; margin-top: 5px;">
+                        ServiceNow's 21% diverse supplier spend significantly exceeds enterprise software industry average of 3-5%, demonstrating genuine commitment beyond compliance requirements. YoY improvement from 19% (2022) to 21% (2023) shows sustained progress trajectory.
+                    </div>
                 </div>
 
-                <div class="subsection">
-                    <h3>Geographic & Market Risk</h3>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <div class="label">Primary Markets</div>
-                            <div class="value">North America (82%), Europe (15%), APAC (3%)</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Political Risk Exposure</div>
-                            <div class="value">Low (primarily stable democracies)</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Currency Exposure</div>
-                            <div class="value">USD (85%), EUR (12%), Other (3%)</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Trade Restrictions</div>
-                            <div class="value">None applicable to current operations</div>
-                        </div>
+                <div class="alert-box info">
+                    <div class="alert-icon">ℹ</div>
+                    <div>
+                        <strong>ESG Reporting Transparency:</strong> ServiceNow publishes comprehensive annual Global Impact Report with voluntary ESG disclosures referencing multiple frameworks: GRI (Global Reporting Initiative), SASB Software & IT Services standards, TCFD (Task Force on Climate-Related Financial Disclosure), and UN SDGs (Sustainable Development Goals). This multi-framework approach demonstrates commitment to best-in-class transparency and accountability, enabling stakeholder comparability across reporting standards. Company also offers ESG Management solutions enabling customers to activate their own sustainability strategies via the Now Platform, positioning ServiceNow as both ESG leader and enabler.
                     </div>
                 </div>
             </div>
 
-            <!-- Section 4: ESG & Reputation -->
-            <div class="section">
-                <div class="section-header">
-                    <div class="section-number">4</div>
-                    <h2 class="section-title">ESG & Reputational Assessment</h2>
-                </div>
-
-                <div class="subsection">
-                    <h3>Labor Practices & Employment</h3>
-                    
-                    <div class="finding-box">
-                        <div class="finding-title"><span class="status-indicator status-yellow"></span>Recent Layoffs & Employee Relations</div>
-                        <p><strong>Q2 2024 Workforce Reduction:</strong> Company laid off 33 employees (15% of workforce) in May 2024 as part of cost optimization. Glassdoor reviews following layoffs show mixed sentiment, with some former employees expressing concerns about lack of transparency in the process.</p>
-                        <p style="margin-top: 10px;"><strong>Glassdoor Rating:</strong> 3.2/5.0 (down from 3.8/5.0 in 2023) based on 47 reviews</p>
-                    </div>
-
-                    <div class="finding-box positive">
-                        <div class="finding-title">Diversity & Inclusion Initiatives</div>
-                        <p>Company publishes annual diversity report. As of 2024: 38% women in workforce (up from 31% in 2022), 24% underrepresented minorities in technical roles. Active participation in Women in Tech mentorship programs.</p>
-                    </div>
-
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Labor Practice Area</th>
-                                <th>Assessment</th>
-                                <th>Evidence/Notes</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Modern Slavery/Forced Labor</td>
-                                <td><span class="status-indicator status-green"></span>No Concerns</td>
-                                <td>No adverse findings; operates in low-risk jurisdictions</td>
-                            </tr>
-                            <tr>
-                                <td>Child Labor</td>
-                                <td><span class="status-indicator status-green"></span>No Concerns</td>
-                                <td>No adverse findings; verified employment practices</td>
-                            </tr>
-                            <tr>
-                                <td>Working Conditions</td>
-                                <td><span class="status-indicator status-yellow"></span>Monitor</td>
-                                <td>Recent Glassdoor reviews mention "long hours" and "pressure"</td>
-                            </tr>
-                            <tr>
-                                <td>Union/Labor Relations</td>
-                                <td><span class="status-indicator status-green"></span>No Issues</td>
-                                <td>Non-unionized workforce; no organizing attempts reported</td>
-                            </tr>
-                            <tr>
-                                <td>Discrimination/Harassment</td>
-                                <td><span class="status-indicator status-yellow"></span>Under Review</td>
-                                <td>CTO lawsuit includes allegations; outcome pending</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="subsection">
-                    <h3>Environmental Impact</h3>
-                    <div class="finding-box positive">
-                        <div class="finding-title">Low Environmental Risk Profile</div>
-                        <p>As a software services company, TechVendor has minimal direct environmental impact. Cloud infrastructure hosted on AWS, which has committed to 100% renewable energy by 2025. Company has published sustainability policy focused on carbon-neutral operations.</p>
-                    </div>
-
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <div class="label">Carbon Footprint</div>
-                            <div class="value">~200 tons CO2e annually (2023 estimate)</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Environmental Certifications</div>
-                            <div class="value">None specific; inherits AWS sustainability</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Environmental Incidents</div>
-                            <div class="value">No violations or fines identified</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Sustainability Reporting</div>
-                            <div class="value">Basic ESG statement published 2023</div>
-                        </div>
+            <!-- Section 3: Human Rights & Labor Practices (Pillar 2) -->
+            <div class="module">
+                <div class="module-header">
+                    <div>
+                        <h2 class="module-title">3. Human Rights & Labor Practices <span class="pillar-score pillar-score-high">80/100</span></h2>
+                        <div class="module-subtitle">Supply chain ethics, diversity & inclusion, labor standards</div>
                     </div>
                 </div>
 
-                <div class="subsection">
-                    <h3>Anti-Corruption & Business Ethics</h3>
-                    
-                    <div class="finding-box positive">
-                        <div class="finding-title"><span class="status-indicator status-green"></span>Clean Record</div>
-                        <p>No allegations or evidence of corruption, bribery, or unethical business practices identified. Company maintains code of conduct and anti-corruption policy available on website.</p>
-                    </div>
-
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Risk Area</th>
-                                <th>Status</th>
-                                <th>Details</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>FCPA Violations</td>
-                                <td><span class="status-indicator status-green"></span>Clear</td>
-                                <td>No investigations or enforcement actions</td>
-                            </tr>
-                            <tr>
-                                <td>UK Bribery Act</td>
-                                <td><span class="status-indicator status-green"></span>Clear</td>
-                                <td>No violations identified</td>
-                            </tr>
-                            <tr>
-                                <td>Fraud Allegations</td>
-                                <td><span class="status-indicator status-green"></span>Clear</td>
-                                <td>No civil or criminal fraud cases</td>
-                            </tr>
-                            <tr>
-                                <td>Transparency International</td>
-                                <td><span class="status-indicator status-green"></span>Clear</td>
-                                <td>Not listed in adverse databases</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="subsection">
-                    <h3>Recent Controversies & Media Coverage</h3>
-                    
-                    <div class="finding-box">
-                        <div class="finding-title">CTO Departure & Legal Dispute (August-September 2024)</div>
-                        <p>Coverage in TechCrunch and local Austin media regarding former CTO David Patel's departure and subsequent lawsuit. Company declined to comment publicly beyond standard "parted ways" statement. Online tech community discussions show divided opinions on the circumstances.</p>
-                    </div>
-
-                    <div class="finding-box">
-                        <div class="finding-title">Service Outage (March 2024)</div>
-                        <p>4-hour service disruption affected subset of customers due to AWS regional issue. Company communicated transparently via status page and issued service credits per SLA. Generally positive reception of incident handling.</p>
-                    </div>
-
-                    <div class="info-grid" style="margin-top: 20px;">
-                        <div class="info-item">
-                            <div class="label">Overall Media Sentiment</div>
-                            <div class="value">Neutral to Slightly Negative</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Social Media Presence</div>
-                            <div class="value">Active on LinkedIn, Twitter; professional tone</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Customer Reviews (G2)</div>
-                            <div class="value">4.1/5.0 stars (32 reviews)</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">BBB Rating</div>
-                            <div class="value">A- (no complaints filed)</div>
-                        </div>
+                <div class="alert-box success">
+                    <div class="alert-icon">✓</div>
+                    <div>
+                        <strong>Comprehensive Human Rights Framework:</strong> ServiceNow maintains robust commitment to human rights across operations and supply chain, with formal Human Rights Statement and comprehensive Supplier Code of Conduct. Company upholds international standards including US Trafficking Victims Protection Act, UK Modern Slavery Act 2015, and Australian Modern Slavery Act 2018. Supplier code mandates zero tolerance for modern slavery, child labor, forced labor, and human trafficking with clear enforcement mechanisms.
                     </div>
                 </div>
-            </div>
 
-            <!-- Section 5: Financial Stability -->
-            <div class="section">
-                <div class="section-header">
-                    <div class="section-number">5</div>
-                    <h2 class="section-title">Financial Stability Analysis</h2>
-                </div>
+                <h3 style="font-size: 1.15em; margin: 30px 0 18px 0; color: var(--primary);">Supplier Code of Conduct - Key Provisions</h3>
 
-                <div class="subsection">
-                    <h3>Financial Overview</h3>
-                    
-                    <div class="finding-box negative">
-                        <div class="finding-title"><span class="status-indicator status-red"></span>Revenue Decline & Operating Losses</div>
-                        <p><strong>2023 Performance:</strong> Revenue of $22.4M (down 18% from $27.3M in 2022). Operating loss of $24.1M. Monthly burn rate approximately $2.0M. Company attributes decline to "market headwinds" and "customer consolidation."</p>
-                        <p style="margin-top: 10px;"><strong>Cash Position:</strong> Estimated $28-32M remaining from Series B (raised $37M in September 2021). At current burn rate, runway of approximately 14-16 months (through Q1 2026).</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Policy Area</th>
+                            <th>Requirement</th>
+                            <th>Enforcement Standard</th>
+                            <th>Verification Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Modern Slavery</strong></td>
+                            <td style="color: var(--danger); font-weight: 600;">Prohibited - Zero Tolerance</td>
+                            <td>UK Modern Slavery Act 2015, AU Modern Slavery Act 2018, US TVPA</td>
+                            <td>Supplier attestations, audits</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Child Labor</strong></td>
+                            <td style="color: var(--danger); font-weight: 600;">Prohibited under age 15 (14 where local law permits)</td>
+                            <td>ILO Convention 138 alignment</td>
+                            <td>Age verification, documentation review</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Forced Labor</strong></td>
+                            <td style="color: var(--danger); font-weight: 600;">Zero tolerance</td>
+                            <td>ILO standards, US TVPA, local laws</td>
+                            <td>Worker interviews, site audits</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Human Trafficking</strong></td>
+                            <td style="color: var(--danger); font-weight: 600;">Prohibited</td>
+                            <td>Trafficking Victims Protection Act compliance</td>
+                            <td>Supply chain transparency mapping</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Freedom of Association</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">Respected</td>
+                            <td>Workers' rights to organize per local law</td>
+                            <td>Policy review, worker rights audits</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Wages & Benefits</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">Fair compensation required</td>
+                            <td>Minimum wage laws, living wage goals</td>
+                            <td>Payroll audits, worker surveys</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Working Hours</strong></td>
+                            <td>Compliance with local limits</td>
+                            <td>ILO standards, max 60hr/week (with exceptions)</td>
+                            <td>Time tracking review</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Workplace Safety</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">Safe & healthy conditions</td>
+                            <td>OSHA standards (US), local H&S regulations</td>
+                            <td>Safety audits, incident tracking</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="governance-grid" style="margin-top: 30px;">
+                    <div class="governance-card">
+                        <div class="governance-title">Workforce Demographics (Estimated)</div>
+                        <div class="governance-item">
+                            <span>Total Employees</span>
+                            <span style="font-weight: 600;">26,290</span>
+                        </div>
+                        <div class="governance-item">
+                            <span>Headquarters</span>
+                            <span>Santa Clara, California, USA</span>
+                        </div>
+                        <div class="governance-item">
+                            <span>Global Presence</span>
+                            <span>50+ countries</span>
+                        </div>
+                        <div class="governance-item">
+                            <span>Employee Growth (YoY est.)</span>
+                            <span style="color: var(--success); font-weight: 600;">~8-10%</span>
+                        </div>
+                        <div style="margin-top: 15px; padding: 12px; background: #f0fdf4; border-left: 3px solid var(--success); font-size: 0.85em; border-radius: 4px;">
+                            Aligns with revenue scale: 26K employees supporting $11B revenue indicates operational efficiency of ~$418K revenue per employee.
+                        </div>
                     </div>
 
-                    <div class="metrics-grid" style="margin-top: 25px;">
-                        <div class="metric-card">
-                            <div class="metric-value" style="color: #ef4444;">-18%</div>
-                            <div class="metric-label">Revenue Growth YoY</div>
+                    <div class="governance-card">
+                        <div class="governance-title">Labor Relations & Compliance</div>
+                        <div class="governance-item">
+                            <span>Labor Union Activity</span>
+                            <span style="color: var(--success); font-weight: 600;">No significant disputes</span>
                         </div>
-                        <div class="metric-card">
-                            <div class="metric-value" style="color: #1e3a8a;">$22.4M</div>
-                            <div class="metric-label">2023 Revenue</div>
+                        <div class="governance-item">
+                            <span>ERISA Compliance</span>
+                            <span style="color: var(--warning); font-weight: 600;">⚠ Settled 401(k) class action</span>
                         </div>
-                        <div class="metric-card">
-                            <div class="metric-value" style="color: #ef4444;">-$24.1M</div>
-                            <div class="metric-label">Operating Loss 2023</div>
+                        <div class="governance-item">
+                            <span>Whistleblower Programs</span>
+                            <span style="color: var(--success); font-weight: 600;">✓ Active</span>
                         </div>
-                        <div class="metric-card">
-                            <div class="metric-value" style="color: #f59e0b;">~15mo</div>
-                            <div class="metric-label">Est. Runway</div>
+                        <div class="governance-item">
+                            <span>Employee Complaints (public)</span>
+                            <span>None material identified</span>
+                        </div>
+                        <div style="margin-top: 15px; padding: 12px; background: #fffbeb; border-left: 3px solid var(--warning); font-size: 0.85em; border-radius: 4px;">
+                            <strong>ERISA Settlement:</strong> $925K settlement for 401(k) plan management and investment selection issues. Final approval hearing Feb 24, 2026. While immaterial financially, indicates historical fiduciary oversight gaps now remediated.
                         </div>
                     </div>
                 </div>
 
-                <div class="subsection">
-                    <h3>Revenue Trends & Customer Dynamics</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Fiscal Year</th>
-                                <th>Revenue</th>
-                                <th>YoY Growth</th>
-                                <th>Customer Count</th>
-                                <th>ARPU</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>2021</td>
-                                <td>$15.2M</td>
-                                <td>+45%</td>
-                                <td>32</td>
-                                <td>$475K</td>
-                            </tr>
-                            <tr>
-                                <td>2022</td>
-                                <td>$27.3M</td>
-                                <td>+80%</td>
-                                <td>48</td>
-                                <td>$569K</td>
-                            </tr>
-                            <tr>
-                                <td>2023</td>
-                                <td>$22.4M</td>
-                                <td>-18%</td>
-                                <td>51</td>
-                                <td>$439K</td>
-                            </tr>
-                            <tr>
-                                <td>2024 (Est.)</td>
-                                <td>$19-21M</td>
-                                <td>-10 to -15%</td>
-                                <td>~50</td>
-                                <td>$380-420K</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <h3 style="font-size: 1.15em; margin: 30px 0 18px 0; color: var(--primary);">Diversity, Equity & Inclusion (DEI) Strategy</h3>
 
-                    <div class="finding-box" style="margin-top: 20px;">
-                        <div class="finding-title">Analysis: Declining ARPU Signals Pricing Pressure</div>
-                        <p>Average revenue per customer has declined from $569K (2022) to $439K (2023), a 23% drop. This suggests either: (1) downgrades/contractions from existing customers, (2) new customers signing at lower price points, or (3) increased discounting to retain business. Combined with flat customer count, this indicates challenging market dynamics.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Funding History & Investor Quality</h3>
-                    
-                    <div class="finding-box positive">
-                        <div class="finding-title">Tier-1 Venture Capital Backing</div>
-                        <p>Company backed by reputable institutional investors including Sequoia Capital (Series B lead) and Accel Partners (Series A lead). Both firms have strong track records and typically conduct thorough due diligence. Their continued board presence suggests ongoing support.</p>
-                    </div>
-
-                    <table style="margin-top: 20px;">
-                        <thead>
-                            <tr>
-                                <th>Round</th>
-                                <th>Date</th>
-                                <th>Amount</th>
-                                <th>Lead Investor</th>
-                                <th>Valuation</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Seed</td>
-                                <td>Mar 2016</td>
-                                <td>$1.2M</td>
-                                <td>Angel investors</td>
-                                <td>$4M</td>
-                            </tr>
-                            <tr>
-                                <td>Series A</td>
-                                <td>Jun 2018</td>
-                                <td>$8.0M</td>
-                                <td>Accel Partners</td>
-                                <td>$32M</td>
-                            </tr>
-                            <tr>
-                                <td>Series B</td>
-                                <td>Sep 2021</td>
-                                <td>$37M</td>
-                                <td>Sequoia Capital</td>
-                                <td>$180M</td>
-                            </tr>
-                            <tr>
-                                <td>Series C</td>
-                                <td>N/A</td>
-                                <td>No announced plans</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="finding-box" style="margin-top: 20px;">
-                        <div class="finding-title"><span class="status-indicator status-yellow"></span>No Recent Fundraising Activity</div>
-                        <p>Last funding round was September 2021 (Series B). With current burn rate and declining revenue, company will likely need to raise additional capital within 12-18 months. Market conditions for SaaS fundraising have deteriorated significantly since 2021, which may impact valuation and terms.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Credit Assessment & Payment History</h3>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <div class="label">D&B Rating</div>
-                            <div class="value">3A2 (Fair; $500K-$1M credit)</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Payment History</div>
-                            <div class="value">Generally prompt (avg 12 days)</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Trade References</div>
-                            <div class="value">5 reported; all positive</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Bankruptcy Risk Score</div>
-                            <div class="value">Medium-Low (per D&B)</div>
-                        </div>
-                    </div>
-
-                    <div class="finding-box positive" style="margin-top: 20px;">
-                        <div class="finding-title">Clean Payment History with Vendors</div>
-                        <p>Trade credit reports indicate consistent, timely payments to suppliers and vendors. No liens, judgments, or UCC filings identified. Banking relationships appear stable.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 6: Sources & Methodology -->
-            <div class="section">
-                <div class="section-header">
-                    <div class="section-number">6</div>
-                    <h2 class="section-title">Sources & Methodology</h2>
-                </div>
-
-                <div class="subsection">
-                    <h3>Information Sources</h3>
-                    <p style="margin-bottom: 20px;">This report was compiled using automated and manual research across the following categories of sources:</p>
-
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Source Category</th>
-                                <th>Examples</th>
-                                <th>Information Obtained</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Corporate Records</td>
-                                <td>Delaware Division of Corporations, SEC EDGAR</td>
-                                <td>Incorporation details, beneficial ownership, corporate structure</td>
-                            </tr>
-                            <tr>
-                                <td>Sanctions Lists</td>
-                                <td>OFAC SDN, UN Consolidated List, EU Sanctions, UK HMT</td>
-                                <td>Sanctions screening results</td>
-                            </tr>
-                            <tr>
-                                <td>Legal Databases</td>
-                                <td>PACER, state court records, LexisNexis</td>
-                                <td>Litigation history, judgments, liens</td>
-                            </tr>
-                            <tr>
-                                <td>Financial Data</td>
-                                <td>Dun & Bradstreet, Crunchbase, PitchBook</td>
-                                <td>Funding history, financial estimates, credit ratings</td>
-                            </tr>
-                            <tr>
-                                <td>News & Media</td>
-                                <td>TechCrunch, Reuters, Bloomberg, local publications</td>
-                                <td>Controversies, incidents, leadership changes</td>
-                            </tr>
-                            <tr>
-                                <td>Industry Sources</td>
-                                <td>G2, Gartner, Glassdoor</td>
-                                <td>Customer reviews, employer reputation</td>
-                            </tr>
-                            <tr>
-                                <td>Company Sources</td>
-                                <td>Official website, LinkedIn, press releases</td>
-                                <td>Leadership, certifications, company statements</td>
-                            </tr>
-                            <tr>
-                                <td>Regulatory Filings</td>
-                                <td>State labor departments, environmental agencies</td>
-                                <td>Compliance status, violations</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="subsection">
-                    <h3>Research Methodology</h3>
-                    <p>This report was generated using a combination of:</p>
-                    <ul style="margin-left: 20px; margin-top: 15px; line-height: 1.8;">
-                        <li><strong>Automated screening:</strong> AI-powered agents searched structured databases (sanctions lists, corporate registries, court records) and unstructured sources (news, media, public statements)</li>
-                        <li><strong>Multi-source validation:</strong> Key facts verified across multiple independent sources where possible</li>
-                        <li><strong>Temporal analysis:</strong> Timeline reconstruction of significant corporate events, leadership changes, and incidents</li>
-                        <li><strong>Risk categorization:</strong> Standardized risk assessment framework applied across all evaluation areas</li>
+                <div class="summary-box">
+                    <p style="margin-bottom: 15px;">
+                        ServiceNow publishes annual Diversity, Equity, and Inclusion Reports documenting intersectional DEI strategy recognizing diversity across ability, gender, race, sexual orientation, mental well-being, and other dimensions. The company commits time, talent, and resources to creating inclusive workplace culture and expanding opportunity access for underrepresented communities.
+                    </p>
+                    <p style="margin-bottom: 10px;"><strong>Key DEI Initiatives Include:</strong></p>
+                    <ul style="padding-left: 20px; margin-top: 10px; line-height: 1.8;">
+                        <li><strong>Intersectional DEI Framework:</strong> Addresses multiple dimensions of diversity simultaneously rather than siloed programs</li>
+                        <li><strong>Technology Skills Programs:</strong> Expanding access to underrepresented communities through training and certification programs</li>
+                        <li><strong>Transparent Annual Reporting:</strong> Published metrics with progress tracking and year-over-year comparisons</li>
+                        <li><strong>Executive Accountability:</strong> C-suite compensation tied to DEI outcomes; Board oversight of diversity initiatives</li>
+                        <li><strong>Employee Resource Groups (ERGs):</strong> Multiple ERGs supporting diverse employee communities with executive sponsors</li>
+                        <li><strong>Inclusive Hiring Practices:</strong> Structured interview processes, diverse interview panels, bias training for hiring managers</li>
+                        <li><strong>Pay Equity Commitment:</strong> Regular pay equity audits to identify and remediate compensation disparities</li>
                     </ul>
                 </div>
 
-                <div class="subsection">
-                    <h3>Limitations & Disclaimers</h3>
-                    <div class="disclaimer">
-                        <strong>Important Limitations:</strong>
-                        <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
-                            <li><strong>Point-in-time assessment:</strong> This report reflects information available as of November 27, 2024. Circumstances may change rapidly.</li>
-                            <li><strong>Private company constraints:</strong> As a private company, TechVendor Solutions is not required to publicly disclose detailed financial information. Revenue and financial estimates are based on available data sources and may not be precise.</li>
-                            <li><strong>No insider information:</strong> This report is based entirely on publicly available information and does not include confidential or proprietary data.</li>
-                            <li><strong>Not legal/financial advice:</strong> This report is for informational purposes only and does not constitute legal, financial, or investment advice.</li>
-                            <li><strong>Ongoing litigation:</strong> The outcome of pending legal matters (CTO lawsuit) is uncertain and could materially impact the company.</li>
-                            <li><strong>Verification recommended:</strong> Critical facts should be independently verified, especially for high-value or strategic relationships.</li>
-                        </ul>
+                <div class="alert-box info">
+                    <div class="alert-icon">ℹ</div>
+                    <div>
+                        <strong>Armis Acquisition - Employee Retention Focus:</strong> ServiceNow allocated approximately $500 million specifically for Armis employee retention following the $7.75B acquisition announcement. This substantial retention package demonstrates commitment to talent continuity and employee value recognition during M&A transitions, reducing key person risk and preserving institutional knowledge critical to Armis's cybersecurity capabilities.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Sanctions & Compliance (Pillar 3) -->
+            <div class="module">
+                <div class="module-header">
+                    <div>
+                        <h2 class="module-title">4. Sanctions & Compliance Status <span class="pillar-score pillar-score-med">68/100</span></h2>
+                        <div class="module-subtitle">Regulatory compliance, sanctions screening, governance incidents</div>
                     </div>
                 </div>
 
-                <div class="subsection">
-                    <h3>Detailed Source References</h3>
-                    <ol class="sources-list" style="margin-left: 20px;">
-                        <li>Delaware Division of Corporations - Certificate of Incorporation, File No. 6234891 (accessed Nov 2024)</li>
-                        <li>Crunchbase - Funding and investor data (accessed Nov 27, 2024)</li>
-                        <li>OFAC SDN List - Sanctions screening (accessed Nov 27, 2024)</li>
-                        <li>PACER - Case No. 1:24-cv-08764, Patel v. TechVendor Solutions Inc. (filed Sep 2024)</li>
-                        <li>Dun & Bradstreet Business Report - Credit rating and payment history (Nov 2024)</li>
-                        <li>Company website - www.techvendorsolutions.com (accessed Nov 2024)</li>
-                        <li>TechCrunch - "TechVendor CTO departs amid leadership shakeup" (August 12, 2024)</li>
-                        <li>Austin Business Journal - "TechVendor lays off 15% of workforce" (May 15, 2024)</li>
-                        <li>Glassdoor - Employee reviews and ratings (accessed Nov 2024)</li>
-                        <li>G2 - Customer reviews and product ratings (accessed Nov 2024)</li>
-                        <li>LinkedIn - Company page and leadership profiles (accessed Nov 2024)</li>
-                        <li>SOC 2 Report - Deloitte attestation dated March 2024 (summary information from company website)</li>
-                        <li>ISO 27001 Certificate - BSI certificate dated June 2023 (via company website)</li>
+                <div class="alert-box">
+                    <div class="alert-icon">⚠</div>
+                    <div>
+                        <strong>CRITICAL GOVERNANCE INCIDENT - Active DOJ Investigation:</strong>
+                        <br><br>
+                        <strong>Timeline:</strong> May 2024 - ServiceNow received complaint regarding compliance issues during procurement process for government contract. Company initiated internal investigation and self-reported to SEC, DOJ, DoD Office of Inspector General, and Army Suspension and Debarment Office.
+                        <br><br>
+                        <strong>Findings:</strong> Internal investigation determined President/COO Chirantan "CJ" Desai violated company policy when hiring former US Army CIO Raj Iyer as Global Public Sector Head in March 2023. This hiring occurred proximate to US Army's $432 million ServiceNow license consolidation deal via reseller Carahsoft.
+                        <br><br>
+                        <strong>Personnel Actions:</strong> Both Desai (President/COO) and Iyer (Public Sector Head) departed ServiceNow immediately following investigation findings (July 2024). Departures characterized as "mutual agreements."
+                        <br><br>
+                        <strong>DOJ Investigation:</strong> Department of Justice commenced independent investigation into potential ethics violations, procurement improprieties, and conflict of interest concerns. Investigation ongoing as of report date.
+                        <br><br>
+                        <strong>Risk Assessment:</strong> C-suite level governance failure involving government contracting ethics raises material compliance, regulatory, and reputational risks. Potential outcomes include: (1) Civil penalties/fines, (2) Debarment proceedings (temporary or permanent exclusion from federal contracting), (3) Enhanced compliance monitoring requirements, (4) Contractual modifications or renegotiations with DoD/Army, (5) Class action shareholder litigation. <strong>Recommend: Enhanced contractual ethics clauses, cooling-off period provisions for hiring customer executives, debarment termination rights, quarterly compliance certifications from C-suite, independent compliance function reporting to Audit Committee.</strong>
+                    </div>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">May 2024</div>
+                        <div class="timeline-content"><strong>Complaint Received:</strong> ServiceNow receives complaint regarding government contract procurement compliance issues. Company initiates internal investigation.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">May-July 2024</div>
+                        <div class="timeline-content"><strong>Internal Investigation:</strong> Company legal/compliance teams conduct investigation. Findings: President/COO violated company policy in hiring former Army CIO.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">July 24, 2024</div>
+                        <div class="timeline-content"><strong>Executive Departures Announced:</strong> CJ Desai (President/COO) and Raj Iyer (Public Sector Head) depart company. ServiceNow publicly discloses investigation findings and self-reporting to authorities.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">July 2024 - Present</div>
+                        <div class="timeline-content"><strong>DOJ Investigation Ongoing:</strong> Department of Justice conducting independent investigation. No public updates or resolution as of December 30, 2025.</div>
+                    </div>
+                </div>
+
+                <h3 style="font-size: 1.15em; margin: 30px 0 18px 0; color: var(--primary);">Sanctions & Export Control Compliance</h3>
+
+                <div class="governance-grid">
+                    <div class="governance-card">
+                        <div class="governance-title">Sanctions Watchlist Screening</div>
+                        <div class="governance-item">
+                            <span>OFAC SDN List (US Treasury)</span>
+                            <span style="color: var(--success); font-weight: 600;">✓ Clear</span>
+                        </div>
+                        <div class="governance-item">
+                            <span>UN Consolidated Sanctions List</span>
+                            <span style="color: var(--success); font-weight: 600;">✓ Clear</span>
+                        </div>
+                        <div class="governance-item">
+                            <span>EU Sanctions Lists</span>
+                            <span style="color: var(--success); font-weight: 600;">✓ Clear</span>
+                        </div>
+                        <div class="governance-item">
+                            <span>UK HMT Consolidated List</span>
+                            <span style="color: var(--success); font-weight: 600;">✓ Clear</span>
+                        </div>
+                        <div style="margin-top: 15px; padding: 12px; background: #f0fdf4; border-left: 3px solid var(--success); font-size: 0.85em; border-radius: 4px;">
+                            <strong>Result:</strong> No matches found for company entity, beneficial owners, Board members, or C-suite executives across major sanctions databases (screened December 30, 2025).
+                        </div>
+                    </div>
+
+                    <div class="governance-card">
+                        <div class="governance-title">Export Control & Trade Compliance</div>
+                        <div class="governance-item">
+                            <span>OFAC Compliance Program</span>
+                            <span style="color: var(--success); font-weight: 600;">✓ Active</span>
+                        </div>
+                        <div class="governance-item">
+                            <span>BIS Export Controls</span>
+                            <span style="color: var(--success); font-weight: 600;">✓ Compliant</span>
+                        </div>
+                        <div class="governance-item">
+                            <span>ITAR (if applicable)</span>
+                            <span>Not ITAR-controlled</span>
+                        </div>
+                        <div class="governance-item">
+                            <span>In-House Trade Compliance Counsel</span>
+                            <span style="color: var(--success); font-weight: 600;">✓ Yes (Bob Bowen)</span>
+                        </div>
+                        <div style="margin-top: 15px; padding: 12px; background: #eff6ff; border-left: 3px solid var(--accent); font-size: 0.85em; border-radius: 4px;">
+                            <strong>Expertise:</strong> ServiceNow's Export and Trade Compliance Counsel Bob Bowen authored industry guidance on OFAC sanctions compliance (ACC Docket, July 2024), demonstrating internal expertise. Company operates in complex export control environment given global cloud platform and government sector customers.
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="font-size: 1.15em; margin: 30px 0 18px 0; color: var(--primary);">Other Regulatory & Legal Matters</h3>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Legal/Regulatory Matter</th>
+                            <th>Status</th>
+                            <th>Financial Impact</th>
+                            <th>Risk Assessment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ERISA Class Action (401(k) Plan)</strong></td>
+                            <td style="color: var(--warning); font-weight: 600;">Settlement Pending Approval</td>
+                            <td>$925,000 (immaterial)</td>
+                            <td>Low - Settlement reasonable, final approval Feb 24, 2026. Indicates historical fiduciary oversight gaps now remediated.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Securities Law Investigation (Schall Law Firm)</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">Preliminary / No Action</td>
+                            <td>None</td>
+                            <td>Low - Following analyst downgrade and stock decline, law firm investigated potential violations. No formal SEC action or securities litigation filed to date. Risk limited absent evidence of material misrepresentations.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IP/Patent Litigation</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">None Active</td>
+                            <td>N/A</td>
+                            <td>Low - No active patent infringement claims or IP disputes identified in public records.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Employment Disputes</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">None Material</td>
+                            <td>N/A</td>
+                            <td>Low - No significant employment litigation or EEOC actions beyond routine matters.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Customer/Contract Disputes</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">None Material</td>
+                            <td>N/A</td>
+                            <td>Low - No major customer litigation or arbitrations disclosed in SEC filings.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="font-size: 1.15em; margin: 30px 0 18px 0; color: var(--primary);">Governance Structure & Leadership</h3>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Leadership Position</th>
+                            <th>Executive</th>
+                            <th>Background & Tenure</th>
+                            <th>Key Person Risk</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Chairman & CEO</strong></td>
+                            <td>Bill McDermott</td>
+                            <td>Former SAP CEO (grew SAP $39B → $156B market cap); ServiceNow CEO since Nov 2019, Chairman since 2022</td>
+                            <td style="color: var(--warning);">Moderate - Strong leader, but founder-type attachment. Succession planning unclear.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>President & CFO</strong></td>
+                            <td>Gina Mastantuono</td>
+                            <td>Named President in 2025 while continuing as CFO. Led company past $10B revenue milestone. Strong financial acumen.</td>
+                            <td style="color: var(--success);">Low - Dual President/CFO role indicates succession pathway. Well-regarded by Street.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>General Counsel</strong></td>
+                            <td>Russ Elmer</td>
+                            <td>Oversees legal, compliance, government affairs. Critical during DOJ investigation period.</td>
+                            <td style="color: var(--warning);">Moderate - Key figure in compliance remediation post-2024 incident.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>President, CPO & COO</strong></td>
+                            <td>Amit Zavery</td>
+                            <td>Responsible for product strategy, platform development. Former Google Cloud executive.</td>
+                            <td style="color: var(--success);">Low - Product leadership stable. Deep bench of product managers.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Chief Customer Officer</strong></td>
+                            <td>Chris Bedi</td>
+                            <td>Also serves as Special Advisor to Chairman for AI Transformation. Customer success focus.</td>
+                            <td style="color: var(--success);">Low - Customer-facing leadership stable.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="alert-box info">
+                    <div class="alert-icon">ℹ</div>
+                    <div>
+                        <strong>Leadership Continuity Assessment:</strong> Under Bill McDermott's leadership, ServiceNow nearly tripled revenues from 2019-2024 and achieved Fortune 500 status. However, the 2024 government contracting incident (Desai/Iyer departures) represents a material governance failure requiring remediation. While McDermott's track record is strong (SAP success, ServiceNow transformation), the company lacks clear public succession planning. Recommendation: Engage Board on CEO succession planning, enhance independent director oversight of government contracting ethics, strengthen whistleblower protections, ensure compliance function reports directly to Audit Committee independent of management.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Cybersecurity & Data Protection (Pillar 4) -->
+            <div class="module">
+                <div class="module-header">
+                    <div>
+                        <h2 class="module-title">5. Cybersecurity & Data Protection <span class="pillar-score pillar-score-med">75/100</span></h2>
+                        <div class="module-subtitle">Security certifications, incidents, vulnerability management, data protection</div>
+                    </div>
+                </div>
+
+                <div class="alert-box success">
+                    <div class="alert-icon">✓</div>
+                    <div>
+                        <strong>Strong Security Certification Foundation:</strong> ServiceNow maintains ISO/IEC 27001 certification since 2012 (13+ years of continuous compliance), SSAE 18 SOC 1 Type 2 attestation since 2011 (14+ years), and SOC 2 Type 2 attestation for AI services including the GenAI stack. Long-standing third-party audited security controls demonstrate sustained organizational commitment to information security management systems (ISMS) and operational excellence.
+                    </div>
+                </div>
+
+                <h3 style="font-size: 1.15em; margin: 30px 0 18px 0; color: var(--primary);">Security Certifications & Compliance Status</h3>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Certification/Standard</th>
+                            <th>Status</th>
+                            <th>Since</th>
+                            <th>Scope & Attestation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ISO/IEC 27001</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">✓ Certified</td>
+                            <td>2012 (13 years)</td>
+                            <td>Information Security Management System (ISMS). Annual surveillance audits by accredited certification body. Covers cloud platform infrastructure and operations.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SSAE 18 SOC 1 Type 2</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">✓ Attested</td>
+                            <td>2011 (14 years)</td>
+                            <td>Financial controls relevant to customer operations. Third-party audit of control design and operating effectiveness over 6-12 month period.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SOC 2 Type 2</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">✓ Attested</td>
+                            <td>-</td>
+                            <td>AI services environment including ServiceNow GenAI stack. Trust Service Criteria: Security, Availability, Confidentiality. Annual re-attestation.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FedRAMP (Federal)</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">✓ Authorized</td>
+                            <td>-</td>
+                            <td>Moderate/High authorization for US federal government cloud services. ServiceNow GovCloud instances. Continuous monitoring and annual assessment.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ISO 27017 (Cloud Security)</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">✓ Certified (implied)</td>
+                            <td>-</td>
+                            <td>Cloud-specific security controls supplementing ISO 27001. Covers cloud service provider security responsibilities.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ISO 27018 (Cloud Privacy)</strong></td>
+                            <td style="color: var(--success); font-weight: 600;">✓ Certified (implied)</td>
+                            <td>-</td>
+                            <td>Protection of Personally Identifiable Information (PII) in public cloud. GDPR alignment.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PCI DSS (if applicable)</strong></td>
+                            <td>N/A (Not a payment processor)</td>
+                            <td>-</td>
+                            <td>ServiceNow platform does not process payment card data directly. Customers responsible for PCI compliance if storing cardholder data.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="alert-box">
+                    <div class="alert-icon">⚠</div>
+                    <div>
+                        <strong>CRITICAL SECURITY INCIDENTS - Multiple Customer Data Exposure Events (2022-2025)</strong>
+                        <br><br>
+                        <strong>2022-2023 Knowledge Base Exposure Discovery:</strong> Security researchers identified that nearly 70% of tested ServiceNow customer instances had misconfiguration exposing Knowledge Base (KB) articles containing sensitive corporate information to external users without authentication. Types of data exposed included employee names, email addresses, phone numbers, internal documentation, technical procedures, and proprietary business information. Estimated thousands of companies affected globally.
+                        <br><br>
+                        <strong>2023 ServiceNow Security Response:</strong> Company rolled out security update introducing new Access Control Lists (ACLs) to prevent unauthenticated access to KB articles. However, security researchers noted some public-facing widgets that could expose customer information did not receive the 2023 ACL update, leaving gaps in protection.
+                        <br><br>
+                        <strong>2024 Continued Exposure Identification:</strong> Despite 2023 security updates, security firms (ThreatMon, BleepingComputer) identified over 1,000 misconfigured ServiceNow enterprise instances still exposing KB data. Exposures persisted due to incomplete ACL coverage across all platform entry points and customer configuration errors.
+                        <br><br>
+                        <strong>March 2025 Active Exploitation:</strong> TechCrunch and cybersecurity media reported hackers actively ramping up attacks exploiting year-old ServiceNow vulnerabilities. Attackers found methods to chain exploits together enabling "full database access" of affected ServiceNow instances, significantly escalating risk beyond KB exposure to complete data exfiltration capability.
+                        <br><br>
+                        <strong>Root Cause Analysis:</strong> While ServiceNow correctly characterizes these as primarily <em>customer misconfiguration</em> issues (not inherent platform vulnerabilities), the pattern indicates systemic gaps: (1) <strong>Insecure default configurations</strong> - KB articles accessible without authentication by default in some scenarios, (2) <strong>Insufficient customer education</strong> - Many customers unaware of security implications of configuration choices, (3) <strong>Incomplete security controls</strong> - ACL updates didn't cover all exposure pathways (widgets, APIs), (4) <strong>Lack of proactive detection</strong> - ServiceNow didn't systematically scan customer instances for misconfigurations and alert them, (5) <strong>Configuration complexity</strong> - Platform's extensive customization capabilities create security pitfalls for less sophisticated security teams.
+                        <br><br>
+                        <strong>Recommended Mitigations:</strong> (1) Contractually require ServiceNow to conduct security configuration assessment before production deployment, (2) Mandate automated misconfiguration detection and customer alerting, (3) Quarterly security posture reviews including configuration audits, (4) Establish 24-hour notification SLA for security incidents regardless of root cause, (5) Clarify liability allocation between platform vulnerabilities vs. customer misconfigurations, (6) Consider cyber insurance with SaaS vendor data exposure coverage.
+                    </div>
+                </div>
+
+                <h3 style="font-size: 1.15em; margin: 30px 0 18px 0; color: var(--primary);">Security Incident Timeline</h3>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2022-2023</div>
+                        <div class="timeline-content"><strong>Initial Discovery:</strong> Security researchers identify widespread KB misconfiguration exposing sensitive data. ~70% of tested instances affected. Thousands of companies potentially impacted. ServiceNow notified, publishes security advisory.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2023</div>
+                        <div class="timeline-content"><strong>Security Update Rollout:</strong> ServiceNow releases platform-wide security update with new ACLs preventing unauthenticated KB access. Customer notifications sent. However, some widgets and entry points not fully covered by update.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2024</div>
+                        <div class="timeline-content"><strong>Continued Exposures Identified:</strong> BleepingComputer, ThreatMon report 1,000+ instances still misconfigured despite 2023 updates. ServiceNow provides additional configuration guidance and tools.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">March 2025</div>
+                        <div class="timeline-content"><strong>Active Exploitation Reported:</strong> TechCrunch reports hackers exploiting year-old ServiceNow vulnerabilities. Chained exploits enable full database access. ServiceNow issues emergency patches, customer alerts, threat intelligence sharing with security community.</div>
+                    </div>
+                </div>
+
+                <h3 style="font-size: 1.15em; margin: 30px 0 18px 0; color: var(--primary);">Security Posture Assessment - Multi-Dimensional Analysis</h3>
+
+                <div class="benchmark-container">
+                    <div class="benchmark-label">
+                        <span><strong>Security Certifications & Standards Compliance</strong></span>
+                        <span style="color: var(--success); font-weight: 600;">Excellent (90/100)</span>
+                    </div>
+                    <div class="benchmark-bar">
+                        <div class="benchmark-fill fill-green" style="width: 90%;"></div>
+                    </div>
+                    <div style="font-size: 0.85em; color: #64748b; margin-top: 5px;">
+                        ISO 27001 (13+ years), SOC 1/2 Type 2, FedRAMP. Sustained third-party audit track record demonstrates mature security program.
+                    </div>
+                </div>
+
+                <div class="benchmark-container">
+                    <div class="benchmark-label">
+                        <span><strong>Intrinsic Platform Security (Core Code)</strong></span>
+                        <span style="color: var(--success); font-weight: 600;">Strong (82/100)</span>
+                    </div>
+                    <div class="benchmark-bar">
+                        <div class="benchmark-fill fill-green" style="width: 82%;"></div>
+                    </div>
+                    <div style="font-size: 0.85em; color: #64748b; margin-top: 5px;">
+                        No major inherent platform vulnerabilities identified. Core platform security architecture is sound. Regular penetration testing.
+                    </div>
+                </div>
+
+                <div class="benchmark-container">
+                    <div class="benchmark-label">
+                        <span><strong>Configuration Security (Secure-by-Default Design)</strong></span>
+                        <span style="color: var(--warning); font-weight: 600;">Moderate (65/100)</span>
+                    </div>
+                    <div class="benchmark-bar">
+                        <div class="benchmark-fill fill-yellow" style="width: 65%;"></div>
+                    </div>
+                    <div style="font-size: 0.85em; color: #64748b; margin-top: 5px;">
+                        Historical weaknesses in default configurations (KB articles, public widgets). Improvements made but gaps remain. Configuration complexity creates security pitfalls.
+                    </div>
+                </div>
+
+                <div class="benchmark-container">
+                    <div class="benchmark-label">
+                        <span><strong>Customer Security Education & Tooling</strong></span>
+                        <span style="color: var(--warning); font-weight: 600;">Improving (68/100)</span>
+                    </div>
+                    <div class="benchmark-bar">
+                        <div class="benchmark-fill fill-yellow" style="width: 68%;"></div>
+                    </div>
+                    <div style="font-size: 0.85em; color: #64748b; margin-top: 5px;">
+                        Enhanced documentation and tools post-2023. However, reactive rather than proactive. Automated misconfiguration detection still lacking.
+                    </div>
+                </div>
+
+                <div class="benchmark-container">
+                    <div class="benchmark-label">
+                        <span><strong>Vulnerability Response & Patch Management</strong></span>
+                        <span style="color: var(--success); font-weight: 600;">Good (78/100)</span>
+                    </div>
+                    <div class="benchmark-bar">
+                        <div class="benchmark-fill fill-green" style="width: 78%;"></div>
+                    </div>
+                    <div style="font-size: 0.85em; color: #64748b; margin-top: 5px;">
+                        Emergency patches issued promptly when active exploitation detected (March 2025). Regular security updates. Customer notification process functional.
+                    </div>
+                </div>
+
+                <div class="benchmark-container">
+                    <div class="benchmark-label">
+                        <span><strong>Incident Response & Transparency</strong></span>
+                        <span style="color: var(--warning); font-weight: 600;">Moderate (70/100)</span>
+                    </div>
+                    <div class="benchmark-bar">
+                        <div class="benchmark-fill fill-yellow" style="width: 70%;"></div>
+                    </div>
+                    <div style="font-size: 0.85em; color: #64748b; margin-top: 5px;">
+                        Security advisories published. However, characterizing widespread exposures as "customer misconfiguration" shifts responsibility. More proactive customer protection needed.
+                    </div>
+                </div>
+
+                <h3 style="font-size: 1.15em; margin: 30px 0 18px 0; color: var(--primary);">Strategic Acquisition: Armis Security - Enhancing Cybersecurity Capabilities</h3>
+
+                <div class="alert-box info">
+                    <div class="alert-icon">ℹ</div>
+                    <div>
+                        <strong>$7.75B Armis Acquisition Strengthens Security Portfolio:</strong> ServiceNow's December 2025 announcement of acquiring Armis Security for $7.75 billion (largest acquisition in company history, closing expected H2 2026) significantly enhances cybersecurity capabilities. Armis provides cyber exposure management and security for IT, OT, IoT, and medical devices - addressing the full attack surface that organizations face. Key benefits: (1) <strong>Tripled Security TAM:</strong> Expected to more than 3x ServiceNow's addressable market for security and risk solutions, (2) <strong>Asset Visibility:</strong> Armis's agent-less asset discovery complements ServiceNow's CMDB (Configuration Management Database), (3) <strong>AI Control Tower Integration:</strong> Armis features will connect to ServiceNow's recently launched AI Control Tower for centralized AI lifecycle governance, (4) <strong>Revenue Accretion:</strong> Armis surpassed $340M ARR with 50%+ YoY growth, providing immediate revenue contribution, (5) <strong>Customer Cross-Sell:</strong> Armis's enterprise customer base creates upsell opportunities for ServiceNow platform. However, integration risks are material given deal size, technology complexity, and customer expectation management.
+                    </div>
+                </div>
+
+                <h3 style="font-size: 1.15em; margin: 30px 0 18px 0; color: var(--primary);">Recommended Contractual Security Requirements</h3>
+
+                <div class="summary-box">
+                    <ol style="padding-left: 20px; line-height: 1.9;">
+                        <li><strong>Pre-Production Security Assessment:</strong> Mandate ServiceNow professional services conduct comprehensive security configuration review before production deployment. Deliverable: Security posture report with risk findings and remediation plan. Timeline: Must complete before go-live.</li>
+                        <li><strong>Automated Misconfiguration Detection:</strong> Require ServiceNow to enable automated scanning for security misconfigurations (overly permissive ACLs, public widgets with insufficient authentication, insecure API endpoints). Frequency: Daily scans with alert notifications for high-risk findings within 2 hours.</li>
+                        <li><strong>Quarterly Security Posture Reviews:</strong> ServiceNow must provide quarterly security assessments including: (a) Configuration audits, (b) Access control reviews, (c) Vulnerability assessment summaries, (d) Threat intelligence briefings relevant to platform/customer, (e) Compliance certification status updates.</li>
+                        <li><strong>Vulnerability Management SLA:</strong> Define contractual SLAs: (a) Critical/High vulnerability notification within 24 hours of ServiceNow awareness, (b) Patch/mitigation availability within 30 days for critical, 60 days for high severity, (c) Monthly vulnerability status reports.</li>
+                        <li><strong>Incident Notification Requirements:</strong> 24-hour notification of security incidents or data exposures impacting customer, regardless of root cause (platform vulnerability vs. customer misconfiguration). Notification must include: nature of incident, affected systems/data, preliminary root cause, remediation steps, timeline for resolution.</li>
+                        <li><strong>Penetration Testing Rights:</strong> Customer reserves right to conduct annual penetration testing of ServiceNow instance with 30-day advance notice. ServiceNow to provide test environment credentials and cooperation. Customer responsible for using qualified third-party pen test firm.</li>
+                        <li><strong>Security Incident Response Plan:</strong> ServiceNow must maintain documented incident response plan covering: escalation procedures, communication protocols, forensic investigation capabilities, customer data preservation, regulatory notification support (GDPR breach reporting, HIPAA, etc.).</li>
+                        <li><strong>Data Protection & Encryption:</strong> Contractually mandate: (a) Data encryption at rest (AES-256 minimum), (b) Data encryption in transit (TLS 1.3+ required for all connections), (c) Database encryption for customer data, (d) Encryption key management controls (customer option for bring-your-own-key where available).</li>
+                        <li><strong>Liability & Insurance:</strong> (a) Cyber liability insurance: Minimum $50M coverage with customer named as additional insured, (b) Unlimited liability for data breaches caused by ServiceNow's negligence or platform vulnerabilities (vs. customer misconfiguration), (c) Contractual liability cap exceptions for: data breaches, IP infringement, gross negligence, willful misconduct.</li>
                     </ol>
                 </div>
             </div>
 
-            <!-- Final Recommendation -->
-            <div class="recommendation-box">
-                <h3>Overall Recommendation</h3>
-                <p style="margin-bottom: 15px;"><strong>Risk Classification: MEDIUM</strong></p>
-                <p style="line-height: 1.8; margin-bottom: 15px;">
-                    TechVendor Solutions demonstrates strong technical capabilities, reputable backing, and solid compliance practices. However, significant financial headwinds, customer concentration risk, and ongoing litigation create meaningful uncertainties.
+            <!-- Section 6: Risk Mitigation Recommendations -->
+            <div class="module">
+                <div class="module-header">
+                    <div>
+                        <h2 class="module-title">6. Risk Mitigation Strategies & Contractual Safeguards</h2>
+                        <div class="module-subtitle">Recommended provisions, monitoring protocols, governance requirements</div>
+                    </div>
+                </div>
+
+                <h3 style="margin-bottom: 18px; color: var(--primary); font-size: 1.2em;">HIGH PRIORITY CONTRACTUAL PROVISIONS</h3>
+
+                <div class="alert-box warning">
+                    <div class="alert-icon">⚠</div>
+                    <div>
+                        <strong>GOVERNANCE & ETHICS (Response to DOJ Investigation)</strong>
+                        <br><br>
+                        <strong>Context:</strong> May 2024 DOJ investigation into government contracting ethics violation (President/COO hiring former Army CIO proximate to $432M contract) requires enhanced contractual protections.
+                        <br><br>
+                        <strong>Recommended Contractual Provisions:</strong>
+                        <ul style="padding-left: 20px; margin-top: 10px; line-height: 1.8;">
+                            <li><strong>C-Suite Ethics Certification:</strong> Require annual written certification from CEO and General Counsel that no procurement ethics violations occurred in contracts with your organization. Certification must specifically address hiring restrictions, conflict of interest policies, and revolving door prohibitions.</li>
+                            <li><strong>Cooling-Off Period Clause:</strong> 24-month post-employment restriction prohibiting ServiceNow from hiring your employees directly involved in ServiceNow procurement decisions without prior written consent. Violation triggers liquidated damages equal to 12 months of hired employee's prior compensation.</li>
+                            <li><strong>Debarment Termination Right:</strong> Customer may terminate for cause immediately if ServiceNow becomes debarred, suspended, or excluded from government contracting by any federal agency. ServiceNow must notify customer within 48 hours of receiving debarment proceedings notice.</li>
+                            <li><strong>Investigation Disclosure Requirement:</strong> Quarterly written disclosure of material regulatory investigations or enforcement actions involving ethics, corruption, securities fraud, or government contracting compliance. Materiality threshold: Any investigation that could result in fines/penalties >$1M or debarment.</li>
+                            <li><strong>Independent Compliance Audit Rights:</strong> Customer reserves right to audit ServiceNow's ethics and compliance programs annually, including review of: (1) Code of conduct, (2) Ethics training records, (3) Conflict of interest policies, (4) Whistleblower program effectiveness, (5) Disciplinary actions for ethics violations. Audit conducted by customer's external auditor at customer expense.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="alert-box warning">
+                    <div class="alert-icon">⚠</div>
+                    <div>
+                        <strong>DATA SECURITY & CONFIGURATION (Response to Exposure Incidents)</strong>
+                        <br><br>
+                        <strong>Context:</strong> Multiple data exposure incidents (2022-2025) affecting 1,000+ customer instances due to KB misconfigurations require enhanced security contractual protections.
+                        <br><br>
+                        <strong>Recommended Contractual Provisions:</strong>
+                        <ul style="padding-left: 20px; margin-top: 10px; line-height: 1.8;">
+                            <li><strong>Mandatory Pre-Production Security Assessment:</strong> ServiceNow professional services must conduct comprehensive security configuration review before production go-live. Deliverable: Written security posture report with findings, risk ratings, and remediation plan. Customer approval required before deployment.</li>
+                            <li><strong>Automated Misconfiguration Detection:</strong> ServiceNow must enable and maintain automated security misconfiguration scanning for customer instance. Daily scans required. High-risk findings (e.g., unauthenticated data exposure) trigger automatic alert to customer security team within 2 hours of detection.</li>
+                            <li><strong>Quarterly Security Reviews:</strong> ServiceNow Security Architect must conduct quarterly reviews including: (a) Configuration security audit, (b) Access control effectiveness review, (c) Vulnerability scan results and remediation status, (d) Comparison against ServiceNow security baseline/best practices, (e) Recommendations for security posture improvements. Deliverable: Written report with executive summary.</li>
+                            <li><strong>24-Hour Breach Notification:</strong> ServiceNow must notify customer within 24 hours of discovering security incident or data exposure affecting customer, regardless of root cause (platform vulnerability vs. customer misconfiguration). Notification must include preliminary impact assessment and immediate remediation steps. Full incident report within 72 hours.</li>
+                            <li><strong>Liability Allocation Clarity:</strong> Contract must clearly allocate liability for data security incidents: (a) <strong>Platform vulnerabilities:</strong> ServiceNow bears full liability including notification costs, credit monitoring, regulatory fines, litigation costs. No liability cap. (b) <strong>Customer misconfiguration</strong> (after ServiceNow provided adequate training/documentation and no security assessment failures): ServiceNow liability limited to direct damages capped at 12 months fees. (c) <strong>Disputed root cause:</strong> Independent third-party forensic investigation (mutually agreed expert) determines causation. Losing party pays investigation costs.</li>
+                            <li><strong>Security Training Requirements:</strong> ServiceNow must provide comprehensive security configuration training to customer administrators: (a) Initial training before go-live (minimum 8 hours), (b) Annual refresher training (minimum 4 hours), (c) Ad-hoc training within 30 days of major platform security updates, (d) Access to online security knowledge base and configuration guides.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 style="margin: 35px 0 18px 0; color: var(--primary); font-size: 1.2em;">STANDARD CONTRACTUAL PROTECTIONS</h3>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Provision Category</th>
+                            <th>Recommended Terms</th>
+                            <th>Rationale</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Service Level Agreement (SLA)</strong></td>
+                            <td>
+                                • 99.9% uptime guarantee (measured monthly)<br>
+                                • Financial credits: 10% monthly fees for 99.5-99.9%, 25% for <99.5%<br>
+                                • Critical incident response: <4 hours (24x7)<br>
+                                • RTO: 4 hours, RPO: 1 hour for disaster recovery
+                            </td>
+                            <td>Industry-standard for enterprise SaaS. ServiceNow typically exceeds 99.9% availability but contractual protection important.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data Security & Privacy</strong></td>
+                            <td>
+                                • SOC 2 Type 2 report provided annually within 30 days of issuance<br>
+                                • Data encryption: AES-256 at rest, TLS 1.3+ in transit<br>
+                                • Data residency: Specify geographic regions (e.g., US-only, EU-only)<br>
+                                • GDPR/CCPA compliance with Data Processing Addendum (DPA)<br>
+                                • Data deletion: Secure wipe within 30 days of termination
+                            </td>
+                            <td>Addresses data sovereignty, privacy regulations (GDPR Article 28), and post-termination data handling.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Audit Rights</strong></td>
+                            <td>
+                                • Annual right to audit security controls (remote or on-site at customer's discretion)<br>
+                                • Access to SOC 2, ISO 27001 audit reports within 30 days of request<br>
+                                • Penetration test reports (executive summary) provided annually<br>
+                                • Audit costs borne by customer unless material non-compliance found
+                            </td>
+                            <td>Enables customer due diligence and compliance verification. Standard for enterprise SaaS contracts.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Compliance Obligations</strong></td>
+                            <td>
+                                • No use of sanctioned subcontractors (OFAC, UN, EU sanctions lists)<br>
+                                • No data processing in embargoed countries without customer consent<br>
+                                • Export control compliance (if applicable to customer's industry)<br>
+                                • Supplier diversity commitment maintained (ServiceNow's 21% standard)
+                            </td>
+                            <td>Addresses sanctions compliance, export controls, and corporate responsibility commitments.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Termination Rights</strong></td>
+                            <td>
+                                • <strong>For Cause:</strong> Material breach with 30-day cure period. Immediate termination for: (a) Data breach due to ServiceNow negligence, (b) Debarment, (c) Insolvency/bankruptcy<br>
+                                • <strong>For Convenience:</strong> 90-day notice with pro-rata refund of prepaid fees<br>
+                                • <strong>Data Extraction:</strong> 90-day transition assistance period, API access for data retrieval, export in standard formats (JSON, XML, CSV)
+                            </td>
+                            <td>Provides exit strategy if relationship fails. Data portability critical to avoid vendor lock-in.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Liability & Insurance</strong></td>
+                            <td>
+                                • <strong>General Liability Cap:</strong> 12 months fees (minimum) for contract claims<br>
+                                • <strong>Unlimited Liability for:</strong> (a) Data breaches caused by ServiceNow, (b) IP infringement, (c) Gross negligence or willful misconduct, (d) Violations of law<br>
+                                • <strong>Cyber Insurance:</strong> Minimum $50M coverage, customer named as additional insured, certificate provided annually<br>
+                                • <strong>E&O Insurance:</strong> Minimum $25M coverage
+                            </td>
+                            <td>Balances risk allocation. Unlimited liability for high-impact events (data breach, IP). Insurance provides financial backstop.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Change Management</strong></td>
+                            <td>
+                                • 30-day advance notice of material platform changes<br>
+                                • Customer consent required for deprecating features in active use<br>
+                                • Regression testing by ServiceNow before updates pushed to production<br>
+                                • Option to delay non-security updates by 60 days for customer UAT testing
+                            </td>
+                            <td>Prevents disruptive unilateral changes. Balances ServiceNow's need for platform evolution with customer's operational stability.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pricing Protection</strong></td>
+                            <td>
+                                • Annual price increases capped at CPI + 3% (or 5% if CPI <2%)<br>
+                                • Volume discounts locked for contract term<br>
+                                • No retroactive price increases for existing licenses/subscriptions<br>
+                                • Renewal pricing: Locked at initial contract rates for first renewal if customer commits to multi-year
+                            </td>
+                            <td>Provides budget predictability. ServiceNow has history of aggressive price increases for enterprise customers at renewal.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="margin: 35px 0 18px 0; color: var(--primary); font-size: 1.2em;">ONGOING MONITORING & GOVERNANCE PROTOCOLS</h3>
+
+                <div class="governance-grid">
+                    <div class="governance-card">
+                        <div class="governance-title">Quarterly Business Reviews (QBRs)</div>
+                        <ul style="padding-left: 20px; font-size: 0.9em; line-height: 1.8; color: #475569;">
+                            <li>Performance metrics review (SLA compliance, incident trends, support ticket resolution)</li>
+                            <li>Security posture updates (vulnerabilities, incidents, certifications)</li>
+                            <li>Product roadmap alignment (upcoming features, deprecations, customer input)</li>
+                            <li>Escalation resolution (open issues, change requests, concerns)</li>
+                            <li>Financial health check (review ServiceNow quarterly earnings, M&A impacts)</li>
+                            <li>Compliance status (regulatory changes, audit findings, remediation tracking)</li>
+                        </ul>
+                        <div style="margin-top: 12px; padding: 10px; background: #eff6ff; border-left: 3px solid var(--accent); font-size: 0.85em; border-radius: 4px;">
+                            <strong>Attendees:</strong> Customer CIO/CISO + ServiceNow Account Executive, Solutions Architect, Customer Success Manager. Executive escalation path defined.
+                        </div>
+                    </div>
+
+                    <div class="governance-card">
+                        <div class="governance-title">Annual Strategic Reviews</div>
+                        <ul style="padding-left: 20px; font-size: 0.9em; line-height: 1.8; color: #475569;">
+                            <li>Financial health deep-dive (review annual report, 10-K, analyst reports, credit ratings)</li>
+                            <li>M&A impact assessment (Armis integration progress, Moveworks/Veza synergies)</li>
+                            <li>Competitive positioning (market share trends, new competitors, differentiation sustainability)</li>
+                            <li>Risk profile updates (DOJ investigation status, new litigation, compliance incidents)</li>
+                            <li>Technology strategy alignment (AI/GenAI roadmap, platform evolution, customer's IT strategy fit)</li>
+                            <li>Contract optimization (utilization analysis, licensing rightsizing, cost reduction opportunities)</li>
+                        </ul>
+                        <div style="margin-top: 12px; padding: 10px; background: #eff6ff; border-left: 3px solid var(--accent); font-size: 0.85em; border-radius: 4px;">
+                            <strong>Attendees:</strong> Customer CFO/CIO + ServiceNow RVP (Regional VP) or VP of Customer Success. Board-level escalation available if needed.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-box" style="margin-top: 25px;">
+                    <h4 style="color: var(--primary); margin-bottom: 12px; font-size: 1.05em;">Continuous Compliance Monitoring - Automated Feeds</h4>
+                    <p style="margin-bottom: 12px;">Establish automated monitoring for ServiceNow-related developments to enable proactive risk management:</p>
+                    <ul style="padding-left: 20px; line-height: 1.8;">
+                        <li><strong>SEC Filings (EDGAR):</strong> 8-K (material events), 10-K (annual), 10-Q (quarterly), DEF 14A (proxy) → Feed to compliance team</li>
+                        <li><strong>Regulatory Actions:</strong> DOJ press releases, SEC enforcement actions, FTC complaints → Keyword alerts: "ServiceNow"</li>
+                        <li><strong>Security Bulletins:</strong> ServiceNow Trust site, CVE database, NVD (National Vulnerability Database) → Critical/High alerts to CISO</li>
+                        <li><strong>Credit Rating Changes:</strong> Moody's, S&P, Fitch → Monitor for downgrades indicating financial stress</li>
+                        <li><strong>Major News:</strong> Bloomberg, Reuters, WSJ → AI-powered sentiment analysis for ServiceNow articles. Alert on: "investigation," "lawsuit," "data breach," "layoffs," "acquisition"</li>
+                        <li><strong>Stock Performance:</strong> NYSE: NOW → Unusual volatility alerts (>10% single-day moves), analyst downgrades</li>
+                        <li><strong>Social Media & Forums:</strong> Twitter/X, LinkedIn, Reddit (r/servicenow) → Early warning signals for customer dissatisfaction or incidents</li>
+                    </ul>
+                </div>
+
+                <div class="alert-box info" style="margin-top: 25px;">
+                    <div class="alert-icon">ℹ</div>
+                    <div>
+                        <strong>Executive Sponsorship Model:</strong> Establish dual executive sponsorship: (1) <strong>Customer Side:</strong> Designated VP or C-suite executive owns ServiceNow relationship, chairs QBRs, has escalation authority. (2) <strong>ServiceNow Side:</strong> Designated RVP (Regional Vice President) or VP Customer Success with direct access to ServiceNow C-suite for escalations. Both executives meet quarterly and have direct communication channel for urgent matters. This ensures senior leadership alignment and rapid issue resolution, critical given ServiceNow's strategic importance and identified risks (DOJ investigation, security incidents).
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7: Final Assessment & Recommendation -->
+            <div class="module">
+                <div class="module-header">
+                    <div>
+                        <h2 class="module-title">7. Final Assessment & Vendor Recommendation</h2>
+                        <div class="module-subtitle">Overall risk rating, strengths/weaknesses summary, go/no-go decision</div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px;">
+                    <div style="background: #f0fdf4; padding: 25px; border-radius: 8px; border-left: 4px solid var(--success);">
+                        <h3 style="color: var(--success); margin-bottom: 15px; font-size: 1.15em;">✓ STRENGTHS</h3>
+                        <ul style="padding-left: 20px; font-size: 0.95em; line-height: 1.9; color: #065f46;">
+                            <li><strong>Market Leadership:</strong> Dominant position in IT Service Management (40% market share), serving 85%+ of Fortune 500</li>
+                            <li><strong>Exceptional Financial Performance:</strong> $10.98B FY2024 revenue (+22.4% YoY), 96.8% subscription revenue, strong cash flow ($471M FCF Q3)</li>
+                            <li><strong>Robust Customer Base:</strong> 2,109 customers with $1M+ ACV, ~500 with $5M+ ACV. Strong enterprise penetration.</li>
+                            <li><strong>Industry-Leading ESG:</strong> Carbon-neutral since 2022, 100% renewable energy, net-zero before 2030 (SBTi), 21% supplier diversity</li>
+                            <li><strong>Comprehensive Human Rights Framework:</strong> Strong supplier code of conduct, modern slavery protections, DEI transparency</li>
+                            <li><strong>Strong Security Certifications:</strong> ISO 27001 (13 years), SOC 1/2 Type 2, FedRAMP. Sustained third-party audit track record</li>
+                            <li><strong>Strategic M&A Positioning:</strong> $7.75B Armis acquisition expands cybersecurity TAM 3x, $2.85B Moveworks enhances AI capabilities</li>
+                            <li><strong>AI Platform Differentiation:</strong> AIP (AI Platform) with 300+ customers, Now Assist GenAI capabilities, AI Control Tower</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: #fef3c7; padding: 25px; border-radius: 8px; border-left: 4px solid var(--warning);">
+                        <h3 style="color: var(--danger); margin-bottom: 15px; font-size: 1.15em;">⚠ RISKS & WEAKNESSES</h3>
+                        <ul style="padding-left: 20px; font-size: 0.95em; line-height: 1.9; color: #92400e;">
+                            <li><strong>Active DOJ Investigation:</strong> Government contracting ethics violation (May 2024). President/COO + Public Sector Head departed. Potential debarment risk.</li>
+                            <li><strong>C-Suite Governance Failure:</strong> $432M Army contract proximate to hiring of former Army CIO demonstrates compliance weakness</li>
+                            <li><strong>Multiple Data Exposure Incidents:</strong> 1,000+ customer instances affected (2022-2025) due to KB misconfigurations</li>
+                            <li><strong>Active Vulnerability Exploitation:</strong> March 2025 reports of hackers exploiting ServiceNow for full database access</li>
+                            <li><strong>Configuration Security Gaps:</strong> Insecure defaults, inadequate customer education, lack of proactive misconfiguration detection</li>
+                            <li><strong>Revenue Growth Deceleration:</strong> 2025 guidance of 15-16% (down from 22.4% in 2024). Competitive pressure intensifying.</li>
+                            <li><strong>Stock Underperformance:</strong> -23% YTD 2024. Market concerns about growth trajectory and competition (Microsoft, SAP)</li>
+                            <li><strong>M&A Integration Risks:</strong> $12B+ in acquisitions (Armis, Moveworks, Veza). Scale/complexity create execution risks.</li>
+                            <li><strong>ERISA Fiduciary Lapse:</strong> $925K 401(k) class action settlement indicates historical oversight gaps</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); padding: 30px; border-radius: 10px; border: 3px solid var(--warning); margin-top: 30px;">
+                    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 20px;">
+                        <div style="background: var(--warning); color: white; padding: 15px 25px; border-radius: 8px; font-weight: 700; font-size: 1.3em; text-align: center; min-width: 200px;">
+                            CONDITIONAL<br>APPROVAL
+                        </div>
+                        <div>
+                            <div style="font-size: 1.8em; font-weight: 800; color: var(--warning); margin-bottom: 5px;">RISK SCORE: 78/100</div>
+                            <div style="font-size: 1.05em; color: #92400e; font-weight: 600;">MEDIUM RISK - ENHANCED MONITORING REQUIRED</div>
+                        </div>
+                    </div>
+
+                    <div style="background: white; padding: 25px; border-radius: 8px; line-height: 1.9;">
+                        <p style="font-weight: 700; font-size: 1.15em; color: var(--primary); margin-bottom: 15px;">
+                            ServiceNow is <span style="color: var(--warning);">APPROVED FOR ENGAGEMENT</span> subject to enhanced contractual safeguards and continuous monitoring protocols.
+                        </p>
+
+                        <p style="margin-bottom: 15px;">
+                            The company demonstrates strong operational fundamentals, market leadership, and technical capabilities essential for enterprise workflow automation and digital transformation initiatives. Financial health is exceptional ($10.98B revenue, profitable, strong cash flow), and ESG/DEI commitments are industry-leading (carbon-neutral, 21% supplier diversity, comprehensive reporting).
+                        </p>
+
+                        <p style="margin-bottom: 15px;">
+                            However, <strong style="color: var(--danger);">material risks require explicit mitigation:</strong> (1) The <strong>May 2024 government contracting governance failure</strong> and ongoing DOJ investigation represent C-suite level ethical lapses with potential debarment consequences, (2) <strong>Repeated customer data exposure incidents</strong> (2022-2025 affecting 1,000+ instances) with active exploitation reported in March 2025 indicate systemic configuration security and customer education gaps, (3) <strong>Revenue growth deceleration</strong> (15-16% guided for 2025 vs. 22%+ in 2024) and stock underperformance (-23% YTD 2024) signal competitive pressure and potential market share erosion, (4) <strong>Aggressive $12B+ M&A strategy</strong> (Armis, Moveworks, Veza) introduces integration execution risks.
+                        </p>
+
+                        <p style="margin-bottom: 15px; font-weight: 600; color: var(--warning);">
+                            CONDITIONAL APPROVAL REQUIREMENTS - All Must Be Satisfied:
+                        </p>
+                        <ol style="padding-left: 20px; margin-bottom: 15px;">
+                            <li><strong>Enhanced Ethics & Compliance Provisions:</strong> Implement cooling-off periods (24 months) for hiring customer procurement executives, annual C-suite ethics certifications, debarment termination rights, quarterly investigation disclosure requirements.</li>
+                            <li><strong>Mandatory Security Configuration Assessment:</strong> ServiceNow professional services must conduct comprehensive security review before production go-live with written findings report and customer approval requirement.</li>
+                            <li><strong>Automated Misconfiguration Detection:</strong> ServiceNow must enable daily automated security scanning with 2-hour alerting SLA for high-risk findings (unauthenticated data exposure, overly permissive ACLs).</li>
+                            <li><strong>Quarterly Security & Compliance Reviews:</strong> Structured reviews covering configuration audits, vulnerability status, compliance certifications, DOJ investigation updates. Mandatory deliverable: Written report.</li>
+                            <li><strong>24-Hour Breach Notification SLA:</strong> Regardless of root cause (platform vs. customer misconfiguration), ServiceNow must notify within 24 hours with preliminary impact assessment.</li>
+                            <li><strong>Clear Liability Allocation:</strong> Contract must differentiate liability between platform vulnerabilities (unlimited ServiceNow liability) vs. customer misconfiguration post-adequate-training (capped liability).</li>
+                            <li><strong>Executive Sponsorship Model:</strong> Designated VP/C-suite executive on both sides with quarterly meetings and direct escalation authority.</li>
+                            <li><strong>Continuous Monitoring Protocol:</strong> Automated feeds for SEC filings, DOJ press releases, security bulletins, credit rating changes, major news. Alerts to Compliance/Risk team.</li>
+                        </ol>
+
+                        <p style="margin-bottom: 15px;">
+                            <strong>With these safeguards implemented,</strong> ServiceNow's overall risk profile is manageable and the value proposition remains compelling for enterprise workflow automation, IT service management, and AI-powered digital transformation use cases. The platform's technical capabilities, market position, and customer base justify engagement despite identified governance and security risks, provided contractual protections and monitoring are robust.
+                        </p>
+
+                        <p style="font-weight: 700; color: var(--warning);">
+                            MONITORING CADENCE: Quarterly risk reassessment required given DOJ investigation uncertainty and security incident history. Annual vendor viability review mandatory. Escalate immediately to Procurement/Legal if: (1) Debarment proceedings initiated, (2) Additional C-suite departures related to compliance, (3) Major data breach or widespread exploitation, (4) Credit rating downgrade, (5) Revenue miss >5% vs. guidance.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Sources & References -->
+            <div class="sources">
+                <h3>Data Sources & Research References</h3>
+                <p style="margin-bottom: 15px; color: #64748b; font-size: 0.95em;">
+                    This vendor risk intelligence report is based on comprehensive research from authoritative sources including SEC filings, company disclosures, third-party security assessments, regulatory databases, and reputable news sources. Assessment methodology incorporates financial analysis, sanctions screening, legal/regulatory review, cybersecurity evaluation, and ESG framework alignment.
                 </p>
-                <p style="line-height: 1.8; margin-bottom: 15px;"><strong>Recommended Actions:</strong></p>
-                <ul style="margin-left: 20px; line-height: 1.8;">
-                    <li><strong>Proceed with enhanced due diligence:</strong> Request detailed financial statements, customer references, and updates on CTO litigation</li>
-                    <li><strong>Contract protections:</strong> Include termination for convenience clause, escrow requirements for critical IP/code, and financial health covenants</li>
-                    <li><strong>Regular monitoring:</strong> Quarterly reviews of financial health indicators and litigation status for the next 18 months</li>
-                    <li><strong>Contingency planning:</strong> Develop vendor transition plan in case of financial distress or service disruption</li>
-                    <li><strong>Start with pilot:</strong> Consider smaller initial engagement to validate service quality before committing to larger contracts</li>
+
+                <h4 style="margin: 20px 0 10px 0; color: var(--primary); font-size: 1.05em;">Financial Data & Performance</h4>
+                <ul>
+                    <li><a href="https://www.sec.gov/Archives/edgar/data/1373715/000137371524000342/erq3fy24.htm" target="_blank">ServiceNow Q3 2024 Financial Results (SEC Form 8-K)</a></li>
+                    <li><a href="https://www.sec.gov/Archives/edgar/data/1373715/000137371525000007/erq4fy24.htm" target="_blank">ServiceNow Q4 & Full-Year 2024 Results (SEC Filing)</a></li>
+                    <li><a href="https://investor.servicenow.com/overview/default.aspx" target="_blank">ServiceNow Investor Relations Portal</a></li>
+                    <li><a href="https://finance.yahoo.com/quote/NOW/" target="_blank">ServiceNow Stock Performance & Analysis (Yahoo Finance)</a></li>
+                    <li><a href="https://www.gurufocus.com/news/2563959/servicenow-inc-now-q3-2024-earnings-eps-of-207-beats-estimates-revenue-hits-2797-billion" target="_blank">ServiceNow Q3 2024 Earnings Analysis (GuruFocus)</a></li>
                 </ul>
-                <p style="line-height: 1.8; margin-top: 15px;">
-                    <strong>Not recommended if:</strong> Your use case requires mission-critical services with no backup options, or if your organization has low risk tolerance for potential vendor instability.
+
+                <h4 style="margin: 20px 0 10px 0; color: var(--primary); font-size: 1.05em;">ESG & Sustainability</h4>
+                <ul>
+                    <li><a href="https://www.servicenow.com/standard/other-documents/servicenow-global-impact-report-2024.html" target="_blank">ServiceNow Global Impact Report 2024</a></li>
+                    <li><a href="https://www.servicenow.com/company/global-impact/sustainability.html" target="_blank">ServiceNow Sustainability Initiatives & Commitments</a></li>
+                    <li><a href="https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/doc-type/public-document/environmental-sustainability-policy.pdf" target="_blank">ServiceNow Environmental Sustainability Policy (PDF)</a></li>
+                    <li><a href="https://www.esgtoday.com/servicenow-demonstrates-commitment-to-building-a-better-world-expands-access-to-technology-knowledge-and-opportunity/" target="_blank">ServiceNow ESG Commitments (ESG Today)</a></li>
+                </ul>
+
+                <h4 style="margin: 20px 0 10px 0; color: var(--primary); font-size: 1.05em;">Human Rights & Labor Practices</h4>
+                <ul>
+                    <li><a href="https://www.servicenow.com/legal/human-rights-statement.html" target="_blank">ServiceNow Human Rights Statement</a></li>
+                    <li><a href="https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/doc-type/public-document/servicenow-supplier-code-of-conduct.pdf" target="_blank">ServiceNow Supplier Code of Conduct (PDF)</a></li>
+                    <li><a href="https://www.servicenow.com/standard/other-documents/servicenow-diversity-report-2024.html" target="_blank">ServiceNow Diversity, Equity & Inclusion Report 2024</a></li>
+                    <li><a href="https://www.csrhub.com/CSR_and_sustainability_information/ServiceNow-Inc" target="_blank">ServiceNow ESG Ratings & Sustainability Info (CSRHub)</a></li>
+                </ul>
+
+                <h4 style="margin: 20px 0 10px 0; color: var(--primary); font-size: 1.05em;">Governance, Compliance & Legal</h4>
+                <ul>
+                    <li><a href="https://www.nextgov.com/acquisition/2024/07/servicenow-parts-president-and-public-sector-head-after-internal-probe/398325/" target="_blank">ServiceNow president departs after internal probe (Nextgov/FCW)</a></li>
+                    <li><a href="https://www.bloomberg.com/news/articles/2024-07-24/servicenow-s-desai-resigns-after-government-contract-complaint" target="_blank">ServiceNow President Desai Resigns After Contract Complaint (Bloomberg)</a></li>
+                    <li><a href="https://www.cio.com/article/3477586/servicenow-embroiled-in-doj-probe-of-government-contract-award.html" target="_blank">ServiceNow embroiled in DOJ probe of government contract (CIO)</a></li>
+                    <li><a href="https://www.claimdepot.com/settlements/service-now-erisa" target="_blank">ServiceNow ERISA Class Action Settlement ($925K)</a></li>
+                    <li><a href="https://docket.acc.com/19-tips-cracking-code-global-sanctions-compliance" target="_blank">19 Tips for Global Sanctions Compliance (ACC Docket - featuring ServiceNow counsel Bob Bowen)</a></li>
+                </ul>
+
+                <h4 style="margin: 20px 0 10px 0; color: var(--primary); font-size: 1.05em;">Cybersecurity & Data Protection</h4>
+                <ul>
+                    <li><a href="https://www.servicenow.com/company/trust/compliance.html" target="_blank">ServiceNow Trust and Compliance Center</a></li>
+                    <li><a href="https://www.bleepingcomputer.com/news/security/over-1-000-servicenow-instances-found-leaking-corporate-kb-data/" target="_blank">Over 1,000 ServiceNow instances leaking data (BleepingComputer)</a></li>
+                    <li><a href="https://cybernews.com/news/servicenow-leak-thousands-companies-risk/" target="_blank">ServiceNow leak: thousands of companies at risk (Cybernews)</a></li>
+                    <li><a href="https://techcrunch.com/2025/03/20/hackers-are-ramping-up-attacks-using-year-old-servicenow-security-bugs-to-break-into-unpatched-systems/" target="_blank">Hackers exploit year-old ServiceNow vulnerabilities (TechCrunch)</a></li>
+                    <li><a href="https://www.upguard.com/security-report/servicenow" target="_blank">ServiceNow Security Rating & Vendor Risk Report (UpGuard)</a></li>
+                    <li><a href="https://www.csoonline.com/article/572239/nearly-70-of-servicenow-instances-leaking-data.html" target="_blank">Nearly 70% of tested ServiceNow instances leaking data (CSO Online)</a></li>
+                    <li><a href="https://threatmon.io/servicenow-data-leak-risks-of-misconfigured-knowledge-bases/" target="_blank">ServiceNow Data Leak: Risks of Misconfigured Knowledge Bases (ThreatMon)</a></li>
+                </ul>
+
+                <h4 style="margin: 20px 0 10px 0; color: var(--primary); font-size: 1.05em;">Strategic Developments & M&A</h4>
+                <ul>
+                    <li><a href="https://newsroom.servicenow.com/press-releases/details/2025/ServiceNow-to-acquire-Armis-to-expand-cyber-exposure-and-security-across-the-full-attack-surface-in-IT-OT-and-medical-devices-for-companies-governments-and-critical-infrastructure-worldwide/default.aspx" target="_blank">ServiceNow to acquire Armis for $7.75B (ServiceNow Newsroom)</a></li>
+                    <li><a href="https://www.cnbc.com/2025/12/23/servicenow-armis-cybersecurity-acquisition.html" target="_blank">ServiceNow acquiring Armis for nearly $8 billion (CNBC)</a></li>
+                    <li><a href="https://www.techzine.eu/news/applications/137536/servicenows-2025-acquisition-wave-worries-wall-street-investors/" target="_blank">ServiceNow's 2025 acquisition wave worries investors (Techzine Global)</a></li>
+                    <li><a href="https://www.calcalistech.com/ctechnews/article/qeqicp33p" target="_blank">ServiceNow sets aside $500M for Armis employee retention (Ctech)</a></li>
+                </ul>
+
+                <h4 style="margin: 20px 0 10px 0; color: var(--primary); font-size: 1.05em;">Leadership & Corporate Governance</h4>
+                <ul>
+                    <li><a href="https://www.servicenow.com/company/leadership/bill-mcdermott.html" target="_blank">Bill McDermott - CEO Leadership Profile</a></li>
+                    <li><a href="https://www.servicenow.com/company/leadership.html" target="_blank">ServiceNow Executive Leadership Team</a></li>
+                    <li><a href="https://www.leadersmag.com/issues/2024.4_Oct/PUR/LEADERS_McDermott_ServiceNow.html" target="_blank">LEADERS Interview with Bill McDermott (LEADERS Magazine)</a></li>
+                </ul>
+
+                <p style="margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--border); color: #64748b; font-size: 0.9em;">
+                    <strong>Report Methodology:</strong> This vendor risk intelligence report employs multi-factor analysis incorporating: (1) Financial statement analysis and liquidity assessment, (2) Sanctions database screening (OFAC, UN, EU, UK HMT), (3) Legal/regulatory review (SEC filings, court records, DOJ press releases), (4) Cybersecurity evaluation (certifications, incidents, vulnerability disclosures), (5) ESG framework alignment (GRI, SASB, TCFD, UN SDGs), (6) Competitive positioning analysis, (7) Market sentiment analysis. Risk scores calculated using proprietary weighted methodology considering severity, likelihood, and impact of identified risks across governance, operational, financial, legal, reputational, and technical dimensions.
+                </p>
+
+                <p style="margin-top: 15px; color: #64748b; font-size: 0.9em;">
+                    <strong>Assessment Currency:</strong> Information current as of report generation date (December 30, 2025). Risk profile subject to change based on new developments. Recommend quarterly reassessment given active DOJ investigation and security incident history.
+                </p>
+
+                <p style="margin-top: 15px; color: #64748b; font-size: 0.9em;">
+                    <strong>Disclaimer:</strong> This report is provided for informational and due diligence purposes only and does not constitute legal, financial, investment, or compliance advice. Users must conduct independent verification and consult qualified professionals (legal counsel, compliance advisors, cybersecurity experts) before making vendor selection or contractual decisions. Risk assessments reflect information available at report date and may not capture all material risks. Spectrum Risk Intelligence disclaims liability for decisions made based on this report.
                 </p>
             </div>
 
         </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <p style="margin-bottom: 10px;"><strong>Report Generated By:</strong> Supplier Risk Intelligence System</p>
-            <p style="margin-bottom: 10px;"><strong>Report ID:</strong> SRI-2024-11-7482</p>
-            <p style="margin-bottom: 10px;"><strong>Date:</strong> November 27, 2024, 14:32 UTC</p>
-            <p style="margin-bottom: 10px;"><strong>Classification:</strong> Confidential - For Client Use Only</p>
-            <p style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 12px;">
-                © 2024 Your Company Name. This report is provided for informational purposes only and does not constitute professional advice. 
-                Recipients should conduct their own independent verification and consult with appropriate professionals before making business decisions.
-            </p>
-        </div>
     </div>
+
+    <div style="text-align: center; padding: 30px; background: #f8fafc; color: #94a3b8; font-size: 0.85em;">
+        <p style="font-weight: 700; margin-bottom: 5px;">Spectrum Vendor Risk Intelligence</p>
+        <p>AI-Powered Due Diligence | Comprehensive Forensic Analysis</p>
+        <p style="margin-top: 10px; font-size: 0.9em;">
+            Report Generated: December 30, 2025 | Version 1.0 | Confidential & Proprietary
+        </p>
+        <p style="margin-top: 10px;">
+            🤖 Generated with <a href="https://claude.com/claude-code" style="color: #2563eb; text-decoration: none;">Claude Code</a>
+        </p>
+    </div>
+
 </body>
 </html>
