@@ -70,7 +70,7 @@ export default function FindingsGrid({ findings }) {
     <div className="mb-10">
       <div className="flex items-center gap-3 mb-6">
         <h3 className="text-2xl font-bold text-slate-900">Key Findings</h3>
-        <span className="bg-gradient-to-r from-teal-600 to-teal-700 text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-lg shadow-teal-500/25">
+        <span className="bg-slate-900 text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-sm">
           Top {topFindings.length}
         </span>
       </div>

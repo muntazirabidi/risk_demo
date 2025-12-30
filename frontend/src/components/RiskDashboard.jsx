@@ -60,22 +60,22 @@ export default function RiskDashboard({ assessment, metadata, onNewAssessment })
       <div className="mb-10 text-center">
         {/* Company Avatar/Logo Placeholder */}
         <div className="inline-flex mb-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-600 rounded-2xl shadow-lg flex items-center justify-center">
+          <div className="w-16 h-16 bg-slate-900 rounded-lg shadow-sm flex items-center justify-center">
             <span className="text-2xl font-black text-white">
               {metadata.companyName.charAt(0)}
             </span>
           </div>
         </div>
 
-        <h1 className="text-5xl font-black text-gray-900 mb-2 tracking-tight bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text">
+        <h1 className="text-5xl font-black text-slate-900 mb-2 tracking-tight">
           {metadata.companyName}
         </h1>
         <p className="text-sm text-gray-500 font-medium mb-6">Vendor Due Diligence Report</p>
 
         <div className="flex flex-wrap items-center justify-center gap-3 text-sm">
           {metadata.industry !== 'Not specified' && (
-            <span className="flex items-center gap-2 bg-blue-50 border border-blue-200 px-4 py-2.5 rounded-lg">
-              <div className="p-1.5 bg-blue-600 rounded">
+            <span className="flex items-center gap-2 bg-slate-50 border border-slate-200 px-4 py-2.5 rounded-lg">
+              <div className="p-1.5 bg-slate-600 rounded">
                 <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
@@ -84,8 +84,8 @@ export default function RiskDashboard({ assessment, metadata, onNewAssessment })
             </span>
           )}
           {metadata.location !== 'Not specified' && (
-            <span className="flex items-center gap-2 bg-purple-50 border border-purple-200 px-4 py-2.5 rounded-lg">
-              <div className="p-1.5 bg-purple-600 rounded">
+            <span className="flex items-center gap-2 bg-slate-50 border border-slate-200 px-4 py-2.5 rounded-lg">
+              <div className="p-1.5 bg-slate-700 rounded">
                 <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
