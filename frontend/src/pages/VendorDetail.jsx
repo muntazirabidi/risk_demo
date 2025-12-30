@@ -6,17 +6,25 @@ function VendorDetail() {
   const { vendorId } = useParams();
   const navigate = useNavigate();
 
-  // Find the vendor from mock data
-  const vendor = mockVendors.find(v => v.id === vendorId);
+  // Try to find vendor in mock data first
+  let vendor = mockVendors.find(v => v.id === vendorId);
+  let isLiveVendor = false;
+
+  // If not found in mock data, check localStorage for live vendors
+  if (!vendor) {
+    const liveVendors = JSON.parse(localStorage.getItem('liveVendors') || '[]');
+    vendor = liveVendors.find(v => v.id === vendorId);
+    isLiveVendor = !!vendor;
+  }
 
   if (!vendor) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-teal-50/30 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-slate-900 mb-4">Vendor Not Found</h2>
           <button
             onClick={() => navigate('/portfolio')}
-            className="px-6 py-3 bg-teal-600 text-white font-semibold rounded-lg hover:bg-teal-700 transition-colors"
+            className="px-6 py-3 bg-slate-900 text-white font-semibold rounded-lg hover:bg-slate-800 transition-colors"
           >
             Back to Portfolio
           </button>
@@ -89,8 +97,24 @@ function VendorDetail() {
     };
   };
 
-  const assessment = generateMockAssessment(vendor);
-  const metadata = generateMockMetadata(vendor);
+  // Use actual assessment data for live vendors, generate mock for sample vendors
+  const assessment = isLiveVendor ? {
+    overallRiskScore: vendor.riskScore,
+    riskLevel: vendor.riskLevel,
+    findings: vendor.findings || [],
+    executiveSummary: vendor.executiveSummary || '',
+    assessmentDate: vendor.assessmentDate
+  } : generateMockAssessment(vendor);
+
+  const metadata = isLiveVendor ? {
+    companyName: vendor.name,
+    industry: vendor.industry,
+    location: vendor.location,
+    processingTime: vendor.cached ? '2' : '28',
+    timestamp: vendor.lastAssessment,
+    assessmentId: vendor.id,
+    cached: vendor.cached || false
+  } : generateMockMetadata(vendor);
 
   const handleNewAssessment = () => {
     navigate('/');
@@ -144,31 +168,39 @@ function VendorDetail() {
 
       {/* Vendor Status Banner */}
       <div className={`${
-        vendor.status === 'qualified' ? 'bg-emerald-50 border-emerald-200' :
-        vendor.status === 'conditional' ? 'bg-amber-50 border-amber-200' :
+        vendor.status.toLowerCase() === 'qualified' ? 'bg-emerald-50 border-emerald-200' :
+        vendor.status.toLowerCase() === 'conditional' ? 'bg-amber-50 border-amber-200' :
         'bg-orange-50 border-orange-200'
       } border-b`}>
         <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <span className={`px-4 py-2 rounded-lg text-sm font-bold ${
-                vendor.status === 'qualified' ? 'bg-emerald-600 text-white' :
-                vendor.status === 'conditional' ? 'bg-amber-600 text-white' :
+                vendor.status.toLowerCase() === 'qualified' ? 'bg-emerald-600 text-white' :
+                vendor.status.toLowerCase() === 'conditional' ? 'bg-amber-600 text-white' :
                 'bg-orange-600 text-white'
               }`}>
                 {vendor.status.toUpperCase()}
               </span>
+              {isLiveVendor && (
+                <span className="px-3 py-1 bg-green-600 text-white text-xs font-medium uppercase tracking-wider">
+                  Live Assessment
+                </span>
+              )}
               <div>
                 <div className="text-sm font-medium text-slate-600">Vendor Status</div>
                 <div className="text-lg font-bold text-slate-900">
-                  {vendor.tier} • {vendor.annualSpend} Annual Spend
+                  {isLiveVendor
+                    ? `Risk Score: ${vendor.riskScore}/100`
+                    : `${vendor.tier} • ${vendor.annualSpend} Annual Spend`
+                  }
                 </div>
               </div>
             </div>
             <div className="text-right">
               <div className="text-sm font-medium text-slate-600">Last Assessment</div>
               <div className="text-sm text-slate-900">
-                {new Date(vendor.lastAssessment).toLocaleDateString('en-US', {
+                {new Date(vendor.lastAssessment || vendor.assessmentDate).toLocaleDateString('en-US', {
                   month: 'long',
                   day: 'numeric',
                   year: 'numeric'
