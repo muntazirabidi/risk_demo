@@ -325,9 +325,9 @@ function LandingPage() {
               <div className="max-w-[1200px] mx-auto px-8 py-20">
                 <div className="mb-12">
                   <p className="text-sm text-slate-400 uppercase tracking-widest mb-3">Platform</p>
-                  <h2 className="text-3xl font-light text-slate-900 tracking-tight">Reports are the wedge. The platform is the vision.</h2>
+                  <h2 className="text-3xl font-light text-slate-900 tracking-tight">The complete vendor risk lifecycle. One platform.</h2>
                   <p className="text-base text-slate-500 mt-3 max-w-2xl">
-                    We deliver institutional-grade DD reports today. The platform becomes the system of record for vendor risk — where every assessment compounds into a proprietary knowledge graph.
+                    Every assessment builds a proprietary knowledge graph that gets smarter with scale — from first qualification to continuous monitoring and remediation.
                   </p>
                 </div>
 
