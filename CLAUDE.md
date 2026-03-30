@@ -2,106 +2,182 @@
 
 ## What Spectrum Is
 
-**Spectrum** is an agent-native autonomous vendor intelligence platform. It deploys 20+ specialized AI agents to onboard, assess, monitor, and remediate vendor risk across the entire supplier lifecycle — serving procurement, finance, compliance, and supply chain teams.
+**Spectrum** is an autonomous due diligence platform for the enterprise. It deploys 20+ specialized AI agents to research, assess, and monitor vendors — producing institutional-grade risk intelligence in minutes, not months.
 
-**The wedge**: Institutional-grade due diligence reports delivered in 30 minutes instead of 90 days. This is what's live and what we sell today.
+**Category**: Autonomous Due Diligence. Not "vendor risk management", not "procurement automation" — due diligence across the entire vendor lifecycle.
 
-**The vision**: The system of record for vendor risk — a full lifecycle platform (Onboard → Assess → Monitor → Remediate) where every report builds a proprietary knowledge graph that compounds with scale.
+**Current product**: Institutional-grade DD reports covering 6 risk pillars (Financial, ESG, Regulatory, Cybersecurity, Operational, Reputational). First PoC delivered: 10 supplier reports + portfolio report for an energy utility client.
 
-**Stage**: Pre-seed. Building MVP/demo. First PoC delivered (10 supplier reports + portfolio report for an energy utility client).
+**Platform vision**: The system of record for vendor risk — Onboard → Assess → Monitor → Remediate — where every assessment compounds into a proprietary knowledge graph. Domains: Vendor Lifecycle, Procurement, Supply Chain, Finance & Compliance.
+
+**Stage**: Pre-seed. Building MVP/demo.
 
 ## Tech Stack
 
 - **Frontend**: React 19 + Vite 7 + React Router 7 + Tailwind CSS 4
 - **Backend**: Express.js + Node.js (ES modules)
 - **AI**: Anthropic Claude API (`@anthropic-ai/sdk`) with `web_search_20250305` tool
-- **Design**: Flat, sharp, monochrome. Inter + JetBrains Mono. No border-radius, no gradients, no box-shadows.
+- **Fonts**: Inter (variable, with optical sizing) + JetBrains Mono + Instrument Serif (italic accent)
 
 ## Architecture
 
 ```
-/                           → Landing page: hero + live assessment engine + sample reports
-/portfolio                  → Portfolio dashboard: 10 real vendor reports + portfolio report
-/portfolio/:vendorId        → Vendor detail view (for sample/live-assessed vendors)
-/report/:vendorId           → Full HTML report viewer (for featured vendors + portfolio)
+/                           → Landing page: hero + live demo + sample reports + platform vision
+/portfolio                  → Portfolio dashboard: 10 vendor cards + portfolio report + data table
+/portfolio/:vendorId        → Vendor detail (sample/live-assessed vendors)
+/report/:vendorId           → Full HTML report viewer (individual, portfolio, sample)
 ```
 
 ### Backend
 
-- `server.js` — Express server on port 3001
-- `services/openai.js` — Anthropic client init (file is named openai.js for legacy reasons, uses Anthropic SDK)
-- `services/riskAgent.js` — Two-stage assessment: (1) 3 parallel web searches via Claude, (2) structured JSON synthesis
-- `routes/assessment.js` — POST `/api/assess-risk` endpoint
-- `services/cacheService.js` — File-based caching in `backend/data/assessments/`
-- **Env**: `ANTHROPIC_API_KEY` required in `backend/.env`
+- `server.js` — Express on port 3001
+- `services/openai.js` — Anthropic client (legacy filename, uses `@anthropic-ai/sdk`)
+- `services/riskAgent.js` — Two-stage: 3 parallel web searches → structured JSON synthesis
+- `routes/assessment.js` — POST `/api/assess-risk`
+- `services/cacheService.js` — File-based cache in `backend/data/assessments/`
+- **Env**: `ANTHROPIC_API_KEY` in `backend/.env`
 
 ### Frontend
 
 **Pages:**
-- `LandingPage.jsx` — Hero positioning + live demo + sample reports (Palantir, ServiceNow) + regulatory urgency + lifecycle vision
-- `VendorPortfolio.jsx` — 10 real PoC vendor cards (5x2 grid) + portfolio report banner + vendor table
-- `VendorDetail.jsx` — Detailed view for sample/live vendors with RiskDashboard
-- `ReportViewer.jsx` — iframe viewer for full HTML reports (individual, portfolio, and sample)
+- `LandingPage.jsx` — Left-aligned hero with animated vendor feed, six pillars, sample reports, platform lifecycle, regulatory urgency, live assessment form
+- `VendorPortfolio.jsx` — Dark portfolio banner, 5x2 vendor cards with risk-colored left borders, stats strip, filterable data table
+- `VendorDetail.jsx` — Detailed view with RiskDashboard for live/sample vendors
+- `ReportViewer.jsx` — Clean header + iframe for full HTML reports
 
 **Key Components:**
-- `AssessmentForm.jsx` — 2-column form, uppercase labels, flat styling
-- `LoadingState.jsx` — Terminal-style panel with agent phases (INGEST/ANALYZE/REPORT)
-- `QuickDemoButtons.jsx` — Compact vendor quick-start buttons
-- `RiskDashboard.jsx` → `RiskScoreCard.jsx` → `FivePillars.jsx` → `FindingsGrid.jsx` → `DetailedBreakdown.jsx`
+- `AssessmentForm.jsx` — 2-column layout, flat styling
+- `LoadingState.jsx` — Terminal-style panel with INGEST/ANALYZE/REPORT phases
+- `QuickDemoButtons.jsx` — Compact vendor quick-start
+- `RiskDashboard.jsx` — Dark header with score, executive summary, key metrics, pillars, findings, CAPA, contract playbook
+- `FivePillars.jsx` — 5-column grid with risk-colored left borders
+- `FindingsGrid.jsx`, `DetailedBreakdown.jsx` — Finding cards and category breakdowns
 - `CapaRecommendations.jsx` — Auto-generated corrective action plans
 - `ContractPlaybook.jsx` — Risk-based contract clause recommendations
 
 **Data:**
-- `mockVendors.js` — 10 featured PoC vendors (ABB, Amprion, Comarch, DocuSign, Global Facilities, Giorgetti, Microsoft, OpenAI, Schneider IT, Siemens) + portfolio report data + sample reports (Palantir, ServiceNow)
+- `mockVendors.js` — 10 PoC vendors + portfolio report + sample reports (Palantir, ServiceNow)
 
 **Reports** (`frontend/public/reports/`):
-- `individual/` — 10 real HTML due diligence reports (~80-120KB each)
+- `individual/` — 10 real HTML DD reports
 - `portfolio/` — 1 portfolio intelligence report
-- Root level: `palantir-report.html`, `servicenow-report.html` (sample reports)
+- Root: `palantir-report.html`, `servicenow-report.html`
 
 ## Design System
 
-**Philosophy**: Institutional, not SaaS-y. Bloomberg/McKinsey aesthetic. Color conveys meaning, not decoration.
+### Philosophy
+Premium, institutional, modern. Inspired by Coverbase, Procure AI, Linear, Stripe. The design should feel like a financial terminal crossed with a premium SaaS product. Color conveys meaning, not decoration.
+
+### Foundations
 
 ```
-Fonts:      Inter (body, headings) + JetBrains Mono (numbers, data, phases)
-Background: Pure white (#ffffff)
-Text:       Slate-900 (#0f172a) primary, Slate-500 (#64748b) secondary
-Borders:    Slate-200 (#e2e8f0), 1px solid, NO border-radius
-Buttons:    Flat slate-900, uppercase tracking-wider, no shadows
-Status:     Emerald (qualified), Amber (conditional), Orange (monitoring), Red (critical)
-Selection:  Black background, white text
+Fonts:
+  Body/Headings:  Inter (variable, optical sizing, feature-settings cv02/cv03/cv04/cv11)
+  Numbers/Data:   JetBrains Mono (tabular-nums, letter-spacing -0.02em)
+  Accent:         Instrument Serif italic — used ONLY on one key word in hero headlines
+
+Colors:
+  Background:     #ffffff (pure white)
+  Text primary:   #0f172a (slate-900)
+  Text secondary: #64748b (slate-500)
+  Text tertiary:  #94a3b8 (slate-400)
+  Borders:        #e2e8f0 (slate-200), 1px solid
+  Accent:         #2563eb (blue-600) — used for serif italic words and selection highlight
+  Dark sections:  #0f172a (slate-900) — portfolio banner, report headers, regulatory strip
+
+Status colors (ONLY for risk/status indicators):
+  Qualified:      emerald-600/700
+  Conditional:    amber-600/700
+  Monitoring:     orange-600/700
+  Critical/Red:   red-600/700
+  Positive:       emerald-500
+
+Risk-colored left borders (3px):
+  Score 80+:      border-l-emerald-500
+  Score 70-79:    border-l-amber-500
+  Score 60-69:    border-l-orange-500
+  Score <60:      border-l-red-500
 ```
 
-**Rules:**
-- No rounded corners anywhere (buttons, cards, inputs, badges, progress bars)
-- No gradients, no box-shadows, no glow effects
-- No emojis in UI
-- Color only for status indicators — everything else is slate/black/white
-- Hover states use color/border changes only, no transforms
-- Uppercase micro-labels: `text-[10px] uppercase tracking-[0.15em]`
-- Tabular figures (`font-variant-numeric: tabular-nums`) for all numbers
+### Rules
 
-## Positioning (For Copy/Messaging)
+**Layout:**
+- Max container: `max-w-[1200px]` (landing, portfolio) or `max-w-[1600px]` (report viewer)
+- Left-aligned hero text, not centered
+- Sections separated by `border-t border-slate-100`
+- Generous vertical spacing: `pt-24 pb-20` hero, `py-20` sections, `py-12` data sections
+- Section labels: `text-sm text-slate-400 uppercase tracking-widest mb-3`
 
-**Hero**: "Autonomous Vendor Intelligence for the Entire Supplier Lifecycle"
+**Typography:**
+- Headings: `font-light` (300 weight), `tracking-tight`, `leading-[1.08]`
+- Body: 400 weight, `text-base` or `text-sm`, `text-slate-500`
+- Labels: `text-[10px] uppercase tracking-widest text-slate-400`
+- Scores: `font-mono font-light` with risk-appropriate color
+- One serif italic accent per page max (Instrument Serif on one key word)
 
-**Tagline**: "Lower Risk. Faster Onboarding. Higher Confidence."
+**Components:**
+- NO rounded corners anywhere (buttons, cards, inputs, badges, spinners)
+- NO gradients, NO box-shadows, NO glow effects
+- NO emojis in UI
+- Hover: border-color or text-color change only, no transforms or scale
+- Buttons: flat, `text-sm font-medium`, dark (`bg-slate-900`) or outline (`border border-slate-300`)
+- Dark panels: `bg-slate-900` for hero elements (portfolio banner, report header, regulatory strip)
+- Cards: `border border-slate-200` with `border-l-[3px]` risk color accent
+- Stats: `text-4xl font-light font-mono` with status color, label below
 
-**Key language**:
-- "Agent-native" (not "AI-powered" — VCs pay 40% premium for this framing)
-- "System of record" (not "tool" or "platform")
-- "Autonomous intelligence" (not "automated reports")
-- "20+ specialized AI agents" (Hunter, Analyst, Synthesis agents)
-- "Evidence-cited findings" (not "AI-generated insights")
+**Animations:**
+- `cubic-bezier(0.25, 0.46, 0.45, 0.94)` for all transitions
+- Fade-in on page load: `animate-fade-in` (0.4s)
+- Hero feed: 3.5s cycle with 300ms fade transition
+- Pulsing green dot for "live" indicators
+- Stagger delays: 0.05s increments
 
-**Lifecycle stages**: Onboard → Assess → Monitor → Remediate
+**Accessibility:**
+- `focus-visible` rings in blue (#2563eb), 2px, offset 2px
+- Smooth scroll for anchor links
+- Semantic HTML (section, header, nav, main, footer)
 
-**Buyer personas**: Procurement, Finance, Compliance, Supply Chain
+### What NOT to Do
+- No rounded corners (not even `rounded-sm`)
+- No teal/turquoise (legacy brand color — removed)
+- No purple/indigo decorative elements
+- No card shadows (`shadow-sm`, `shadow-lg` — all removed)
+- No gradient backgrounds or text gradients
+- No emoji or decorative icons
+- No centered hero text (always left-aligned)
+- No "AI-powered" language (use "autonomous" or "agent-native")
+- No "supply chain" in primary positioning (use "vendor due diligence" or "due diligence")
+
+## Positioning
+
+**Hero**: "Autonomous due diligence for the *enterprise*."
+
+**Subtitle**: "AI agents that autonomously research, assess, and monitor your vendors — producing institutional-grade risk intelligence in minutes, not months."
+
+**Category**: Autonomous Due Diligence (not vendor risk management, not procurement automation)
+
+**Key language:**
+- "Autonomous due diligence" — the category we own
+- "Agent-native" — differentiator vs incumbents (VCs value this framing)
+- "Institutional-grade" — not just scores, full forensic analysis
+- "Evidence-cited" — every finding traceable to a source
+- "Knowledge graph" — data moat that compounds with scale
+- "Minutes, not months" — the transformation
+
+**What NOT to say:**
+- "AI-powered" (too generic, every startup says it)
+- "Supply chain" in headlines (too broad, wrong competitive bucket)
+- "Tool" or "solution" (we're a platform / system of record)
+- "Protects" (vague, sounds like cybersecurity)
+- "Reports are the wedge" (internal strategy language, never customer-facing)
+
+**Lifecycle**: Onboard → Assess → Monitor → Remediate
+
+**Domains**: Vendor Lifecycle, Procurement, Supply Chain, Finance & Compliance
 
 **Regulatory urgency**: LkSG (2% turnover fines), CSRD (50K+ companies), UFLPA ($1.34B detained), 61% breached via vendors
 
-**Competitive positioning**: Incumbents (SecurityScorecard, BitSight, Exiger) are cyber-focused or legacy. ORO Labs ($100M Series C) does procurement workflow, not intelligence. No one owns "agent-native vendor due diligence."
+**Competitive landscape**: SecurityScorecard/BitSight (cyber-only), Exiger (semi-manual DD), ORO Labs (procurement workflow), Coverbase (intake/compliance workflow). No one owns autonomous, agent-native due diligence at institutional grade.
 
 ## Running Locally
 
@@ -122,18 +198,18 @@ npm install && npm run dev    # port 5173
 - Report HTML files (generated by separate pipeline in `risk_reports/`)
 - RiskDashboard data structure expectations
 - Routing structure
-- The flat/sharp design language — no rounded corners, no gradients
+- The flat/sharp design language
 
 ## What's Safe to Modify
 
-- Copy/messaging text on any page
-- mockVendors.js data
-- Component styling (maintain flat design system)
-- QuickDemoButtons company list
-- Landing page section order/content
+- Copy/messaging text
+- `mockVendors.js` data
+- Component styling (maintain design system rules above)
+- `QuickDemoButtons` company list
+- Section order/content on landing page
 
 ---
 
 **Last Updated**: 2026-03-30
-**Version**: v3.0
+**Version**: v4.0
 **Branch**: `main`
