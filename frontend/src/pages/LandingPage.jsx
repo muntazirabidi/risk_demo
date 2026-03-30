@@ -206,12 +206,12 @@ function LandingPage() {
                 {/* Left: copy */}
                 <div>
                   <h1 className="text-5xl md:text-6xl font-light text-slate-900 leading-[1.08] tracking-tight mb-6">
-                    Vendor due diligence<br />
-                    in <em className="not-italic" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: 'italic', color: '#2563eb' }}>minutes</em>,<br />
-                    not months.
+                    Autonomous due<br />
+                    diligence for the<br />
+                    <em className="not-italic" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: 'italic', color: '#2563eb' }}>enterprise</em>.
                   </h1>
                   <p className="text-lg text-slate-500 max-w-xl mb-10 leading-relaxed">
-                    Autonomous AI agents that research, analyze, and produce institutional-grade vendor risk reports — so your procurement team can make evidence-based decisions at the speed regulators now demand.
+                    AI agents that autonomously research, assess, and monitor your vendors — producing institutional-grade risk intelligence in minutes, not months.
                   </p>
                   <div className="flex items-center gap-4 mb-16">
                     <button
@@ -325,9 +325,9 @@ function LandingPage() {
               <div className="max-w-[1200px] mx-auto px-8 py-20">
                 <div className="mb-12">
                   <p className="text-sm text-slate-400 uppercase tracking-widest mb-3">Platform</p>
-                  <h2 className="text-3xl font-light text-slate-900 tracking-tight">The complete vendor risk lifecycle. One platform.</h2>
+                  <h2 className="text-3xl font-light text-slate-900 tracking-tight">One platform for the entire vendor lifecycle.</h2>
                   <p className="text-base text-slate-500 mt-3 max-w-2xl">
-                    Every assessment builds a proprietary knowledge graph that gets smarter with scale — from first qualification to continuous monitoring and remediation.
+                    Starting with vendor due diligence, Spectrum covers the full risk lifecycle across procurement, supply chain, finance, and compliance — where every assessment compounds into a proprietary knowledge graph.
                   </p>
                 </div>
 
@@ -349,11 +349,21 @@ function LandingPage() {
                   ))}
                 </div>
 
-                <div className="flex items-center gap-8 mt-8 pt-8 border-t border-slate-100">
-                  {['Procurement', 'Finance', 'Compliance', 'Supply Chain'].map((persona) => (
-                    <span key={persona} className="text-sm text-slate-400">{persona}</span>
-                  ))}
-                  <span className="ml-auto text-sm text-slate-400 italic">Every report builds the proprietary knowledge graph.</span>
+                <div className="mt-8 pt-8 border-t border-slate-100">
+                  <div className="text-[10px] text-slate-400 uppercase tracking-widest mb-4">Domains we serve</div>
+                  <div className="grid grid-cols-4 gap-4">
+                    {[
+                      { name: 'Vendor Lifecycle', desc: 'Qualification, onboarding, assessment, monitoring' },
+                      { name: 'Procurement', desc: 'Supplier risk intelligence for sourcing decisions' },
+                      { name: 'Supply Chain', desc: 'Concentration risk, geographic exposure, resilience' },
+                      { name: 'Finance & Compliance', desc: 'Regulatory evidence, audit trails, ESG reporting' },
+                    ].map((domain) => (
+                      <div key={domain.name}>
+                        <div className="text-sm font-semibold text-slate-900">{domain.name}</div>
+                        <div className="text-xs text-slate-400 mt-0.5">{domain.desc}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </section>
@@ -439,7 +449,7 @@ function LandingPage() {
           <div className="flex items-center justify-between">
             <div>
               <Logo />
-              <p className="text-sm text-slate-400 mt-2">Autonomous vendor due diligence for modern procurement teams.</p>
+              <p className="text-sm text-slate-400 mt-2">Autonomous due diligence for the enterprise.</p>
             </div>
             <div className="flex items-center gap-6 text-sm text-slate-400">
               <span>Evidence-based analysis</span>
