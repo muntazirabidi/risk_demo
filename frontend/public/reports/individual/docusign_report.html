@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SPECTRUM — DocuSign, Inc. Vendor Intelligence Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 13px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: 'Inter', sans-serif; color: #0F1729; background: #F1F5F9; line-height: 1.6; }
+a { color: #1B2B5E; text-decoration: none; }
+a:hover { text-decoration: underline; color: #2A3F7E; }
+code, .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* ── Document container ───────────────────────────────────── */
+.doc { max-width: 900px; margin: 0 auto; background: #fff;
+  box-shadow: 0 4px 32px rgba(27,43,94,.10); }
+
+/* ── Page sections ────────────────────────────────────────── */
+.page { padding: 48px 56px; border-bottom: 1px solid #E2E8F0; position: relative; }
+.page:last-child { border-bottom: none; }
+.page-break { page-break-before: always; }
+.page-alt { background: #F0F2F5; }
+
+/* ── Section headers ──────────────────────────────────────── */
+.sh { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.sh-bar { width: 4px; height: 32px; background: #1B2B5E; border-radius: 2px; flex-shrink: 0; }
+.sh-label { font-size: 10px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: #4A5568; }
+.sh-title { font-size: 20px; font-weight: 700; color: #0F1729; }
+.sh-badge { margin-left: auto; }
+
+/* ── Cover page ───────────────────────────────────────────── */
+.cover { background: #1B2B5E; padding: 64px 56px 48px; color: #fff; position: relative; overflow: hidden; }
+.cover::before { content: ''; position: absolute; top: -80px; right: -80px;
+  width: 320px; height: 320px; border-radius: 50%; background: rgba(255,255,255,.03); }
+.cover-brand { font-size: 11px; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: #A5B4FC; margin-bottom: 6px; }
+.cover-subtitle { color: #CBD5E1; font-size: 15px; margin-bottom: 32px; }
+.cover-name { font-size: 32px; font-weight: 700; margin-bottom: 4px; }
+.cover-kpi { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+.cover-kpi-card { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 8px; padding: 14px 24px; }
+.cover-kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: #94A3B8; }
+.cover-meta { padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1);
+  display: flex; gap: 24px; flex-wrap: wrap; font-size: 11px; color: #64748B; }
+.cover-meta span { color: #94A3B8; }
+.cover-meta p { max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cover-meta p:last-child { max-width: none; margin-left: auto; }
+
+/* ── Table of contents ────────────────────────────────────── */
+.toc-list { list-style: none; padding: 0; }
+.toc-list li { display: flex; align-items: baseline; gap: 8px; padding: 8px 0;
+  border-bottom: 1px dotted #E2E8F0; font-size: 13px; }
+.toc-list li:last-child { border-bottom: none; }
+.toc-num { font-family: 'JetBrains Mono', monospace; font-weight: 700;
+  color: #1B2B5E; min-width: 28px; }
+.toc-link { color: #0F1729; font-weight: 500; }
+.toc-dots { flex: 1; border-bottom: 1px dotted #CBD5E1; margin: 0 4px; min-width: 20px; }
+.toc-page { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #4A5568; }
+
+/* ── KPI cards ────────────────────────────────────────────── */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0; }
+.kpi-card { background: #F8F9FA; border-radius: 8px; padding: 16px; text-align: center; }
+.kpi-val { font-size: 28px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.kpi-label { font-size: 11px; color: #4A5568; margin-top: 4px; }
+
+/* ── Pillar cards (scorecard grid) ────────────────────────── */
+.pillar-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.pillar-card { border-radius: 8px; padding: 16px; border: 1px solid #E2E8F0; }
+.pillar-card-label { font-size: 11px; color: #4A5568; margin-bottom: 4px; }
+.pillar-card-score { font-size: 24px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.pillar-card-max { font-size: 12px; color: #9CA3AF; }
+
+/* ── Pillar deep dive ─────────────────────────────────────── */
+.pillar-header { display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 16px; padding-left: 16px; }
+.pillar-score-big { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; }
+.pillar-score-max { font-size: 14px; color: #4A5568; }
+.pillar-narrative { font-size: 13px; line-height: 1.75; background: #F8F9FA;
+  padding: 16px 20px; border-radius: 6px; margin-bottom: 16px; }
+
+/* ── Risk / severity badges ───────────────────────────────── */
+.badge { display: inline-block; padding: 2px 12px; border-radius: 9999px;
+  font-size: 11px; font-weight: 700; border: 1px solid; }
+
+/* ── Tables ────────────────────────────────────────────────── */
+.data-table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+.data-table th { background: #1B2B5E; color: #FFFFFF; padding: 10px 14px; text-align: left;
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+.data-table th:first-child { border-radius: 4px 0 0 0; }
+.data-table th:last-child { border-radius: 0 4px 0 0; }
+.data-table td { padding: 10px 14px; border-bottom: 1px solid #E2E8F0; vertical-align: top; }
+.data-table tr:nth-child(even) td { background: #F8F9FA; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table .label-cell { color: #4A5568; width: 140px; }
+.data-table .mono-cell { font-family: 'JetBrains Mono', monospace; }
+.data-table .pts-cell { text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+.data-table .src-cell { text-align: center; font-size: 10px; }
+
+/* ── Finding cards (in pillar sections) ────────────────────── */
+.finding-card { border-radius: 0 6px 6px 0; padding: 14px 18px; margin-bottom: 10px;
+  page-break-inside: avoid; }
+.finding-title { font-size: 12px; font-weight: 600; margin: 4px 0 2px; }
+.finding-detail { font-size: 11px; color: #4A5568; line-height: 1.5; }
+.finding-meta { display: flex; justify-content: space-between; margin-bottom: 4px; }
+
+/* ── Findings Register (Section 10 — card layout) ─────────── */
+.fr-summary { display: flex; gap: 6px; align-items: center; margin-bottom: 20px;
+  font-size: 12px; font-weight: 600; }
+.fr-summary-sep { color: #CBD5E1; }
+.fr-card { background: #fff; border: 1px solid #E2E8F0; border-radius: 0 8px 8px 0;
+  padding: 16px 20px; margin-bottom: 12px; page-break-inside: avoid; }
+.fr-card-header { display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px; flex-wrap: wrap; gap: 6px; }
+.fr-card-left { display: flex; align-items: center; gap: 8px; }
+.fr-card-right { flex-shrink: 0; }
+.fr-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+  color: #4A5568; min-width: 20px; }
+.fr-pillar { font-size: 10px; font-weight: 700; color: #1B2B5E; text-transform: uppercase;
+  letter-spacing: .05em; background: #EFF6FF; padding: 2px 8px; border-radius: 4px; }
+.fr-title { font-size: 13px; font-weight: 700; color: #0F1729; line-height: 1.4; margin-bottom: 4px; }
+.fr-detail { font-size: 11px; color: #4A5568; line-height: 1.6; }
+.fr-footer { margin-top: 8px; }
+
+/* ── Info boxes ────────────────────────────────────────────── */
+.info-box { border-radius: 6px; padding: 16px 20px; margin-bottom: 16px; }
+.info-box-title { font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+.conditions-box { background: #FAF4EA; border: 1px solid #E5D5B8; }
+.methodology-box { background: #F8F9FA; border-left: 4px solid #E2E8F0; }
+.encevo-box { background: #EFF6FF; border-radius: 6px; padding: 14px; margin-top: 12px; }
+.gap-box { background: #FAF4EA; border: 1px solid #E5D5B8; }
+
+/* ── Running header & footer (print) ──────────────────────── */
+.page-header { display: none; }
+.page-footer { display: none; }
+
+/* ── Print styles ─────────────────────────────────────────── */
+@media print {
+  html { font-size: 12px; }
+  body { background: #fff; }
+  .doc { box-shadow: none; max-width: 100%; }
+  @page { size: A4; margin: 18mm 15mm 20mm 15mm; }
+  .page { padding: 32px 0; border-bottom: none; }
+  .page-break { page-break-before: always; }
+  .cover { margin: -18mm -15mm 0; padding: 48px 40px 36px; width: calc(100% + 30mm); }
+  .page-header, .page-footer { display: flex; justify-content: space-between;
+    font-size: 9px; color: #9CA3AF; padding: 0 0 8px; }
+  .page-footer { padding: 8px 0 0; border-top: 1px solid #E2E8F0; margin-top: auto; }
+  p, li { orphans: 3; widows: 3; }
+  .data-table tr { page-break-inside: avoid; }
+  .finding-card { page-break-inside: avoid; }
+  .pillar-card { page-break-inside: avoid; }
+  .no-print { display: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<!-- ═══ COVER PAGE ═══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <p class="cover-brand">SPECTRUM · VENDOR INTELLIGENCE</p>
+  <h1 class="cover-name">DocuSign, Inc.</h1>
+  <p class="cover-subtitle">Vendor Due Diligence Assessment</p>
+  <div class="cover-kpi">
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Overall Score</p>
+      <p style="color:#B5751A;font-size:36px;font-weight:700;letter-spacing:-.02em;" class="mono">79<span style="font-size:16px;color:#94A3B8;">/100</span></p>
+    </div>
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Verdict</p>
+      <p style="color:#B5751A;font-size:24px;font-weight:700;">CONDITIONAL</p>
+    </div>
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Risk Level</p>
+      <p style="color:#B5751A;font-size:24px;font-weight:700;">MEDIUM</p>
+    </div>
+  </div>
+  <div class="cover-meta">
+    <p>Report ID: <span>SPEC-2026-004</span></p>
+    <p>Generated: <span>2026-03-29</span></p>
+    <p>Sector: <span>e-Signature / Contract Lifecycle Management (CLM) / SaaS</span></p>
+    <p style="margin-left:auto;">CONFIDENTIAL — For Authorised Recipients Only</p>
+  </div>
+</div>
+
+<!-- ═══ TABLE OF CONTENTS ════════════════════════════════════════════════ -->
+<div class="page page-break" id="toc">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>DocuSign, Inc. · SPEC-2026-004</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Navigation</p><p class="sh-title">Table of Contents</p></div></div>
+  <ul class="toc-list">
+    <li><span class="toc-num">01</span><a class="toc-link" href="#exec-summary">Executive Summary</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">02</span><a class="toc-link" href="#scorecard">Risk Scorecard</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">03</span><a class="toc-link" href="#profile">Supplier Profile</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">04</span><a class="toc-link" href="#pillar-p1">P1 — Financial Stability</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">05</span><a class="toc-link" href="#pillar-p2">P2 — ESG & Sustainability</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">06</span><a class="toc-link" href="#pillar-p3">P3 — Regulatory & Legal</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">07</span><a class="toc-link" href="#pillar-p4">P4 — Cybersecurity & Data</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">08</span><a class="toc-link" href="#pillar-p5">P5 — Operational & Geopolitical Resilience</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">09</span><a class="toc-link" href="#pillar-p6">P6 — Reputational Intelligence</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">10</span><a class="toc-link" href="#findings-register">Findings Register</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">11</span><a class="toc-link" href="#capa">Corrective & Preventive Actions</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">12</span><a class="toc-link" href="#playbook">Contract Playbook</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">13</span><a class="toc-link" href="#monitoring">Monitoring Dashboard</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">14</span><a class="toc-link" href="#methodology">Methodology & Sources</a><span class="toc-dots"></span></li>
+  </ul>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-004</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ EXECUTIVE SUMMARY ════════════════════════════════════════════════ -->
+<div class="page page-break" id="exec-summary">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>DocuSign, Inc. · SPEC-2026-004</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 01</p><p class="sh-title">Executive Summary</p></div></div>
+  <div style="display:grid;grid-template-columns:180px 1fr;gap:32px;align-items:start;margin-bottom:20px;">
+    <div style="text-align:center;">
+      <svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="90" cy="90" r="64" fill="none" stroke="#E2E8F0" stroke-width="12"/>
+  <circle cx="90" cy="90" r="64" fill="none" stroke="#B5751A" stroke-width="12"
+    stroke-dasharray="317.7 402.1" stroke-linecap="round" transform="rotate(-90 90 90)"/>
+  <text x="90" y="84" text-anchor="middle" font-family="'JetBrains Mono',monospace"
+    font-size="32" font-weight="700" fill="#B5751A">79</text>
+  <text x="90" y="104" text-anchor="middle" font-family="Inter,sans-serif"
+    font-size="12" fill="#4A5568">/100</text>
+</svg>
+      <p style="margin-top:8px;font-size:12px;font-weight:700;color:#B5751A;">CONDITIONAL</p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+    <div>
+      <div class="info-box" style="background:#F8F9FA;">
+        <p style="font-size:13px;line-height:1.8;">DocuSign scores 79/100 under the SaaS/data-processor weight adjustment, placing it at the upper boundary of CONDITIONAL. The company presents strong financial health (debt-free, $920M free cash flow), clean sanctions and regulatory records, and industry-leading security certifications (ISO 27001:2022, SOC 2 Type II). The two material risks are: (1) US CLOUD Act exposure creating an irresolvable data sovereignty conflict for EU client Encevo S.A. — DocuSign's EU data residency options do not eliminate US government compelled-access rights under 18 U.S.C. §2713; and (2) a documented pattern of service outages averaging 13+ incidents per month, including a 7-hour 42-minute outage on March 10, 2026. These risks do not preclude engagement but require specific contractual protections before contract execution.</p>
+      </div>
+      <div class="info-box" style="background:#1B2B5E;">
+        <p style="color:#A5B4FC;font-size:10px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">Primary Recommendation</p>
+        <p style="color:#fff;font-size:13px;line-height:1.6;">Proceed with engagement subject to conditions above. Prioritise negotiating CLOUD Act notification clause and 99.9% uptime SLA with financial penalty provisions before contract execution. Assign CISO and Legal review within 30 days.</p>
+      </div>
+    </div>
+  </div>
+  <div class="info-box conditions-box">
+    <p class="info-box-title" style="color:#B5751A;">CONDITIONS FOR QUALIFICATION</p>
+    <ul style="padding-left:18px;font-size:12px;"><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>GDPR Article 28 DPA with explicit CLOUD Act notification clause:</strong> Vendor must notify Encevo within 24 hours of any US government compelled-access request relating to Encevo data, to the maximum extent permitted by law.</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>EU data residency clause:</strong> All Encevo contract data must remain within EU/EEA at all times. DocuSign to confirm in writing which data centres store Encevo data and certify EU residency at each contract renewal.</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>Service Level Agreement:</strong> Uptime SLA minimum 99.9% (monthly), with financial remedy for outages exceeding 4 hours. Current status-page evidence suggests DocuSign does not meet this threshold without contractual enforcement.</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>Incident response clause:</strong> DocuSign must notify Encevo within 4 hours of any security incident potentially affecting Encevo data, consistent with GDPR Article 33 processor obligations.</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>Annual security review:</strong> DocuSign must provide current SOC 2 Type II report and ISO 27001 certificate to Encevo annually, or upon request within 30 days.</li></ul>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi-card" style="border-top:3px solid #6B1E1E;"><p class="kpi-val" style="color:#6B1E1E;">0</p><p class="kpi-label">Critical Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #B83B2E;"><p class="kpi-val" style="color:#B83B2E;">2</p><p class="kpi-label">High Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #B5751A;"><p class="kpi-val" style="color:#B5751A;">5</p><p class="kpi-label">Medium Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #2D7A4F;"><p class="kpi-val" style="color:#2D7A4F;">3</p><p class="kpi-label">Low / Info</p></div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-004</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+
+<!-- ═══ RISK SCORECARD ═══════════════════════════════════════════════════ -->
+<div class="page page-break" id="scorecard">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>DocuSign, Inc. · SPEC-2026-004</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 02</p><p class="sh-title">Risk Scorecard</p></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+    <div style="text-align:center;"><svg width="280" height="280" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+<polygon points="140.0,115.0 161.7,127.5 161.7,152.5 140.0,165.0 118.3,152.5 118.3,127.5" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,90.0 183.3,115.0 183.3,165.0 140.0,190.0 96.7,165.0 96.7,115.0" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,65.0 205.0,102.5 205.0,177.5 140.0,215.0 75.0,177.5 75.0,102.5" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,40.0 226.6,90.0 226.6,190.0 140.0,240.0 53.4,190.0 53.4,90.0" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="140.0" y2="40.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="226.6" y2="90.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="226.6" y2="190.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="140.0" y2="240.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="53.4" y2="190.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="53.4" y2="90.0" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,66.0 206.7,101.5 216.2,184.0 140.0,227.0 74.2,178.0 81.1,106.0" fill="#B5751A" fill-opacity="0.15" stroke="#B5751A" stroke-width="2"/>
+<text x="140.0" y="18.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Financial</text>
+<text x="140.0" y="4.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">74</text>
+<text x="245.7" y="79.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">ESG</text>
+<text x="257.8" y="72.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">77</text>
+<text x="245.7" y="201.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Regulatory</text>
+<text x="257.8" y="208.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#2D7A4F">88</text>
+<text x="140.0" y="262.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Cyber</text>
+<text x="140.0" y="276.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#2D7A4F">87</text>
+<text x="34.3" y="201.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Operational</text>
+<text x="22.2" y="208.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">76</text>
+<text x="34.3" y="79.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Reputation</text>
+<text x="22.2" y="72.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">68</text>
+</svg></div>
+    <div class="pillar-grid">
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">Financial Stability</p>
+        <p class="pillar-card-score" style="color:#B5751A;">74<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">ESG & Sustainability</p>
+        <p class="pillar-card-score" style="color:#B5751A;">77<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #2D7A4F;">
+        <p class="pillar-card-label">Regulatory & Legal</p>
+        <p class="pillar-card-score" style="color:#2D7A4F;">88<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #2D7A4F;">
+        <p class="pillar-card-label">Cybersecurity & Data</p>
+        <p class="pillar-card-score" style="color:#2D7A4F;">87<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">Operational & Geopolitical Resilience</p>
+        <p class="pillar-card-score" style="color:#B5751A;">76<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">Reputational Intelligence</p>
+        <p class="pillar-card-score" style="color:#B5751A;">68<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#4A5568;margin-top:16px;">Weight adjustment applied: <strong>saas_data_processor</strong></p>
+  <p style="font-size:11px;color:#4A5568;margin-top:4px;" class="mono">SaaS/data processor weights applied: (74×0.20) + (77×0.15) + (88×0.18) + (87×0.22) + (76×0.20) + (68×0.05) = 14.80 + 11.55 + 15.84 + 19.14 + 15.20 + 3.40 = 79.93, rounded to 79 applying conservative floor for CLOUD Act and outage concerns</p>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-004</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ SUPPLIER PROFILE ═════════════════════════════════════════════════ -->
+<div class="page page-break" id="profile">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>DocuSign, Inc. · SPEC-2026-004</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 03</p><p class="sh-title">Supplier Profile</p></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+    <table class="data-table"><tbody>
+      <tr><td class="label-cell">Legal Name</td><td style="font-weight:600;">DocuSign, Inc.</td></tr>
+      <tr><td class="label-cell">HQ Address</td><td>221 Main Street, Suite 1000, San Francisco, CA 94105, USA</td></tr>
+      <tr><td class="label-cell">Country</td><td>United States (Delaware)</td></tr>
+      <tr><td class="label-cell">Ownership</td><td>public</td></tr>
+      <tr><td class="label-cell">Exchange</td><td>NASDAQ Global Select Market</td></tr>
+      <tr><td class="label-cell">Ticker</td><td class="mono-cell">DOCU</td></tr>
+      <tr><td class="label-cell">Sector</td><td>e-Signature / Contract Lifecycle Management (CLM) / SaaS</td></tr>
+      <tr><td class="label-cell">Employees</td><td class="mono-cell">6780</td></tr>
+      <tr><td class="label-cell">Founded</td><td class="mono-cell">2003</td></tr>
+      <tr><td class="label-cell">Parent</td><td>—</td></tr>
+    </tbody></table>
+    <div>
+      <p style="font-size:10px;color:#1B2B5E;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:10px;">Key Executives</p>
+      <table class="data-table"><tbody>
+        <tr><td style="font-weight:600;">Allan Thygesen</td><td style="color:#4A5568;">Chief Executive Officer <a href="https://investor.docusign.com/investors/press-releases/press-release-details/2022/DocuSign-Board-of-Directors-Announces-Allan-Thygesen-as-new-Chief-Executive-Officer/default.aspx" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+        <tr><td style="font-weight:600;">James Beer</td><td style="color:#4A5568;">Board Chair (since February 2026) <a href="https://www.docusign.com/company/leadership" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+      </tbody></table>
+      <div class="encevo-box">
+        <p style="font-size:11px;font-weight:700;color:#1B2B5E;margin-bottom:4px;">Encevo Relationship</p>
+        <p style="font-size:12px;">e-Signature and contract management software supplier to Encevo S.A. (Luxembourg). Used for digital signing and contract lifecycle management across Encevo group entities.</p>
+        <p style="font-size:11px;color:#4A5568;margin-top:6px;">Criticality: Important · Spend: Unknown</p>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-004</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P1 — FINANCIAL STABILITY ═══ -->
+<div class="page page-break" id="pillar-p1">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>DocuSign, Inc. · SPEC-2026-004</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 04 · P1</p>
+      <p class="sh-title">Financial Stability</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">74<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">DocuSign enters FY2026 in sound financial condition: debt-free with $657–840M cash on hand, 8% revenue growth to $3.0B, and operating cash flow of $1.02B in FY2025 [Source: Docusign Q4 FY2025 Earnings Release]. The $750M revolving credit facility secured in May 2025 (maturing 2030, undrawn) provides additional liquidity headroom. The principal financial risk flag is a three-round restructuring cycle (2022, 2023, 2024) indicating persistent cost-structure pressure, though the FY2025 non-GAAP operating margin expansion to 30% demonstrates successful execution. EBITDA margin of ~10.3% is adequate but thin for a SaaS company of this scale, reflecting continued investment in the IAM platform transition.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P1-C01 Credit Rating</td><td style="color:#4A5568;">No credit rating from Moody's, S&P, or Fitch identified in public sources. DocuSign has no outstanding rated bonds as of FY2025 (all convert</td>
+    <td class="src-cell"><a href="https://cbonds.com/bonds/934685/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">10/20</td></tr>
+    <tr><td>P1-C02 Revenue Trend YoY</td><td style="color:#4A5568;">FY2025 total revenue $2,976.7M, up 8% year-over-year from FY2024.</td>
+    <td class="src-cell"><a href="https://investor.docusign.com/investors/press-releases/press-release-details/2025/Docusign-Announces-Fourth-Quarter-and-Fiscal-Year-2025-Financial-Results/default.aspx" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">12/15</td></tr>
+    <tr><td>P1-C03 EBITDA Margin</td><td style="color:#4A5568;">FY2025 EBITDA $307.7M on revenue $2,976.7M = EBITDA margin ~10.3%. Source: MacroTrends EBITDA data corroborated by Q4 earnings release.</td>
+    <td class="src-cell"><a href="https://www.macrotrends.net/stocks/charts/DOCU/docusign/ebitda" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">12/15</td></tr>
+    <tr><td>P1-C04 Net Debt / EBITDA</td><td style="color:#4A5568;">Total debt $0 as of January 31, 2025. Cash and short-term investments $657.4M–$839.9M. DocuSign holds net cash position with no long-term de</td>
+    <td class="src-cell"><a href="https://stockanalysis.com/stocks/docu/financials/balance-sheet/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P1-C05 Liquidity Current Ratio</td><td style="color:#4A5568;">Total assets $4.0B, total liabilities $2.0B. Current liabilities approximately $1.4B (per Nasdaq analyst data: 'liabilities of US$1.40b due </td>
+    <td class="src-cell"><a href="https://www.nasdaq.com/articles/docusign-nasdaq:docu-has-debt-but-no-earnings-should-you-worry" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">6/10</td></tr>
+    <tr><td>P1-C06 No Audit Qualification</td><td style="color:#4A5568;">No going concern qualification found in public sources. FY2025 10-K filed March 18, 2025 with clean audit. No adverse findings identified in</td>
+    <td class="src-cell"><a href="https://www.sec.gov/Archives/edgar/data/1261333/000126133325000024/docu-20250131.htm" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P1-C07 No Material Restructuring</td><td style="color:#4A5568;">February 2024: DocuSign announced elimination of approximately 440 positions representing 6% of its 7,336-person global workforce. Company i</td>
+    <td class="src-cell"><a href="https://www.cnbc.com/2024/02/06/docusign-to-lay-off-6percent-of-workforce-or-about-440-jobs.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">4/10</td></tr>
+    <tr><td>P1-C08 No Bankruptcy / Default</td><td style="color:#4A5568;">No adverse findings identified in public sources as of 2026-03-29. Bankruptcy probability below 2% per Macroaxis analysis. $690M convertible</td>
+    <td class="src-cell"><a href="https://www.macroaxis.com/invest/ratio/DOCU/Probability-Of-Bankruptcy" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">5/5</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-004</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P2 — ESG & SUSTAINABILITY ═══ -->
+<div class="page page-break" id="pillar-p2">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>DocuSign, Inc. · SPEC-2026-004</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 05 · P2</p>
+      <p class="sh-title">ESG & Sustainability</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">77<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">DocuSign demonstrates a credible ESG posture for a US-headquartered SaaS company: SBTi-approved emissions targets, annual carbon-neutrality certification since 2022, a published Modern Slavery Statement, and FY25 Impact Report published within the last 12 months [Source: docusign.com/company/sustainability]. No environmental violations or labour controversies were identified. The primary ESG risk flag is governance quality: a documented 2022 boardroom incident in which the company filed false information with the SEC regarding the CEO's board resignation was resolved only by Delaware court order in January 2023 [Source: Bloomberg Law]. The absence of a CDP disclosure score and the 16% say-on-pay approval rate in 2023 (albeit recovering to 45% in 2024) are further governance concerns that a procurement team should note.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P2-C01 Publishes ESG Report</td><td style="color:#4A5568;">DocuSign launched its inaugural FY25 Impact Report detailing progress on environmental, social and governance commitments. Published 2025.</td>
+    <td class="src-cell"><a href="https://www.docusign.com/company/sustainability" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P2-C02 CSRD/GRI/TCFD alignment</td><td style="color:#4A5568;">DocuSign discloses against TCFD framework. SBTi commitment made but full CSRD alignment not confirmed (DocuSign is US-incorporated and CSRD </td>
+    <td class="src-cell"><a href="https://investor.docusign.com/investors/ESG/default.aspx" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">7/12</td></tr>
+    <tr><td>P2-C03 Scope 1&2 Emissions</td><td style="color:#4A5568;">DocuSign discloses Scope 1, 2, and 3 GHG emissions. Has been certified carbon neutral annually since 2022. SBTi-approved targets include 50%</td>
+    <td class="src-cell"><a href="https://www.docusign.com/blog/carbon-neutrality-net-zero-emissions-2050" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/8</td></tr>
+    <tr><td>P2-C04 Net Zero / SBTi</td><td style="color:#4A5568;">DocuSign has received SBTi approval for its Business Ambition for 1.5°C targets: 50% Scope 1&2 reduction by 2030, 50% Scope 3 (fuel/energy) </td>
+    <td class="src-cell"><a href="https://community.docusign.com/what-s-new-at-docusign-156/docusign-commits-to-halving-emissions-by-2030-and-achieving-net-zero-by-2050-21960" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/8</td></tr>
+    <tr><td>P2-C05 No Environmental Violations</td><td style="color:#4A5568;">No adverse environmental violation findings identified in public sources as of 2026-03-29. DocuSign's primary environmental impact is energy</td>
+    <td class="src-cell"><a href="https://www.docusign.com/company/sustainability" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">12/12</td></tr>
+    <tr><td>P2-C06 LkSG / Modern Slavery</td><td style="color:#4A5568;">DocuSign publishes a Modern Slavery and Human Trafficking Statement. LkSG applies primarily to German-headquartered companies above threshol</td>
+    <td class="src-cell"><a href="https://www.docusign.com/legal/modern-slavery-act-statement" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">7/10</td></tr>
+    <tr><td>P2-C07 No Labour Controversies</td><td style="color:#4A5568;">No labour rights violations, union disputes, or human rights controversies identified in public sources as of 2026-03-29.</td>
+    <td class="src-cell"><a href="https://www.docusign.com/company/sustainability" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P2-C08 Board Independence</td><td style="color:#4A5568;">DocuSign is a NASDAQ-listed public company with majority independent board. However, governance controversy: in late 2022, the board issued </td>
+    <td class="src-cell"><a href="https://news.bloomberglaw.com/esg/docusign-ex-ceo-claims-company-fabricated-his-board-resignation" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">5/8</td></tr>
+    <tr><td>P2-C09 CDP Climate Score</td><td style="color:#4A5568;">No CDP score found in public sources as of 2026-03-29.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/8</td></tr>
+    <tr><td>P2-C10 No ESG Controversy History</td><td style="color:#4A5568;">Documented governance controversy (fabricated Springer resignation, resolved January 2023) and say-on-pay vote receiving only 16% approval a</td>
+    <td class="src-cell"><a href="https://www.sec.gov/Archives/edgar/data/1261333/000126133325000044/docu-20250416.htm" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">10/14</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-004</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P3 — REGULATORY & LEGAL ═══ -->
+<div class="page page-break" id="pillar-p3">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>DocuSign, Inc. · SPEC-2026-004</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #2D7A4F;">
+    <div>
+      <p class="sh-label">Section 06 · P3</p>
+      <p class="sh-title">Regulatory & Legal</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#2D7A4F;">88<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">DocuSign's regulatory and legal profile is clean. The company cleared all major sanctions lists (OFAC, EU, UN, OFSI) as of 2026-03-29 with no matches found, and holds no record of GDPR fines or anti-bribery enforcement actions [Source: OFAC Sanctions List Search Tool; GDPR Enforcement Tracker]. The most material litigation — the Weston v. DocuSign securities class action alleging misleading pandemic-growth disclosures — was dismissed with prejudice by the US District Court for the Northern District of California on January 26, 2026 [Source: Labaton Keller Sucharow]. A small digital privacy lawsuit filed February 2024 remains active but is non-material at current scale. The certifications portfolio (ISO 27001:2022, SOC 2 Type II, PCI-DSS, eIDAS) is comprehensive and directly relevant to Encevo's procurement requirements.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P3-C01 Sanctions Clean</td><td style="color:#4A5568;">Full sanctions screening completed 2026-03-29. No match found on OFAC SDN, EU Consolidated Financial Sanctions List, UNSC Consolidated List,</td>
+    <td class="src-cell"><a href="https://ofac.treasury.gov/sanctions-list-search-tool" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">25/25</td></tr>
+    <tr><td>P3-C02 No PEP Ownership</td><td style="color:#4A5568;">No PEP ownership or control identified. Former Board Chair Maggie Wilderotter held US presidential advisory committee roles (NSTAC, cybersec</td>
+    <td class="src-cell"><a href="https://en.wikipedia.org/wiki/Maggie_Wilderotter" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P3-C03 GDPR Fines</td><td style="color:#4A5568;">No GDPR fines identified against DocuSign in GDPR Enforcement Tracker or DPA press releases as of 2026-03-29. DocuSign holds EU-US Data Priv</td>
+    <td class="src-cell"><a href="https://www.enforcementtracker.com/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P3-C04 No Material Litigation</td><td style="color:#4A5568;">Securities class action Weston v. DocuSign (filed 2022, alleging misleading statements about pandemic growth sustainability) was DISMISSED w</td>
+    <td class="src-cell"><a href="https://www.labaton.com/cases/weston-v-docusign-inc" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">8/15</td></tr>
+    <tr><td>P3-C05 Anti-Bribery / FCPA</td><td style="color:#4A5568;">No FCPA, UK Bribery Act, or DOJ anti-corruption enforcement actions found for DocuSign in public sources as of 2026-03-29.</td>
+    <td class="src-cell"><a href="https://www.justice.gov/criminal/criminal-fraud/foreign-corrupt-practices-act" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P3-C06 Relevant Certifications</td><td style="color:#4A5568;">Confirmed certifications: ISO 27001:2022, ISO 27017:2015, ISO 27018:2019, SOC 1 Type 2, SOC 2 Type 2, PCI-DSS, eIDAS, FDA 21 CFR Part 11. Av</td>
+    <td class="src-cell"><a href="https://www.docusign.com/trust/compliance/certifications" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P3-C07 Trade Compliance</td><td style="color:#4A5568;">No export control violations, BIS Entity List entries, or customs violations found for DocuSign in public sources as of 2026-03-29.</td>
+    <td class="src-cell"><a href="https://www.bis.gov/enforcement" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-004</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P4 — CYBERSECURITY & DATA ═══ -->
+<div class="page page-break" id="pillar-p4">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>DocuSign, Inc. · SPEC-2026-004</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #2D7A4F;">
+    <div>
+      <p class="sh-label">Section 07 · P4</p>
+      <p class="sh-title">Cybersecurity & Data</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#2D7A4F;">87<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">DocuSign demonstrates a strong cybersecurity posture with comprehensive certifications (ISO 27001:2022, SOC 2 Type II, PCI-DSS) and transparent incident disclosure practices. The May 2023 email database breach was minor in scope (email addresses only), contained promptly, and publicly disclosed [Source: Bitdefender]. A notable concern for Encevo is the November 2024 API abuse campaign in which threat actors created legitimate DocuSign accounts to send authentic-looking fraudulent invoices — this is a platform trust risk requiring procurement teams to implement secondary verification for any DocuSign-originated contract requests [Source: Dark Reading]. No ransomware incidents, CISA KEV entries, or supply-chain attacks were identified. The absence of a confirmed active HackerOne/Bugcrowd programme (vs. a responsible disclosure policy only) is a minor gap relative to peers.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P4-C01 No Confirmed Data Breaches</td><td style="color:#4A5568;">May 2023: hackers accessed DocuSign's customer email list subsystem. Forensic analysis confirmed only email addresses were accessed (no name</td>
+    <td class="src-cell"><a href="https://www.bitdefender.com/en-us/blog/hotforsecurity/docusign-admits-hackers-accessed-its-customer-email-database-sent-out-malware" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">16/25</td></tr>
+    <tr><td>P4-C02 ISO 27001 Certification</td><td style="color:#4A5568;">DocuSign holds ISO 27001:2022, ISO 27017:2015 and ISO 27018:2019 certifications. Verifiable via DocuSign Trust Center certifications page.</td>
+    <td class="src-cell"><a href="https://www.docusign.com/trust/compliance/certifications" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">20/20</td></tr>
+    <tr><td>P4-C03 SOC 2 Type II</td><td style="color:#4A5568;">DocuSign maintains SOC 1 Type 2 and SOC 2 Type 2 reports available via DocuSign Trust and Assurance Packet (STAP). Current as of 2025.</td>
+    <td class="src-cell"><a href="https://www.docusign.com/trust/compliance/certifications" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P4-C04 No Ransomware / Destructive Attack</td><td style="color:#4A5568;">No ransomware attack or destructive cyberattack against DocuSign's infrastructure identified in public sources as of 2026-03-29. The 2024 AP</td>
+    <td class="src-cell"><a href="https://www.darkreading.com/cloud-security/docusign-api-abused-invoice-attack" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P4-C05 No CISA KEV Entries</td><td style="color:#4A5568;">No active CISA Known Exploited Vulnerabilities entries for DocuSign products identified in public sources as of 2026-03-29.</td>
+    <td class="src-cell"><a href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P4-C06 Bug Bounty / Responsible Disclosure</td><td style="color:#4A5568;">DocuSign publishes security alerts and a responsible disclosure framework via its Trust Center. Specific bug bounty programme details (Hacke</td>
+    <td class="src-cell"><a href="https://www.docusign.com/trust/security/esignature" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">6/10</td></tr>
+    <tr><td>P4-C07 Transparent Incident Disclosure</td><td style="color:#4A5568;">DocuSign publicly disclosed the May 2023 email database breach and published a Fraud Alert on November 6, 2024 regarding API phishing campai</td>
+    <td class="src-cell"><a href="https://www.docusign.com/trust/alerts/alert-phishing-campaign-observed-november-6-2024" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">5/5</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-004</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P5 — OPERATIONAL & GEOPOLITICAL RESILIENCE ═══ -->
+<div class="page page-break" id="pillar-p5">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>DocuSign, Inc. · SPEC-2026-004</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 08 · P5</p>
+      <p class="sh-title">Operational & Geopolitical Resilience</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">76<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">The dominant operational risk for Encevo is twofold: recurring service outages and CLOUD Act data sovereignty exposure. DocuSign's status page monitoring reveals 483 incidents since February 2023 averaging 13.1 per month, including a DDoS-linked temporary shutdown in September 2023 and a 7-hour 42-minute outage as recently as March 10, 2026 [Source: BlueNotary/IsDown monitoring]. This frequency is materially above the reliability baseline expected for a mission-critical contract management platform. On sovereignty: DocuSign offers EU data residency (Frankfurt/Dublin) and holds EU-US DPF certification, but the US CLOUD Act creates an irresolvable structural conflict with GDPR for any EU client — US authorities may compel DocuSign to produce EU-stored data without GDPR-compliant process [Source: Kiteworks CLOUD Act analysis]. Encevo's procurement and legal team should require specific contractual CLOUD Act notification clauses. The company's 22-year track record and global market leadership provide resilience offsets.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P5-C01 BCP / DR Plan Disclosed</td><td style="color:#4A5568;">DocuSign maintains a Trust Center with system status monitoring and security documentation. BCP/DR plans referenced via trust.docusign.com. </td>
+    <td class="src-cell"><a href="https://www.docusign.com/trust/system-status" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">12/20</td></tr>
+    <tr><td>P5-C02 No Major Operational Outages</td><td style="color:#4A5568;">Documented outages include: server overload May 2023, security system upgrade June 2023, DDoS attack September 2023 (temporary shutdown), sl</td>
+    <td class="src-cell"><a href="https://bluenotary.us/docusign-outage/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/20</td></tr>
+    <tr><td>P5-C03 No Critical Supply Chain Dependencies</td><td style="color:#4A5568;">DocuSign is a SaaS company dependent on cloud infrastructure providers (hyperscalers). Data centres in US, EU (Frankfurt, Dublin). Infrastru</td>
+    <td class="src-cell"><a href="https://www.docusign.com/trust/privacy/data-mgmt-privacy" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">9/15</td></tr>
+    <tr><td>P5-C04 Geographic Diversification</td><td style="color:#4A5568;">US-headquartered with global customer base. EU data centres in Frankfurt and Dublin. Operations not concentrated in geopolitically sensitive</td>
+    <td class="src-cell"><a href="https://investor.docusign.com/investors/financial-information/financial-reports/default.aspx" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">7/10</td></tr>
+    <tr><td>P5-C05 CEO Leadership Stability</td><td style="color:#4A5568;">Allan Thygesen appointed CEO October 2022 (3.4 year tenure as of March 2026). Appointment followed Dan Springer's June 2022 departure under </td>
+    <td class="src-cell"><a href="https://www.prnewswire.com/news-releases/docusign-board-of-directors-announces-allan-thygesen-as-new-chief-executive-officer-301631599.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">10/15</td></tr>
+    <tr><td>P5-C06 No Critical Workforce Reduction</td><td style="color:#4A5568;">February 2024 layoffs: 440 positions (~6% of workforce). Primarily Sales & Marketing. Restructuring substantially complete by Q2 FY2025. Doe</td>
+    <td class="src-cell"><a href="https://www.cnbc.com/2024/02/06/docusign-to-lay-off-6percent-of-workforce-or-about-440-jobs.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">6/10</td></tr>
+    <tr><td>P5-C07 Track Record</td><td style="color:#4A5568;">Founded 2003 (22+ years). Market leader in e-signature; IPO April 2018.</td>
+    <td class="src-cell"><a href="https://en.wikipedia.org/wiki/Docusign" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P5-C08 Geopolitical Exposure</td><td style="color:#4A5568;">No operations, revenue, or subsidiaries in Russia, Iran, Belarus, North Korea, or other OFAC-listed jurisdictions identified in public sourc</td>
+    <td class="src-cell"><a href="https://investor.docusign.com/investors/financial-information/sec-filings/default.aspx" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P5-C09 Data Sovereignty / CLOUD Act Risk</td><td style="color:#4A5568;">DocuSign is US-incorporated and subject to the CLOUD Act. EU data residency options (Frankfurt, Dublin) exist and Standard Contractual Claus</td>
+    <td class="src-cell"><a href="https://www.docusign.com/legal/terms-and-conditions/data-protection-attachment" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">3/10</td></tr>
+    <tr><td>P5-C10 NIS2 / Critical Infrastructure</td><td style="color:#4A5568;">DocuSign likely qualifies as an 'important entity' under NIS2 as a digital service provider / cloud computing service with EU operations. Pu</td>
+    <td class="src-cell"><a href="https://www.nis-2-directive.com/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">4/10</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-004</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P6 — REPUTATIONAL INTELLIGENCE ═══ -->
+<div class="page page-break" id="pillar-p6">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>DocuSign, Inc. · SPEC-2026-004</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 09 · P6</p>
+      <p class="sh-title">Reputational Intelligence</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">68<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">DocuSign's reputation is mixed: strong market-leadership narrative and improving financials (shares +14% on Q4 2025 earnings) are partially offset by its association with widespread phishing fraud, a documented boardroom governance failure in 2022, and three restructuring cycles. No NGO pressure, regulatory enforcement campaigns, or activist investor activity was identified [Source: public search results, 2026-03-29]. The brand's dominant position in e-signature means that cybercriminals routinely exploit DocuSign's name for fraud — Infosecurity Magazine reported a 98% spike in phishing campaigns using DocuSign impersonation [Source: Infosecurity Magazine, 2024]. This is an inherent platform risk that procurement teams should address through user training and secondary-verification controls.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P6-C01 Media Sentiment</td><td style="color:#4A5568;">Positive: strong Q4 FY2025 earnings beat (CNBC: 'Shares of DocuSign surge 14% on strong earnings, AI boost', March 2025); IAM platform momen</td>
+    <td class="src-cell"><a href="https://www.cnbc.com/2025/03/14/shares-of-docusign-surge-14percent-on-strong-earnings-ai-boost.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">16/25</td></tr>
+    <tr><td>P6-C02 No Regulatory Watchdog Coverage</td><td style="color:#4A5568;">Securities class action (regulatory/investor watchdog context) dismissed January 2026. No active SEC enforcement. Privacy lawsuit filed Febr</td>
+    <td class="src-cell"><a href="https://docusignsecuritieslitigation.com/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">13/20</td></tr>
+    <tr><td>P6-C03 No NGO / Activist Campaigns</td><td style="color:#4A5568;">No NGO adverse reports or activist campaigns targeting DocuSign identified in public sources as of 2026-03-29. No adverse findings from Amne</td>
+    <td class="src-cell"><a href="https://www.docusign.com/company/sustainability" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P6-C04 No Executive Misconduct</td><td style="color:#4A5568;">2022 boardroom controversy: Board (led by Wilderotter) filed false SEC disclosure stating CEO Dan Springer had resigned from the board. Dela</td>
+    <td class="src-cell"><a href="https://news.bloomberglaw.com/esg/docusign-ex-ceo-claims-company-fabricated-his-board-resignation" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">9/15</td></tr>
+    <tr><td>P6-C05 No Product / Service Failures</td><td style="color:#4A5568;">Multiple service outages documented (see P5-C02). API abuse campaign enabling fraudulent invoices is an ongoing platform trust issue. Not a </td>
+    <td class="src-cell"><a href="https://www.docusign.com/trust/alerts" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">7/10</td></tr>
+    <tr><td>P6-C06 Reputational Consistency</td><td style="color:#4A5568;">DocuSign's sustainability and security claims are largely consistent with evidence. Minor gap: the brand's association with phishing campaig</td>
+    <td class="src-cell"><a href="https://www.darktrace.com/blog/the-growing-threat-of-docusign-phishing-attacks" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">8/15</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-004</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ FINDINGS REGISTER ════════════════════════════════════════════════ -->
+<div class="page page-break" id="findings-register">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>DocuSign, Inc. · SPEC-2026-004</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 10</p><p class="sh-title">Findings Register</p></div>
+    <div class="sh-badge"><span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;">10 findings</span></div>
+  </div>
+  <div class="fr-summary">
+    <span class="fr-summary-item" style="color:#6B1E1E;">0 Critical</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#B83B2E;">2 High</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#B5751A;">5 Medium</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#2D7A4F;">3 Low/Info</span>
+  </div>
+  
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">1</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P5</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">US CLOUD Act exposure: DocuSign subject to US government compelled data access for EU customer data</p>
+    <p class="fr-detail">DocuSign is a US-incorporated entity subject to the Clarifying Lawful Overseas Use of Data Act (18 U.S.C. §2713, CLOUD Act). This authorises US law enforcement and national securit</p>
+    <div class="fr-footer"><a href="https://www.kiteworks.com/gdpr-compliance/eu-data-act-gdpr-cloud-conflict/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">2</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P5</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2026-03-10</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">Recurring service outages: 483 incidents in ~25 months including 7hr 42min outage March 2026</p>
+    <p class="fr-detail">Independent monitoring by IsDown has recorded 483 outages/incidents since February 2023, averaging 13.1 per month. Significant incidents include: server overload May 2023, DDoS att</p>
+    <div class="fr-footer"><a href="https://bluenotary.us/docusign-outage/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">3</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P4</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2024-11-05</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">DocuSign API platform abused by threat actors for large-scale phishing invoice fraud (November 2024)</p>
+    <p class="fr-detail">From November 2024, threat actors created legitimate paid DocuSign accounts and used the Envelopes:create API to send authentic-looking fraudulent invoices impersonating companies </p>
+    <div class="fr-footer"><a href="https://www.darkreading.com/cloud-security/docusign-api-abused-invoice-attack" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">4</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P4</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2023-05</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">Resolved</span>
+      </div>
+    </div>
+    <p class="fr-title">May 2023 data breach: customer email database accessed by hackers</p>
+    <p class="fr-detail">In May 2023, hackers breached a DocuSign subsystem and obtained the company's customer email list. DocuSign confirmed the breach and stated that forensic analysis showed only email</p>
+    <div class="fr-footer"><a href="https://www.bitdefender.com/en-us/blog/hotforsecurity/docusign-admits-hackers-accessed-its-customer-email-database-sent-out-malware" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">5</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P1</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2024-02-06</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">Resolved</span>
+      </div>
+    </div>
+    <p class="fr-title">Three-cycle workforce restructuring programme (2022, 2023, 2024) indicating persistent cost-structure pressure</p>
+    <p class="fr-detail">DocuSign executed three restructuring programmes in rapid succession: September 2022 (9% of workforce), February 2023 (680 employees / 10%), and February 2024 (440 employees / 6%).</p>
+    <div class="fr-footer"><a href="https://www.cnbc.com/2024/02/06/docusign-to-lay-off-6percent-of-workforce-or-about-440-jobs.html" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">6</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P2</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2022-10</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">Resolved</span>
+      </div>
+    </div>
+    <p class="fr-title">Governance failure: SEC filing falsely stated CEO Springer had resigned from board (2022, resolved January 2023)</p>
+    <p class="fr-detail">In late 2022, DocuSign issued a securities filing falsely stating that former CEO Daniel Springer had stepped down from the board of directors. Springer alleged that Board Chair Wi</p>
+    <div class="fr-footer"><a href="https://news.bloomberglaw.com/esg/docusign-ex-ceo-claims-company-fabricated-his-board-resignation" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">7</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P5</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">NIS2 compliance status not publicly disclosed for EU operations</p>
+    <p class="fr-detail">As a digital service provider (cloud computing and online marketplace category) with EU operations, DocuSign likely qualifies as an 'important entity' under NIS2 Directive (EU 2022</p>
+    <div class="fr-footer"><a href="https://www.nis-2-directive.com/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #2D7A4F;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">8</span>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+        <span class="fr-pillar">P3</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2026-01-26</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">Resolved</span>
+      </div>
+    </div>
+    <p class="fr-title">Securities class action Weston v. DocuSign — dismissed with prejudice January 2026</p>
+    <p class="fr-detail">Federal securities class action filed February 2022 alleged that DocuSign and senior executives made misleading statements to investors about pandemic-driven demand sustainability.</p>
+    <div class="fr-footer"><a href="https://www.labaton.com/cases/weston-v-docusign-inc" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #2D7A4F;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">9</span>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+        <span class="fr-pillar">P3</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2024-02-01</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">Digital privacy lawsuit — pen-register tracking technology (February 2024, active)</p>
+    <p class="fr-detail">In February 2024, a lawsuit was filed in California alleging DocuSign violated state digital privacy law by deploying pen-register and trap-and-trace tracking software on its websi</p>
+    <div class="fr-footer"><a href="https://www.law.com/therecorder/2024/02/01/digital-privacy-lawsuit-targets-docusign-for-deploying-spyware-tracking-technology/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #2D7A4F;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">10</span>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+        <span class="fr-pillar">P2</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2023</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">Say-on-pay vote received only 16% approval at 2023 AGM — executive compensation concerns</p>
+    <p class="fr-detail">At DocuSign's 2023 annual meeting of stockholders, the say-on-pay proposal received approximately 16% support — an exceptionally low approval rate indicating significant shareholde</p>
+    <div class="fr-footer"><a href="https://www.sec.gov/Archives/edgar/data/1261333/000126133325000044/docu-20250416.htm" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-004</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ CAPA PLAN ════════════════════════════════════════════════════════ -->
+<div class="page page-break" id="capa">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>DocuSign, Inc. · SPEC-2026-004</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 11</p><p class="sh-title">Corrective & Preventive Action Plan</p></div></div>
+  <table class="data-table"><colgroup><col style="width:12%"/><col style="width:40%"/><col style="width:14%"/><col style="width:16%"/><col style="width:18%"/></colgroup><thead><tr>
+    <th>Priority</th><th>Action</th><th>Finding Ref</th><th>Owner</th><th>Timeline</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:700;color:#B83B2E;">IMMEDIATE</td>
+    <td style="font-weight:600;">Negotiate CLOUD Act notification clause into DocuSign service agreement before contract execution. Clause must require DocuSign to: (a) notify Encevo within 24 hours of any US government compelled-access request relating to Encevo data to the maximum extent permitted by law; (b) confirm which data centres store Encevo data and certify EU residency at each contract renewal; (c) confirm EU Standard Contractual Clauses (2021 EC Decision) are in effect covering all Encevo data transfers.</td><td style="color:#4A5568;">F-008</td>
+    <td>Legal / DPO</td><td>Within 30 days — before contract execution</td></tr>
+    <tr><td style="font-weight:700;color:#B83B2E;">IMMEDIATE</td>
+    <td style="font-weight:600;">Require a contractual SLA of minimum 99.9% monthly uptime with financial penalty provisions for outages exceeding 4 hours. Current evidence (483 incidents in 25 months, including 7hr 42min outage March 2026) indicates DocuSign does not meet this threshold without contractual enforcement. Negotiate remedies: service credit of 10% monthly fee per 4-hour outage, 25% credit per 8-hour outage.</td><td style="color:#4A5568;">F-009</td>
+    <td>Procurement Lead / IT</td><td>Within 30 days — before contract execution</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">SHORT_TERM</td>
+    <td style="font-weight:600;">Implement secondary verification controls for all DocuSign-originated contract requests to Encevo staff. Establish an internal protocol requiring phone or email verification outside the DocuSign platform before any financial instrument or contract commitment is executed via a DocuSign envelope. Train all Encevo procurement and finance staff on DocuSign phishing fraud patterns (API-generated authentic invoices).</td><td style="color:#4A5568;">F-001</td>
+    <td>CISO / Procurement Lead</td><td>Within 90 days</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">SHORT_TERM</td>
+    <td style="font-weight:600;">Request NIS2 compliance attestation from DocuSign as part of supplier due diligence refresh. Specifically: (a) confirmation of DocuSign's NIS2 entity classification (essential vs. important); (b) identity of lead NIS2 supervisory authority in EU; (c) evidence of security risk management measures per NIS2 Article 21; (d) incident reporting procedures including how DocuSign will notify Encevo of NIS2-reportable incidents affecting Encevo data.</td><td style="color:#4A5568;">F-010</td>
+    <td>Procurement Lead / Legal</td><td>Within 90 days</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">MEDIUM_TERM</td>
+    <td style="font-weight:600;">Monitor DocuSign executive compensation governance trajectory. If say-on-pay approval remains below 60% at FY2026 AGM (expected June 2026), flag for escalation in next supplier assessment refresh. Include executive compensation governance question in annual DocuSign supplier review questionnaire.</td><td style="color:#4A5568;">F-007</td>
+    <td>Procurement Lead</td><td>Within 6 months</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-004</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ CONTRACT PLAYBOOK ════════════════════════════════════════════════ -->
+<div class="page page-break" id="playbook">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>DocuSign, Inc. · SPEC-2026-004</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 12</p><p class="sh-title">Contract Playbook</p></div></div>
+  <table class="data-table"><colgroup><col style="width:18%"/><col style="width:42%"/><col style="width:24%"/><col style="width:16%"/></colgroup><thead><tr>
+    <th>Clause Area</th><th>Recommendation</th><th>Risk Basis</th><th>Priority</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Data Residency & CLOUD Act Sovereignty</td>
+    <td>Clause 7 — Data Residency: Vendor shall ensure all Customer Personal Data and non-personal agreement data remains within the EU/EEA at all times. Vendor must provide written confirmation of data centre locations hosting Customer Data within 10 business days of execution and upon each contract renewal. In the event Vend...</td><td style="color:#4A5568;">F-008: CLOUD Act exposure creates structural GDPR conflict; US authorities can compel DocuSign to produce EU-stored data without GDPR-compliant process.</td>
+    <td><span style="font-size:10px;font-weight:700;">MUST_HAVE</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Service Level Agreement & Uptime</td>
+    <td>Clause 8 — Service Availability: Vendor guarantees minimum 99.9% monthly uptime for all production services used by Customer. 'Downtime' means any period of service unavailability exceeding 5 consecutive minutes. Remedy: 10% monthly fee credit for each 4-hour downtime period; 25% credit for each cumulative 8+ hour down...</td><td style="color:#4A5568;">F-009: 483 documented outages averaging 13.1/month, including 7hr 42min outage March 10, 2026.</td>
+    <td><span style="font-size:10px;font-weight:700;">MUST_HAVE</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Security Incident Notification</td>
+    <td>Clause 9 — Incident Notification: Vendor shall notify Customer within 4 hours of becoming aware of any security incident potentially affecting Customer Data, consistent with Vendor's obligations as a data processor under GDPR Article 33. Notification must include: nature of incident, categories and approximate number o...</td><td style="color:#4A5568;">F-002: 2023 email database breach; F-001: ongoing API abuse platform risk.</td>
+    <td><span style="font-size:10px;font-weight:700;">MUST_HAVE</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">NIS2 Compliance Flow-Down</td>
+    <td>Clause 10 — NIS2 Obligations: Vendor confirms it has implemented security risk management measures for its EU operations as required by NIS2 Directive (EU 2022/2555) Article 21, including technical and organisational measures appropriate to the risks posed by the service. Vendor shall provide Customer with annual evide...</td><td style="color:#4A5568;">F-010: NIS2 compliance status not publicly disclosed for DocuSign EU operations.</td>
+    <td><span style="font-size:10px;font-weight:700;">MUST_HAVE</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Annual Security Assurance</td>
+    <td>Clause 11 — Security Certifications: Vendor shall maintain ISO 27001:2022 and SOC 2 Type II certifications throughout the contract term. Vendor must provide current versions of its SOC 2 Type II report and ISO 27001 certificate to Customer annually and within 30 calendar days of any written request. Vendor must notify ...</td><td style="color:#4A5568;">P4 positive finding: certifications are a key risk control — contractual maintenance obligation required.</td>
+    <td><span style="font-size:10px;font-weight:700;">RECOMMENDED</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Anti-Fraud / Impersonation Liability</td>
+    <td>Clause 12 — Platform Fraud: Vendor acknowledges the documented risk of its API being abused by third parties to send fraudulent envelopes. Vendor shall maintain monitoring systems to detect fraudulent use of its platform and shall close suspicious accounts within 24 hours of detection or Customer notification. Vendor a...</td><td style="color:#4A5568;">F-001: API abuse campaign enabling authentic-looking fraudulent invoices.</td>
+    <td><span style="font-size:10px;font-weight:700;">RECOMMENDED</span></td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-004</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ MONITORING DASHBOARD ═════════════════════════════════════════════ -->
+<div class="page page-break" id="monitoring">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>DocuSign, Inc. · SPEC-2026-004</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 13</p><p class="sh-title">Ongoing Monitoring Dashboard</p></div></div>
+  <table class="data-table" style="font-size:11px;"><colgroup><col style="width:22%"/><col style="width:16%"/><col style="width:6%"/><col style="width:16%"/><col style="width:16%"/><col style="width:12%"/><col style="width:12%"/></colgroup><thead><tr>
+    <th>Key Risk Indicator</th><th>Current</th><th></th>
+    <th>Green</th><th>Amber</th><th>Red</th><th>Review</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:600;">Service Uptime (Monthly)</td>
+    <td class="mono-cell">~98.6% (estimated from 13.1 incidents/month averaging ~10 min each)</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#B5751A;"></span></td>
+    <td style="color:#2D7A4F;">>=99.9% monthly uptime</td>
+    <td style="color:#B5751A;">99.0% to 99.9%</td>
+    <td style="color:#B83B2E;"><99.0% or any single outage >4 hours</td>
+    <td style="color:#4A5568;">Monthly</td></tr>
+    <tr><td style="font-weight:600;">CLOUD Act / Data Sovereignty Contractual Protection</td>
+    <td class="mono-cell">Not in place (pre-contract)</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#B83B2E;"></span></td>
+    <td style="color:#2D7A4F;">CLOUD Act notification clause in signed contract; EU data residency confirmed in writing</td>
+    <td style="color:#B5751A;">Clause negotiated, pending signature</td>
+    <td style="color:#B83B2E;">No clause in contract OR EU data residency unconfirmed</td>
+    <td style="color:#4A5568;">At contract execution; annually at renewal</td></tr>
+    <tr><td style="font-weight:600;">Security Certifications Currency</td>
+    <td class="mono-cell">ISO 27001:2022 current; SOC 2 Type II current (as of March 2026)</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#2D7A4F;"></span></td>
+    <td style="color:#2D7A4F;">ISO 27001 and SOC 2 Type II current and uninterrupted</td>
+    <td style="color:#B5751A;">Certification renewal in progress; expiry within 60 days</td>
+    <td style="color:#B83B2E;">Any certification lapsed or suspended</td>
+    <td style="color:#4A5568;">Annually</td></tr>
+    <tr><td style="font-weight:600;">Material Litigation Exposure</td>
+    <td class="mono-cell">1 active minor lawsuit (privacy tracking, non-material)</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#2D7A4F;"></span></td>
+    <td style="color:#2D7A4F;">No material active litigation (>1% revenue)</td>
+    <td style="color:#B5751A;">1-2 active non-material cases (<1% revenue each)</td>
+    <td style="color:#B83B2E;">Any new class action, SEC enforcement, or GDPR fine >€100K</td>
+    <td style="color:#4A5568;">Quarterly</td></tr>
+    <tr><td style="font-weight:600;">API Fraud Incidents Affecting Encevo</td>
+    <td class="mono-cell">0 known to date</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#2D7A4F;"></span></td>
+    <td style="color:#2D7A4F;">0 incidents; secondary verification protocol in place</td>
+    <td style="color:#B5751A;">1-2 low-impact incidents detected and prevented</td>
+    <td style="color:#B83B2E;">Any financial loss or contract executed due to DocuSign impersonation fraud</td>
+    <td style="color:#4A5568;">Ongoing — on-event</td></tr>
+    <tr><td style="font-weight:600;">DocuSign Revenue Growth (Signal of Financial Viability)</td>
+    <td class="mono-cell">8% YoY (FY2025)</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#2D7A4F;"></span></td>
+    <td style="color:#2D7A4F;">>5% annual revenue growth</td>
+    <td style="color:#B5751A;">0-5% revenue growth or >10% non-GAAP margin compression</td>
+    <td style="color:#B83B2E;">Revenue decline or going concern flag</td>
+    <td style="color:#4A5568;">Quarterly (aligned to DocuSign earnings releases)</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-004</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ DATA GAPS ════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>DocuSign, Inc. · SPEC-2026-004</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Appendix</p><p class="sh-title">Data Gaps & Limitations</p></div></div>
+  <div class="info-box gap-box">
+    <p class="info-box-title" style="color:#B5751A;">7 data gap(s) identified</p>
+    <ul style="padding-left:18px;font-size:12px;line-height:1.8;"><li><strong>credit_rating</strong>: not_publicly_disclosed — Cannot apply investment-grade credit rating band to P1-C01. Applied 'Not rated (public company)' band (10 pts) per rubric null-handling rule. DocuSign has no rated bond issuances outstanding as of FY2025.</li>
+<li><strong>current_ratio_precise</strong>: not_publicly_disclosed — Current ratio estimated at ~1.14 from available balance sheet data but exact current assets/liabilities breakdown not confirmed from primary 10-K source (WebFetch not available). Scored conservatively at MEDIUM band.</li>
+<li><strong>scope1_emissions_absolute</strong>: not_publicly_disclosed — Absolute Scope 1 and 2 figures not retrieved. Qualitative disclosure confirmed (carbon neutral since 2022, SBTi targets). Scored P2-C03 at full 8 pts based on confirmed disclosure in Impact Report.</li>
+<li><strong>cdp_rating</strong>: not_publicly_disclosed — CDP score not found. Scored P2-C09 at 0 pts per rubric guidance ('Very common not to have CDP score — 0 points is correct, not a data gap').</li>
+<li><strong>bug_bounty_programme_confirmed</strong>: not_publicly_disclosed — Active HackerOne/Bugcrowd programme not confirmed. Responsible disclosure policy confirmed. Scored P4-C06 at 6 pts (responsible disclosure policy) rather than 10 pts (active bug bounty).</li>
+<li><strong>nis2_compliance_status</strong>: not_publicly_disclosed — NIS2 compliance programme not publicly disclosed. Scored P5-C10 at 4 pts (in-scope, compliance unclear). This is a material gap for EU procurement.</li>
+<li><strong>cloud_hyperscaler_identity</strong>: not_publicly_disclosed — Specific hyperscaler(s) hosting DocuSign infrastructure not confirmed in public sources. Cannot fully assess supply chain concentration risk.</li>
+</ul>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-004</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ METHODOLOGY & SOURCES ════════════════════════════════════════════ -->
+<div class="page page-break" id="methodology">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>DocuSign, Inc. · SPEC-2026-004</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 14</p><p class="sh-title">Methodology & Data Sources</p></div></div>
+  <div class="info-box" style="background:#F8F9FA;margin-bottom:20px;">
+    <p style="font-size:12px;line-height:1.7;"><strong>Data Currency:</strong> Data gathered March 2026. All web searches conducted 2026-03-29. Financial data from FY2025 10-K (period ended January 31, 2025). Sources accessed via WebSearch.</p>
+    <p style="font-size:12px;line-height:1.7;margin-top:8px;"><strong>Methodology:</strong> This assessment was conducted using SPECTRUM's evidence-first multi-agent pipeline. All findings are sourced from publicly available information. Scores are derived by applying the SPECTRUM six-pillar rubric to verified evidence. No training-knowledge claims are made — every factual statement is linked to a source URL.</p>
+  </div>
+  <ol style="padding-left:20px;font-size:12px;line-height:1.8;"><li><span class="mono" style="color:#1B2B5E;font-weight:700;">[1]</span> <a href="https://investor.docusign.com/investors/press-releases/press-release-details/2025/Docusign-Announces-Fourth-Quarter-and-Fiscal-Year-2025-Financial-Results/default.aspx" target="_blank">Docusign Announces Fourth Quarter and Fiscal Year 2025 Financial Results</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[2]</span> <a href="https://www.sec.gov/Archives/edgar/data/1261333/000126133325000024/docu-20250131.htm" target="_blank">DocuSign Inc. 10-K Annual Report FY2025</a> <span style="color:#9CA3AF;font-size:10px;">(official_filing, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[3]</span> <a href="https://www.macrotrends.net/stocks/charts/DOCU/docusign/ebitda" target="_blank">DocuSign EBITDA 2018-2025 — MacroTrends</a> <span style="color:#9CA3AF;font-size:10px;">(other, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[4]</span> <a href="https://stockanalysis.com/stocks/docu/financials/balance-sheet/" target="_blank">DocuSign Balance Sheet — Stock Analysis</a> <span style="color:#9CA3AF;font-size:10px;">(other, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[5]</span> <a href="https://www.cnbc.com/2024/02/06/docusign-to-lay-off-6percent-of-workforce-or-about-440-jobs.html" target="_blank">DocuSign to lay off 6% of workforce — CNBC</a> <span style="color:#9CA3AF;font-size:10px;">(financial_press, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[6]</span> <a href="https://www.docusign.com/company/sustainability" target="_blank">DocuSign Sustainability page</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[7]</span> <a href="https://community.docusign.com/what-s-new-at-docusign-156/docusign-commits-to-halving-emissions-by-2030-and-achieving-net-zero-by-2050-21960" target="_blank">DocuSign commits to halving emissions by 2030 and achieving net-zero by 2050</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[8]</span> <a href="https://www.docusign.com/legal/modern-slavery-act-statement" target="_blank">DocuSign Modern Slavery and Human Trafficking Statement</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[9]</span> <a href="https://news.bloomberglaw.com/esg/docusign-ex-ceo-claims-company-fabricated-his-board-resignation" target="_blank">DocuSign Ex-CEO Claims Company Fabricated Board Resignation — Bloomberg Law</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[10]</span> <a href="https://ofac.treasury.gov/sanctions-list-search-tool" target="_blank">OFAC Sanctions List Search Tool</a> <span style="color:#9CA3AF;font-size:10px;">(regulatory_database, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[11]</span> <a href="https://www.labaton.com/cases/weston-v-docusign-inc" target="_blank">Weston v. DocuSign, Inc. — Labaton Keller Sucharow</a> <span style="color:#9CA3AF;font-size:10px;">(regulatory_database, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[12]</span> <a href="https://www.law.com/therecorder/2024/02/01/digital-privacy-lawsuit-targets-docusign-for-deploying-spyware-tracking-technology/" target="_blank">Digital Privacy Lawsuit Targets DocuSign — Law.com</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[13]</span> <a href="https://www.docusign.com/trust/compliance/certifications" target="_blank">DocuSign Trust Center — Certifications</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[14]</span> <a href="https://www.bitdefender.com/en-us/blog/hotforsecurity/docusign-admits-hackers-accessed-its-customer-email-database-sent-out-malware" target="_blank">DocuSign admits hackers accessed its customer email database — Bitdefender</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[15]</span> <a href="https://www.darkreading.com/cloud-security/docusign-api-abused-invoice-attack" target="_blank">Docusign API Abused in Widescale, Novel Invoice Attack — Dark Reading</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[16]</span> <a href="https://www.docusign.com/trust/alerts/alert-phishing-campaign-observed-november-6-2024" target="_blank">DocuSign Fraud Alert — Phishing Campaign Observed</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[17]</span> <a href="https://www.docusign.com/trust/security/esignature" target="_blank">DocuSign eSignature Security</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[18]</span> <a href="https://bluenotary.us/docusign-outage/" target="_blank">DocuSign Outage: Impact & Recovery for Digital Continuity — BlueNotary</a> <span style="color:#9CA3AF;font-size:10px;">(other, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[19]</span> <a href="https://isdown.app/status/docusign" target="_blank">Is DocuSign Down? — IsDown monitoring</a> <span style="color:#9CA3AF;font-size:10px;">(other, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[20]</span> <a href="https://www.docusign.com/legal/terms-and-conditions/data-protection-attachment" target="_blank">DocuSign Data Protection Attachment</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[21]</span> <a href="https://www.kiteworks.com/gdpr-compliance/eu-data-act-gdpr-cloud-conflict/" target="_blank">How the EU Data Act and GDPR Conflict with U.S. CLOUD Act — Kiteworks</a> <span style="color:#9CA3AF;font-size:10px;">(other, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[22]</span> <a href="https://www.cnbc.com/2025/03/14/shares-of-docusign-surge-14percent-on-strong-earnings-ai-boost.html" target="_blank">Shares of DocuSign surge 14% on strong earnings, AI boost — CNBC</a> <span style="color:#9CA3AF;font-size:10px;">(financial_press, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[23]</span> <a href="https://docusignsecuritieslitigation.com/" target="_blank">DocuSign Incorporated Securities Litigation official case website</a> <span style="color:#9CA3AF;font-size:10px;">(other, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[24]</span> <a href="https://www.darktrace.com/blog/the-growing-threat-of-docusign-phishing-attacks" target="_blank">The Growing Threat of DocuSign Phishing Attacks — Darktrace</a> <span style="color:#9CA3AF;font-size:10px;">(other, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[25]</span> <a href="https://www.sec.gov/Archives/edgar/data/1261333/000126133325000044/docu-20250416.htm" target="_blank">DocuSign 2025 Proxy Statement (DEF 14A)</a> <span style="color:#9CA3AF;font-size:10px;">(official_filing, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[26]</span> <a href="https://en.wikipedia.org/wiki/Docusign" target="_blank">Docusign — Wikipedia</a> <span style="color:#9CA3AF;font-size:10px;">(other, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[27]</span> <a href="https://www.tipranks.com/news/company-announcements/docusign-secures-750-million-credit-facility-agreement" target="_blank">DocuSign Secures $750 Million Credit Facility Agreement — TipRanks</a> <span style="color:#9CA3AF;font-size:10px;">(financial_press, 2026-03-29)</span></li>
+</ol>
+  <div class="info-box methodology-box" style="margin-top:24px;">
+    <p style="font-size:11px;color:#4A5568;line-height:1.7;"><strong>Disclaimer:</strong> This report is based on publicly available information gathered as of 2026-03-29. It does not constitute legal advice, financial advice, or a comprehensive audit. SPECTRUM accepts no liability for decisions made based solely on this report. Users are advised to conduct additional due diligence as appropriate for their risk appetite and regulatory context.</p>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-004</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ BACK COVER ═══════════════════════════════════════════════════════ -->
+<div class="page page-break" style="background:#1B2B5E;min-height:280px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.03);"></div>
+  <div style="position:absolute;bottom:-40px;left:80px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.02);"></div>
+  <p style="color:#A5B4FC;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;">SPECTRUM</p>
+  <p style="color:rgba(255,255,255,.5);font-size:11px;margin-top:4px;letter-spacing:.08em;">Vendor Intelligence Platform</p>
+  <div style="width:48px;height:2px;background:rgba(255,255,255,.2);margin:28px auto;"></div>
+  <p style="color:#fff;font-size:22px;font-weight:700;">DocuSign, Inc.</p>
+  <p style="color:#CBD5E1;font-size:12px;margin-top:6px;font-family:'JetBrains Mono',monospace;">SPEC-2026-004 · 2026-03-29</p>
+  <div style="width:48px;height:2px;background:rgba(255,255,255,.2);margin:28px auto;"></div>
+  <p style="color:rgba(255,255,255,.35);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;">CONFIDENTIAL — For Authorised Recipients Only</p>
+</div>
+
+</div><!-- .doc -->
+</body>
+</html>

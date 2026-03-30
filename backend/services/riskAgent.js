@@ -1,4 +1,4 @@
-import openai, { MODEL_CONFIG } from './openai.js';
+import anthropic, { MODEL_CONFIG } from './openai.js';
 
 /**
  * System prompt for the Vendor Due Diligence AI agent
@@ -137,6 +137,18 @@ PROCUREMENT-FIRST MINDSET:
 }
 
 /**
+ * Helper to extract text content from an Anthropic message response
+ */
+function extractTextFromResponse(response) {
+  for (const block of response.content) {
+    if (block.type === 'text') {
+      return block.text;
+    }
+  }
+  return '';
+}
+
+/**
  * Stage 1: Research Phase - THREE Parallel Web Searches for Comprehensive Due Diligence
  * Each search focuses on different risk dimensions aligned with the Five Pillars framework
  */
@@ -185,27 +197,22 @@ CRITICAL: Find SPECIFIC incidents with dates and impacts. Look for "breach", "ha
     console.log('→ Search 2: Compliance & Controversies...');
     console.log('→ Search 3: Cybersecurity & Supply Chain...\n');
 
+    const searchParams = (query) => ({
+      model: MODEL_CONFIG.model,
+      max_tokens: 4096,
+      tools: [{ type: 'web_search_20250305', name: 'web_search', max_uses: 5 }],
+      messages: [{ role: 'user', content: query }],
+    });
+
     const [financialData, complianceData, cyberData] = await Promise.all([
-      openai.responses.create({
-        model: 'gpt-4o',
-        input: financialSearchQuery,
-        tools: [{ type: 'web_search_preview' }],
-      }),
-      openai.responses.create({
-        model: 'gpt-4o',
-        input: complianceSearchQuery,
-        tools: [{ type: 'web_search_preview' }],
-      }),
-      openai.responses.create({
-        model: 'gpt-4o',
-        input: cyberSearchQuery,
-        tools: [{ type: 'web_search_preview' }],
-      }),
+      anthropic.messages.create(searchParams(financialSearchQuery)),
+      anthropic.messages.create(searchParams(complianceSearchQuery)),
+      anthropic.messages.create(searchParams(cyberSearchQuery)),
     ]);
 
-    const financialResults = financialData.output_text || financialData.content || '';
-    const complianceResults = complianceData.output_text || complianceData.content || '';
-    const cyberResults = cyberData.output_text || cyberData.content || '';
+    const financialResults = extractTextFromResponse(financialData);
+    const complianceResults = extractTextFromResponse(complianceData);
+    const cyberResults = extractTextFromResponse(cyberData);
 
     console.log(`✓ Financial search: ${financialResults.length} chars`);
     console.log(`✓ Compliance search: ${complianceResults.length} chars`);
@@ -279,37 +286,25 @@ CRITICAL INSTRUCTIONS:
 - Balance negative findings with positive where appropriate
 - Return ONLY valid JSON (no markdown, no code blocks, no explanations)`;
 
-  const apiParams = {
+  const timeout = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error('Analysis timeout - took too long')), 90000)
+  );
+
+  const completionPromise = anthropic.messages.create({
     model: MODEL_CONFIG.model,
+    max_tokens: MODEL_CONFIG.max_tokens,
+    temperature: MODEL_CONFIG.temperature,
+    system: 'You are a vendor due diligence analyst synthesizing multi-source intelligence into a comprehensive five-pillar risk assessment. Focus on controversies, violations, and evidence-based findings that procurement teams need to make informed decisions. Return ONLY valid JSON, no markdown code blocks or explanations.',
     messages: [
-      {
-        role: 'system',
-        content: 'You are a vendor due diligence analyst synthesizing multi-source intelligence into a comprehensive five-pillar risk assessment. Focus on controversies, violations, and evidence-based findings that procurement teams need to make informed decisions.',
-      },
       {
         role: 'user',
         content: analysisPrompt,
       },
     ],
-    response_format: { type: 'json_object' },
-  };
+  });
 
-  // GPT-5 uses max_completion_tokens, GPT-4o uses max_tokens
-  if (MODEL_CONFIG.model.includes('gpt-5')) {
-    apiParams.max_completion_tokens = MODEL_CONFIG.max_tokens;
-  } else {
-    apiParams.max_tokens = MODEL_CONFIG.max_tokens;
-    apiParams.temperature = 0.3; // Lower for structured output
-  }
-
-  const timeout = new Promise((_, reject) =>
-    setTimeout(() => reject(new Error('Analysis timeout - took too long')), 90000)
-  );
-
-  const completionPromise = openai.chat.completions.create(apiParams);
   const completion = await Promise.race([completionPromise, timeout]);
-
-  return completion.choices[0].message.content;
+  return extractTextFromResponse(completion);
 }
 
 /**

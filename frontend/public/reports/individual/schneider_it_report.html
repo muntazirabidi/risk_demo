@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SPECTRUM — Schneider Electric IT Corporation Vendor Intelligence Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 13px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: 'Inter', sans-serif; color: #0F1729; background: #F1F5F9; line-height: 1.6; }
+a { color: #1B2B5E; text-decoration: none; }
+a:hover { text-decoration: underline; color: #2A3F7E; }
+code, .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* ── Document container ───────────────────────────────────── */
+.doc { max-width: 900px; margin: 0 auto; background: #fff;
+  box-shadow: 0 4px 32px rgba(27,43,94,.10); }
+
+/* ── Page sections ────────────────────────────────────────── */
+.page { padding: 48px 56px; border-bottom: 1px solid #E2E8F0; position: relative; }
+.page:last-child { border-bottom: none; }
+.page-break { page-break-before: always; }
+.page-alt { background: #F0F2F5; }
+
+/* ── Section headers ──────────────────────────────────────── */
+.sh { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.sh-bar { width: 4px; height: 32px; background: #1B2B5E; border-radius: 2px; flex-shrink: 0; }
+.sh-label { font-size: 10px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: #4A5568; }
+.sh-title { font-size: 20px; font-weight: 700; color: #0F1729; }
+.sh-badge { margin-left: auto; }
+
+/* ── Cover page ───────────────────────────────────────────── */
+.cover { background: #1B2B5E; padding: 64px 56px 48px; color: #fff; position: relative; overflow: hidden; }
+.cover::before { content: ''; position: absolute; top: -80px; right: -80px;
+  width: 320px; height: 320px; border-radius: 50%; background: rgba(255,255,255,.03); }
+.cover-brand { font-size: 11px; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: #A5B4FC; margin-bottom: 6px; }
+.cover-subtitle { color: #CBD5E1; font-size: 15px; margin-bottom: 32px; }
+.cover-name { font-size: 32px; font-weight: 700; margin-bottom: 4px; }
+.cover-kpi { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+.cover-kpi-card { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 8px; padding: 14px 24px; }
+.cover-kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: #94A3B8; }
+.cover-meta { padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1);
+  display: flex; gap: 24px; flex-wrap: wrap; font-size: 11px; color: #64748B; }
+.cover-meta span { color: #94A3B8; }
+.cover-meta p { max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cover-meta p:last-child { max-width: none; margin-left: auto; }
+
+/* ── Table of contents ────────────────────────────────────── */
+.toc-list { list-style: none; padding: 0; }
+.toc-list li { display: flex; align-items: baseline; gap: 8px; padding: 8px 0;
+  border-bottom: 1px dotted #E2E8F0; font-size: 13px; }
+.toc-list li:last-child { border-bottom: none; }
+.toc-num { font-family: 'JetBrains Mono', monospace; font-weight: 700;
+  color: #1B2B5E; min-width: 28px; }
+.toc-link { color: #0F1729; font-weight: 500; }
+.toc-dots { flex: 1; border-bottom: 1px dotted #CBD5E1; margin: 0 4px; min-width: 20px; }
+.toc-page { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #4A5568; }
+
+/* ── KPI cards ────────────────────────────────────────────── */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0; }
+.kpi-card { background: #F8F9FA; border-radius: 8px; padding: 16px; text-align: center; }
+.kpi-val { font-size: 28px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.kpi-label { font-size: 11px; color: #4A5568; margin-top: 4px; }
+
+/* ── Pillar cards (scorecard grid) ────────────────────────── */
+.pillar-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.pillar-card { border-radius: 8px; padding: 16px; border: 1px solid #E2E8F0; }
+.pillar-card-label { font-size: 11px; color: #4A5568; margin-bottom: 4px; }
+.pillar-card-score { font-size: 24px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.pillar-card-max { font-size: 12px; color: #9CA3AF; }
+
+/* ── Pillar deep dive ─────────────────────────────────────── */
+.pillar-header { display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 16px; padding-left: 16px; }
+.pillar-score-big { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; }
+.pillar-score-max { font-size: 14px; color: #4A5568; }
+.pillar-narrative { font-size: 13px; line-height: 1.75; background: #F8F9FA;
+  padding: 16px 20px; border-radius: 6px; margin-bottom: 16px; }
+
+/* ── Risk / severity badges ───────────────────────────────── */
+.badge { display: inline-block; padding: 2px 12px; border-radius: 9999px;
+  font-size: 11px; font-weight: 700; border: 1px solid; }
+
+/* ── Tables ────────────────────────────────────────────────── */
+.data-table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+.data-table th { background: #1B2B5E; color: #FFFFFF; padding: 10px 14px; text-align: left;
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+.data-table th:first-child { border-radius: 4px 0 0 0; }
+.data-table th:last-child { border-radius: 0 4px 0 0; }
+.data-table td { padding: 10px 14px; border-bottom: 1px solid #E2E8F0; vertical-align: top; }
+.data-table tr:nth-child(even) td { background: #F8F9FA; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table .label-cell { color: #4A5568; width: 140px; }
+.data-table .mono-cell { font-family: 'JetBrains Mono', monospace; }
+.data-table .pts-cell { text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+.data-table .src-cell { text-align: center; font-size: 10px; }
+
+/* ── Finding cards (in pillar sections) ────────────────────── */
+.finding-card { border-radius: 0 6px 6px 0; padding: 14px 18px; margin-bottom: 10px;
+  page-break-inside: avoid; }
+.finding-title { font-size: 12px; font-weight: 600; margin: 4px 0 2px; }
+.finding-detail { font-size: 11px; color: #4A5568; line-height: 1.5; }
+.finding-meta { display: flex; justify-content: space-between; margin-bottom: 4px; }
+
+/* ── Findings Register (Section 10 — card layout) ─────────── */
+.fr-summary { display: flex; gap: 6px; align-items: center; margin-bottom: 20px;
+  font-size: 12px; font-weight: 600; }
+.fr-summary-sep { color: #CBD5E1; }
+.fr-card { background: #fff; border: 1px solid #E2E8F0; border-radius: 0 8px 8px 0;
+  padding: 16px 20px; margin-bottom: 12px; page-break-inside: avoid; }
+.fr-card-header { display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px; flex-wrap: wrap; gap: 6px; }
+.fr-card-left { display: flex; align-items: center; gap: 8px; }
+.fr-card-right { flex-shrink: 0; }
+.fr-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+  color: #4A5568; min-width: 20px; }
+.fr-pillar { font-size: 10px; font-weight: 700; color: #1B2B5E; text-transform: uppercase;
+  letter-spacing: .05em; background: #EFF6FF; padding: 2px 8px; border-radius: 4px; }
+.fr-title { font-size: 13px; font-weight: 700; color: #0F1729; line-height: 1.4; margin-bottom: 4px; }
+.fr-detail { font-size: 11px; color: #4A5568; line-height: 1.6; }
+.fr-footer { margin-top: 8px; }
+
+/* ── Info boxes ────────────────────────────────────────────── */
+.info-box { border-radius: 6px; padding: 16px 20px; margin-bottom: 16px; }
+.info-box-title { font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+.conditions-box { background: #FAF4EA; border: 1px solid #E5D5B8; }
+.methodology-box { background: #F8F9FA; border-left: 4px solid #E2E8F0; }
+.encevo-box { background: #EFF6FF; border-radius: 6px; padding: 14px; margin-top: 12px; }
+.gap-box { background: #FAF4EA; border: 1px solid #E5D5B8; }
+
+/* ── Running header & footer (print) ──────────────────────── */
+.page-header { display: none; }
+.page-footer { display: none; }
+
+/* ── Print styles ─────────────────────────────────────────── */
+@media print {
+  html { font-size: 12px; }
+  body { background: #fff; }
+  .doc { box-shadow: none; max-width: 100%; }
+  @page { size: A4; margin: 18mm 15mm 20mm 15mm; }
+  .page { padding: 32px 0; border-bottom: none; }
+  .page-break { page-break-before: always; }
+  .cover { margin: -18mm -15mm 0; padding: 48px 40px 36px; width: calc(100% + 30mm); }
+  .page-header, .page-footer { display: flex; justify-content: space-between;
+    font-size: 9px; color: #9CA3AF; padding: 0 0 8px; }
+  .page-footer { padding: 8px 0 0; border-top: 1px solid #E2E8F0; margin-top: auto; }
+  p, li { orphans: 3; widows: 3; }
+  .data-table tr { page-break-inside: avoid; }
+  .finding-card { page-break-inside: avoid; }
+  .pillar-card { page-break-inside: avoid; }
+  .no-print { display: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<!-- ═══ COVER PAGE ═══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <p class="cover-brand">SPECTRUM · VENDOR INTELLIGENCE</p>
+  <h1 class="cover-name">Schneider Electric IT Corporation</h1>
+  <p class="cover-subtitle">Vendor Due Diligence Assessment</p>
+  <div class="cover-kpi">
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Overall Score</p>
+      <p style="color:#B5751A;font-size:36px;font-weight:700;letter-spacing:-.02em;" class="mono">73<span style="font-size:16px;color:#94A3B8;">/100</span></p>
+    </div>
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Verdict</p>
+      <p style="color:#B5751A;font-size:24px;font-weight:700;">CONDITIONAL</p>
+    </div>
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Risk Level</p>
+      <p style="color:#B5751A;font-size:24px;font-weight:700;">MEDIUM</p>
+    </div>
+  </div>
+  <div class="cover-meta">
+    <p>Report ID: <span>SPEC-2026-009</span></p>
+    <p>Generated: <span>2026-03-29</span></p>
+    <p>Sector: <span>Energy Management / IT Infrastructure / Industrial Automation</span></p>
+    <p style="margin-left:auto;">CONFIDENTIAL — For Authorised Recipients Only</p>
+  </div>
+</div>
+
+<!-- ═══ TABLE OF CONTENTS ════════════════════════════════════════════════ -->
+<div class="page page-break" id="toc">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Schneider Electric IT Corporation · SPEC-2026-009</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Navigation</p><p class="sh-title">Table of Contents</p></div></div>
+  <ul class="toc-list">
+    <li><span class="toc-num">01</span><a class="toc-link" href="#exec-summary">Executive Summary</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">02</span><a class="toc-link" href="#scorecard">Risk Scorecard</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">03</span><a class="toc-link" href="#profile">Supplier Profile</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">04</span><a class="toc-link" href="#pillar-p1">P1 — Financial Stability</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">05</span><a class="toc-link" href="#pillar-p2">P2 — ESG & Sustainability</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">06</span><a class="toc-link" href="#pillar-p3">P3 — Regulatory & Legal</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">07</span><a class="toc-link" href="#pillar-p4">P4 — Cybersecurity & Data</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">08</span><a class="toc-link" href="#pillar-p5">P5 — Operational & Geopolitical Resilience</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">09</span><a class="toc-link" href="#pillar-p6">P6 — Reputational Intelligence</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">10</span><a class="toc-link" href="#findings-register">Findings Register</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">11</span><a class="toc-link" href="#capa">Corrective & Preventive Actions</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">12</span><a class="toc-link" href="#playbook">Contract Playbook</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">13</span><a class="toc-link" href="#monitoring">Monitoring Dashboard</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">14</span><a class="toc-link" href="#methodology">Methodology & Sources</a><span class="toc-dots"></span></li>
+  </ul>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-009</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ EXECUTIVE SUMMARY ════════════════════════════════════════════════ -->
+<div class="page page-break" id="exec-summary">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Schneider Electric IT Corporation · SPEC-2026-009</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 01</p><p class="sh-title">Executive Summary</p></div></div>
+  <div style="display:grid;grid-template-columns:180px 1fr;gap:32px;align-items:start;margin-bottom:20px;">
+    <div style="text-align:center;">
+      <svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="90" cy="90" r="64" fill="none" stroke="#E2E8F0" stroke-width="12"/>
+  <circle cx="90" cy="90" r="64" fill="none" stroke="#B5751A" stroke-width="12"
+    stroke-dasharray="293.6 402.1" stroke-linecap="round" transform="rotate(-90 90 90)"/>
+  <text x="90" y="84" text-anchor="middle" font-family="'JetBrains Mono',monospace"
+    font-size="32" font-weight="700" fill="#B5751A">73</text>
+  <text x="90" y="104" text-anchor="middle" font-family="Inter,sans-serif"
+    font-size="12" fill="#4A5568">/100</text>
+</svg>
+      <p style="margin-top:8px;font-size:12px;font-weight:700;color:#B5751A;">CONDITIONAL</p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+    <div>
+      <div class="info-box" style="background:#F8F9FA;">
+        <p style="font-size:13px;line-height:1.8;">Schneider Electric IT Corporation (APC brand) scores 73/100 overall under the critical infrastructure weighting scheme. The group presents exceptional financial stability (A2/A rated, record FY2024 revenues, strong FCF) and best-in-class ESG credentials. However, three ransomware incidents within 18 months — including a November 2024 breach of its developer platform that resulted in stolen data published on the dark web — drive cybersecurity to CRITICAL (37/100). Two active regulatory enforcement actions (€207M French antitrust fine under appeal; $11M US DOJ False Claims Act settlement) further elevate regulatory/legal risk. Engagement should continue subject to cybersecurity remediation assurance and contractual protections.</p>
+      </div>
+      <div class="info-box" style="background:#1B2B5E;">
+        <p style="color:#A5B4FC;font-size:10px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">Primary Recommendation</p>
+        <p style="color:#fff;font-size:13px;line-height:1.6;">Proceed with engagement subject to receipt of a cybersecurity remediation plan and NIS2 compliance assurance within 60 days. Impose enhanced monitoring KRIs for cybersecurity incidents and regulatory developments.</p>
+      </div>
+    </div>
+  </div>
+  <div class="info-box conditions-box">
+    <p class="info-box-title" style="color:#B5751A;">CONDITIONS FOR QUALIFICATION</p>
+    <ul style="padding-left:18px;font-size:12px;"><li style='margin-bottom:8px;line-height:1.6;'>Obtain written cybersecurity remediation plan from Schneider Electric addressing the three ransomware incidents, including independent security audit results and timeline for addressing systemic Jira/developer platform vulnerabilities</li><li style='margin-bottom:8px;line-height:1.6;'>Confirm NIS2 supply chain compliance documentation and any applicable security obligations flow-down clauses</li><li style='margin-bottom:8px;line-height:1.6;'>Monitor French competition authority appeal outcome (€207M fine); escalate if appeal fails and fine becomes final</li><li style='margin-bottom:8px;line-height:1.6;'>Request confirmation that the DOJ False Claims Act settlement is fully resolved with no continuing obligations affecting government contract eligibility</li><li style='margin-bottom:8px;line-height:1.6;'>Annual cybersecurity review of APC/EcoStruxure platform certifications and incident history before contract renewal</li></ul>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi-card" style="border-top:3px solid #6B1E1E;"><p class="kpi-val" style="color:#6B1E1E;">1</p><p class="kpi-label">Critical Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #B83B2E;"><p class="kpi-val" style="color:#B83B2E;">3</p><p class="kpi-label">High Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #B5751A;"><p class="kpi-val" style="color:#B5751A;">3</p><p class="kpi-label">Medium Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #2D7A4F;"><p class="kpi-val" style="color:#2D7A4F;">1</p><p class="kpi-label">Low / Info</p></div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-009</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+
+<!-- ═══ RISK SCORECARD ═══════════════════════════════════════════════════ -->
+<div class="page page-break" id="scorecard">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Schneider Electric IT Corporation · SPEC-2026-009</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 02</p><p class="sh-title">Risk Scorecard</p></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+    <div style="text-align:center;"><svg width="280" height="280" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+<polygon points="140.0,115.0 161.7,127.5 161.7,152.5 140.0,165.0 118.3,152.5 118.3,127.5" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,90.0 183.3,115.0 183.3,165.0 140.0,190.0 96.7,165.0 96.7,115.0" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,65.0 205.0,102.5 205.0,177.5 140.0,215.0 75.0,177.5 75.0,102.5" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,40.0 226.6,90.0 226.6,190.0 140.0,240.0 53.4,190.0 53.4,90.0" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="140.0" y2="40.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="226.6" y2="90.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="226.6" y2="190.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="140.0" y2="240.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="53.4" y2="190.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="53.4" y2="90.0" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,57.0 213.6,97.5 200.6,175.0 140.0,177.0 73.3,178.5 84.6,108.0" fill="#B5751A" fill-opacity="0.15" stroke="#B5751A" stroke-width="2"/>
+<text x="140.0" y="18.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Financial</text>
+<text x="140.0" y="4.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#2D7A4F">83</text>
+<text x="245.7" y="79.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">ESG</text>
+<text x="257.8" y="72.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#2D7A4F">85</text>
+<text x="245.7" y="201.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Regulatory</text>
+<text x="257.8" y="208.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">70</text>
+<text x="140.0" y="262.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Cyber</text>
+<text x="140.0" y="276.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#6B1E1E">37</text>
+<text x="34.3" y="201.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Operational</text>
+<text x="22.2" y="208.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">77</text>
+<text x="34.3" y="79.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Reputation</text>
+<text x="22.2" y="72.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">64</text>
+</svg></div>
+    <div class="pillar-grid">
+      <div class="pillar-card" style="border-top:3px solid #2D7A4F;">
+        <p class="pillar-card-label">Financial Stability</p>
+        <p class="pillar-card-score" style="color:#2D7A4F;">83<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #2D7A4F;">
+        <p class="pillar-card-label">ESG & Sustainability</p>
+        <p class="pillar-card-score" style="color:#2D7A4F;">85<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">Regulatory & Legal</p>
+        <p class="pillar-card-score" style="color:#B5751A;">70<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #6B1E1E;">
+        <p class="pillar-card-label">Cybersecurity & Data</p>
+        <p class="pillar-card-score" style="color:#6B1E1E;">37<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#6B1E1E;background:#F9EEEE;border-color:#6B1E1E;">CRITICAL</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">Operational & Geopolitical Resilience</p>
+        <p class="pillar-card-score" style="color:#B5751A;">77<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">Reputational Intelligence</p>
+        <p class="pillar-card-score" style="color:#B5751A;">64<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#4A5568;margin-top:4px;" class="mono">Critical Infrastructure exception applied per CLAUDE.md: (P1:83 × 0.22) + (P2:85 × 0.20) + (P3:70 × 0.20) + (P4:37 × 0.13) + (P5:77 × 0.20) + (P6:64 × 0.05) = 18.26 + 17.0 + 14.0 + 4.81 + 15.4 + 3.2 = 72.67 → rounded to 73</p>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-009</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ SUPPLIER PROFILE ═════════════════════════════════════════════════ -->
+<div class="page page-break" id="profile">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Schneider Electric IT Corporation · SPEC-2026-009</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 03</p><p class="sh-title">Supplier Profile</p></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+    <table class="data-table"><tbody>
+      <tr><td class="label-cell">Legal Name</td><td style="font-weight:600;">Schneider Electric IT Corporation</td></tr>
+      <tr><td class="label-cell">HQ Address</td><td>1 Boston Place, Suite 2700, Boston, Massachusetts 02108, USA (subsidiary); Rueil-Malmaison, France (parent Schneider Electric SE)</td></tr>
+      <tr><td class="label-cell">Country</td><td>United States (subsidiary); France (parent Schneider Electric SE — Societas Europaea)</td></tr>
+      <tr><td class="label-cell">Ownership</td><td>subsidiary</td></tr>
+      <tr><td class="label-cell">Exchange</td><td>Euronext Paris (parent Schneider Electric SE; ticker: SU; ISIN: FR0000121972)</td></tr>
+      <tr><td class="label-cell">Ticker</td><td class="mono-cell">SU (Euronext Paris); SBGSY / SBGSF (US OTC ADR)</td></tr>
+      <tr><td class="label-cell">Sector</td><td>Energy Management / IT Infrastructure / Industrial Automation</td></tr>
+      <tr><td class="label-cell">Employees</td><td class="mono-cell">150000</td></tr>
+      <tr><td class="label-cell">Founded</td><td class="mono-cell">1836</td></tr>
+      <tr><td class="label-cell">Parent</td><td>Schneider Electric SE (CAC40, Euronext Paris)</td></tr>
+    </tbody></table>
+    <div>
+      <p style="font-size:10px;color:#1B2B5E;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:10px;">Key Executives</p>
+      <table class="data-table"><tbody>
+        <tr><td style="font-weight:600;">Olivier Blum</td><td style="color:#4A5568;">Chief Executive Officer <a href="https://www.se.com/ww/en/about-us/company-profile/corporate-governance/executive-committee/" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+        <tr><td style="font-weight:600;">Hilary Maxson</td><td style="color:#4A5568;">Chief Financial Officer <a href="https://www.se.com/ww/en/about-us/company-profile/corporate-governance/executive-committee/" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+        <tr><td style="font-weight:600;">Jean-Pascal Tricoire</td><td style="color:#4A5568;">Chairman of the Board <a href="https://www.se.com/ww/en/about-us/company-profile/corporate-governance/board-of-directors/" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+      </tbody></table>
+      <div class="encevo-box">
+        <p style="font-size:11px;font-weight:700;color:#1B2B5E;margin-bottom:4px;">Encevo Relationship</p>
+        <p style="font-size:12px;">Energy management and IT infrastructure supplier to Encevo S.A. Luxembourg, providing UPS systems, power distribution units, data centre infrastructure, and energy management solutions under the APC brand.</p>
+        <p style="font-size:11px;color:#4A5568;margin-top:6px;">Criticality: Critical · Spend: Unknown</p>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-009</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P1 — FINANCIAL STABILITY ═══ -->
+<div class="page page-break" id="pillar-p1">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Schneider Electric IT Corporation · SPEC-2026-009</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #2D7A4F;">
+    <div>
+      <p class="sh-label">Section 04 · P1</p>
+      <p class="sh-title">Financial Stability</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#2D7A4F;">83<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">Schneider Electric SE presents a strong financial profile underpinned by record FY2024 revenues of €38.15 billion (+8.4% organic), adjusted EBITA of €7.08 billion at an 18.6% margin, and free cash flow of €4.2 billion. The group carries net debt of €8.1 billion at a comfortable leverage ratio of approximately 1.15x EBITDA, with EBIT interest coverage of 19.9x confirming strong debt service capacity. Both Moody's (upgraded to A2, June 2025) and S&P (A, April 2024) rate the group solidly investment grade. No distress signals, going concern flags, or restructuring events were identified in any public source as of the assessment date.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P1-C01 Credit Rating — Investment Grade</td><td style="color:#4A5568;">Moody's upgraded to A2 (June 2025); S&P rated A (April 2024). Both agencies at A-range with positive/stable outlook.</td>
+    <td class="src-cell"><a href="https://cbonds.com/news/2955851/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">18/20</td></tr>
+    <tr><td>P1-C02 Revenue Trend YoY</td><td style="color:#4A5568;">FY2024 revenue €38.15B vs FY2023 ~€35.3B (approx +8.1% organic growth). Within 5-10% band.</td>
+    <td class="src-cell"><a href="https://www.se.com/ww/en/Images/release-fy-results-2024_tcm564-505646.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">12/15</td></tr>
+    <tr><td>P1-C03 EBITDA Margin</td><td style="color:#4A5568;">Adjusted EBITA margin 18.6% (FY2024). Note: Adjusted EBITA used as closest public proxy; EBITDA would be higher. Falls in 10-20% band.</td>
+    <td class="src-cell"><a href="https://www.se.com/ww/en/Images/release-fy-results-2024_tcm564-505646.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">12/15</td></tr>
+    <tr><td>P1-C04 Net Debt / EBITDA Leverage</td><td style="color:#4A5568;">Net debt €8,147M at 31 Dec 2024; Adjusted EBITA €7,083M. Ratio ~1.15x (1x-2x band). EBIT interest coverage 19.9x confirms strong debt servic</td>
+    <td class="src-cell"><a href="https://www.se.com/ww/en/assets/564/document/505720/accounts-full-year-results-2024.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">10/15</td></tr>
+    <tr><td>P1-C05 Liquidity — Current Ratio</td><td style="color:#4A5568;">Current assets €21.6B, current liabilities €18.9B → ratio ~1.14 (1.0-1.5 band).</td>
+    <td class="src-cell"><a href="https://simplywall.st/stocks/us/capital-goods/otc-sbgs.f/schneider-electric/health" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">6/10</td></tr>
+    <tr><td>P1-C06 No Going Concern Flag</td><td style="color:#4A5568;">No going concern language. Record FY2024 results. Probability of bankruptcy under 9%. Moody's upgraded.</td>
+    <td class="src-cell"><a href="https://www.macroaxis.com/invest/ratio/SU.PA--Probability-Of-Bankruptcy" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P1-C07 No Material Restructuring (24 months)</td><td style="color:#4A5568;">No restructuring events identified. Company in expansionary mode — $140M US manufacturing investment in 2024.</td>
+    <td class="src-cell"><a href="https://www.prnewswire.com/news-releases/schneider-electric-to-invest-140-million-in-2024-to-expand-us-manufacturing-presence-to-support-critical-infrastructure-industries-and-data-center-demand-302089006.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P1-C08 No Bankruptcy / Default</td><td style="color:#4A5568;">No bankruptcy or default events. CAC40 listed group, investment grade rated.</td>
+    <td class="src-cell"><a href="https://www.se.com/ww/en/about-us/investor-relations/financial-results.jsp" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">5/5</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-009</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P2 — ESG & SUSTAINABILITY ═══ -->
+<div class="page page-break" id="pillar-p2">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Schneider Electric IT Corporation · SPEC-2026-009</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #2D7A4F;">
+    <div>
+      <p class="sh-label">Section 05 · P2</p>
+      <p class="sh-title">ESG & Sustainability</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#2D7A4F;">85<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">Schneider Electric SE is a recognised global ESG leader: MSCI AAA-rated, CDP A List, DJSI World for 14 consecutive years, and ranked World's Most Sustainable Company by TIME and Corporate Knights in 2024. The group reports in full CSRD compliance, discloses Scope 1 and 2 emissions with an absolute 51% reduction since 2021, holds SBTi-approved science-based targets, and published its 2024 Modern Slavery Statement. The single material deduction relates to a €207 million antitrust fine imposed by the French competition authority in October 2024 for price-fixing arrangements between 2012 and 2018 — a governance controversy that undermines the company's stated ethics commitments, though the company has filed an appeal.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P2-C01 Publishes Annual ESG Report</td><td style="color:#4A5568;">2024 Integrated Report published, CSRD-compliant. Available on se.com. SSI score 7.55/10 surpassing 2024 target.</td>
+    <td class="src-cell"><a href="https://www.se.com/ww/en/about-us/sustainability/sustainability-reports/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P2-C02 CSRD/GRI/TCFD Aligned</td><td style="color:#4A5568;">Schneider Electric explicitly reports in accordance with CSRD and ESRS. First CAC40 company to exceed CSRD requirements.</td>
+    <td class="src-cell"><a href="https://www.se.com/us/en/about-us/newsroom/news/press-releases/schneider-electric-exceeds-its-2024-sustainability-target-and-approaches-the-end-of-its-current-program-67b6778ac5e6cf98850e413d" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">12/12</td></tr>
+    <tr><td>P2-C03 Scope 1 & 2 Emissions Disclosed</td><td style="color:#4A5568;">51% absolute reduction in Scope 1 and 2 emissions since 2021 disclosed. Absolute figures reported in 2024 sustainability report.</td>
+    <td class="src-cell"><a href="https://esgnews.com/schneider-electric-surpasses-2024-sustainability-target-cuts-supplier-emissions-by-40/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/8</td></tr>
+    <tr><td>P2-C04 Net Zero / SBTi Target</td><td style="color:#4A5568;">Schneider Electric holds SBTi-approved science-based targets. Recognised as World's Most Sustainable Company by TIME/Corporate Knights 2024.</td>
+    <td class="src-cell"><a href="https://knowesg.com/esg-ratings/schneider-electric-s-e" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/8</td></tr>
+    <tr><td>P2-C05 No Material Environmental Violations (5 years)</td><td style="color:#4A5568;">No material environmental violations identified in public sources as of 2026-03-29. This does not constitute a clean bill of health — it ref</td>
+    <td class="src-cell"><a href="https://violationtracker.goodjobsfirst.org/parent/schneider-electric" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">12/12</td></tr>
+    <tr><td>P2-C06 LkSG / Modern Slavery Compliance</td><td style="color:#4A5568;">Modern Slavery Statement 2024 published and registered on UK government registry. Group sources from 52,000+ suppliers across 43 countries.</td>
+    <td class="src-cell"><a href="https://modern-slavery-statement-registry.service.gov.uk/statement-summary/EVDPRVVJ/2024" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">7/10</td></tr>
+    <tr><td>P2-C07 No Labour / Human Rights Controversies</td><td style="color:#4A5568;">No material labour or human rights controversies found in public sources as of 2026-03-29.</td>
+    <td class="src-cell"><a href="https://www.business-humanrights.org/en/companies/schneider-electric/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P2-C08 Board Independence & Governance Quality</td><td style="color:#4A5568;">Board of 15 members (as of Oct 2025); 80% non-French. Separate Chairman (Tricoire) and CEO (Blum) structure adopted 2023. Follows AFEP/MEDEF</td>
+    <td class="src-cell"><a href="https://www.se.com/ww/en/about-us/company-profile/corporate-governance/board-of-directors/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/8</td></tr>
+    <tr><td>P2-C09 CDP Climate Disclosure Score</td><td style="color:#4A5568;">On CDP's A List for climate disclosure. 14th consecutive year on DJSI World Index. MSCI ESG rating AAA.</td>
+    <td class="src-cell"><a href="https://knowesg.com/esg-ratings/schneider-electric-s-e" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/8</td></tr>
+    <tr><td>P2-C10 No ESG Controversy History</td><td style="color:#4A5568;">French competition authority fined Schneider Electric €207M for price-fixing on low-voltage electrical equipment (2012-2018, decision Octobe</td>
+    <td class="src-cell"><a href="https://www.autoritedelaconcurrence.fr/en/press-release/electrical-equipment-autorite-imposes-fines-eu470-million-manufacturers-schneider" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">2/14</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-009</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P3 — REGULATORY & LEGAL ═══ -->
+<div class="page page-break" id="pillar-p3">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Schneider Electric IT Corporation · SPEC-2026-009</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 06 · P3</p>
+      <p class="sh-title">Regulatory & Legal</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">70<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">The regulatory and legal profile carries two material risk items. First, the French competition authority imposed a €207 million fine in October 2024 for vertical price-fixing in the low-voltage electrical equipment distribution channel (conduct spanning 2012–2018); Schneider Electric is appealing. Second, Schneider Electric Buildings Americas Inc. resolved a US Department of Justice False Claims Act investigation in April 2024 with a $11 million settlement, admitting fraudulent overcharges on eight federally-funded energy savings contracts. These are active/recent enforcement actions within the assessment window. On the positive side, the group cleared all sanctions lists with no match, holds no confirmed GDPR fines, and maintains ISO 27001:2022 certification.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P3-C01 Sanctions Clean — OFAC / EU / UN</td><td style="color:#4A5568;">No match found on OFAC SDN, EU Consolidated, UN SC, or UK OFSI lists. OpenSanctions confirms entity not designated. All mandatory search bat</td>
+    <td class="src-cell"><a href="https://www.opensanctions.org/entities/NK-694AtzP9SCkQojbi3D4sUt/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">25/25</td></tr>
+    <tr><td>P3-C02 No PEP Ownership or Control</td><td style="color:#4A5568;">No PEP ownership identified. Publicly traded; top shareholders are institutional investors (BlackRock, Vanguard, MFS). No state ownership.</td>
+    <td class="src-cell"><a href="https://www.marketscreener.com/quote/stock/SCHNEIDER-ELECTRIC-8357766/company-shareholders/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P3-C03 GDPR Fines — Last 5 Years</td><td style="color:#4A5568;">No GDPR fines confirmed in public sources. Data breach in November 2024 (Hellcat/JIRA) exposed personal data; no CNIL enforcement action con</td>
+    <td class="src-cell"><a href="https://www.cnil.fr/en/investigation-powers-cnil/sanctions-issued-cnil" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P3-C04 No Material Active Litigation</td><td style="color:#4A5568;">Active material litigation: French competition authority fine €207M (under appeal, October 2024). Multiple subsidiary-level civil cases (emp</td>
+    <td class="src-cell"><a href="https://www.bloomberg.com/news/articles/2024-10-30/schneider-among-firms-fined-470-million-in-french-cartel-case" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">3/15</td></tr>
+    <tr><td>P3-C05 Anti-Bribery & Corruption — No FCPA / UK Bribery Act Actions</td><td style="color:#4A5568;">Schneider Electric Buildings Americas Inc. settled with US DOJ for $11M in April 2024 under False Claims Act for fraud on federal energy sav</td>
+    <td class="src-cell"><a href="https://www.justice.gov/archives/opa/pr/government-contractor-admits-scheme-inflate-costs-federal-projects-and-pays-11-million" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/15</td></tr>
+    <tr><td>P3-C06 Relevant Operational Certifications</td><td style="color:#4A5568;">ISO 27001:2022 certified (valid Jan 2025 – Jan 2028); IEC 62443-4-2 SL2 for NMC3 network card (first in industry). ISO certifications availa</td>
+    <td class="src-cell"><a href="https://www.se.com/eg/en/download/document/ISO27001_SE_Certificate/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">7/10</td></tr>
+    <tr><td>P3-C07 Trade & Export Compliance — No Violations</td><td style="color:#4A5568;">No UFLPA, export control, or customs violations found in public sources. No BIS Entity List entries identified. Violation Tracker total pena</td>
+    <td class="src-cell"><a href="https://violationtracker.goodjobsfirst.org/parent/schneider-electric" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-009</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P4 — CYBERSECURITY & DATA ═══ -->
+<div class="page page-break" id="pillar-p4">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Schneider Electric IT Corporation · SPEC-2026-009</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #6B1E1E;">
+    <div>
+      <p class="sh-label">Section 07 · P4</p>
+      <p class="sh-title">Cybersecurity & Data</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#6B1E1E;">37<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#6B1E1E;background:#F9EEEE;border-color:#6B1E1E;">CRITICAL</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">Cybersecurity is the dominant risk in this assessment. Schneider Electric suffered three confirmed ransomware incidents within 18 months (June 2023, January 2024, November 2024), each involving different threat actors and attack vectors, suggesting systemic vulnerabilities rather than isolated incidents. The November 2024 Hellcat breach specifically compromised the Atlassian Jira developer platform, exposing 75,000 unique email addresses, full names of employees and customers, and internal project data — which was subsequently published on the dark web. Multiple CISA ICS advisories against Schneider Electric and APC products compound the exposure. The ISO 27001:2022 certification (valid from January 2025) and transparent public disclosure of incidents are positive signals, but the pattern of repeat breaches in core infrastructure platforms warrants a CRITICAL rating for this pillar. Encevo should request an immediate cybersecurity assurance review before extending or renewing contracts.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P4-C01 No Confirmed Data Breaches — Last 5 Years</td><td style="color:#4A5568;">Three confirmed ransomware/breach incidents in 18 months: (1) June 2023 — MoveIT vulnerability exploited by Cl0p group; (2) January 2024 — C</td>
+    <td class="src-cell"><a href="https://cyberscoop.com/schneider-electric-energy-ransomware-hellcat/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/25</td></tr>
+    <tr><td>P4-C02 ISO 27001 Certification</td><td style="color:#4A5568;">ISO/IEC 27001:2022 certificate confirmed, valid January 28 2025 – January 27 2028. Certificate available on official SE website.</td>
+    <td class="src-cell"><a href="https://www.se.com/eg/en/download/document/ISO27001_SE_Certificate/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">20/20</td></tr>
+    <tr><td>P4-C03 SOC 2 Type II Certification</td><td style="color:#4A5568;">No direct SOC 2 Type II certification confirmed for Schneider Electric IT Corporation itself. EcoStruxure IT platform hosted on Microsoft Az</td>
+    <td class="src-cell"><a href="https://blog.se.com/datacenter/2025/03/14/ecostruxure-it-achieves-cybersecurity-milestone-earns-iso-27001-certification-for-it-expert/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/15</td></tr>
+    <tr><td>P4-C04 No Ransomware or Destructive Cyberattack</td><td style="color:#4A5568;">Three ransomware incidents in 18 months. November 2024 Hellcat: 40GB stolen, data published on dark web after company declined to pay ransom</td>
+    <td class="src-cell"><a href="https://www.theregister.com/2024/11/05/schneider_electric_cybersecurity_incident/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/15</td></tr>
+    <tr><td>P4-C05 No CISA KEV Active Entries</td><td style="color:#4A5568;">Multiple CISA ICS advisories confirmed: CVE-2024-8531 (Data Center Expert, CVSS 7.2), CVE-2025-54923 (EcoStruxure, CVSS 8.8), legacy APC Eas</td>
+    <td class="src-cell"><a href="https://www.cisa.gov/news-events/ics-advisories/icsa-24-289-02" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">6/10</td></tr>
+    <tr><td>P4-C06 Bug Bounty / Responsible Disclosure</td><td style="color:#4A5568;">Schneider Electric maintains a Vulnerability Disclosure Policy page at se.com/cybersecurity. Security notifications portal maintained. No fo</td>
+    <td class="src-cell"><a href="https://www.se.com/ww/en/work/support/cybersecurity/vulnerability-policy.jsp" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">6/10</td></tr>
+    <tr><td>P4-C07 Transparent Incident Disclosure</td><td style="color:#4A5568;">January 2024 incident disclosed publicly with press release and status updates. November 2024 incident confirmed publicly. Company engaged m</td>
+    <td class="src-cell"><a href="https://www.se.com/ww/en/about-us/newsroom/news/press-releases/sustainability-business-division-of-schneider-electric-responds-to-cybersecurity-incident-65b8035eb11dced626091019/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">5/5</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-009</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P5 — OPERATIONAL & GEOPOLITICAL RESILIENCE ═══ -->
+<div class="page page-break" id="pillar-p5">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Schneider Electric IT Corporation · SPEC-2026-009</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 08 · P5</p>
+      <p class="sh-title">Operational & Geopolitical Resilience</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">77<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">Schneider Electric's operational resilience is broadly adequate, underpinned by a 189-year operating history, geographically diversified manufacturing across 43+ countries, and a structured supply chain diversification programme (Power of Two). The group invested $140 million in US manufacturing expansion in 2024. The primary operational concern is CEO leadership stability: Peter Herweck was abruptly replaced by Olivier Blum on 1 November 2024, just days after the antitrust fine, with the board citing strategic disagreements. This creates short-term continuity uncertainty. China exposure at 12.2% of revenue is monitored but managed; Russia operations are suspended. NIS2 supply chain compliance remains undisclosed in public sources — Encevo should seek written assurance.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P5-C01 BCP/DR Plan Disclosed</td><td style="color:#4A5568;">Schneider Electric won 'Business Continuity/Disaster Recovery Project of the Year' at SDC Awards 2024. DR plans referenced in communications</td>
+    <td class="src-cell"><a href="https://www.prnewswire.com/news-releases/schneider-electric-wins-business-continuity-disaster-recovery-project-of-the-year-and-esgcsr-company-initiative-at-the-sdc-awards-2024-302323964.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">12/20</td></tr>
+    <tr><td>P5-C02 No Major Operational Outages (3 years)</td><td style="color:#4A5568;">January 2024 ransomware isolated to Sustainability Business division (autonomous network infrastructure). EcoStruxure Resource Advisor resto</td>
+    <td class="src-cell"><a href="https://www.cybersecuritydive.com/news/schneider-electric-ransomware-sustainability/706006/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">14/20</td></tr>
+    <tr><td>P5-C03 No Critical Single-Source Supply Chain Dependencies</td><td style="color:#4A5568;">54,000+ suppliers. Power of Two strategy ensures 90% of critical offers have alternative production sites by 2025. AI-powered supply chain c</td>
+    <td class="src-cell"><a href="https://www.pymnts.com/artificial-intelligence-2/2025/from-just-in-time-to-just-in-case-inside-schneider-electrics-ai-powered-supply-chain" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P5-C04 Geographic Diversification</td><td style="color:#4A5568;">Operations in 43+ countries; 182 manufacturing factories globally; revenue from North America (~32%), Asia Pacific (~27%), Western Europe (~</td>
+    <td class="src-cell"><a href="https://www.se.com/ww/en/about-us/company-profile/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P5-C05 CEO / Leadership Stability</td><td style="color:#4A5568;">CEO Peter Herweck abruptly replaced by Olivier Blum, effective November 1 2024. The replacement occurred just days after the €207M antitrust</td>
+    <td class="src-cell"><a href="https://fortune.com/europe/2024/11/04/schneider-electric-replaces-ceo-olivier-blum/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">4/15</td></tr>
+    <tr><td>P5-C06 No Critical Workforce Reduction</td><td style="color:#4A5568;">No major layoffs reported. Company expanding — $140M US manufacturing investment 2024, $700M+ total supply chain investment announced.</td>
+    <td class="src-cell"><a href="https://www.prnewswire.com/news-releases/schneider-electric-to-invest-140-million-in-2024-to-expand-us-manufacturing-presence-to-support-critical-infrastructure-industries-and-data-center-demand-302089006.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P5-C07 Established Vendor Track Record</td><td style="color:#4A5568;">Schneider Electric SE founded 1836 (189 years). APC brand founded 1981, acquired 2007. Operating >20 years in current IT infrastructure form</td>
+    <td class="src-cell"><a href="https://en.wikipedia.org/wiki/Schneider_Electric" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P5-C08 Geopolitical Exposure — Sanctions-Adjacent Jurisdictions</td><td style="color:#4A5568;">China represents 12.2% of FY2024 revenues. China declined low-single digit in 2024 due to construction market headwinds. General European co</td>
+    <td class="src-cell"><a href="https://finance.yahoo.com/news/schneider-electric-se-sbgsf-fy-070124270.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">10/15</td></tr>
+    <tr><td>P5-C09 Data Sovereignty / CLOUD Act Risk</td><td style="color:#4A5568;">Parent Schneider Electric SE is a Societas Europaea incorporated in France — EU entity. APC/IT Corporation is a US subsidiary. For Encevo's </td>
+    <td class="src-cell"><a href="https://live.euronext.com/en/product/equities/FR0000121972-XPAR" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">7/10</td></tr>
+    <tr><td>P5-C10 NIS2 / Critical Infrastructure Designation Risk</td><td style="color:#4A5568;">Schneider Electric's products (UPS, SCADA, power management) are deployed in critical infrastructure across EU. As a supplier to critical in</td>
+    <td class="src-cell"><a href="https://industrialcyber.co/control-device-security/cisa-flags-critical-ics-vulnerabilities-in-siemens-schneider-electric-abb-equipment-affecting-critical-sectors/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">4/10</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-009</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P6 — REPUTATIONAL INTELLIGENCE ═══ -->
+<div class="page page-break" id="pillar-p6">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Schneider Electric IT Corporation · SPEC-2026-009</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 09 · P6</p>
+      <p class="sh-title">Reputational Intelligence</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">64<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">Schneider Electric's reputational profile is mixed. The company enjoys strong recognition as a global sustainability leader — acknowledged by TIME, Corporate Knights, CDP, and MSCI — and receives broadly positive coverage for its financial performance and data centre growth strategy. However, three distinct negative themes have emerged in the 18-month assessment window: (1) the €207 million antitrust fine by the French competition authority for price-fixing conduct between 2012 and 2018, which generated prominent regulatory enforcement media coverage; (2) three ransomware incidents in 18 months, drawing significant cybersecurity media attention; and (3) the abrupt CEO replacement in November 2024, raising questions about board-level governance stability. No NGO campaigns or executive misconduct cases were identified.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P6-C01 Overall Media Sentiment — Last 18 Months</td><td style="color:#4A5568;">Mixed coverage: strong positive on record financials, ESG leadership (#1 sustainable company), data centre growth. Negative on: three ransom</td>
+    <td class="src-cell"><a href="https://www.bloomberg.com/news/articles/2024-10-30/schneider-among-firms-fined-470-million-in-french-cartel-case" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">16/25</td></tr>
+    <tr><td>P6-C02 No Regulatory Watchdog Adverse Coverage</td><td style="color:#4A5568;">French Competition Authority (Autorité de la concurrence) issued €207M fine and full press release in October 2024. Prominent regulatory enf</td>
+    <td class="src-cell"><a href="https://www.autoritedelaconcurrence.fr/en/press-release/electrical-equipment-autorite-imposes-fines-eu470-million-manufacturers-schneider" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/20</td></tr>
+    <tr><td>P6-C03 No NGO / Activist Adverse Campaigns</td><td style="color:#4A5568;">No adverse NGO campaigns found. Business & Human Rights Resource Centre profile shows no active concerns. Schneider Electric is generally pr</td>
+    <td class="src-cell"><a href="https://www.business-humanrights.org/en/companies/schneider-electric/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P6-C04 No Executive Misconduct</td><td style="color:#4A5568;">No personal misconduct cases found for key executives. CEO change was board-level strategic disagreement, not personal misconduct.</td>
+    <td class="src-cell"><a href="https://fortune.com/europe/2024/11/04/schneider-electric-replaces-ceo-olivier-blum/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P6-C05 No Product / Service Recalls</td><td style="color:#4A5568;">No product recalls or major service failures found in public sources for APC UPS or related IT infrastructure products.</td>
+    <td class="src-cell"><a href="https://www.apc.com/us/en/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P6-C06 Reputational Consistency</td><td style="color:#4A5568;">Company claims strong ESG leadership and ethics, broadly substantiated by independent ratings (MSCI AAA, CDP A). However, price-fixing condu</td>
+    <td class="src-cell"><a href="https://www.pymnts.com/cpi-posts/french-regulator-fines-schneider-electric-legrand-rexel-and-sonepar-e470-million-for-price-fixing/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">8/15</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-009</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ FINDINGS REGISTER ════════════════════════════════════════════════ -->
+<div class="page page-break" id="findings-register">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Schneider Electric IT Corporation · SPEC-2026-009</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 10</p><p class="sh-title">Findings Register</p></div>
+    <div class="sh-badge"><span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;">8 findings</span></div>
+  </div>
+  <div class="fr-summary">
+    <span class="fr-summary-item" style="color:#6B1E1E;">1 Critical</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#B83B2E;">3 High</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#B5751A;">3 Medium</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#2D7A4F;">1 Low/Info</span>
+  </div>
+  
+  <div class="fr-card" style="border-left:4px solid #6B1E1E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">1</span>
+        <span class="badge" style="color:#6B1E1E;background:#F9EEEE;border-color:#6B1E1E;">CRITICAL</span>
+        <span class="fr-pillar">P4</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2024-11-04</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">Three Ransomware Incidents in 18 Months — Systemic Security Pattern (2023-2024)</p>
+    <p class="fr-detail">Schneider Electric suffered three distinct ransomware/breach incidents within 18 months: (1) June 2023 — MoveIT zero-day exploited by Cl0p ransomware group; (2) January 2024 — Cact</p>
+    <div class="fr-footer"><a href="https://cyberscoop.com/schneider-electric-energy-ransomware-hellcat/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">2</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P3 / P6</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2024-10-30</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">French Competition Authority — €207M Price-Fixing Fine (October 2024)</p>
+    <p class="fr-detail">On 30 October 2024, France's Autorité de la concurrence fined Schneider Electric €207 million as part of a total €470 million enforcement action against four companies for vertical</p>
+    <div class="fr-footer"><a href="https://www.autoritedelaconcurrence.fr/en/press-release/electrical-equipment-autorite-imposes-fines-eu470-million-manufacturers-schneider" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">3</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P3 / P6</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2024-04</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">Resolved</span>
+      </div>
+    </div>
+    <p class="fr-title">US DOJ False Claims Act Settlement — $11M (April 2024)</p>
+    <p class="fr-detail">Schneider Electric Buildings Americas Inc. agreed to pay $11 million in April 2024 to resolve US Department of Justice criminal and civil investigations under the False Claims Act.</p>
+    <div class="fr-footer"><a href="https://www.justice.gov/archives/opa/pr/government-contractor-admits-scheme-inflate-costs-federal-projects-and-pays-11-million" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">4</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P4</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2024-2025</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">Multiple CISA ICS Advisories — APC and EcoStruxure Products (2024-2025)</p>
+    <p class="fr-detail">CISA has issued multiple ICS security advisories against Schneider Electric and APC products: CVE-2024-8531 (Data Center Expert, CVSS 7.2 — missing authentication); CVE-2025-54923 </p>
+    <div class="fr-footer"><a href="https://industrialcyber.co/control-device-security/cisa-flags-critical-ics-vulnerabilities-in-siemens-schneider-electric-abb-equipment-affecting-critical-sectors/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">5</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P5 / P6</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2024-11-01</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">Resolved</span>
+      </div>
+    </div>
+    <p class="fr-title">Abrupt CEO Replacement — Peter Herweck Ousted November 2024</p>
+    <p class="fr-detail">On 1 November 2024, Schneider Electric's board replaced CEO Peter Herweck (appointed mid-2023) with Olivier Blum, effective immediately. The replacement occurred just days after th</p>
+    <div class="fr-footer"><a href="https://fortune.com/europe/2024/11/04/schneider-electric-replaces-ceo-olivier-blum/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">6</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P4</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2024-11-04</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">November 2024 Hellcat Breach — Developer Data Exposed on Dark Web</p>
+    <p class="fr-detail">In November 2024, Hellcat ransomware group accessed Schneider Electric's Atlassian Jira system using exposed credentials. 400,000+ rows of user data, 75,000 unique email addresses </p>
+    <div class="fr-footer"><a href="https://www.sangfor.com/blog/cybersecurity/schneider-electric-data-breach-hellcat-ransomware-gang" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">7</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P4</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2024-01-17</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">Resolved</span>
+      </div>
+    </div>
+    <p class="fr-title">January 2024 Cactus Ransomware — EcoStruxure Resource Advisor Division</p>
+    <p class="fr-detail">On 17 January 2024, Cactus ransomware group attacked Schneider Electric's Sustainability Business division, specifically the EcoStruxure Resource Advisor platform used by over 2,00</p>
+    <div class="fr-footer"><a href="https://www.cybersecuritydive.com/news/schneider-electric-ransomware-sustainability/706006/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #2D7A4F;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">8</span>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+        <span class="fr-pillar">P5</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2025-02-20</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;font-size:10px;padding:1px 8px;">—</span>
+      </div>
+    </div>
+    <p class="fr-title">China Revenue Dependency — 12.2% of Group Net Sales</p>
+    <p class="fr-detail">China represents 12.2% of Schneider Electric SE's FY2024 net sales, making it the single largest country market outside the US/Europe cluster. Chinese revenues declined low-single </p>
+    <div class="fr-footer"><a href="https://finance.yahoo.com/news/schneider-electric-se-sbgsf-fy-070124270.html" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-009</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ CAPA PLAN ════════════════════════════════════════════════════════ -->
+<div class="page page-break" id="capa">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Schneider Electric IT Corporation · SPEC-2026-009</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 11</p><p class="sh-title">Corrective & Preventive Action Plan</p></div></div>
+  <table class="data-table"><colgroup><col style="width:12%"/><col style="width:40%"/><col style="width:14%"/><col style="width:16%"/><col style="width:18%"/></colgroup><thead><tr>
+    <th>Priority</th><th>Action</th><th>Finding Ref</th><th>Owner</th><th>Timeline</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:700;color:#B83B2E;">IMMEDIATE</td>
+    <td style="font-weight:600;">Request written cybersecurity remediation plan from Schneider Electric covering all three ransomware incidents (June 2023, January 2024, November 2024). Plan must include: root cause analysis for each incident, remediation steps taken, timeline for completion, and independent third-party security audit results for Jira/developer platform and EcoStruxure platform.</td><td style="color:#4A5568;">F-002</td>
+    <td>Procurement Lead + CISO</td><td>Within 30 days</td></tr>
+    <tr><td style="font-weight:700;color:#B83B2E;">IMMEDIATE</td>
+    <td style="font-weight:600;">Obtain from Schneider Electric a current list of patched CVEs affecting APC and EcoStruxure products deployed at Encevo sites. Verify firmware/software versions are at patched levels. Confirm patch management process and timelines.</td><td style="color:#4A5568;">F-005</td>
+    <td>CISO / IT/OT Security</td><td>Within 30 days</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">SHORT_TERM</td>
+    <td style="font-weight:600;">Monitor French competition authority appeal proceedings. Request from Schneider Electric written confirmation of appeal filing and expected timeline. If appeal fails, assess contractual implications of a final €207M regulatory sanction on supplier standing.</td><td style="color:#4A5568;">F-001</td>
+    <td>Legal / Procurement</td><td>Within 60 days; ongoing monitoring</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">SHORT_TERM</td>
+    <td style="font-weight:600;">Confirm with Schneider Electric that the US DOJ False Claims Act settlement is fully discharged with no continuing obligations, and verify no debarment or suspension from US federal contracting has been imposed that could affect international government-linked projects.</td><td style="color:#4A5568;">F-003</td>
+    <td>Legal</td><td>Within 60 days</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">MEDIUM_TERM</td>
+    <td style="font-weight:600;">Include explicit cybersecurity incident notification clauses in any renewed or new contracts with Schneider Electric/APC. Require: 72-hour notification of any breach affecting Encevo data; annual penetration testing attestation; ISO 27001 certificate maintenance as contract condition.</td><td style="color:#4A5568;">F-002</td>
+    <td>Legal / Procurement Lead</td><td>Within 90 days (next contract renewal cycle)</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">MEDIUM_TERM</td>
+    <td style="font-weight:600;">Request from Schneider Electric written disclosure of any supply chain dependencies on Chinese component manufacturers for APC UPS products supplied to Encevo. Assess exposure to US-China trade war tariff escalation scenarios.</td><td style="color:#4A5568;">F-008</td>
+    <td>Procurement / Supply Chain</td><td>Within 90 days</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">ONGOING</td>
+    <td style="font-weight:600;">Monitor Schneider Electric executive leadership stability. Track public statements from new CEO Olivier Blum regarding strategic direction. Flag any further C-suite changes within 12 months.</td><td style="color:#4A5568;">F-004</td>
+    <td>Procurement Lead</td><td>Quarterly review</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-009</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ CONTRACT PLAYBOOK ════════════════════════════════════════════════ -->
+<div class="page page-break" id="playbook">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Schneider Electric IT Corporation · SPEC-2026-009</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 12</p><p class="sh-title">Contract Playbook</p></div></div>
+  <table class="data-table"><colgroup><col style="width:18%"/><col style="width:42%"/><col style="width:24%"/><col style="width:16%"/></colgroup><thead><tr>
+    <th>Clause Area</th><th>Recommendation</th><th>Risk Basis</th><th>Priority</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Cybersecurity Incident Notification</td>
+    <td>Require written notification within 72 hours of any confirmed or suspected data breach, ransomware attack, or security incident affecting systems that process or store Encevo data. Include mandatory disclosure of scope, affected data categories, and remediation timeline.</td><td style="color:#4A5568;">F-002 — Three ransomware incidents in 18 months; November 2024 Hellcat breach exposed employee and customer data.</td>
+    <td><span style="font-size:10px;font-weight:700;">MUST_HAVE</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">ISO 27001 Maintenance as Contract Condition</td>
+    <td>Require Schneider Electric to maintain ISO/IEC 27001:2022 certification for the duration of the contract. Certificate lapse triggers a 30-day cure period followed by contract suspension right.</td><td style="color:#4A5568;">F-002, F-005 — Pattern of security incidents despite existing certification; APC products with multiple CISA advisories.</td>
+    <td><span style="font-size:10px;font-weight:700;">MUST_HAVE</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Antitrust Compliance Representation</td>
+    <td>Include a representation that supplier is not subject to any unresolved antitrust or competition law enforcement action that constitutes debarment from EU public procurement. Require notification of any new enforcement action within 30 days.</td><td style="color:#4A5568;">F-001 — €207M French competition authority fine under appeal.</td>
+    <td><span style="font-size:10px;font-weight:700;">MUST_HAVE</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">NIS2 Supply Chain Compliance</td>
+    <td>Require written confirmation of NIS2 compliance obligations (where applicable) and implementation of cybersecurity risk management measures per NIS2 Annex requirements. Applicable given Encevo's status as critical infrastructure operator.</td><td style="color:#4A5568;">F-005 — Multiple CISA advisories; Schneider products deployed in critical energy infrastructure.</td>
+    <td><span style="font-size:10px;font-weight:700;">MUST_HAVE</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Patch Management SLA</td>
+    <td>For APC and EcoStruxure products in operational technology environments, require Schneider Electric to notify Encevo of all critical CVEs (CVSS ≥7.0) within 48 hours of public disclosure and provide patch availability timeline. Define maximum remediation windows: CVSS ≥9.0 = 30 days; CVSS 7.0-8.9 = 90 days.</td><td style="color:#4A5568;">F-005 — Multiple CISA ICS advisories with CVSS up to 9.8 against deployed products.</td>
+    <td><span style="font-size:10px;font-weight:700;">RECOMMENDED</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Government Procurement Compliance</td>
+    <td>Require representation that no Schneider Electric subsidiary is subject to active US federal debarment or exclusion following the 2024 DOJ False Claims Act settlement.</td><td style="color:#4A5568;">F-003 — Schneider Electric Buildings Americas Inc. DOJ settlement April 2024.</td>
+    <td><span style="font-size:10px;font-weight:700;">RECOMMENDED</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Annual Security Review</td>
+    <td>Include a right to request annual cybersecurity posture review, including penetration testing attestation and third-party audit summary, for any EcoStruxure cloud-connected services deployed at Encevo.</td><td style="color:#4A5568;">F-002 — Repeated breach pattern requires ongoing assurance not just point-in-time certification.</td>
+    <td><span style="font-size:10px;font-weight:700;">RECOMMENDED</span></td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-009</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ MONITORING DASHBOARD ═════════════════════════════════════════════ -->
+<div class="page page-break" id="monitoring">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Schneider Electric IT Corporation · SPEC-2026-009</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 13</p><p class="sh-title">Ongoing Monitoring Dashboard</p></div></div>
+  <table class="data-table" style="font-size:11px;"><colgroup><col style="width:22%"/><col style="width:16%"/><col style="width:6%"/><col style="width:16%"/><col style="width:16%"/><col style="width:12%"/><col style="width:12%"/></colgroup><thead><tr>
+    <th>Key Risk Indicator</th><th>Current</th><th></th>
+    <th>Green</th><th>Amber</th><th>Red</th><th>Review</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:600;">Cybersecurity Incidents at Schneider Electric</td>
+    <td class="mono-cell">3 incidents in 18 months (as of March 2026)</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#B83B2E;"></span></td>
+    <td style="color:#2D7A4F;">0 incidents in rolling 12 months</td>
+    <td style="color:#B5751A;">1 incident in rolling 12 months, contained</td>
+    <td style="color:#B83B2E;">2+ incidents in rolling 12 months OR any incident involving Encevo data</td>
+    <td style="color:#4A5568;">Monthly</td></tr>
+    <tr><td style="font-weight:600;">French Antitrust Appeal Status</td>
+    <td class="mono-cell">Under appeal (filed Q4 2024)</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#B5751A;"></span></td>
+    <td style="color:#2D7A4F;">Appeal upheld — fine quashed or substantially reduced</td>
+    <td style="color:#B5751A;">Appeal pending — no decision</td>
+    <td style="color:#B83B2E;">Appeal dismissed — €207M fine confirmed final</td>
+    <td style="color:#4A5568;">Quarterly</td></tr>
+    <tr><td style="font-weight:600;">Moody's / S&P Credit Rating</td>
+    <td class="mono-cell">A2 (Moody's); A (S&P)</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#2D7A4F;"></span></td>
+    <td style="color:#2D7A4F;">A3 or above (Moody's); A- or above (S&P)</td>
+    <td style="color:#B5751A;">Baa1/BBB+ — one notch below current</td>
+    <td style="color:#B83B2E;">Below investment grade or negative watch</td>
+    <td style="color:#4A5568;">Quarterly</td></tr>
+    <tr><td style="font-weight:600;">ISO 27001 Certificate Validity</td>
+    <td class="mono-cell">Valid to January 27 2028</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#2D7A4F;"></span></td>
+    <td style="color:#2D7A4F;">Certificate valid and current</td>
+    <td style="color:#B5751A;">Certificate within 90 days of expiry without renewal confirmation</td>
+    <td style="color:#B83B2E;">Certificate lapsed or withdrawn</td>
+    <td style="color:#4A5568;">Annual</td></tr>
+    <tr><td style="font-weight:600;">CEO Stability</td>
+    <td class="mono-cell">Olivier Blum, CEO since November 2024 (~5 months)</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#B5751A;"></span></td>
+    <td style="color:#2D7A4F;">CEO tenure >24 months, no controversy</td>
+    <td style="color:#B5751A;">CEO tenure <24 months (transition period)</td>
+    <td style="color:#B83B2E;">CEO departure within 12 months of prior change OR governance controversy</td>
+    <td style="color:#4A5568;">Quarterly</td></tr>
+    <tr><td style="font-weight:600;">CISA ICS Advisories (APC / EcoStruxure Products)</td>
+    <td class="mono-cell">3 active advisories confirmed 2024-2025</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#B5751A;"></span></td>
+    <td style="color:#2D7A4F;">All deployed product versions patched; no active unpatched advisories</td>
+    <td style="color:#B5751A;">1-2 active advisories, patch in progress</td>
+    <td style="color:#B83B2E;">Active CISA KEV entry against deployed product version, unpatched</td>
+    <td style="color:#4A5568;">Monthly</td></tr>
+    <tr><td style="font-weight:600;">China Revenue Exposure</td>
+    <td class="mono-cell">12.2% of FY2024 net sales</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#B5751A;"></span></td>
+    <td style="color:#2D7A4F;"><10% China revenue dependency</td>
+    <td style="color:#B5751A;">10-20% China dependency with managed supply chain</td>
+    <td style="color:#B83B2E;">>20% OR active trade embargo/tariff escalation affecting product availability</td>
+    <td style="color:#4A5568;">Quarterly (on earnings releases)</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-009</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ DATA GAPS ════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Schneider Electric IT Corporation · SPEC-2026-009</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Appendix</p><p class="sh-title">Data Gaps & Limitations</p></div></div>
+  <div class="info-box gap-box">
+    <p class="info-box-title" style="color:#B5751A;">7 data gap(s) identified</p>
+    <ul style="padding-left:18px;font-size:12px;line-height:1.8;"><li><strong>subsidiary_direct_financials</strong>: not_publicly_disclosed — P1 scoring uses parent-level (Schneider Electric SE) data as explicitly instructed in SPECTRUM assessment brief. Subsidiary contribution to group revenue is not separately disclosed.</li>
+<li><strong>scope1_scope2_absolute_figures</strong>: not_publicly_disclosed — Percentage reduction confirmed (51% since 2021) but absolute tonnage figures not found in open web sources. Full sustainability report would contain exact figures.</li>
+<li><strong>lksg_specific_compliance_document</strong>: not_publicly_disclosed — Modern Slavery Act statement confirmed (UK). German LkSG-specific compliance document not confirmed. Group operates supply chain due diligence programme covering 52,000 suppliers but LkSG-specific documentation not surfaced.</li>
+<li><strong>soc2_type_ii_certification</strong>: not_publicly_disclosed — P4-C03 scored 0 as direct SE SOC2 not confirmed. EcoStruxure IT on Azure inherits Azure SOC2 but this is not SE's own certification.</li>
+<li><strong>sustainalytics_esg_risk_score</strong>: paywalled — Sustainalytics scores are behind paywall. MSCI AAA and CDP A confirmed as proxies.</li>
+<li><strong>nis2_compliance_documentation</strong>: not_publicly_disclosed — P5-C10 scored 4/10 (compliance status unclear). As a supplier to critical infrastructure operators, NIS2 supply chain obligations apply. Public documentation not found.</li>
+<li><strong>encevo_spend_tier</strong>: not_publicly_disclosed — Spend tier listed as Unknown. Required for portfolio prioritisation. Must be confirmed by Encevo procurement team.</li>
+</ul>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-009</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ METHODOLOGY & SOURCES ════════════════════════════════════════════ -->
+<div class="page page-break" id="methodology">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Schneider Electric IT Corporation · SPEC-2026-009</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 14</p><p class="sh-title">Methodology & Data Sources</p></div></div>
+  <div class="info-box" style="background:#F8F9FA;margin-bottom:20px;">
+    <p style="font-size:12px;line-height:1.7;"><strong>Data Currency:</strong> Data gathered March 2026. All web searches conducted 2026-03-29. Financial data covers FY2024 (year ended 31 December 2024). Cybersecurity incidents through March 2026.</p>
+    <p style="font-size:12px;line-height:1.7;margin-top:8px;"><strong>Methodology:</strong> This assessment was conducted using SPECTRUM's evidence-first multi-agent pipeline. All findings are sourced from publicly available information. Scores are derived by applying the SPECTRUM six-pillar rubric to verified evidence. No training-knowledge claims are made — every factual statement is linked to a source URL.</p>
+  </div>
+  <ol style="padding-left:20px;font-size:12px;line-height:1.8;"><li><span class="mono" style="color:#1B2B5E;font-weight:700;">[1]</span> <a href="https://www.se.com/ww/en/Images/release-fy-results-2024_tcm564-505646.pdf" target="_blank">Schneider Electric SE — Full Year 2024 Results Press Release</a> <span style="color:#9CA3AF;font-size:10px;">(official_filing, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[2]</span> <a href="https://www.se.com/ww/en/assets/564/document/505720/accounts-full-year-results-2024.pdf" target="_blank">Schneider Electric SE — Consolidated Financial Statements FY2024</a> <span style="color:#9CA3AF;font-size:10px;">(official_filing, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[3]</span> <a href="https://cbonds.com/news/2955851/" target="_blank">Moody's upgrades Schneider Electric to A2 with Stable Outlook</a> <span style="color:#9CA3AF;font-size:10px;">(financial_press, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[4]</span> <a href="https://simplywall.st/stocks/us/capital-goods/otc-sbgs.f/schneider-electric/health" target="_blank">Simply Wall St — Schneider Electric Balance Sheet Health</a> <span style="color:#9CA3AF;font-size:10px;">(financial_press, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[5]</span> <a href="https://www.se.com/ww/en/about-us/sustainability/sustainability-reports/" target="_blank">Schneider Electric — Sustainability Reports page</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[6]</span> <a href="https://esgnews.com/schneider-electric-surpasses-2024-sustainability-target-cuts-supplier-emissions-by-40/" target="_blank">ESG News — Schneider Electric Surpasses 2024 Sustainability Target, Cuts Supplier Emissions by 40%</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[7]</span> <a href="https://knowesg.com/esg-ratings/schneider-electric-s-e" target="_blank">KnowESG — Schneider Electric SE ESG Ratings (MSCI AAA, CDP A, SBTi)</a> <span style="color:#9CA3AF;font-size:10px;">(other, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[8]</span> <a href="https://modern-slavery-statement-registry.service.gov.uk/statement-summary/EVDPRVVJ/2024" target="_blank">UK Government Modern Slavery Statement Registry — Schneider Electric UK 2024</a> <span style="color:#9CA3AF;font-size:10px;">(regulatory_database, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[9]</span> <a href="https://www.se.com/ww/en/about-us/company-profile/corporate-governance/board-of-directors/" target="_blank">Schneider Electric SE — Board of Directors (Corporate Governance)</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[10]</span> <a href="https://www.opensanctions.org/entities/NK-694AtzP9SCkQojbi3D4sUt/" target="_blank">OpenSanctions — SCHNEIDER ELECTRIC INDUSTRIES SAS entity profile (not designated)</a> <span style="color:#9CA3AF;font-size:10px;">(regulatory_database, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[11]</span> <a href="https://www.autoritedelaconcurrence.fr/en/press-release/electrical-equipment-autorite-imposes-fines-eu470-million-manufacturers-schneider" target="_blank">Autorité de la concurrence — Press release: €470M fines for electrical equipment price-fixing</a> <span style="color:#9CA3AF;font-size:10px;">(regulatory_database, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[12]</span> <a href="https://www.justice.gov/archives/opa/pr/government-contractor-admits-scheme-inflate-costs-federal-projects-and-pays-11-million" target="_blank">US DOJ — Government Contractor Admits Scheme to Inflate Costs, Pays $11 Million</a> <span style="color:#9CA3AF;font-size:10px;">(regulatory_database, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[13]</span> <a href="https://www.se.com/eg/en/download/document/ISO27001_SE_Certificate/" target="_blank">Schneider Electric — ISO 27001:2022 Certificate</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[14]</span> <a href="https://cyberscoop.com/schneider-electric-energy-ransomware-hellcat/" target="_blank">CyberScoop — Schneider Electric reports cyberattack, its third incident in 18 months</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[15]</span> <a href="https://www.theregister.com/2024/11/05/schneider_electric_cybersecurity_incident/" target="_blank">The Register — Schneider Electric attackers demand ransom paid in baguettes</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[16]</span> <a href="https://www.cybersecuritydive.com/news/schneider-electric-ransomware-sustainability/706006/" target="_blank">Cybersecurity Dive — Schneider Electric hit by ransomware attack against sustainability business division</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[17]</span> <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-24-289-02" target="_blank">CISA ICS Advisory ICSA-24-289-02 — Schneider Electric Data Center Expert</a> <span style="color:#9CA3AF;font-size:10px;">(regulatory_database, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[18]</span> <a href="https://fortune.com/europe/2024/11/04/schneider-electric-replaces-ceo-olivier-blum/" target="_blank">Fortune — Schneider Electric replaces CEO amid management divergence</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[19]</span> <a href="https://www.prnewswire.com/news-releases/schneider-electric-wins-business-continuity-disaster-recovery-project-of-the-year-and-esgcsr-company-initiative-at-the-sdc-awards-2024-302323964.html" target="_blank">PR Newswire — Schneider Electric wins Business Continuity/DR Project of the Year at SDC Awards 2024</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[20]</span> <a href="https://www.pymnts.com/artificial-intelligence-2/2025/from-just-in-time-to-just-in-case-inside-schneider-electrics-ai-powered-supply-chain" target="_blank">PYMNTS — From Just-in-Time to Just-in-Case: Schneider Electric AI-Powered Supply Chain</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[21]</span> <a href="https://www.bloomberg.com/news/articles/2024-10-30/schneider-among-firms-fined-470-million-in-french-cartel-case" target="_blank">Bloomberg — Schneider Among Firms Fined €470 Million in French Cartel Case</a> <span style="color:#9CA3AF;font-size:10px;">(financial_press, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[22]</span> <a href="https://www.business-humanrights.org/en/companies/schneider-electric/" target="_blank">Business & Human Rights Resource Centre — Schneider Electric company profile</a> <span style="color:#9CA3AF;font-size:10px;">(ngo_report, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[23]</span> <a href="https://violationtracker.goodjobsfirst.org/parent/schneider-electric" target="_blank">Violation Tracker — Schneider Electric enforcement history</a> <span style="color:#9CA3AF;font-size:10px;">(regulatory_database, 2026-03-29)</span></li>
+</ol>
+  <div class="info-box methodology-box" style="margin-top:24px;">
+    <p style="font-size:11px;color:#4A5568;line-height:1.7;"><strong>Disclaimer:</strong> This report is based on publicly available information gathered as of 2026-03-29. It does not constitute legal advice, financial advice, or a comprehensive audit. SPECTRUM accepts no liability for decisions made based solely on this report. Users are advised to conduct additional due diligence as appropriate for their risk appetite and regulatory context.</p>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-009</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ BACK COVER ═══════════════════════════════════════════════════════ -->
+<div class="page page-break" style="background:#1B2B5E;min-height:280px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.03);"></div>
+  <div style="position:absolute;bottom:-40px;left:80px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.02);"></div>
+  <p style="color:#A5B4FC;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;">SPECTRUM</p>
+  <p style="color:rgba(255,255,255,.5);font-size:11px;margin-top:4px;letter-spacing:.08em;">Vendor Intelligence Platform</p>
+  <div style="width:48px;height:2px;background:rgba(255,255,255,.2);margin:28px auto;"></div>
+  <p style="color:#fff;font-size:22px;font-weight:700;">Schneider Electric IT Corporation</p>
+  <p style="color:#CBD5E1;font-size:12px;margin-top:6px;font-family:'JetBrains Mono',monospace;">SPEC-2026-009 · 2026-03-29</p>
+  <div style="width:48px;height:2px;background:rgba(255,255,255,.2);margin:28px auto;"></div>
+  <p style="color:rgba(255,255,255,.35);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;">CONFIDENTIAL — For Authorised Recipients Only</p>
+</div>
+
+</div><!-- .doc -->
+</body>
+</html>

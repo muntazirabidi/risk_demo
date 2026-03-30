@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { mockVendors } from '../data/mockVendors';
+import { mockVendors, portfolioReports } from '../data/mockVendors';
 import Logo from './Logo';
 
 function VendorPortfolio() {
@@ -74,9 +74,10 @@ function VendorPortfolio() {
     return dateB - dateA;
   });
 
-  // Separate featured vendors (with full reports) from sample vendors
+  // Separate featured vendors (with full reports)
   const featuredVendors = visibleMockVendors.filter(vendor => vendor.fullReport === true);
   const sampleVendors = visibleMockVendors.filter(vendor => !vendor.fullReport);
+  const portfolioReport = portfolioReports[0];
 
   const filteredVendors = allVendors.filter(vendor => {
     const matchesStatus = filterStatus === 'all' || vendor.status.toLowerCase() === filterStatus.toLowerCase();
@@ -158,81 +159,123 @@ function VendorPortfolio() {
           </div>
         </div>
 
-        {/* Featured Reports Section */}
+        {/* ═══ CLIENT PORTFOLIO SHOWCASE: ENCEVO ═══ */}
         <div className="mb-16">
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 mb-3">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
               </svg>
-              <span className="text-xs font-medium uppercase tracking-wider">Sample Intelligence Reports</span>
+              <span className="text-xs font-medium uppercase tracking-wider">Client Portfolio Intelligence</span>
             </div>
-            <h2 className="text-2xl font-light text-black tracking-tight mb-2">See What You Receive</h2>
+            <h2 className="text-2xl font-light text-black tracking-tight mb-2">Supplier Portfolio Assessment</h2>
             <p className="text-sm text-gray-600 max-w-2xl mx-auto">
-              These comprehensive reports showcase our deep forensic analysis across Financial Health,
-              ESG & Sustainability, Human Rights, Sanctions & Anti-Bribery, and Cybersecurity
+              10 strategic suppliers assessed across Financial Stability, ESG & Sustainability, Regulatory & Legal,
+              Cybersecurity, Operational Resilience, and Reputational Intelligence
             </p>
           </div>
 
-          <div className="grid grid-cols-3 gap-6 mb-12">
+          {/* Portfolio Summary Card */}
+          <div
+            className="border-2 border-black mb-8 cursor-pointer hover:shadow-lg transition-all group"
+            onClick={() => navigate('/report/encevo-portfolio')}
+          >
+            <div className="bg-black text-white px-6 py-3 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span className="text-sm font-medium uppercase tracking-wider">Portfolio Risk Report</span>
+              </div>
+              <span className="text-xs opacity-75 group-hover:opacity-100 transition-opacity">View Full Report →</span>
+            </div>
+            <div className="p-6">
+              <div className="grid grid-cols-5 gap-6">
+                <div>
+                  <div className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">Portfolio Score</div>
+                  <div className={`text-3xl font-light ${getRiskColor(portfolioReport.portfolioScore)}`}>
+                    {portfolioReport.portfolioScore}<span className="text-sm text-gray-400">/100</span>
+                  </div>
+                </div>
+                <div>
+                  <div className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">Suppliers Assessed</div>
+                  <div className="text-3xl font-light text-black">{portfolioReport.suppliersAssessed}</div>
+                </div>
+                <div>
+                  <div className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">Conditional</div>
+                  <div className="text-3xl font-light text-amber-700">{portfolioReport.highlights.conditional}</div>
+                </div>
+                <div>
+                  <div className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">Monitoring</div>
+                  <div className="text-3xl font-light text-orange-700">{portfolioReport.highlights.monitoring}</div>
+                </div>
+                <div>
+                  <div className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">Critical Flags</div>
+                  <div className="text-3xl font-light text-red-700">{portfolioReport.highlights.criticalFlags}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Individual Supplier Report Cards - 5x2 Grid */}
+          <div className="grid grid-cols-5 gap-4 mb-12">
             {featuredVendors.map((vendor) => (
               <div
                 key={vendor.id}
-                className="bg-white border-2 border-black hover:shadow-lg transition-all cursor-pointer group relative overflow-hidden"
+                className="bg-white border border-gray-200 hover:border-black hover:shadow-md transition-all cursor-pointer group relative overflow-hidden"
                 onClick={() => navigate(`/report/${vendor.id}`)}
               >
-                {/* Featured badge */}
-                <div className="absolute top-0 right-0 bg-black text-white text-[9px] font-medium px-2 py-1 uppercase tracking-wider">
-                  Full Report
-                </div>
+                {/* Status indicator bar */}
+                <div className={`h-1 ${
+                  vendor.status === 'qualified' ? 'bg-emerald-500' :
+                  vendor.status === 'monitoring' ? 'bg-orange-500' :
+                  'bg-amber-500'
+                }`}></div>
 
-                <div className="p-6">
-                  <div className="mb-4">
-                    <h3 className="text-base font-semibold text-black mb-1 group-hover:text-gray-700 transition-colors">
+                <div className="p-4">
+                  <div className="mb-3">
+                    <h3 className="text-sm font-semibold text-black mb-0.5 group-hover:text-gray-700 transition-colors leading-tight">
                       {vendor.name}
                     </h3>
-                    <p className="text-xs text-gray-500">{vendor.industry}</p>
-                    <p className="text-xs text-gray-400">{vendor.location}</p>
+                    <p className="text-[10px] text-gray-500 leading-tight">{vendor.industry}</p>
+                    <p className="text-[10px] text-gray-400">{vendor.location}</p>
                   </div>
 
-                  <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-200">
+                  <div className="flex items-end justify-between mb-3">
                     <div>
-                      <div className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">Risk Score</div>
-                      <div className={`text-3xl font-light ${getRiskColor(vendor.riskScore)}`}>
+                      <div className={`text-2xl font-light ${getRiskColor(vendor.riskScore)}`}>
                         {vendor.riskScore}
                       </div>
+                      <div className="text-[9px] text-gray-400 uppercase tracking-wider">Score</div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">Status</div>
-                      <span className={`inline-flex px-2 py-0.5 text-[10px] font-medium border uppercase tracking-wider ${getStatusStyle(vendor.status)}`}>
-                        {vendor.status}
-                      </span>
-                    </div>
+                    <span className={`inline-flex px-1.5 py-0.5 text-[9px] font-medium border uppercase tracking-wider ${getStatusStyle(vendor.status)}`}>
+                      {vendor.status}
+                    </span>
                   </div>
 
-                  <div className="space-y-2 mb-4">
-                    <div className="flex justify-between text-xs">
-                      <span className="text-gray-500">Financial Health</span>
-                      <span className="font-medium text-black">{vendor.keyMetrics.financial}/100</span>
+                  <div className="space-y-1.5 mb-3 pt-3 border-t border-gray-100">
+                    <div className="flex justify-between text-[10px]">
+                      <span className="text-gray-500">Financial</span>
+                      <span className={`font-medium ${getRiskColor(vendor.keyMetrics.financial)}`}>{vendor.keyMetrics.financial}</span>
                     </div>
-                    <div className="flex justify-between text-xs">
-                      <span className="text-gray-500">ESG & Sustainability</span>
-                      <span className="font-medium text-black">{vendor.keyMetrics.esg}/100</span>
+                    <div className="flex justify-between text-[10px]">
+                      <span className="text-gray-500">ESG</span>
+                      <span className={`font-medium ${getRiskColor(vendor.keyMetrics.esg)}`}>{vendor.keyMetrics.esg}</span>
                     </div>
-                    <div className="flex justify-between text-xs">
-                      <span className="text-gray-500">Cybersecurity</span>
-                      <span className="font-medium text-black">{vendor.keyMetrics.cybersecurity}/100</span>
+                    <div className="flex justify-between text-[10px]">
+                      <span className="text-gray-500">Cyber</span>
+                      <span className={`font-medium ${getRiskColor(vendor.keyMetrics.cybersecurity)}`}>{vendor.keyMetrics.cybersecurity}</span>
                     </div>
                   </div>
 
                   <button
-                    className="w-full py-2 text-xs font-medium bg-black text-white group-hover:bg-gray-900 transition-colors uppercase tracking-wider"
+                    className="w-full py-1.5 text-[10px] font-medium bg-black text-white group-hover:bg-gray-900 transition-colors uppercase tracking-wider"
                     onClick={(e) => {
                       e.stopPropagation();
                       navigate(`/report/${vendor.id}`);
                     }}
                   >
-                    View Full Report →
+                    View Report →
                   </button>
                 </div>
               </div>

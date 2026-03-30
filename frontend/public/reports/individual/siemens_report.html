@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SPECTRUM — Siemens Aktiengesellschaft Vendor Intelligence Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 13px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: 'Inter', sans-serif; color: #0F1729; background: #F1F5F9; line-height: 1.6; }
+a { color: #1B2B5E; text-decoration: none; }
+a:hover { text-decoration: underline; color: #2A3F7E; }
+code, .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* ── Document container ───────────────────────────────────── */
+.doc { max-width: 900px; margin: 0 auto; background: #fff;
+  box-shadow: 0 4px 32px rgba(27,43,94,.10); }
+
+/* ── Page sections ────────────────────────────────────────── */
+.page { padding: 48px 56px; border-bottom: 1px solid #E2E8F0; position: relative; }
+.page:last-child { border-bottom: none; }
+.page-break { page-break-before: always; }
+.page-alt { background: #F0F2F5; }
+
+/* ── Section headers ──────────────────────────────────────── */
+.sh { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.sh-bar { width: 4px; height: 32px; background: #1B2B5E; border-radius: 2px; flex-shrink: 0; }
+.sh-label { font-size: 10px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: #4A5568; }
+.sh-title { font-size: 20px; font-weight: 700; color: #0F1729; }
+.sh-badge { margin-left: auto; }
+
+/* ── Cover page ───────────────────────────────────────────── */
+.cover { background: #1B2B5E; padding: 64px 56px 48px; color: #fff; position: relative; overflow: hidden; }
+.cover::before { content: ''; position: absolute; top: -80px; right: -80px;
+  width: 320px; height: 320px; border-radius: 50%; background: rgba(255,255,255,.03); }
+.cover-brand { font-size: 11px; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: #A5B4FC; margin-bottom: 6px; }
+.cover-subtitle { color: #CBD5E1; font-size: 15px; margin-bottom: 32px; }
+.cover-name { font-size: 32px; font-weight: 700; margin-bottom: 4px; }
+.cover-kpi { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+.cover-kpi-card { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 8px; padding: 14px 24px; }
+.cover-kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: #94A3B8; }
+.cover-meta { padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1);
+  display: flex; gap: 24px; flex-wrap: wrap; font-size: 11px; color: #64748B; }
+.cover-meta span { color: #94A3B8; }
+.cover-meta p { max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cover-meta p:last-child { max-width: none; margin-left: auto; }
+
+/* ── Table of contents ────────────────────────────────────── */
+.toc-list { list-style: none; padding: 0; }
+.toc-list li { display: flex; align-items: baseline; gap: 8px; padding: 8px 0;
+  border-bottom: 1px dotted #E2E8F0; font-size: 13px; }
+.toc-list li:last-child { border-bottom: none; }
+.toc-num { font-family: 'JetBrains Mono', monospace; font-weight: 700;
+  color: #1B2B5E; min-width: 28px; }
+.toc-link { color: #0F1729; font-weight: 500; }
+.toc-dots { flex: 1; border-bottom: 1px dotted #CBD5E1; margin: 0 4px; min-width: 20px; }
+.toc-page { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #4A5568; }
+
+/* ── KPI cards ────────────────────────────────────────────── */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0; }
+.kpi-card { background: #F8F9FA; border-radius: 8px; padding: 16px; text-align: center; }
+.kpi-val { font-size: 28px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.kpi-label { font-size: 11px; color: #4A5568; margin-top: 4px; }
+
+/* ── Pillar cards (scorecard grid) ────────────────────────── */
+.pillar-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.pillar-card { border-radius: 8px; padding: 16px; border: 1px solid #E2E8F0; }
+.pillar-card-label { font-size: 11px; color: #4A5568; margin-bottom: 4px; }
+.pillar-card-score { font-size: 24px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.pillar-card-max { font-size: 12px; color: #9CA3AF; }
+
+/* ── Pillar deep dive ─────────────────────────────────────── */
+.pillar-header { display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 16px; padding-left: 16px; }
+.pillar-score-big { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; }
+.pillar-score-max { font-size: 14px; color: #4A5568; }
+.pillar-narrative { font-size: 13px; line-height: 1.75; background: #F8F9FA;
+  padding: 16px 20px; border-radius: 6px; margin-bottom: 16px; }
+
+/* ── Risk / severity badges ───────────────────────────────── */
+.badge { display: inline-block; padding: 2px 12px; border-radius: 9999px;
+  font-size: 11px; font-weight: 700; border: 1px solid; }
+
+/* ── Tables ────────────────────────────────────────────────── */
+.data-table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+.data-table th { background: #1B2B5E; color: #FFFFFF; padding: 10px 14px; text-align: left;
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+.data-table th:first-child { border-radius: 4px 0 0 0; }
+.data-table th:last-child { border-radius: 0 4px 0 0; }
+.data-table td { padding: 10px 14px; border-bottom: 1px solid #E2E8F0; vertical-align: top; }
+.data-table tr:nth-child(even) td { background: #F8F9FA; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table .label-cell { color: #4A5568; width: 140px; }
+.data-table .mono-cell { font-family: 'JetBrains Mono', monospace; }
+.data-table .pts-cell { text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+.data-table .src-cell { text-align: center; font-size: 10px; }
+
+/* ── Finding cards (in pillar sections) ────────────────────── */
+.finding-card { border-radius: 0 6px 6px 0; padding: 14px 18px; margin-bottom: 10px;
+  page-break-inside: avoid; }
+.finding-title { font-size: 12px; font-weight: 600; margin: 4px 0 2px; }
+.finding-detail { font-size: 11px; color: #4A5568; line-height: 1.5; }
+.finding-meta { display: flex; justify-content: space-between; margin-bottom: 4px; }
+
+/* ── Findings Register (Section 10 — card layout) ─────────── */
+.fr-summary { display: flex; gap: 6px; align-items: center; margin-bottom: 20px;
+  font-size: 12px; font-weight: 600; }
+.fr-summary-sep { color: #CBD5E1; }
+.fr-card { background: #fff; border: 1px solid #E2E8F0; border-radius: 0 8px 8px 0;
+  padding: 16px 20px; margin-bottom: 12px; page-break-inside: avoid; }
+.fr-card-header { display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px; flex-wrap: wrap; gap: 6px; }
+.fr-card-left { display: flex; align-items: center; gap: 8px; }
+.fr-card-right { flex-shrink: 0; }
+.fr-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+  color: #4A5568; min-width: 20px; }
+.fr-pillar { font-size: 10px; font-weight: 700; color: #1B2B5E; text-transform: uppercase;
+  letter-spacing: .05em; background: #EFF6FF; padding: 2px 8px; border-radius: 4px; }
+.fr-title { font-size: 13px; font-weight: 700; color: #0F1729; line-height: 1.4; margin-bottom: 4px; }
+.fr-detail { font-size: 11px; color: #4A5568; line-height: 1.6; }
+.fr-footer { margin-top: 8px; }
+
+/* ── Info boxes ────────────────────────────────────────────── */
+.info-box { border-radius: 6px; padding: 16px 20px; margin-bottom: 16px; }
+.info-box-title { font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+.conditions-box { background: #FAF4EA; border: 1px solid #E5D5B8; }
+.methodology-box { background: #F8F9FA; border-left: 4px solid #E2E8F0; }
+.encevo-box { background: #EFF6FF; border-radius: 6px; padding: 14px; margin-top: 12px; }
+.gap-box { background: #FAF4EA; border: 1px solid #E5D5B8; }
+
+/* ── Running header & footer (print) ──────────────────────── */
+.page-header { display: none; }
+.page-footer { display: none; }
+
+/* ── Print styles ─────────────────────────────────────────── */
+@media print {
+  html { font-size: 12px; }
+  body { background: #fff; }
+  .doc { box-shadow: none; max-width: 100%; }
+  @page { size: A4; margin: 18mm 15mm 20mm 15mm; }
+  .page { padding: 32px 0; border-bottom: none; }
+  .page-break { page-break-before: always; }
+  .cover { margin: -18mm -15mm 0; padding: 48px 40px 36px; width: calc(100% + 30mm); }
+  .page-header, .page-footer { display: flex; justify-content: space-between;
+    font-size: 9px; color: #9CA3AF; padding: 0 0 8px; }
+  .page-footer { padding: 8px 0 0; border-top: 1px solid #E2E8F0; margin-top: auto; }
+  p, li { orphans: 3; widows: 3; }
+  .data-table tr { page-break-inside: avoid; }
+  .finding-card { page-break-inside: avoid; }
+  .pillar-card { page-break-inside: avoid; }
+  .no-print { display: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<!-- ═══ COVER PAGE ═══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <p class="cover-brand">SPECTRUM · VENDOR INTELLIGENCE</p>
+  <h1 class="cover-name">Siemens Aktiengesellschaft</h1>
+  <p class="cover-subtitle">Vendor Due Diligence Assessment</p>
+  <div class="cover-kpi">
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Overall Score</p>
+      <p style="color:#B5751A;font-size:36px;font-weight:700;letter-spacing:-.02em;" class="mono">76<span style="font-size:16px;color:#94A3B8;">/100</span></p>
+    </div>
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Verdict</p>
+      <p style="color:#B5751A;font-size:24px;font-weight:700;">CONDITIONAL</p>
+    </div>
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Risk Level</p>
+      <p style="color:#B5751A;font-size:24px;font-weight:700;">MEDIUM</p>
+    </div>
+  </div>
+  <div class="cover-meta">
+    <p>Report ID: <span>SPEC-2026-001</span></p>
+    <p>Generated: <span>2026-03-28</span></p>
+    <p>Sector: <span>Industrial Conglomerate — Automation, Digitalization, Smart Infrastructure, Rail Mobility</span></p>
+    <p style="margin-left:auto;">CONFIDENTIAL — For Authorised Recipients Only</p>
+  </div>
+</div>
+
+<!-- ═══ TABLE OF CONTENTS ════════════════════════════════════════════════ -->
+<div class="page page-break" id="toc">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Siemens Aktiengesellschaft · SPEC-2026-001</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Navigation</p><p class="sh-title">Table of Contents</p></div></div>
+  <ul class="toc-list">
+    <li><span class="toc-num">01</span><a class="toc-link" href="#exec-summary">Executive Summary</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">02</span><a class="toc-link" href="#scorecard">Risk Scorecard</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">03</span><a class="toc-link" href="#profile">Supplier Profile</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">04</span><a class="toc-link" href="#pillar-p1">P1 — Financial Stability</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">05</span><a class="toc-link" href="#pillar-p2">P2 — ESG & Sustainability</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">06</span><a class="toc-link" href="#pillar-p3">P3 — Regulatory & Legal</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">07</span><a class="toc-link" href="#pillar-p4">P4 — Cybersecurity & Data</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">08</span><a class="toc-link" href="#pillar-p5">P5 — Operational & Geopolitical Resilience</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">09</span><a class="toc-link" href="#pillar-p6">P6 — Reputational Intelligence</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">10</span><a class="toc-link" href="#findings-register">Findings Register</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">11</span><a class="toc-link" href="#capa">Corrective & Preventive Actions</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">12</span><a class="toc-link" href="#playbook">Contract Playbook</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">13</span><a class="toc-link" href="#monitoring">Monitoring Dashboard</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">14</span><a class="toc-link" href="#methodology">Methodology & Sources</a><span class="toc-dots"></span></li>
+  </ul>
+  <div class="page-footer">
+  <span>2026-03-28</span>
+  <span>SPEC-2026-001</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ EXECUTIVE SUMMARY ════════════════════════════════════════════════ -->
+<div class="page page-break" id="exec-summary">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Siemens Aktiengesellschaft · SPEC-2026-001</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 01</p><p class="sh-title">Executive Summary</p></div></div>
+  <div style="display:grid;grid-template-columns:180px 1fr;gap:32px;align-items:start;margin-bottom:20px;">
+    <div style="text-align:center;">
+      <svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="90" cy="90" r="64" fill="none" stroke="#E2E8F0" stroke-width="12"/>
+  <circle cx="90" cy="90" r="64" fill="none" stroke="#B5751A" stroke-width="12"
+    stroke-dasharray="305.6 402.1" stroke-linecap="round" transform="rotate(-90 90 90)"/>
+  <text x="90" y="84" text-anchor="middle" font-family="'JetBrains Mono',monospace"
+    font-size="32" font-weight="700" fill="#B5751A">76</text>
+  <text x="90" y="104" text-anchor="middle" font-family="Inter,sans-serif"
+    font-size="12" fill="#4A5568">/100</text>
+</svg>
+      <p style="margin-top:8px;font-size:12px;font-weight:700;color:#B5751A;">CONDITIONAL</p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+    <div>
+      <div class="info-box" style="background:#F8F9FA;">
+        <p style="font-size:13px;line-height:1.8;">Siemens AG scores 75.6/100 (MEDIUM risk, CONDITIONAL qualification) under the critical infrastructure weighting profile. The financial, regulatory, and operational pillars are demonstrably strong — triple investment-grade ratings (S&P AA-, Moody's Aa3, Fitch A+), a fully executed Russia exit, clean sanctions record, and 179 years of operational continuity. The score is dragged into MEDIUM territory by two substantive issues: (1) an ICS CVE profile of 966 documented vulnerabilities in Siemens' industrial product portfolio with direct energy-sector exposure in TeleControl Server Basic (CVSS 9.8, patched April 2025) and Gridscale X Prepay (CVSS 9.5, patch status unconfirmed) — requiring Encevo to verify patching status before deployment; and (2) ESG labour controversies including an unresolved NLRB charge filed January 2024 at the Sacramento Mobility facility. No pillar falls below 60 and no CRITICAL or hard-stop findings were identified.</p>
+      </div>
+      <div class="info-box" style="background:#1B2B5E;">
+        <p style="color:#A5B4FC;font-size:10px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">Primary Recommendation</p>
+        <p style="color:#fff;font-size:13px;line-height:1.6;">Qualify Siemens AG as a CONDITIONAL supplier for critical infrastructure product categories. Implement the five conditions above as contractual and operational prerequisites. Conduct annual score refresh with focus on ICS CVE management, NLRB resolution, and China exposure materialisation. Siemens' financial solidity and regulatory cleanliness mean the conditions are manageable — this is a governance gap, not a fundamental supplier risk.</p>
+      </div>
+    </div>
+  </div>
+  <div class="info-box conditions-box">
+    <p class="info-box-title" style="color:#B5751A;">CONDITIONS FOR QUALIFICATION</p>
+    <ul style="padding-left:18px;font-size:12px;"><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>Condition 1 —</strong> ICS CVE Patch Verification: Before activating or renewing any contract for Siemens TeleControl Server Basic or Gridscale X Prepay products, Encevo must confirm from Siemens that all deployments are running patched versions (TeleControl: V3.1.2.2 or later; Gridscale X: confirm via ProductCERT advisory ICSA-25-345-09). Written confirmation from Siemens ProductCERT or account team required.</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>Condition 2 —</strong> ISO 27001 Certificate Scope: Request from Siemens the specific ISO 27001:2022 certificate(s) covering the Siemens division or product line relevant to Encevo's contracted engagement (corporate certification is divisional, not enterprise-wide).</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>Condition 3 —</strong> NLRB Resolution Monitoring: Request Siemens provide an update on the NLRB unfair labour practice case status (Sacramento Mobility facility) at contract renewal. If case escalates to formal complaint or injunction, re-assess ESG pillar score.</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>Condition 4 —</strong> NIS2 Incident Notification Clause: Include in contract a clause requiring Siemens to notify Encevo within 48 hours of any NIS2-reportable security incident affecting products deployed in Encevo's OT environment.</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>Condition 5 —</strong> ProductCERT Advisory Subscription: Encevo should subscribe to Siemens ProductCERT advisories (cert-portal.siemens.com) covering all Siemens ICS/OT products in its operational environment.</li></ul>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi-card" style="border-top:3px solid #6B1E1E;"><p class="kpi-val" style="color:#6B1E1E;">0</p><p class="kpi-label">Critical Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #B83B2E;"><p class="kpi-val" style="color:#B83B2E;">5</p><p class="kpi-label">High Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #B5751A;"><p class="kpi-val" style="color:#B5751A;">4</p><p class="kpi-label">Medium Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #2D7A4F;"><p class="kpi-val" style="color:#2D7A4F;">0</p><p class="kpi-label">Low / Info</p></div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-28</span>
+  <span>SPEC-2026-001</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+
+<!-- ═══ RISK SCORECARD ═══════════════════════════════════════════════════ -->
+<div class="page page-break" id="scorecard">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Siemens Aktiengesellschaft · SPEC-2026-001</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 02</p><p class="sh-title">Risk Scorecard</p></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+    <div style="text-align:center;"><svg width="280" height="280" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+<polygon points="140.0,115.0 161.7,127.5 161.7,152.5 140.0,165.0 118.3,152.5 118.3,127.5" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,90.0 183.3,115.0 183.3,165.0 140.0,190.0 96.7,165.0 96.7,115.0" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,65.0 205.0,102.5 205.0,177.5 140.0,215.0 75.0,177.5 75.0,102.5" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,40.0 226.6,90.0 226.6,190.0 140.0,240.0 53.4,190.0 53.4,90.0" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="140.0" y2="40.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="226.6" y2="90.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="226.6" y2="190.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="140.0" y2="240.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="53.4" y2="190.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="53.4" y2="90.0" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,70.0 195.4,108.0 214.5,183.0 140.0,220.0 67.3,182.0 88.0,110.0" fill="#B5751A" fill-opacity="0.15" stroke="#B5751A" stroke-width="2"/>
+<text x="140.0" y="18.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Financial</text>
+<text x="140.0" y="4.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">70</text>
+<text x="245.7" y="79.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">ESG</text>
+<text x="257.8" y="72.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">64</text>
+<text x="245.7" y="201.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Regulatory</text>
+<text x="257.8" y="208.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#2D7A4F">86</text>
+<text x="140.0" y="262.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Cyber</text>
+<text x="140.0" y="276.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#2D7A4F">80</text>
+<text x="34.3" y="201.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Operational</text>
+<text x="22.2" y="208.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#2D7A4F">84</text>
+<text x="34.3" y="79.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Reputation</text>
+<text x="22.2" y="72.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">60</text>
+</svg></div>
+    <div class="pillar-grid">
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">Financial Stability</p>
+        <p class="pillar-card-score" style="color:#B5751A;">70<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">ESG & Sustainability</p>
+        <p class="pillar-card-score" style="color:#B5751A;">64<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #2D7A4F;">
+        <p class="pillar-card-label">Regulatory & Legal</p>
+        <p class="pillar-card-score" style="color:#2D7A4F;">86<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #2D7A4F;">
+        <p class="pillar-card-label">Cybersecurity & Data</p>
+        <p class="pillar-card-score" style="color:#2D7A4F;">80<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #2D7A4F;">
+        <p class="pillar-card-label">Operational & Geopolitical Resilience</p>
+        <p class="pillar-card-score" style="color:#2D7A4F;">84<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">Reputational Intelligence</p>
+        <p class="pillar-card-score" style="color:#B5751A;">60<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#4A5568;margin-top:16px;">Weight adjustment applied: <strong>critical_infrastructure</strong></p>
+  <p style="font-size:11px;color:#4A5568;margin-top:4px;" class="mono">(70 × 0.22) + (64 × 0.20) + (86 × 0.20) + (80 × 0.13) + (84 × 0.20) + (60 × 0.05) = 15.40 + 12.80 + 17.20 + 10.40 + 16.80 + 3.00 = 75.60</p>
+  <div class="page-footer">
+  <span>2026-03-28</span>
+  <span>SPEC-2026-001</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ SUPPLIER PROFILE ═════════════════════════════════════════════════ -->
+<div class="page page-break" id="profile">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Siemens Aktiengesellschaft · SPEC-2026-001</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 03</p><p class="sh-title">Supplier Profile</p></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+    <table class="data-table"><tbody>
+      <tr><td class="label-cell">Legal Name</td><td style="font-weight:600;">Siemens Aktiengesellschaft</td></tr>
+      <tr><td class="label-cell">HQ Address</td><td>Werner-von-Siemens-Strasse 1, 80333 Munich, Germany</td></tr>
+      <tr><td class="label-cell">Country</td><td>Germany</td></tr>
+      <tr><td class="label-cell">Ownership</td><td>Public</td></tr>
+      <tr><td class="label-cell">Exchange</td><td>Frankfurt Stock Exchange (FSE), DAX 40</td></tr>
+      <tr><td class="label-cell">Ticker</td><td class="mono-cell">SIE.DE</td></tr>
+      <tr><td class="label-cell">Sector</td><td>Industrial Conglomerate — Automation, Digitalization, Smart Infrastructure, Rail Mobility</td></tr>
+      <tr><td class="label-cell">Employees</td><td class="mono-cell">320,000</td></tr>
+      <tr><td class="label-cell">Founded</td><td class="mono-cell">1847-10-01</td></tr>
+      <tr><td class="label-cell">Parent</td><td>None (publicly traded)</td></tr>
+    </tbody></table>
+    <div>
+      <p style="font-size:10px;color:#1B2B5E;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:10px;">Key Executives</p>
+      <table class="data-table"><tbody>
+        <tr><td style="font-weight:600;">Dr. Roland Busch</td><td style="color:#4A5568;">President and Chief Executive Officer <a href="https://press.siemens.com/global/en/pressrelease/supervisory-board-endorses-strategic-direction-and-leadership-team-siemens-ag-and" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+        <tr><td style="font-weight:600;">Veronika Bienert</td><td style="color:#4A5568;">Chief Financial Officer <a href="https://press.siemens.com/global/en/pressrelease/siemens-ag-supervisory-board-announces-executive-leadership-appointments-accelerate" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+      </tbody></table>
+      <div class="encevo-box">
+        <p style="font-size:11px;font-weight:700;color:#1B2B5E;margin-bottom:4px;">Encevo Relationship</p>
+        <p style="font-size:12px;">Siemens AG is a critical infrastructure technology supplier to Encevo, providing industrial automation, grid automation, and potentially energy sector SCADA/telemetry products. Specific contracted product lines should be confirmed with Encevo procurement to identify applicable ICS CVEs (TeleControl, Gridscale X) and NIS2 supply chain obligations.</p>
+        <p style="font-size:11px;color:#4A5568;margin-top:6px;">Criticality: Unknown · Spend: Unknown</p>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-28</span>
+  <span>SPEC-2026-001</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P1 — FINANCIAL STABILITY ═══ -->
+<div class="page page-break" id="pillar-p1">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Siemens Aktiengesellschaft · SPEC-2026-001</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 04 · P1</p>
+      <p class="sh-title">Financial Stability</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">70<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">Siemens AG presents a picture of financial solidity that is largely undisturbed by near-term headwinds. The triple investment-grade ratings — S&P AA-, Moody's Aa3, Fitch A+, all with stable outlooks as of Q1 2026 — reflect a balance sheet that Moody's confirms is within its Aa3 leverage tolerance at the higher end of 1.5x–2.0x net debt/EBITA. Revenue declined nominally -2.4% to €75.9B in FY2024, attributable almost entirely to the Digital Industries automation segment's exposure to Chinese and German demand softness — not a company-wide deterioration. Net income reached a historic high of €9.0B and FCF all-in was €9.5B, demonstrating the breadth of Siemens' diversified earnings base beyond the troubled automation segment. The 6,000-job restructuring (March 2025) is a surgical, segment-specific response to structural overcapacity, with works council agreement reached in July 2025 — characteristic of Siemens' managed approach to industrial cycle adjustments rather than financial distress. The current ratio of 1.40 is adequate. Encevo can rely on Siemens AG's financial continuity for the foreseeable planning horizon.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>Credit rating — conservative of three agencies</td><td style="color:#4A5568;">S&P AA- (Jan 2025), Moody's Aa3 (Sep 2024), Fitch A+ (Mar 2025) — all stable outlook. Conservative rating = Fitch A+. A+ band = 18 points.</td>
+    <td class="src-cell"><a href="https://cbonds.com/news/3294125/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">18/20</td></tr>
+    <tr><td>Revenue YoY — FY2024 vs FY2023</td><td style="color:#4A5568;">Revenue €75.9B (FY2024) vs €77.8B (FY2023) = nominal decline of -2.4%. Band: decline 0-5% = 5 points.</td>
+    <td class="src-cell"><a href="https://press.siemens.com/global/en/pressrelease/strong-fourth-quarter-completes-successful-fiscal-2024" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">5/10</td></tr>
+    <tr><td>EBITA margin</td><td style="color:#4A5568;">Industrial Business profit margin of 15.5% in FY2024. Band: 10-20% = 12 points.</td>
+    <td class="src-cell"><a href="https://press.siemens.com/global/en/pressrelease/strong-fourth-quarter-completes-successful-fiscal-2024" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">12/15</td></tr>
+    <tr><td>Net debt / EBITA ratio</td><td style="color:#4A5568;">Moody's credit opinion (June 2025) confirms leverage at higher end of 1.5x–2.0x range. Band: 1-2x = 10 points.</td>
+    <td class="src-cell"><a href="https://assets.new.siemens.com/siemens/assets/api/uuid:f3f7ad26-7d76-43c8-9d71-49d117b4b61f/Moodys-Siemens-rating.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>Current ratio</td><td style="color:#4A5568;">Current ratio 1.40 as of FY2024 balance sheet (September 30, 2024). Band: 1.0–1.5 = 6 points.</td>
+    <td class="src-cell"><a href="https://www.macrotrends.net/stocks/charts/SIEGY/siemens-ag/current-ratio" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">6/10</td></tr>
+    <tr><td>Audit qualification</td><td style="color:#4A5568;">KPMG-audited FY2024 Annual Financial Report contains no modified audit opinion, no going concern warning, no profit warning. Clean audit = 1</td>
+    <td class="src-cell"><a href="https://assets.new.siemens.com/siemens/assets/api/uuid:ae46683e-14dd-4455-a882-09d4184457c7/Annual-Financial-Report-FY2024.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>Restructuring / distress signals</td><td style="color:#4A5568;">6,000 job cuts announced March 2025 in Digital Industries (automation) and EV charging segments. Represents 5-15% of segment headcount. Work</td>
+    <td class="src-cell"><a href="https://www.enlit.world/library/siemens-to-cut-over-6-000-jobs-in-automation-and-ev-segments" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">4/8</td></tr>
+    <tr><td>Bankruptcy / insolvency risk</td><td style="color:#4A5568;">No bankruptcy, no insolvency proceedings, no going concern. €118B order backlog, €9.5B FCF, triple investment-grade ratings. = 5 points.</td>
+    <td class="src-cell"><a href="https://press.siemens.com/global/en/pressrelease/strong-fourth-quarter-completes-successful-fiscal-2024" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">5/5</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-28</span>
+  <span>SPEC-2026-001</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P2 — ESG & SUSTAINABILITY ═══ -->
+<div class="page page-break" id="pillar-p2">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Siemens Aktiengesellschaft · SPEC-2026-001</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 05 · P2</p>
+      <p class="sh-title">ESG & Sustainability</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">64<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">Siemens AG occupies an unusual ESG position: industry-leading credentials (SBTi Net-Zero Standard validated September 2024, CDP A-List 2024, EcoVadis Platinum, MSCI ESG AA/AAA, Sustainalytics 23.0 Medium Risk) coexisting with a persistent controversy tail that materially depresses its social score. The SBTi validation — committing Siemens to 90% Scope 1+2 reduction by FY2030 vs a 2019 base — is substantive and externally verified, not merely aspirational. Customer-avoided emissions (144 million tCO2e in FY2024) now exceed Siemens' full value-chain emissions (121 million tCO2e), a compelling net-positive climate narrative. Against this, the 2020 Adani coal mine episode exposed a credibility gap between Siemens' climate positioning and its commercial obligations: management acknowledged the company 'should have been wiser about this project beforehand' while completing the contract, citing fiduciary duties — a position that was legally defensible but reputationally damaging. The NLRB unfair labour practice charge filed January 2024 at the Sacramento Mobility facility remains unresolved and represents the most live ESG risk for procurement purposes. CSRD-compliant reporting is confirmed from FY2025, placing Siemens among the early-mover large-cap cohort in Europe.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>Sustainability report published within 12 months</td><td style="color:#4A5568;">FY2024 Sustainability Report published aligned with GRI, TCFD, DEGREE framework. CSRD-compliant Sustainability Statement published for FY202</td>
+    <td class="src-cell"><a href="https://assets.new.siemens.com/siemens/assets/api/uuid:32a7154d-edba-47bc-8e9b-9761617ba774/sustainability-report.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>ESG reporting standard alignment</td><td style="color:#4A5568;">GRI Standards (2021 framework) with GRI Content Index published. GRI 302 (Energy) and GRI 305 (Emissions) confirmed in scope. GRI Standards </td>
+    <td class="src-cell"><a href="https://www.siemens.com/global/en/company/sustainability/reports-figures.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">9/10</td></tr>
+    <tr><td>Scope 1 and Scope 2 emissions disclosure</td><td style="color:#4A5568;">Combined Scope 1+2 reduction of 66% vs FY2019 baseline confirmed. Total value chain (Scope 1+2+3) = 121 million tCO2e. Exact standalone Scop</td>
+    <td class="src-cell"><a href="https://press.siemens.com/global/en/pressrelease/siemens-achieves-strong-progress-sustainability-targets" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">4/8</td></tr>
+    <tr><td>SBTi target validation</td><td style="color:#4A5568;">SBTi Net-Zero Standard validation achieved September 19, 2024. Covers 90% Scope 1+2 reduction by FY2030 and 30% Scope 3 reduction vs FY2019.</td>
+    <td class="src-cell"><a href="https://press.siemens.com/global/en/pressrelease/siemens-achieves-science-based-targets-initiative-sbti-validation-net-zero-targets" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/8</td></tr>
+    <tr><td>Environmental violations</td><td style="color:#4A5568;">One minor resolved violation: Russelectric (Siemens Industry business unit) — EPA RCRA $121,546 settlement (September 2022). Minor, resolved</td>
+    <td class="src-cell"><a href="https://www.epa.gov/newsreleases/epa-settlement-resolves-alleged-hazardous-waste-management-violations-hingham-mass" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/10</td></tr>
+    <tr><td>Supply chain human rights compliance (LkSG / Modern Slavery)</td><td style="color:#4A5568;">LkSG compliant for FY2024. CCO appointed as Human Rights Officer per §4 Abs.3 LkSG. FY2024 risk analysis found no net risks. Modern Slavery </td>
+    <td class="src-cell"><a href="https://assets.new.siemens.com/siemens/assets/api/uuid:90095142-4576-4fe9-bda6-5b9733b6f4d3/SAG-Bericht-zum-LkSG.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>Labour controversies</td><td style="color:#4A5568;">Multiple ongoing controversies: (1) NLRB unfair labour practice charge filed January 2024 — Sacramento Mobility facility, unresolved. (2) UA</td>
+    <td class="src-cell"><a href="https://www.siemensworkersunited.org/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/10</td></tr>
+    <tr><td>Board independence</td><td style="color:#4A5568;">German Codetermination Act: 20-member Supervisory Board, 10 shareholder / 10 employee representatives. Compensation report approved 86.51% a</td>
+    <td class="src-cell"><a href="https://www.siemens.com/global/en/company/about/leadership/supervisoryboard.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">5/10</td></tr>
+    <tr><td>CDP Climate rating</td><td style="color:#4A5568;">CDP A-List (Climate Change) confirmed for 2024 questionnaire cycle (announced early 2025). CDP A = 8 points.</td>
+    <td class="src-cell"><a href="https://press.siemens.com/global/en/pressrelease/siemens-receives-top-score-carbon-disclosure-project-cdp" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/8</td></tr>
+    <tr><td>ESG controversies — aggregate</td><td style="color:#4A5568;">Multiple ongoing: Adani HIGH (acknowledged greenwashing credibility gap), BDS MEDIUM (active campaign), NLRB MEDIUM (unresolved US charge), </td>
+    <td class="src-cell"><a href="https://www.ecowatch.com/siemens-coal-mine-australia-2644703080.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">2/10</td></tr>
+  </tbody></table>
+  <div class="finding-card" style="border-left:4px solid #B83B2E;background:#FAF0EE;">
+    <div class="finding-meta">
+      <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+    </div>
+    <p class="finding-title">NLRB unfair labour practice charge — Siemens Mobility Sacramento, unresolved</p>
+    <p class="finding-detail">Workers at Siemens Mobility's Sacramento, California railcar manufacturing facility filed an NLRB unfair labour practice charge in January 2024 following a union organising campaign (Siemens Workers United). The timeline <a href="https://www.siemensworkersunited.org/" target="_blank" style="font-size:10px;">[Source]</a></p>
+  </div>
+  <div class="finding-card" style="border-left:4px solid #B5751A;background:#FAF4EA;">
+    <div class="finding-meta">
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+    <p class="finding-title">BDS activist campaign — ongoing, limited mainstream commercial impact but civil society pressure active</p>
+    <p class="finding-detail">The BDS Movement has maintained an active Boycott Siemens campaign since October 2022, citing Siemens' roles in: (1) Tel Aviv-Jerusalem railway cars (2017, ~330 railcars); (2) EuroAsia Interconnector subsea cable; (3) Is <a href="https://bdsmovement.net/siemens-and-chevron-stop-fueling-apartheid-and-climate-disaster" target="_blank" style="font-size:10px;">[Source]</a></p>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-28</span>
+  <span>SPEC-2026-001</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P3 — REGULATORY & LEGAL ═══ -->
+<div class="page page-break" id="pillar-p3">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Siemens Aktiengesellschaft · SPEC-2026-001</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #2D7A4F;">
+    <div>
+      <p class="sh-label">Section 06 · P3</p>
+      <p class="sh-title">Regulatory & Legal</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#2D7A4F;">86<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">Siemens AG's regulatory and legal profile is the strongest pillar in this assessment, anchored by a clean sanctions record, no GDPR enforcement history, and a comprehensively documented Russia exit. The 2008 FCPA settlement — the largest bribery penalty in history at the time ($1.6B) — is substantively resolved: the compliance monitor signed off in December 2012, and the $100M Integrity Initiative fund was fully disbursed to 85 anti-corruption projects across 50+ countries in June 2024. A new €12M Evolve round was announced for 2025-2030. Seventeen years of operational compliance reform under the post-settlement framework is material evidence of institutional change, not just remediation. The active litigation picture is confined to commercial-level disputes: a VMware software copyright case (March 2025) and an AFCI product defect class action, neither of which carries regulatory, data protection, or supply chain implications for Encevo. The Russian entity liquidation (February 2024) demonstrates clean exit with documented sequencing. No PEP associations, no OFAC/EU/UN listings, and an approved EU BCR for data transfers complete a low-risk regulatory profile.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>Sanctions — OFAC / EU / UN</td><td style="color:#4A5568;">No Siemens AG entries on OFAC SDN list, EU Consolidated Financial Sanctions List (updated March 23, 2026), or UN sanctions list. Hard-stop c</td>
+    <td class="src-cell"><a href="https://sanctionssearch.ofac.treas.gov/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">25/25</td></tr>
+    <tr><td>PEP associations</td><td style="color:#4A5568;">No PEP associations identified for Siemens AG or its current Managing Board / Supervisory Board members in public sources. = 10 points.</td>
+    <td class="src-cell"><a href="https://www.opensanctions.org/datasets/eu_fsf/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>GDPR fines</td><td style="color:#4A5568;">No GDPR fines against Siemens AG found in GDPR Enforcement Tracker searches (2018-2026). BCR approved by EU/EEA DPAs and UK ICO. No GDPR fin</td>
+    <td class="src-cell"><a href="https://www.siemens.com/global/en/company/about/leadership/supervisoryboard.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>Active litigation materiality</td><td style="color:#4A5568;">Active cases: VMware v. Siemens AG (software copyright, Mar 2025); Siemens AFCI class action (product defect, US). Both assessed LOW materia</td>
+    <td class="src-cell"><a href="https://www.ciodive.com/news/broadcom-vmware-siemens-licensing-lawsuit/744414/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/10</td></tr>
+    <tr><td>FCPA history</td><td style="color:#4A5568;">2008 FCPA settlement: $1.6B total (DOJ $450M + SEC $350M + Munich $800M). Compliance monitor completed December 18, 2012. $100M Integrity In</td>
+    <td class="src-cell"><a href="https://www.justice.gov/archive/opa/pr/2008/December/08-crm-1105.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/10</td></tr>
+    <tr><td>Quality / environmental management certifications</td><td style="color:#4A5568;">ISO 9001:2015, ISO 14001:2015, ISO 45001, ISO 27001:2022 all confirmed current. Four certifications (3+) = 10 points.</td>
+    <td class="src-cell"><a href="https://www.siemens.com/global/en/general/system-certificates.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>Russia exposure / BIS Entity List</td><td style="color:#4A5568;">Russia fully exited: operations wound down 2022-2023, Russian entity (Siemens Systems LLC) in voluntary liquidation since February 2024. No </td>
+    <td class="src-cell"><a href="https://press.siemens.com/global/en/pressrelease/siemens-wind-down-russian-business" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-28</span>
+  <span>SPEC-2026-001</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P4 — CYBERSECURITY & DATA ═══ -->
+<div class="page page-break" id="pillar-p4">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Siemens Aktiengesellschaft · SPEC-2026-001</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #2D7A4F;">
+    <div>
+      <p class="sh-label">Section 07 · P4</p>
+      <p class="sh-title">Cybersecurity & Data</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#2D7A4F;">80<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">Siemens AG's cybersecurity posture reflects the maturity expected of a Tier-1 industrial supplier with deep OT/ICS product exposure. ISO 27001:2022 certification is confirmed across Corporate Cybersecurity Governance (recertified 2023) and major operating divisions, and the ProductCERT programme — operating since the 1990s with a public CISA-coordinated advisory portal — demonstrates institutional transparency that is rare in the sector. No confirmed breach at Siemens AG's corporate IT systems has been identified in open sources for 2020-2026. The critical caveat for Encevo is the ICS CVE volume: 966 documented vulnerabilities across Siemens' industrial product portfolio in the CISA advisory database, with Siemens accounting for a disproportionate 55% of ICS known-exploited vulnerabilities. Two products warrant specific attention for an energy-sector customer: TeleControl Server Basic (ICSA-25-112-01, CVSS 9.8, SQL injection, five CVEs patched in April 2025) and Gridscale X Prepay (ICSA-25-345-09, CVSS 9.5, December 2025, patch status unconfirmed). Encevo should confirm which Siemens ICS products are deployed in its OT environment and verify patching status immediately against these advisories. The absence of an enterprise-wide single ISO 27001 certificate (certifications are divisional) means Encevo should request the specific certificate covering the Siemens division/product line relevant to its engagement.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>No confirmed corporate breach at Siemens AG itself</td><td style="color:#4A5568;">No confirmed IT data breach at Siemens AG (German DAX-listed parent) found in open sources 2020-2026. Siemens Energy MOVEit breach (2023) an</td>
+    <td class="src-cell"><a href="https://www.bleepingcomputer.com/news/security/siemens-energy-confirms-data-breach-after-moveit-data-theft-attack/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">25/25</td></tr>
+    <tr><td>ISO 27001:2022 certification — verifiable</td><td style="color:#4A5568;">Corporate Cybersecurity Governance certified ISO 27001:2022 (recertified November 2023, original November 2017). Siemens Mobility GmbH (20 D</td>
+    <td class="src-cell"><a href="https://press.siemens.com/global/en/news/siemens-mobility-gmbh-has-achieved-iso-27001-certification" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">20/20</td></tr>
+    <tr><td>SOC2</td><td style="color:#4A5568;">NOT APPLICABLE for industrial/manufacturing company. Redistributed 15-point slot to 8-point neutral award per SPECTRUM industrial scoring me</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/8</td></tr>
+    <tr><td>Ransomware at Siemens AG corporate systems</td><td style="color:#4A5568;">No ransomware attack directly on Siemens AG corporate systems identified. Siemens Energy (separate entity) suffered MOVEit zero-day in June </td>
+    <td class="src-cell"><a href="https://www.bleepingcomputer.com/news/security/siemens-energy-confirms-data-breach-after-moveit-data-theft-attack/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>ICS CVE volume — patched within disclosure windows</td><td style="color:#4A5568;">966 total vulnerabilities in CISA ICS advisory database for Siemens products. Siemens accounts for 16 of 29 known exploited ICS vulnerabilit</td>
+    <td class="src-cell"><a href="https://www.cisa.gov/news-events/ics-advisories/icsa-25-112-01" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">6/10</td></tr>
+    <tr><td>Vulnerability disclosure policy (VDP)</td><td style="color:#4A5568;">Siemens ProductCERT VDP via HackerOne. Accepts English/German reports. Coordinates with CISA for joint advisories (SSA bulletins). Active VD</td>
+    <td class="src-cell"><a href="https://www.siemens.com/global/en/products/services/cert.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">6/6</td></tr>
+    <tr><td>Transparent security disclosure</td><td style="color:#4A5568;">ProductCERT public portal at cert-portal.siemens.com publishes Siemens Security Advisories (SSA) coordinated with CISA. Proactive transparen</td>
+    <td class="src-cell"><a href="https://cert-portal.siemens.com/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">5/5</td></tr>
+  </tbody></table>
+  <div class="finding-card" style="border-left:4px solid #B83B2E;background:#FAF0EE;">
+    <div class="finding-meta">
+      <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+    </div>
+    <p class="finding-title">TeleControl Server Basic — Critical SQL Injection CVEs (CVSS 9.8) with energy sector deployment footprint</p>
+    <p class="finding-detail">CISA advisory ICSA-25-112-01 (April 22, 2025) documents five SQL injection vulnerabilities (CVE-2025-27495, -27539, -30002, -30030, -32822) in Siemens TeleControl Server Basic versions prior to V3.1.2.2. Vulnerabilities  <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-25-112-01" target="_blank" style="font-size:10px;">[Source]</a></p>
+  </div>
+  <div class="finding-card" style="border-left:4px solid #B83B2E;background:#FAF0EE;">
+    <div class="finding-meta">
+      <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+    </div>
+    <p class="finding-title">Gridscale X Prepay — Critical Vulnerability (CVSS 9.5) in energy management / smart metering product — patch status unconfirmed</p>
+    <p class="finding-detail">CISA advisory ICSA-25-345-09 (December 11, 2025) documents a critical vulnerability (CVSS 9.5) in Siemens Gridscale X Prepay — an energy management and smart metering product directly relevant to utility and energy compa <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-25-345-09" target="_blank" style="font-size:10px;">[Source]</a></p>
+  </div>
+  <div class="finding-card" style="border-left:4px solid #B83B2E;background:#FAF0EE;">
+    <div class="finding-meta">
+      <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+    </div>
+    <p class="finding-title">ICS CVE Volume — 966 documented vulnerabilities, Siemens = 55% of all ICS known-exploited vulnerabilities</p>
+    <p class="finding-detail">CISA's ICS advisory database documents 966 total vulnerabilities across Siemens products. Siemens accounts for 16 of 29 known exploited vulnerabilities affecting ICS systems (55% of ICS KEV entries). While patches have b <a href="https://industrialcyber.co/cisa/cisa-flags-ics-vulnerabilities-in-products-from-siemens-schneider-electric-rockwell-and-others/" target="_blank" style="font-size:10px;">[Source]</a></p>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-28</span>
+  <span>SPEC-2026-001</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P5 — OPERATIONAL & GEOPOLITICAL RESILIENCE ═══ -->
+<div class="page page-break" id="pillar-p5">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Siemens Aktiengesellschaft · SPEC-2026-001</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #2D7A4F;">
+    <div>
+      <p class="sh-label">Section 08 · P5</p>
+      <p class="sh-title">Operational & Geopolitical Resilience</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#2D7A4F;">84<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">Siemens AG's operational and geopolitical profile is the strongest single pillar in this assessment at 84/100. A 179-year operating history, complete Russia exit (entity in voluntary liquidation since February 2024), and CEO Roland Busch's contract secured through 2030 provide a durable continuity baseline. The Digital Industries demand contraction (-46% segment YoY) and consequent 6,000-job restructuring reflect market cyclicality in automation — a sector-wide dynamic also affecting ABB and Schneider Electric — rather than any operational dysfunction at the company level. China exposure (~12-14% of Industrial Business revenue) is the primary geopolitical concentration risk: the 2024-2025 US EDA export control episode demonstrated direct revenue impact when controls were imposed, though they were rescinded in July 2025 following the US-China trade truce. Siemens' positioning as a critical infrastructure technology supplier (Tier 2 under NIS2) rather than a designated essential entity itself is an important distinction: Siemens' IEC 62443-certified products and published NIS2 compliance whitepapers for energy grid operators indicate proactive alignment with Encevo's own NIS2 obligations. The AWS-hosted Xcelerator platform uses EU data residency with GDPR-compliant architecture; CLOUD Act risk is indirect (via AWS as US provider) and mitigated by contractual data governance.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>Track record and company longevity</td><td style="color:#4A5568;">Siemens AG founded October 1, 1847 — 179 years of operating history. Incorporated as AG in 1966. >20 years band = 10 points.</td>
+    <td class="src-cell"><a href="https://www.siemens.com/global/en/company/about/history/stories/the-year-is-1847.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>Russia exposure / exit</td><td style="color:#4A5568;">Russia fully exited: operations wound down 2022-2023. Russian subsidiary (Siemens Systems LLC) in voluntary liquidation February 2024. Reven</td>
+    <td class="src-cell"><a href="https://interfax.com/newsroom/top-stories/99332/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>BCP / DR / ISO 22301 status</td><td style="color:#4A5568;">No group-level ISO 22301 public certification found. Siemens discloses general operational resilience in annual reports. Xcelerator XaaS has</td>
+    <td class="src-cell"><a href="https://cloudsecurityalliance.org/star/registry/siemens-ag/services/xcelerator-as-a-service-xaas" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">5/10</td></tr>
+    <tr><td>Major operational outages — group level</td><td style="color:#4A5568;">No major operational outages at Siemens AG group level identified. Digital Industries revenue decline (-46% in segment FY2024) is demand-dri</td>
+    <td class="src-cell"><a href="https://press.siemens.com/global/en/pressrelease/strong-fourth-quarter-completes-successful-fiscal-2024" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/10</td></tr>
+    <tr><td>Supply chain resilience</td><td style="color:#4A5568;">Semiconductor shortage 2021-2023 managed without documented production halt. Siemens acquired Supplyframe (supply chain intelligence). Digit</td>
+    <td class="src-cell"><a href="https://blogs.sw.siemens.com/digital-logistics/2024/10/28/building-up-supply-chain-resilience/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">7/10</td></tr>
+    <tr><td>CEO / leadership stability</td><td style="color:#4A5568;">Dr. Roland Busch CEO since February 2021 (4+ years tenure). Contract extended to 2030 by Supervisory Board. Previously CTO 2016-2020, Deputy</td>
+    <td class="src-cell"><a href="https://press.siemens.com/global/en/pressrelease/supervisory-board-endorses-strategic-direction-and-leadership-team-siemens-ag-and" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>China revenue concentration and geopolitical risk</td><td style="color:#4A5568;">China ~12-14% of Industrial Business revenue (estimate). Weak demand in China drove Digital Industries downturn and 6,000-job restructuring.</td>
+    <td class="src-cell"><a href="https://www.bloomberg.com/news/articles/2025-07-03/siemens-says-us-has-rescinded-chip-software-curbs-on-china" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">5/10</td></tr>
+    <tr><td>Data sovereignty — CLOUD Act non-applicability</td><td style="color:#4A5568;">Siemens AG is EU-incorporated (Munich, Germany); CLOUD Act does not apply directly. Uses AWS for Xcelerator with EU data residency. EU BCR a</td>
+    <td class="src-cell"><a href="https://cloudsecurityalliance.org/star/registry/siemens-ag/services/xcelerator-as-a-service-xaas" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>NIS2 supply chain compliance</td><td style="color:#4A5568;">Siemens is a critical infrastructure SUPPLIER (Tier 2) — not itself a designated essential entity. Products certified to IEC 62443. NIS2 whi</td>
+    <td class="src-cell"><a href="https://assets.new.siemens.com/siemens/assets/api/uuid:d4d42703-058c-45d5-9a24-3eef91f78681/siemens-solutions-nis2-requirements.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/8</td></tr>
+    <tr><td>Germany country risk</td><td style="color:#4A5568;">Germany rated A2 (Coface), low country risk (Allianz Trade). Coalition collapse November 2024 resolved with February 2025 elections and EUR </td>
+    <td class="src-cell"><a href="https://www.coface.com/news-economy-and-insights/business-risk-dashboard/country-risk-files/germany" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">6/7</td></tr>
+  </tbody></table>
+  <div class="finding-card" style="border-left:4px solid #B5751A;background:#FAF4EA;">
+    <div class="finding-meta">
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+    <p class="finding-title">China revenue concentration — ~12-14% of Industrial Business — US EDA export control exposure</p>
+    <p class="finding-detail">China represents approximately 12-14% of Siemens' Industrial Business revenue, making it the most important single-country market after Germany. US export controls imposed on Siemens EDA software (FY2024-FY2025) caused a <a href="https://www.bloomberg.com/news/articles/2025-07-03/siemens-says-us-has-rescinded-chip-software-curbs-on-china" target="_blank" style="font-size:10px;">[Source]</a></p>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-28</span>
+  <span>SPEC-2026-001</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P6 — REPUTATIONAL INTELLIGENCE ═══ -->
+<div class="page page-break" id="pillar-p6">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Siemens Aktiengesellschaft · SPEC-2026-001</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 09 · P6</p>
+      <p class="sh-title">Reputational Intelligence</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">60<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">Siemens AG's reputational profile in 2026 is characterised by genuine core-entity strength overlaid with a persistent controversy tail from both historical and associated-entity sources. The core financial narrative — record €9.0B net income, CEO Busch extended to 2030, EcoVadis Platinum, CDP A-List — creates a positive-to-neutral baseline in the financial and ESG press. The primary active reputational risks at the time of this assessment are: (1) an ongoing Austrian criminal investigation (WKStA) involving a former Siemens Vorarlberg subsidiary employee in a hospital billing fraud scheme (>€5M alleged, 27 suspects, proceedings ongoing); (2) unresolved US state attorney general investigations into the 2018 Turkish railway contract that allegedly contained an Israel boycott compliance clause — three US states (California, Arizona, New York) opened investigations in 2023 with no publicly confirmed resolution; and (3) brand-level contamination from Siemens Energy Inc.'s September 2024 US DOJ guilty plea ($104M) for trade secret theft in a gas turbine procurement — despite Siemens Energy being a legally separate entity since 2020. The 2020 Adani controversy — though resolved by contract completion — established a precedent that institutional sustainability commitments can be subordinated to commercial obligations, a credibility dynamic that ESG-oriented counterparties and investors continue to monitor.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>Overall media sentiment</td><td style="color:#4A5568;">Mixed-positive for Siemens AG core entity. Record €9.0B net income FY2024 and CEO contract extension dominate financial press. Negative sent</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#B5751A;">15/25</td></tr>
+    <tr><td>Executive misconduct at Siemens AG core</td><td style="color:#4A5568;">No executive misconduct involving current Managing Board members identified. Historical: 2008 FCPA under prior leadership, substantially rem</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>Product recalls</td><td style="color:#4A5568;">No major product recalls identified at Siemens AG core entity level in 2022-2026 searches. AFCI class action is a product defect lawsuit, no</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>Regulatory watchdog coverage and active investigations</td><td style="color:#4A5568;">Austrian KHBG hospital fraud investigation (WKStA anti-corruption prosecutor, 27 suspects including former Siemens Vorarlberg subsidiary emp</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#B83B2E;">8/15</td></tr>
+    <tr><td>NGO / activist pressure</td><td style="color:#4A5568;">Active BDS campaign (limited mainstream impact). Adani controversy resolved (contract fulfilled 2020, sustainability committee established).</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#B83B2E;">7/15</td></tr>
+    <tr><td>Brand confusion risk — Siemens Energy</td><td style="color:#4A5568;">Siemens Energy Inc. US DOJ guilty plea ($104M, September 2024) for misappropriating competitor bidding data. Siemens AG is a ~17% minority s</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#B83B2E;">-5/0</td></tr>
+  </tbody></table>
+  <div class="finding-card" style="border-left:4px solid #B83B2E;background:#FAF0EE;">
+    <div class="finding-meta">
+      <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+    </div>
+    <p class="finding-title">Adani Carmichael Coal Mine — ESG credibility gap; management acknowledged error</p>
+    <p class="finding-detail">In January 2020, Siemens AG completed an ~€18M contract for rail signalling at the Adani Carmichael coal mine in Australia, despite an international activist campaign (Fridays for Future, Greta Thunberg, Extinction Rebel <a href="https://press.siemens.com/global/en/news/joe-kaeser-adani-carmichael-project" target="_blank" style="font-size:10px;">[Source]</a></p>
+  </div>
+  <div class="finding-card" style="border-left:4px solid #B5751A;background:#FAF4EA;">
+    <div class="finding-meta">
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+    <p class="finding-title">Austrian KHBG hospital fraud investigation — former Siemens Vorarlberg subsidiary employee, ongoing WKStA proceedings</p>
+    <p class="finding-detail">Austrian anti-corruption prosecutor (WKStA) is investigating 27 suspects including a former manager of Siemens' Vorarlberg subsidiary in connection with billing fraud (Betrug), embezzlement, tax evasion, and bribery at K <a href="https://vorarlberg.orf.at/stories/3339438/" target="_blank" style="font-size:10px;">[Source]</a></p>
+  </div>
+  <div class="finding-card" style="border-left:4px solid #B5751A;background:#FAF4EA;">
+    <div class="finding-meta">
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+    <p class="finding-title">Turkish railway Israel boycott clause — US state AG investigations unresolved</p>
+    <p class="finding-detail">SWR (German broadcaster) reported in June 2023 that Siemens' Turkish subsidiary signed a $360M TCDD train contract containing a clause requiring compliance with OIC boycott rules (which include Israel boycott requirement <a href="https://www.jns.org/siemens-signed-israel-boycott-contract-with-turkish-railways-german-media/" target="_blank" style="font-size:10px;">[Source]</a></p>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-28</span>
+  <span>SPEC-2026-001</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ FINDINGS REGISTER ════════════════════════════════════════════════ -->
+<div class="page page-break" id="findings-register">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Siemens Aktiengesellschaft · SPEC-2026-001</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 10</p><p class="sh-title">Findings Register</p></div>
+    <div class="sh-badge"><span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;">9 findings</span></div>
+  </div>
+  <div class="fr-summary">
+    <span class="fr-summary-item" style="color:#6B1E1E;">0 Critical</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#B83B2E;">5 High</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#B5751A;">4 Medium</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#2D7A4F;">0 Low/Info</span>
+  </div>
+  
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">1</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">cybersecurity</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">PATCHED — V3.1.2.2 available, </span>
+      </div>
+    </div>
+    <p class="fr-title">TeleControl Server Basic — Critical SQL Injection CVEs (CVSS 9.8) with energy sector deployment footprint</p>
+    <p class="fr-detail">CISA advisory ICSA-25-112-01 (April 22, 2025) documents five SQL injection vulnerabilities (CVE-2025-27495, -27539, -30002, -30030, -32822) in Siemens TeleControl Server Basic vers</p>
+    <div class="fr-footer"><a href="https://www.cisa.gov/news-events/ics-advisories/icsa-25-112-01" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">2</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">cybersecurity</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">PATCH STATUS UNCONFIRMED — req</span>
+      </div>
+    </div>
+    <p class="fr-title">Gridscale X Prepay — Critical Vulnerability (CVSS 9.5) in energy management / smart metering product — patch status unconfirmed</p>
+    <p class="fr-detail">CISA advisory ICSA-25-345-09 (December 11, 2025) documents a critical vulnerability (CVSS 9.5) in Siemens Gridscale X Prepay — an energy management and smart metering product direc</p>
+    <div class="fr-footer"><a href="https://www.cisa.gov/news-events/ics-advisories/icsa-25-345-09" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">3</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">cybersecurity</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">ONGOING — patches available bu</span>
+      </div>
+    </div>
+    <p class="fr-title">ICS CVE Volume — 966 documented vulnerabilities, Siemens = 55% of all ICS known-exploited vulnerabilities</p>
+    <p class="fr-detail">CISA's ICS advisory database documents 966 total vulnerabilities across Siemens products. Siemens accounts for 16 of 29 known exploited vulnerabilities affecting ICS systems (55% o</p>
+    <div class="fr-footer"><a href="https://industrialcyber.co/cisa/cisa-flags-ics-vulnerabilities-in-products-from-siemens-schneider-electric-rockwell-and-others/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">4</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">esg_sustainability</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">ONGOING — no confirmed resolut</span>
+      </div>
+    </div>
+    <p class="fr-title">NLRB unfair labour practice charge — Siemens Mobility Sacramento, unresolved</p>
+    <p class="fr-detail">Workers at Siemens Mobility's Sacramento, California railcar manufacturing facility filed an NLRB unfair labour practice charge in January 2024 following a union organising campaig</p>
+    <div class="fr-footer"><a href="https://www.siemensworkersunited.org/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">5</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">reputational_intelligence</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">RESOLVED — contract fulfilled </span>
+      </div>
+    </div>
+    <p class="fr-title">Adani Carmichael Coal Mine — ESG credibility gap; management acknowledged error</p>
+    <p class="fr-detail">In January 2020, Siemens AG completed an ~€18M contract for rail signalling at the Adani Carmichael coal mine in Australia, despite an international activist campaign (Fridays for </p>
+    <div class="fr-footer"><a href="https://press.siemens.com/global/en/news/joe-kaeser-adani-carmichael-project" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">6</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">reputational_intelligence</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">ONGOING — active WKStA investi</span>
+      </div>
+    </div>
+    <p class="fr-title">Austrian KHBG hospital fraud investigation — former Siemens Vorarlberg subsidiary employee, ongoing WKStA proceedings</p>
+    <p class="fr-detail">Austrian anti-corruption prosecutor (WKStA) is investigating 27 suspects including a former manager of Siemens' Vorarlberg subsidiary in connection with billing fraud (Betrug), emb</p>
+    <div class="fr-footer"><a href="https://vorarlberg.orf.at/stories/3339438/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">7</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">reputational_intelligence</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">UNRESOLVED — US state investig</span>
+      </div>
+    </div>
+    <p class="fr-title">Turkish railway Israel boycott clause — US state AG investigations unresolved</p>
+    <p class="fr-detail">SWR (German broadcaster) reported in June 2023 that Siemens' Turkish subsidiary signed a $360M TCDD train contract containing a clause requiring compliance with OIC boycott rules (</p>
+    <div class="fr-footer"><a href="https://www.jns.org/siemens-signed-israel-boycott-contract-with-turkish-railways-german-media/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">8</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">operational_resilience</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">ONGOING — managed risk; EDA co</span>
+      </div>
+    </div>
+    <p class="fr-title">China revenue concentration — ~12-14% of Industrial Business — US EDA export control exposure</p>
+    <p class="fr-detail">China represents approximately 12-14% of Siemens' Industrial Business revenue, making it the most important single-country market after Germany. US export controls imposed on Sieme</p>
+    <div class="fr-footer"><a href="https://www.bloomberg.com/news/articles/2025-07-03/siemens-says-us-has-rescinded-chip-software-curbs-on-china" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">9</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">esg_sustainability</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">ONGOING — limited mainstream i</span>
+      </div>
+    </div>
+    <p class="fr-title">BDS activist campaign — ongoing, limited mainstream commercial impact but civil society pressure active</p>
+    <p class="fr-detail">The BDS Movement has maintained an active Boycott Siemens campaign since October 2022, citing Siemens' roles in: (1) Tel Aviv-Jerusalem railway cars (2017, ~330 railcars); (2) Euro</p>
+    <div class="fr-footer"><a href="https://bdsmovement.net/siemens-and-chevron-stop-fueling-apartheid-and-climate-disaster" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-28</span>
+  <span>SPEC-2026-001</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ CAPA PLAN ════════════════════════════════════════════════════════ -->
+<div class="page page-break" id="capa">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Siemens Aktiengesellschaft · SPEC-2026-001</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 11</p><p class="sh-title">Corrective & Preventive Action Plan</p></div></div>
+  <table class="data-table"><colgroup><col style="width:12%"/><col style="width:40%"/><col style="width:14%"/><col style="width:16%"/><col style="width:18%"/></colgroup><thead><tr>
+    <th>Priority</th><th>Action</th><th>Finding Ref</th><th>Owner</th><th>Timeline</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:700;color:#B83B2E;">P1 — Immediate</td>
+    <td style="font-weight:600;">ICS CVE Monitoring Programme — TeleControl, Gridscale X, UMC: Within 5 business days: Confirm from Encevo OT team whether TeleControl Server Basic and Gridscale X Prepay are deployed in any Encevo operational environment; Within 10 business days: If deployed, verify installed versi</td><td style="color:#4A5568;">['F-001', 'F-002', 'F-003']</td>
+    <td>Encevo CISO / OT Security Team + Siemens Account Manager</td><td>P1 — Immediate</td></tr>
+    <tr><td style="font-weight:700;color:#B5751A;">P2 — Before Contract Renewal</td>
+    <td style="font-weight:600;">Labour / ESG — NLRB Case Status Resolution Tracking: At contract renewal (or within 6 months): Request Siemens to provide a formal written update on the status of the Sacramento Mobility NLRB unfair labour practice charge (filed January 2024); Assess response for: (a) case</td><td style="color:#4A5568;">['F-004']</td>
+    <td>Encevo Procurement / Supplier Sustainability Team</td><td>P2 — Before Contract Renewal</td></tr>
+    <tr><td style="font-weight:700;color:#B5751A;">P2 — At Contract Signature</td>
+    <td style="font-weight:600;">China Concentration Risk — Supply Continuity Notification Mechanism: Include in all Siemens AG contracts a clause requiring Siemens to notify Encevo within 10 business days of any material adverse change in its Chinese operations that could affect supply continuity for products contracted</td><td style="color:#4A5568;">['F-008']</td>
+    <td>Encevo Procurement / Legal</td><td>P2 — At Contract Signature</td></tr>
+    <tr><td style="font-weight:700;color:#2563EB;">P3 — Standard Due Diligence</td>
+    <td style="font-weight:600;">FCPA / Compliance Programme Verification: Request from Siemens AG a copy of or summary reference to the current Siemens Compliance System documentation (Prevent/Detect/Respond framework); Note: 2008 FCPA settlement is historical (17+ years) and monitor is long c</td><td style="color:#4A5568;">CAPA-004</td>
+    <td>Encevo Compliance / Legal</td><td>P3 — Standard Due Diligence</td></tr>
+    <tr><td style="font-weight:700;color:#B5751A;">P2 — Monitoring</td>
+    <td style="font-weight:600;">Active Investigation Monitoring — Austrian KHBG fraud and Turkish boycott investigations: Establish 6-monthly monitoring of Austrian WKStA proceedings and Turkish boycott US state AG investigation outcomes; If Austrian proceedings result in criminal conviction of a Siemens AG Managing Board member (unlikely b</td><td style="color:#4A5568;">['F-006', 'F-007']</td>
+    <td>Encevo Legal / Compliance</td><td>P2 — Monitoring</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-28</span>
+  <span>SPEC-2026-001</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ CONTRACT PLAYBOOK ════════════════════════════════════════════════ -->
+<div class="page page-break" id="playbook">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Siemens Aktiengesellschaft · SPEC-2026-001</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 12</p><p class="sh-title">Contract Playbook</p></div></div>
+  <table class="data-table"><colgroup><col style="width:18%"/><col style="width:42%"/><col style="width:24%"/><col style="width:16%"/></colgroup><thead><tr>
+    <th>Clause Area</th><th>Recommendation</th><th>Risk Basis</th><th>Priority</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:600;color:#1B2B5E;">EU Data Residency — All Processing in EU</td>
+    <td>All personal data and operational data processed under this agreement shall be processed exclusively within the European Economic Area. Siemens AG shall not transfer any such data to a third country without prior written consent of Encevo and implementation of appropriate transfer safeguards (SCCs or BCR). Note: Siemen...</td><td style="color:#4A5568;">F-008 (geopolitical); data sovereignty (P5)</td>
+    <td><span style="font-size:10px;font-weight:700;">LOW — straightforward given Siemens' EU incorporation and BCR status</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">NIS2 Supply Chain Security Incident Notification</td>
+    <td>Siemens AG shall notify Encevo's designated security contact within 48 hours of becoming aware of any security incident that: (a) affects Siemens products deployed in Encevo's operational environment; (b) is notifiable under NIS2 Article 23 or equivalent applicable regulation; or (c) involves exploitation of a vulnerab...</td><td style="color:#4A5568;">F-001, F-002, F-003 (cybersecurity/ICS); P5 NIS2</td>
+    <td><span style="font-size:10px;font-weight:700;">MEDIUM — requires designation of security contacts and notification procedures on both sides</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">ProductCERT CVE Disclosure — 72-Hour Critical CVE Notification</td>
+    <td>Siemens AG shall notify Encevo within 72 hours of any CISA ICS advisory or Siemens Security Advisory (SSA) published by Siemens ProductCERT affecting any Siemens product deployed in Encevo's OT environment, where the CVSS v3 base score is 7.0 or above. Notification shall include: CVE identifiers, CVSS score, affected p...</td><td style="color:#4A5568;">F-001, F-002, F-003 (cybersecurity/ICS)</td>
+    <td><span style="font-size:10px;font-weight:700;">MEDIUM — requires Siemens to maintain current record of Encevo's installed product versions</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Russia / China Geopolitical Supply Continuity Notification</td>
+    <td>Siemens AG shall notify Encevo within 10 business days of any material change in its geopolitical exposure that could adversely affect the supply of contracted products or services to Encevo, including but not limited to: (a) reimposition of US export controls on Siemens products used by Encevo; (b) any regulatory or g...</td><td style="color:#4A5568;">F-008 (China concentration); Russia exit (confirmed)</td>
+    <td><span style="font-size:10px;font-weight:700;">LOW to MEDIUM — standard supply chain disruption notification clause</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">ISO 27001 Certificate Scope Confirmation</td>
+    <td>Within 30 days of contract execution, Siemens AG shall provide Encevo with a copy of the current ISO 27001:2022 certificate(s) covering the Siemens division, business unit, or product line relevant to the contracted engagement. The certificate(s) shall identify the certification body, scope, validity period, and the ne...</td><td style="color:#4A5568;">Cybersecurity data gap (P4)</td>
+    <td><span style="font-size:10px;font-weight:700;">LOW — straightforward certificate delivery obligation</span></td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-28</span>
+  <span>SPEC-2026-001</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ MONITORING DASHBOARD ═════════════════════════════════════════════ -->
+<div class="page page-break" id="monitoring">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Siemens Aktiengesellschaft · SPEC-2026-001</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 13</p><p class="sh-title">Ongoing Monitoring Dashboard</p></div></div>
+  <table class="data-table" style="font-size:11px;"><colgroup><col style="width:22%"/><col style="width:16%"/><col style="width:6%"/><col style="width:16%"/><col style="width:16%"/><col style="width:12%"/><col style="width:12%"/></colgroup><thead><tr>
+    <th>Key Risk Indicator</th><th>Current</th><th></th>
+    <th>Green</th><th>Amber</th><th>Red</th><th>Review</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:600;">Siemens AG Revenue Growth and Financial Health</td>
+    <td class="mono-cell">GREEN — Revenue -2.4% (amber-adjacent), EBITA 15.5%, all ratings stable</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">Revenue YoY growth positive or flat; EBITA margin >13%; all three credit ratings stable</td>
+    <td style="color:#B5751A;">Revenue YoY decline >3%; EBITA margin 10-13%; any credit outlook change to Negative</td>
+    <td style="color:#B83B2E;">Revenue YoY decline >8%; EBITA margin <10%; any rating downgrade; going concern warning</td>
+    <td style="color:#4A5568;">Quarterly (Siemens fiscal quarters: Q1 Jan, Q2 Apr, Q3 Jul, Q4 Nov)</td></tr>
+    <tr><td style="font-weight:600;">ICS CVE Criticality — Siemens Products in Encevo OT Environment</td>
+    <td class="mono-cell">AMBER — TeleControl Server Basic CVSS 9.8 patched (April 2025); Gridscale X Prepay CVSS 9.5 patch status unconfirmed; verify immediately</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">No CVSS 9.0+ advisories for deployed products; all CVSS 7.0+ advisories patched within 30 days</td>
+    <td style="color:#B5751A;">CVSS 9.0+ advisory for deployed product; patch available but not yet applied; >30 days outstanding</td>
+    <td style="color:#B83B2E;">CVSS 9.0+ advisory for deployed product with no patch available; active exploitation in the wild</td>
+    <td style="color:#4A5568;">Monthly — check for new advisories tagged to Encevo asset inventory</td></tr>
+    <tr><td style="font-weight:600;">NLRB Case Status — Siemens Mobility Sacramento</td>
+    <td class="mono-cell">AMBER — ongoing; no public resolution confirmed as of 2026-03-28</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">Case dismissed or resolved without material adverse finding</td>
+    <td style="color:#B5751A;">Case ongoing; no formal NLRB complaint issued</td>
+    <td style="color:#B83B2E;">Formal NLRB complaint issued; court injunction; strike action resulting in production halt</td>
+    <td style="color:#4A5568;">Every 6 months</td></tr>
+    <tr><td style="font-weight:600;">ESG Rating Changes — Sustainalytics and MSCI</td>
+    <td class="mono-cell">GREEN — Sustainalytics 23.0 (Medium), MSCI ESG AA/AAA, CDP A-List, EcoVadis Platinum</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">Sustainalytics score <20 (Low Risk); MSCI ESG: AAA or AA</td>
+    <td style="color:#B5751A;">Sustainalytics 20-30 (Medium Risk); MSCI ESG: A</td>
+    <td style="color:#B83B2E;">Sustainalytics >30 (High Risk); MSCI ESG downgrade to BBB or below; CDP rating drops from A</td>
+    <td style="color:#4A5568;">Annual (align with Siemens sustainability report release, typically Q4 calendar year)</td></tr>
+    <tr><td style="font-weight:600;">China Operations and US-China Geopolitical Exposure</td>
+    <td class="mono-cell">AMBER — EDA controls rescinded July 2025 but environment fragile; ~12-14% China revenue dependency ongoing</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">China revenue stable or growing; no new export control restrictions; no supply chain disruptions</td>
+    <td style="color:#B5751A;">China revenue decline >10% YoY; new export control licence requirements; Siemens announces China-specific supply chain delays</td>
+    <td style="color:#B83B2E;">Export controls reimposed on automation or OT products supplied to Encevo; Siemens announces China production halt or significant asset impairment</td>
+    <td style="color:#4A5568;">Quarterly — review earnings release China segment commentary and US export control developments</td></tr>
+    <tr><td style="font-weight:600;">Restructuring Progress — Digital Industries 6,000 Job Cuts</td>
+    <td class="mono-cell">GREEN — works council (Interessenausgleich) agreed July 2025; implementation target FY2027</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">Restructuring proceeding on schedule (target: end FY2027); no escalation beyond agreed social plan</td>
+    <td style="color:#B5751A;">Restructuring delayed or renegotiated; additional segment headcount reductions announced</td>
+    <td style="color:#B83B2E;">Restructuring widens to non-Digital Industries segments; credit agencies cite restructuring costs as rating pressure</td>
+    <td style="color:#4A5568;">Semi-annual</td></tr>
+    <tr><td style="font-weight:600;">Active Investigations — Austrian KHBG and Turkish Boycott</td>
+    <td class="mono-cell">AMBER — Austrian investigation ongoing; US state investigations unresolved</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">Cases resolved without Siemens AG-level penalty or finding</td>
+    <td style="color:#B5751A;">Cases ongoing; no AG-level findings</td>
+    <td style="color:#B83B2E;">Criminal conviction of current Siemens AG Managing Board member; US state debarment finding; fine >€10M at AG level</td>
+    <td style="color:#4A5568;">Every 6 months</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-28</span>
+  <span>SPEC-2026-001</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ DATA GAPS ════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Siemens Aktiengesellschaft · SPEC-2026-001</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Appendix</p><p class="sh-title">Data Gaps & Limitations</p></div></div>
+  <div class="info-box gap-box">
+    <p class="info-box-title" style="color:#B5751A;">10 data gap(s) identified</p>
+    <ul style="padding-left:18px;font-size:12px;line-height:1.8;"><li><strong>net_debt_ebita_ratio_exact_fy2024</strong>: Exact FY2024 point-in-time net debt/EBITA ratio requires direct access to Siemens Annual Financial Report PDF or Moody's credit opinion PDF. Only Moody's range guidance was retrievable via web search. — LOW — ratio is confirmed within Moody's Aa3 tolerance band; exact figure would not change score</li>
+<li><strong>net_debt_industrial_only</strong>: Siemens reports industrial net debt separately from Group consolidated net debt (which includes SFS). Industrial-only figure requires Annual Report PDF parsing. — MEDIUM — industrial leverage is materially lower than consolidated; exact figure matters for ratio calculation</li>
+<li><strong>scope1_emissions_tco2e_standalone</strong>: Exact standalone Scope 1 tCO2e for FY2024 requires Sustainability Report PDF extraction — LOW — combined reduction confirmed; standalone figure is for completeness only</li>
+<li><strong>scope2_emissions_tco2e_standalone</strong>: Same as DG-003 — LOW</li>
+<li><strong>sustainalytics_score_exact_date</strong>: Sustainalytics does not publish scores freely; sourced from third-party aggregator without confirmed date — LOW — score directionally consistent with MSCI AA/AAA and EcoVadis Platinum</li>
+<li><strong>iso27001_enterprise_wide_certificate</strong>: Siemens does not hold a single enterprise-wide ISO 27001 certificate. Division-specific certificates require identification per Encevo's engagement scope. — MEDIUM — certificate covering Encevo's specific Siemens products/services must be requested</li>
+<li><strong>gridscale_x_prepay_cve_details_and_patch_status</strong>: CISA advisory ICSA-25-345-09 details not fully parsed from available web search snippets — HIGH if Encevo deploys Gridscale X Prepay</li>
+<li><strong>iso22301_group_level_certification</strong>: Siemens does not appear to publish a group-level ISO 22301 certification. Large industrial conglomerates typically certify at site/subsidiary level. — LOW — absence does not indicate lack of BCP capability; formal certification simply not confirmed</li>
+<li><strong>china_revenue_pct_exact</strong>: Siemens discloses revenue by broad geographic region ('Asia, Australia') rather than country-level in annual report web extracts — MEDIUM — precise figure matters for China concentration scoring</li>
+<li><strong>turkish_boycott_investigation_outcome</strong>: Investigation outcomes not published in accessible web sources as of assessment date — MEDIUM if resolved with findings against Siemens</li>
+</ul>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-28</span>
+  <span>SPEC-2026-001</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ METHODOLOGY & SOURCES ════════════════════════════════════════════ -->
+<div class="page page-break" id="methodology">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Siemens Aktiengesellschaft · SPEC-2026-001</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 14</p><p class="sh-title">Methodology & Data Sources</p></div></div>
+  <div class="info-box" style="background:#F8F9FA;margin-bottom:20px;">
+    <p style="font-size:12px;line-height:1.7;"><strong>Data Currency:</strong> Data gathered via web search 2026-03-28. Financial data from FY2024 (year ending Sep 30, 2024). All sources retrieved 2026-03-28.</p>
+    <p style="font-size:12px;line-height:1.7;margin-top:8px;"><strong>Methodology:</strong> This assessment was conducted using SPECTRUM's evidence-first multi-agent pipeline. All findings are sourced from publicly available information. Scores are derived by applying the SPECTRUM six-pillar rubric to verified evidence. No training-knowledge claims are made — every factual statement is linked to a source URL.</p>
+  </div>
+  <ol style="padding-left:20px;font-size:12px;line-height:1.8;"><li><span class="mono" style="color:#1B2B5E;font-weight:700;">[1]</span> <a href="https://press.siemens.com/global/en/pressrelease/strong-fourth-quarter-completes-successful-fiscal-2024" target="_blank">Strong fourth quarter completes successful fiscal 2024 — Siemens Press Release</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official company press release, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[2]</span> <a href="https://assets.new.siemens.com/siemens/assets/api/uuid:ae46683e-14dd-4455-a882-09d4184457c7/Annual-Financial-Report-FY2024.pdf" target="_blank">Annual Financial Report FY2024 — Siemens AG</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official annual report, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[3]</span> <a href="https://assets.new.siemens.com/siemens/assets/api/uuid:f3f7ad26-7d76-43c8-9d71-49d117b4b61f/Moodys-Siemens-rating.pdf" target="_blank">Corporates Credit Opinion — Siemens AG, Moody's, June 25, 2025</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Rating agency report, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[4]</span> <a href="https://cbonds.com/news/3251029/" target="_blank">S&P Global Ratings affirms Siemens at 'AA-' — Cbonds</a> <span style="color:#9CA3AF;font-size:10px;">(SECONDARY — Rating news aggregator, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[5]</span> <a href="https://cbonds.com/news/3294125/" target="_blank">Fitch Ratings affirms Siemens at 'A+'; outlook stable — Cbonds</a> <span style="color:#9CA3AF;font-size:10px;">(SECONDARY — Rating news aggregator, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[6]</span> <a href="https://www.macrotrends.net/stocks/charts/SIEGY/siemens-ag/current-ratio" target="_blank">Siemens AG Current Ratio 2010-2024 — MacroTrends</a> <span style="color:#9CA3AF;font-size:10px;">(SECONDARY — Financial data aggregator, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[7]</span> <a href="https://www.enlit.world/library/siemens-to-cut-over-6-000-jobs-in-automation-and-ev-segments" target="_blank">Siemens to cut over 6,000 jobs in automation and EV segments — Enlit World</a> <span style="color:#9CA3AF;font-size:10px;">(SECONDARY — Industry news, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[8]</span> <a href="https://assets.new.siemens.com/siemens/assets/api/uuid:32a7154d-edba-47bc-8e9b-9761617ba774/sustainability-report.pdf" target="_blank">Siemens AG Sustainability Report FY2024</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official sustainability report, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[9]</span> <a href="https://press.siemens.com/global/en/pressrelease/siemens-achieves-science-based-targets-initiative-sbti-validation-net-zero-targets" target="_blank">Siemens achieves SBTi Net-Zero Standard validation — Siemens Press Release, September 2024</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official press release, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[10]</span> <a href="https://press.siemens.com/global/en/pressrelease/siemens-achieves-strong-progress-sustainability-targets" target="_blank">Siemens achieves strong progress on sustainability targets — Siemens Press Release</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official press release, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[11]</span> <a href="https://press.siemens.com/global/en/pressrelease/siemens-receives-top-score-carbon-disclosure-project-cdp" target="_blank">Siemens receives top score from Carbon Disclosure Project (CDP) 2025 cycle</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official press release, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[12]</span> <a href="https://www.epa.gov/newsreleases/epa-settlement-resolves-alleged-hazardous-waste-management-violations-hingham-mass" target="_blank">EPA settlement — Russelectric RCRA violations, $121,546</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official US EPA press release, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[13]</span> <a href="https://assets.new.siemens.com/siemens/assets/api/uuid:90095142-4576-4fe9-bda6-5b9733b6f4d3/SAG-Bericht-zum-LkSG.pdf" target="_blank">Siemens AG LkSG Report FY2024</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official LkSG report, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[14]</span> <a href="https://assets.new.siemens.com/siemens/assets/api/uuid:6b274c10-67ed-4e55-8c63-08465517d24b/siemens-plc-modern-slavery-act-statement-fy24.pdf" target="_blank">Siemens plc Modern Slavery Act Statement FY2024</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official statutory statement, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[15]</span> <a href="https://www.siemensworkersunited.org/" target="_blank">Siemens Workers United — NLRB unfair labour practice campaign site</a> <span style="color:#9CA3AF;font-size:10px;">(SECONDARY — Labour organisation, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[16]</span> <a href="https://assets.new.siemens.com/siemens/assets/api/uuid:dea0c623-1ae9-4ef0-a69a-31d8eb7b39fb/sustainability-statement.pdf" target="_blank">Siemens AG CSRD Sustainability Statement FY2025</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official CSRD sustainability statement, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[17]</span> <a href="https://sanctionssearch.ofac.treas.gov/" target="_blank">OFAC Sanctions List Search — US Treasury</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official government sanctions database, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[18]</span> <a href="https://www.opensanctions.org/datasets/eu_fsf/" target="_blank">EU Financial Sanctions Files — OpenSanctions</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official sanctions data, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[19]</span> <a href="https://www.justice.gov/archive/opa/pr/2008/December/08-crm-1105.html" target="_blank">US DOJ — Siemens AG FCPA guilty plea, December 15, 2008</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official US DOJ press release, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[20]</span> <a href="https://www.sec.gov/news/press/2008/2008-294.htm" target="_blank">SEC — Siemens AG FCPA settlement, December 2008</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official SEC press release, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[21]</span> <a href="https://press.siemens.com/global/en/pressrelease/siemens-wind-down-russian-business" target="_blank">Siemens Russia wind-down announcement, May 2022</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official company press release, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[22]</span> <a href="https://interfax.com/newsroom/top-stories/99332/" target="_blank">Interfax — Siemens Russian entity voluntary liquidation, February 2024</a> <span style="color:#9CA3AF;font-size:10px;">(SECONDARY — News agency, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[23]</span> <a href="https://www.siemens.com/global/en/general/system-certificates.html" target="_blank">Siemens AG System Certificates — ISO 9001, 14001, 45001, 27001</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official company certificate register, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[24]</span> <a href="https://www.ciodive.com/news/broadcom-vmware-siemens-licensing-lawsuit/744414/" target="_blank">VMware v. Siemens AG software copyright lawsuit, March 2025 — CIO Dive</a> <span style="color:#9CA3AF;font-size:10px;">(SECONDARY — Technology news, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[25]</span> <a href="https://www.bleepingcomputer.com/news/security/siemens-energy-confirms-data-breach-after-moveit-data-theft-attack/" target="_blank">Siemens Energy MOVEit data breach — BleepingComputer, June 2023</a> <span style="color:#9CA3AF;font-size:10px;">(SECONDARY — Security news, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[26]</span> <a href="https://press.siemens.com/global/en/news/siemens-mobility-gmbh-has-achieved-iso-27001-certification" target="_blank">Siemens Mobility GmbH ISO 27001 certification — Siemens Press Release</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official press release, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[27]</span> <a href="https://www.siemens.com/global/en/products/services/cert.html" target="_blank">Siemens ProductCERT — official programme page</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official company page, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[28]</span> <a href="https://cert-portal.siemens.com/" target="_blank">Siemens ProductCERT Security Advisory Portal</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official security advisory portal, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[29]</span> <a href="https://hackerone.com/siemens" target="_blank">Siemens Vulnerability Disclosure Policy — HackerOne</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official VDP, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[30]</span> <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-25-112-01" target="_blank">CISA ICS Advisory ICSA-25-112-01 — Siemens TeleControl Server Basic SQL Injection</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official CISA advisory, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[31]</span> <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-25-345-09" target="_blank">CISA ICS Advisory ICSA-25-345-09 — Siemens Gridscale X Prepay</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official CISA advisory, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[32]</span> <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-24-354-04" target="_blank">CISA ICS Advisory ICSA-24-354-04 — Siemens UMC Heap Buffer Overflow</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official CISA advisory, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[33]</span> <a href="https://industrialcyber.co/cisa/cisa-flags-ics-vulnerabilities-in-products-from-siemens-schneider-electric-rockwell-and-others/" target="_blank">CISA ICS vulnerability volume — Siemens 55% of ICS KEV — Industrial Cyber</a> <span style="color:#9CA3AF;font-size:10px;">(SECONDARY — Security industry news, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[34]</span> <a href="https://press.siemens.com/global/en/pressrelease/supervisory-board-endorses-strategic-direction-and-leadership-team-siemens-ag-and" target="_blank">Supervisory Board extends Busch CEO contract to 2030 — Siemens Press Release</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official press release, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[35]</span> <a href="https://www.bloomberg.com/news/articles/2025-07-03/siemens-says-us-has-rescinded-chip-software-curbs-on-china" target="_blank">US rescinds EDA chip software export curbs on China — Bloomberg, July 2025</a> <span style="color:#9CA3AF;font-size:10px;">(SECONDARY — Financial news, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[36]</span> <a href="https://assets.new.siemens.com/siemens/assets/api/uuid:d4d42703-058c-45d5-9a24-3eef91f78681/siemens-solutions-nis2-requirements.pdf" target="_blank">Siemens NIS2 requirements whitepaper</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official Siemens whitepaper, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[37]</span> <a href="https://cloudsecurityalliance.org/star/registry/siemens-ag/services/xcelerator-as-a-service-xaas" target="_blank">CSA STAR Registry — Siemens Xcelerator XaaS</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Cloud Security Alliance registry, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[38]</span> <a href="https://www.coface.com/news-economy-and-insights/business-risk-dashboard/country-risk-files/germany" target="_blank">Coface Germany country risk file</a> <span style="color:#9CA3AF;font-size:10px;">(SECONDARY — Country risk rating, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[39]</span> <a href="https://www.justice.gov/usao-edva/pr/siemens-energy-inc-pleads-guilty-stealing-confidential-competitor-information-104m" target="_blank">US DOJ — Siemens Energy Inc. guilty plea $104M, September 2024</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official US DOJ press release, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[40]</span> <a href="https://vorarlberg.orf.at/stories/3339438/" target="_blank">ORF Vorarlberg — Siemens KHBG hospital fraud investigation</a> <span style="color:#9CA3AF;font-size:10px;">(SECONDARY — Regional broadcast news (Austria), 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[41]</span> <a href="https://www.jns.org/siemens-signed-israel-boycott-contract-with-turkish-railways-german-media/" target="_blank">JNS — Siemens Turkish railway Israel boycott contract</a> <span style="color:#9CA3AF;font-size:10px;">(SECONDARY — News, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[42]</span> <a href="https://bdsmovement.net/siemens-and-chevron-stop-fueling-apartheid-and-climate-disaster" target="_blank">BDS Movement — Boycott Siemens and Chevron campaign</a> <span style="color:#9CA3AF;font-size:10px;">(SECONDARY — Activist organisation, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[43]</span> <a href="https://press.siemens.com/global/en/news/joe-kaeser-adani-carmichael-project" target="_blank">Siemens official statement on Adani Carmichael contract — Siemens Press Release</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official company statement, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[44]</span> <a href="https://www.ecowatch.com/siemens-coal-mine-australia-2644703080.html" target="_blank">Siemens backs Adani coal project — EcoWatch</a> <span style="color:#9CA3AF;font-size:10px;">(SECONDARY — Environmental news, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[45]</span> <a href="https://www.business-humanrights.org/en/companies/siemens/" target="_blank">Business & Human Rights Resource Centre — Siemens profile</a> <span style="color:#9CA3AF;font-size:10px;">(SECONDARY — NGO tracker, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[46]</span> <a href="https://blogs.sw.siemens.com/digital-logistics/2024/10/28/building-up-supply-chain-resilience/" target="_blank">Siemens supply chain resilience blog — October 2024</a> <span style="color:#9CA3AF;font-size:10px;">(SECONDARY — Company blog, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[47]</span> <a href="https://press.siemens.com/global/en/pressrelease/siemens-ag-supervisory-board-announces-executive-leadership-appointments-accelerate" target="_blank">Siemens AG Managing Board appointments — CFO succession, August 2024</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official press release, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[48]</span> <a href="https://assets.new.siemens.com/siemens/assets/api/uuid:1574e38d-5827-4ade-a1bf-dcede847e8aa/S-P-Rating-Score-Snapshot.pdf" target="_blank">S&P Rating Score Snapshot — Siemens AG, January 30, 2026</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Rating agency document, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[49]</span> <a href="https://assets.new.siemens.com/siemens/assets/api/uuid:2616a143-2408-488f-a6a6-8fad7c82ff5c/siemens-integrity-initiative-annual-report-2024-final.pdf" target="_blank">Siemens Integrity Initiative Annual Report 2024</a> <span style="color:#9CA3AF;font-size:10px;">(PRIMARY — Official report, 2026-03-28)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[50]</span> <a href="https://www.handelsblatt.com/unternehmen/industrie/industrie-siemens-einigt-sich-mit-arbeitnehmern-ueber-jobabbau/100142408.html" target="_blank">Siemens works council agreement on restructuring — Handelsblatt, July 2025</a> <span style="color:#9CA3AF;font-size:10px;">(SECONDARY — German financial newspaper, 2026-03-28)</span></li>
+</ol>
+  <div class="info-box methodology-box" style="margin-top:24px;">
+    <p style="font-size:11px;color:#4A5568;line-height:1.7;"><strong>Disclaimer:</strong> This report is based on publicly available information gathered as of 2026-03-28. It does not constitute legal advice, financial advice, or a comprehensive audit. SPECTRUM accepts no liability for decisions made based solely on this report. Users are advised to conduct additional due diligence as appropriate for their risk appetite and regulatory context.</p>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-28</span>
+  <span>SPEC-2026-001</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ BACK COVER ═══════════════════════════════════════════════════════ -->
+<div class="page page-break" style="background:#1B2B5E;min-height:280px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.03);"></div>
+  <div style="position:absolute;bottom:-40px;left:80px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.02);"></div>
+  <p style="color:#A5B4FC;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;">SPECTRUM</p>
+  <p style="color:rgba(255,255,255,.5);font-size:11px;margin-top:4px;letter-spacing:.08em;">Vendor Intelligence Platform</p>
+  <div style="width:48px;height:2px;background:rgba(255,255,255,.2);margin:28px auto;"></div>
+  <p style="color:#fff;font-size:22px;font-weight:700;">Siemens Aktiengesellschaft</p>
+  <p style="color:#CBD5E1;font-size:12px;margin-top:6px;font-family:'JetBrains Mono',monospace;">SPEC-2026-001 · 2026-03-28</p>
+  <div style="width:48px;height:2px;background:rgba(255,255,255,.2);margin:28px auto;"></div>
+  <p style="color:rgba(255,255,255,.35);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;">CONFIDENTIAL — For Authorised Recipients Only</p>
+</div>
+
+</div><!-- .doc -->
+</body>
+</html>

@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SPECTRUM — ABB Ltd Vendor Intelligence Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 13px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: 'Inter', sans-serif; color: #0F1729; background: #F1F5F9; line-height: 1.6; }
+a { color: #1B2B5E; text-decoration: none; }
+a:hover { text-decoration: underline; color: #2A3F7E; }
+code, .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* ── Document container ───────────────────────────────────── */
+.doc { max-width: 900px; margin: 0 auto; background: #fff;
+  box-shadow: 0 4px 32px rgba(27,43,94,.10); }
+
+/* ── Page sections ────────────────────────────────────────── */
+.page { padding: 48px 56px; border-bottom: 1px solid #E2E8F0; position: relative; }
+.page:last-child { border-bottom: none; }
+.page-break { page-break-before: always; }
+.page-alt { background: #F0F2F5; }
+
+/* ── Section headers ──────────────────────────────────────── */
+.sh { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.sh-bar { width: 4px; height: 32px; background: #1B2B5E; border-radius: 2px; flex-shrink: 0; }
+.sh-label { font-size: 10px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: #4A5568; }
+.sh-title { font-size: 20px; font-weight: 700; color: #0F1729; }
+.sh-badge { margin-left: auto; }
+
+/* ── Cover page ───────────────────────────────────────────── */
+.cover { background: #1B2B5E; padding: 64px 56px 48px; color: #fff; position: relative; overflow: hidden; }
+.cover::before { content: ''; position: absolute; top: -80px; right: -80px;
+  width: 320px; height: 320px; border-radius: 50%; background: rgba(255,255,255,.03); }
+.cover-brand { font-size: 11px; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: #A5B4FC; margin-bottom: 6px; }
+.cover-subtitle { color: #CBD5E1; font-size: 15px; margin-bottom: 32px; }
+.cover-name { font-size: 32px; font-weight: 700; margin-bottom: 4px; }
+.cover-kpi { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+.cover-kpi-card { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 8px; padding: 14px 24px; }
+.cover-kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: #94A3B8; }
+.cover-meta { padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1);
+  display: flex; gap: 24px; flex-wrap: wrap; font-size: 11px; color: #64748B; }
+.cover-meta span { color: #94A3B8; }
+.cover-meta p { max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cover-meta p:last-child { max-width: none; margin-left: auto; }
+
+/* ── Table of contents ────────────────────────────────────── */
+.toc-list { list-style: none; padding: 0; }
+.toc-list li { display: flex; align-items: baseline; gap: 8px; padding: 8px 0;
+  border-bottom: 1px dotted #E2E8F0; font-size: 13px; }
+.toc-list li:last-child { border-bottom: none; }
+.toc-num { font-family: 'JetBrains Mono', monospace; font-weight: 700;
+  color: #1B2B5E; min-width: 28px; }
+.toc-link { color: #0F1729; font-weight: 500; }
+.toc-dots { flex: 1; border-bottom: 1px dotted #CBD5E1; margin: 0 4px; min-width: 20px; }
+.toc-page { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #4A5568; }
+
+/* ── KPI cards ────────────────────────────────────────────── */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0; }
+.kpi-card { background: #F8F9FA; border-radius: 8px; padding: 16px; text-align: center; }
+.kpi-val { font-size: 28px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.kpi-label { font-size: 11px; color: #4A5568; margin-top: 4px; }
+
+/* ── Pillar cards (scorecard grid) ────────────────────────── */
+.pillar-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.pillar-card { border-radius: 8px; padding: 16px; border: 1px solid #E2E8F0; }
+.pillar-card-label { font-size: 11px; color: #4A5568; margin-bottom: 4px; }
+.pillar-card-score { font-size: 24px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.pillar-card-max { font-size: 12px; color: #9CA3AF; }
+
+/* ── Pillar deep dive ─────────────────────────────────────── */
+.pillar-header { display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 16px; padding-left: 16px; }
+.pillar-score-big { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; }
+.pillar-score-max { font-size: 14px; color: #4A5568; }
+.pillar-narrative { font-size: 13px; line-height: 1.75; background: #F8F9FA;
+  padding: 16px 20px; border-radius: 6px; margin-bottom: 16px; }
+
+/* ── Risk / severity badges ───────────────────────────────── */
+.badge { display: inline-block; padding: 2px 12px; border-radius: 9999px;
+  font-size: 11px; font-weight: 700; border: 1px solid; }
+
+/* ── Tables ────────────────────────────────────────────────── */
+.data-table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+.data-table th { background: #1B2B5E; color: #FFFFFF; padding: 10px 14px; text-align: left;
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+.data-table th:first-child { border-radius: 4px 0 0 0; }
+.data-table th:last-child { border-radius: 0 4px 0 0; }
+.data-table td { padding: 10px 14px; border-bottom: 1px solid #E2E8F0; vertical-align: top; }
+.data-table tr:nth-child(even) td { background: #F8F9FA; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table .label-cell { color: #4A5568; width: 140px; }
+.data-table .mono-cell { font-family: 'JetBrains Mono', monospace; }
+.data-table .pts-cell { text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+.data-table .src-cell { text-align: center; font-size: 10px; }
+
+/* ── Finding cards (in pillar sections) ────────────────────── */
+.finding-card { border-radius: 0 6px 6px 0; padding: 14px 18px; margin-bottom: 10px;
+  page-break-inside: avoid; }
+.finding-title { font-size: 12px; font-weight: 600; margin: 4px 0 2px; }
+.finding-detail { font-size: 11px; color: #4A5568; line-height: 1.5; }
+.finding-meta { display: flex; justify-content: space-between; margin-bottom: 4px; }
+
+/* ── Findings Register (Section 10 — card layout) ─────────── */
+.fr-summary { display: flex; gap: 6px; align-items: center; margin-bottom: 20px;
+  font-size: 12px; font-weight: 600; }
+.fr-summary-sep { color: #CBD5E1; }
+.fr-card { background: #fff; border: 1px solid #E2E8F0; border-radius: 0 8px 8px 0;
+  padding: 16px 20px; margin-bottom: 12px; page-break-inside: avoid; }
+.fr-card-header { display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px; flex-wrap: wrap; gap: 6px; }
+.fr-card-left { display: flex; align-items: center; gap: 8px; }
+.fr-card-right { flex-shrink: 0; }
+.fr-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+  color: #4A5568; min-width: 20px; }
+.fr-pillar { font-size: 10px; font-weight: 700; color: #1B2B5E; text-transform: uppercase;
+  letter-spacing: .05em; background: #EFF6FF; padding: 2px 8px; border-radius: 4px; }
+.fr-title { font-size: 13px; font-weight: 700; color: #0F1729; line-height: 1.4; margin-bottom: 4px; }
+.fr-detail { font-size: 11px; color: #4A5568; line-height: 1.6; }
+.fr-footer { margin-top: 8px; }
+
+/* ── Info boxes ────────────────────────────────────────────── */
+.info-box { border-radius: 6px; padding: 16px 20px; margin-bottom: 16px; }
+.info-box-title { font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+.conditions-box { background: #FAF4EA; border: 1px solid #E5D5B8; }
+.methodology-box { background: #F8F9FA; border-left: 4px solid #E2E8F0; }
+.encevo-box { background: #EFF6FF; border-radius: 6px; padding: 14px; margin-top: 12px; }
+.gap-box { background: #FAF4EA; border: 1px solid #E5D5B8; }
+
+/* ── Running header & footer (print) ──────────────────────── */
+.page-header { display: none; }
+.page-footer { display: none; }
+
+/* ── Print styles ─────────────────────────────────────────── */
+@media print {
+  html { font-size: 12px; }
+  body { background: #fff; }
+  .doc { box-shadow: none; max-width: 100%; }
+  @page { size: A4; margin: 18mm 15mm 20mm 15mm; }
+  .page { padding: 32px 0; border-bottom: none; }
+  .page-break { page-break-before: always; }
+  .cover { margin: -18mm -15mm 0; padding: 48px 40px 36px; width: calc(100% + 30mm); }
+  .page-header, .page-footer { display: flex; justify-content: space-between;
+    font-size: 9px; color: #9CA3AF; padding: 0 0 8px; }
+  .page-footer { padding: 8px 0 0; border-top: 1px solid #E2E8F0; margin-top: auto; }
+  p, li { orphans: 3; widows: 3; }
+  .data-table tr { page-break-inside: avoid; }
+  .finding-card { page-break-inside: avoid; }
+  .pillar-card { page-break-inside: avoid; }
+  .no-print { display: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<!-- ═══ COVER PAGE ═══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <p class="cover-brand">SPECTRUM · VENDOR INTELLIGENCE</p>
+  <h1 class="cover-name">ABB Ltd</h1>
+  <p class="cover-subtitle">Vendor Due Diligence Assessment</p>
+  <div class="cover-kpi">
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Overall Score</p>
+      <p style="color:#B5751A;font-size:36px;font-weight:700;letter-spacing:-.02em;" class="mono">75<span style="font-size:16px;color:#94A3B8;">/100</span></p>
+    </div>
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Verdict</p>
+      <p style="color:#B5751A;font-size:24px;font-weight:700;">CONDITIONAL</p>
+    </div>
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Risk Level</p>
+      <p style="color:#B5751A;font-size:24px;font-weight:700;">MEDIUM</p>
+    </div>
+  </div>
+  <div class="cover-meta">
+    <p>Report ID: <span>SPEC-2026-003</span></p>
+    <p>Generated: <span>2026-03-29</span></p>
+    <p>Sector: <span>Electrification / Industrial Automation / Energy Technology</span></p>
+    <p style="margin-left:auto;">CONFIDENTIAL — For Authorised Recipients Only</p>
+  </div>
+</div>
+
+<!-- ═══ TABLE OF CONTENTS ════════════════════════════════════════════════ -->
+<div class="page page-break" id="toc">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>ABB Ltd · SPEC-2026-003</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Navigation</p><p class="sh-title">Table of Contents</p></div></div>
+  <ul class="toc-list">
+    <li><span class="toc-num">01</span><a class="toc-link" href="#exec-summary">Executive Summary</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">02</span><a class="toc-link" href="#scorecard">Risk Scorecard</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">03</span><a class="toc-link" href="#profile">Supplier Profile</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">04</span><a class="toc-link" href="#pillar-p1">P1 — Financial Stability</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">05</span><a class="toc-link" href="#pillar-p2">P2 — ESG & Sustainability</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">06</span><a class="toc-link" href="#pillar-p3">P3 — Regulatory & Legal</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">07</span><a class="toc-link" href="#pillar-p4">P4 — Cybersecurity & Data</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">08</span><a class="toc-link" href="#pillar-p5">P5 — Operational & Geopolitical Resilience</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">09</span><a class="toc-link" href="#pillar-p6">P6 — Reputational Intelligence</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">10</span><a class="toc-link" href="#findings-register">Findings Register</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">11</span><a class="toc-link" href="#capa">Corrective & Preventive Actions</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">12</span><a class="toc-link" href="#playbook">Contract Playbook</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">13</span><a class="toc-link" href="#monitoring">Monitoring Dashboard</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">14</span><a class="toc-link" href="#methodology">Methodology & Sources</a><span class="toc-dots"></span></li>
+  </ul>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-003</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ EXECUTIVE SUMMARY ════════════════════════════════════════════════ -->
+<div class="page page-break" id="exec-summary">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>ABB Ltd · SPEC-2026-003</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 01</p><p class="sh-title">Executive Summary</p></div></div>
+  <div style="display:grid;grid-template-columns:180px 1fr;gap:32px;align-items:start;margin-bottom:20px;">
+    <div style="text-align:center;">
+      <svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="90" cy="90" r="64" fill="none" stroke="#E2E8F0" stroke-width="12"/>
+  <circle cx="90" cy="90" r="64" fill="none" stroke="#B5751A" stroke-width="12"
+    stroke-dasharray="301.6 402.1" stroke-linecap="round" transform="rotate(-90 90 90)"/>
+  <text x="90" y="84" text-anchor="middle" font-family="'JetBrains Mono',monospace"
+    font-size="32" font-weight="700" fill="#B5751A">75</text>
+  <text x="90" y="104" text-anchor="middle" font-family="Inter,sans-serif"
+    font-size="12" fill="#4A5568">/100</text>
+</svg>
+      <p style="margin-top:8px;font-size:12px;font-weight:700;color:#B5751A;">CONDITIONAL</p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+    <div>
+      <div class="info-box" style="background:#F8F9FA;">
+        <p style="font-size:13px;line-height:1.8;">ABB Ltd is financially strong (S&P: A/Stable, Moody's: A2/Stable; record FY2025 revenues of $33.2B; near-zero net leverage) and demonstrates sector-leading ESG practices (CDP A, SBTi-validated net-zero targets). However, two material risk factors require contractual mitigation: (1) ABB is the world's first triple FCPA recidivist, having resolved a $462.5M coordinated bribery case in December 2022 — the pattern of targeting state-owned energy utilities directly parallels Encevo's counterparty profile; (2) an active US Congressional investigation into ABB's supply of components to Chinese state-owned crane manufacturer ZPMC, installed at US critical infrastructure ports, creates escalating geopolitical and reputational risk. The May 2023 Black Basta ransomware breach with confirmed data exfiltration further elevates cybersecurity concerns. Engagement is recommended with enhanced contract protections.</p>
+      </div>
+      <div class="info-box" style="background:#1B2B5E;">
+        <p style="color:#A5B4FC;font-size:10px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">Primary Recommendation</p>
+        <p style="color:#fff;font-size:13px;line-height:1.6;">Engage with enhanced contract protections. Priority actions: (1) obtain DPA closure confirmation; (2) insert FCPA compliance clause; (3) confirm product division scope to address Robotics divestiture risk; (4) request post-breach cybersecurity remediation report.</p>
+      </div>
+    </div>
+  </div>
+  <div class="info-box conditions-box">
+    <p class="info-box-title" style="color:#B5751A;">CONDITIONS FOR QUALIFICATION</p>
+    <ul style="padding-left:18px;font-size:12px;"><li style='margin-bottom:8px;line-height:1.6;'>ABB must provide written confirmation that the December 2022 DOJ Deferred Prosecution Agreement has been formally closed without new charges, and that the enhanced internal compliance programme mandated under the DPA remains in operation.</li><li style='margin-bottom:8px;line-height:1.6;'>Contract must include robust FCPA/anti-bribery representation and warranty clause, requiring ABB to notify Encevo within 30 days of any new anti-bribery investigation, charge, or enforcement action.</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>Encevo procurement team must confirm that its ABB product/service relationship falls within the Electrification, Motion, or Process Automation divisions —</strong> not the Robotics & Discrete Automation business being divested to SoftBank (closing mid-to-late 2026).</li><li style='margin-bottom:8px;line-height:1.6;'>ABB must provide post-incident cybersecurity remediation report confirming scope of May 2023 breach, whether any Encevo-related data was affected, and security improvements implemented.</li><li style='margin-bottom:8px;line-height:1.6;'>Annual anti-bribery and FCPA compliance confirmation to be included in supplier review cadence, with right to terminate for breach.</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>Monitor for any US executive orders, procurement restrictions, or regulatory actions arising from the ZPMC Congressional investigation —</strong> any escalation to formal enforcement warrants immediate review of ABB relationship.</li></ul>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi-card" style="border-top:3px solid #6B1E1E;"><p class="kpi-val" style="color:#6B1E1E;">0</p><p class="kpi-label">Critical Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #B83B2E;"><p class="kpi-val" style="color:#B83B2E;">2</p><p class="kpi-label">High Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #B5751A;"><p class="kpi-val" style="color:#B5751A;">4</p><p class="kpi-label">Medium Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #2D7A4F;"><p class="kpi-val" style="color:#2D7A4F;">3</p><p class="kpi-label">Low / Info</p></div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-003</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+
+<!-- ═══ RISK SCORECARD ═══════════════════════════════════════════════════ -->
+<div class="page page-break" id="scorecard">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>ABB Ltd · SPEC-2026-003</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 02</p><p class="sh-title">Risk Scorecard</p></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+    <div style="text-align:center;"><svg width="280" height="280" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+<polygon points="140.0,115.0 161.7,127.5 161.7,152.5 140.0,165.0 118.3,152.5 118.3,127.5" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,90.0 183.3,115.0 183.3,165.0 140.0,190.0 96.7,165.0 96.7,115.0" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,65.0 205.0,102.5 205.0,177.5 140.0,215.0 75.0,177.5 75.0,102.5" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,40.0 226.6,90.0 226.6,190.0 140.0,240.0 53.4,190.0 53.4,90.0" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="140.0" y2="40.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="226.6" y2="90.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="226.6" y2="190.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="140.0" y2="240.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="53.4" y2="190.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="53.4" y2="90.0" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,60.0 208.4,100.5 206.7,178.5 140.0,186.0 65.5,183.0 81.1,106.0" fill="#B5751A" fill-opacity="0.15" stroke="#B5751A" stroke-width="2"/>
+<text x="140.0" y="18.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Financial</text>
+<text x="140.0" y="4.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#2D7A4F">80</text>
+<text x="245.7" y="79.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">ESG</text>
+<text x="257.8" y="72.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">79</text>
+<text x="245.7" y="201.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Regulatory</text>
+<text x="257.8" y="208.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">77</text>
+<text x="140.0" y="262.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Cyber</text>
+<text x="140.0" y="276.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B83B2E">46</text>
+<text x="34.3" y="201.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Operational</text>
+<text x="22.2" y="208.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#2D7A4F">86</text>
+<text x="34.3" y="79.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Reputation</text>
+<text x="22.2" y="72.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">68</text>
+</svg></div>
+    <div class="pillar-grid">
+      <div class="pillar-card" style="border-top:3px solid #2D7A4F;">
+        <p class="pillar-card-label">Financial Stability</p>
+        <p class="pillar-card-score" style="color:#2D7A4F;">80<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">ESG & Sustainability</p>
+        <p class="pillar-card-score" style="color:#B5751A;">79<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">Regulatory & Legal</p>
+        <p class="pillar-card-score" style="color:#B5751A;">77<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B83B2E;">
+        <p class="pillar-card-label">Cybersecurity & Data</p>
+        <p class="pillar-card-score" style="color:#B83B2E;">46<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #2D7A4F;">
+        <p class="pillar-card-label">Operational & Geopolitical Resilience</p>
+        <p class="pillar-card-score" style="color:#2D7A4F;">86<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">Reputational Intelligence</p>
+        <p class="pillar-card-score" style="color:#B5751A;">68<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#4A5568;margin-top:4px;" class="mono">Critical infrastructure weighting applied (ABB): P1×0.22 + P2×0.20 + P3×0.20 + P4×0.13 + P5×0.20 + P6×0.05 = (80×0.22) + (79×0.20) + (77×0.20) + (46×0.13) + (86×0.20) + (68×0.05) = 17.6 + 15.8 + 15.4 + 5.98 + 17.2 + 3.4 = 75.38 → 75</p>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-003</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ SUPPLIER PROFILE ═════════════════════════════════════════════════ -->
+<div class="page page-break" id="profile">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>ABB Ltd · SPEC-2026-003</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 03</p><p class="sh-title">Supplier Profile</p></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+    <table class="data-table"><tbody>
+      <tr><td class="label-cell">Legal Name</td><td style="font-weight:600;">ABB Ltd</td></tr>
+      <tr><td class="label-cell">HQ Address</td><td>Affolternstrasse 44, 8050 Zurich, Switzerland</td></tr>
+      <tr><td class="label-cell">Country</td><td>Switzerland</td></tr>
+      <tr><td class="label-cell">Ownership</td><td>public</td></tr>
+      <tr><td class="label-cell">Exchange</td><td>SIX Swiss Exchange (primary); NYSE (ADR)</td></tr>
+      <tr><td class="label-cell">Ticker</td><td class="mono-cell">ABBN (SIX); ABB (NYSE)</td></tr>
+      <tr><td class="label-cell">Sector</td><td>Electrification / Industrial Automation / Energy Technology</td></tr>
+      <tr><td class="label-cell">Employees</td><td class="mono-cell">105000</td></tr>
+      <tr><td class="label-cell">Founded</td><td class="mono-cell">1988</td></tr>
+      <tr><td class="label-cell">Parent</td><td>—</td></tr>
+    </tbody></table>
+    <div>
+      <p style="font-size:10px;color:#1B2B5E;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:10px;">Key Executives</p>
+      <table class="data-table"><tbody>
+        <tr><td style="font-weight:600;">Morten Wierod</td><td style="color:#4A5568;">President and CEO <a href="https://global.abb/group/en/about/corporate-governance/executive-committee/morten-wierod" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+        <tr><td style="font-weight:600;">Christian Nilsson</td><td style="color:#4A5568;">Chief Financial Officer <a href="https://new.abb.com/news/detail/129997/abb-names-christian-nilsson-to-succeed-timo-ihamuotila-as-cfo" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+        <tr><td style="font-weight:600;">Peter R. Voser</td><td style="color:#4A5568;">Chairman of the Board <a href="https://global.abb/group/en/about/corporate-governance/board-of-directors/peter-voser" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+      </tbody></table>
+      <div class="encevo-box">
+        <p style="font-size:11px;font-weight:700;color:#1B2B5E;margin-bottom:4px;">Encevo Relationship</p>
+        <p style="font-size:12px;">Electrification and automation equipment supplier for Encevo S.A., Luxembourg. ABB provides low-voltage and medium-voltage switchgear, drives, motors, and process automation technology for Encevo's energy infrastructure.</p>
+        <p style="font-size:11px;color:#4A5568;margin-top:6px;">Criticality: Critical · Spend: Unknown</p>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-003</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P1 — FINANCIAL STABILITY ═══ -->
+<div class="page page-break" id="pillar-p1">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>ABB Ltd · SPEC-2026-003</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #2D7A4F;">
+    <div>
+      <p class="sh-label">Section 04 · P1</p>
+      <p class="sh-title">Financial Stability</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#2D7A4F;">80<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">The financial stability assessment produced a score of 80/100 (LOW risk). Strengths include: Credit Rating; EBITDA Margin; Net Debt / EBITDA Leverage.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>Credit Rating</td><td style="color:#4A5568;">S&P: A/Stable (upgraded March 2024, affirmed November 2024); Moody's: A2/Stable (upgraded March 2024)</td>
+    <td class="src-cell"><a href="https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3146001" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">18/20</td></tr>
+    <tr><td>Revenue Trend YoY</td><td style="color:#4A5568;">FY2024: $32.85B, up 2% reported (3% comparable). FY2025: $33.22B, up 1.13%</td>
+    <td class="src-cell"><a href="https://new.abb.com/news/detail/123065/q4-2024-results" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">9/15</td></tr>
+    <tr><td>EBITDA Margin</td><td style="color:#4A5568;">Operational EBITA margin 18.1% FY2024 (ABB's primary profitability metric, proxied for EBITDA margin)</td>
+    <td class="src-cell"><a href="https://library.e.abb.com/public/e209b7a3e9854897844845807632dcea/Financial%20Report%202024.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">12/15</td></tr>
+    <tr><td>Net Debt / EBITDA Leverage</td><td style="color:#4A5568;">Estimated net debt ~$345M (total debt $6.95B minus cash $6.6B); vs Operational EBITA $5.96B → ratio 0.06x. Extremely low leverage.</td>
+    <td class="src-cell"><a href="https://library.e.abb.com/public/daae2758e6a546efab24d3967aaa0f37/ABB-Q4-2024-financial-information.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">13/15</td></tr>
+    <tr><td>Liquidity — Current Ratio</td><td style="color:#4A5568;">Current ratio not disclosed in search snippets. $2B revolving credit facility fully undrawn. Free cash flow $3.9B FY2024. Neutral band appli</td>
+    <td class="src-cell"><a href="https://library.e.abb.com/public/daae2758e6a546efab24d3967aaa0f37/ABB-Q4-2024-financial-information.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">6/10</td></tr>
+    <tr><td>No Audit Qualification or Going Concern</td><td style="color:#4A5568;">ABB Financial Report 2024: 'financial statements have been prepared on a going concern basis'</td>
+    <td class="src-cell"><a href="https://library.e.abb.com/public/e209b7a3e9854897844845807632dcea/Financial%20Report%202024.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>No Material Restructuring Event</td><td style="color:#4A5568;">Normal operational restructuring per ABB Way model. Robotics divestiture to SoftBank ($5.375B) is strategic.</td>
+    <td class="src-cell"><a href="https://www.therobotreport.com/abb-announces-plans-to-spin-off-its-robotics-division-during-earnings-call/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">7/10</td></tr>
+    <tr><td>No Bankruptcy, Insolvency, or Default</td><td style="color:#4A5568;">No adverse findings identified in public sources as of 2026-03-29.</td>
+    <td class="src-cell"><a href="https://library.e.abb.com/public/e209b7a3e9854897844845807632dcea/Financial%20Report%202024.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">5/5</td></tr>
+  </tbody></table>
+  <div class="finding-card" style="border-left:4px solid #2D7A4F;background:#EEF5F1;">
+    <div class="finding-meta">
+      <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+    </div>
+    <p class="finding-title">ABB Robotics Divestiture to SoftBank ($5.375B) — Structural Change, Closing Mid-Late 2026</p>
+    <p class="finding-detail">ABB has agreed to sell its Robotics & Discrete Automation business to SoftBank Group for an enterprise value of $5.375B, with closing anticipated mid-to-late 2026. This represents a pivot from the earlier framing as a sp <a href="https://www.ainvest.com/news/abb-robotics-spin-china-expansion-play-dominance-130b-global-market-2507/" target="_blank" style="font-size:10px;">[Source]</a></p>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-003</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P2 — ESG & SUSTAINABILITY ═══ -->
+<div class="page page-break" id="pillar-p2">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>ABB Ltd · SPEC-2026-003</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 05 · P2</p>
+      <p class="sh-title">ESG & Sustainability</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">79<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">The ESG and sustainability assessment produced a score of 79/100 (MEDIUM risk). Strengths include: Publishes Annual Sustainability Report; CSRD / GRI / TCFD Reporting; Net Zero / SBTi Target. Areas of concern or data gaps: No ESG Controversy History.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>Publishes Annual Sustainability Report</td><td style="color:#4A5568;">ABB Sustainability Statement 2024 published February 27 2025</td>
+    <td class="src-cell"><a href="https://search.abb.com/library/Download.aspx?DocumentID=9AKK108470A7211&LanguageCode=en&DocumentPartId=&Action=Launch" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>CSRD / GRI / TCFD Reporting</td><td style="color:#4A5568;">ABB is addressing CSRD in its sustainability reporting framework; Sustainability Statement 2024 reflects ESRS-aligned reporting</td>
+    <td class="src-cell"><a href="https://global.abb/group/en/sustainability/reports" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">12/12</td></tr>
+    <tr><td>Scope 1 & 2 Emissions Disclosed</td><td style="color:#4A5568;">78% reduction scope 1+2 vs 2019 confirmed. Absolute tCO2e figures require reading Sustainability Statement 2024 directly.</td>
+    <td class="src-cell"><a href="https://search.abb.com/library/Download.aspx?DocumentID=9AKK108470A7211&LanguageCode=en&DocumentPartId=&Action=Launch" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">4/8</td></tr>
+    <tr><td>Net Zero / SBTi Target</td><td style="color:#4A5568;">ABB's 2030 and 2050 scope 1, 2 and 3 targets validated by SBTi in 2024</td>
+    <td class="src-cell"><a href="https://new.abb.com/news/detail/116943/abbs-2030-and-2050-science-based-targets-approved-by-the-science-based-targets-initiative-sbti" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/8</td></tr>
+    <tr><td>No Material Environmental Violations</td><td style="color:#4A5568;">No material environmental violations identified 2023-2025. PFAS presence in some products disclosed and managed via Material Compliance prog</td>
+    <td class="src-cell"><a href="https://violationtracker.goodjobsfirst.org/parent/abb-ltd" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/12</td></tr>
+    <tr><td>LkSG / Modern Slavery Act Compliance</td><td style="color:#4A5568;">ABB published Modern Slavery and Human Trafficking Statement for FY2024 under UK, Australian, and Canadian laws</td>
+    <td class="src-cell"><a href="https://global.abb/group/en/sustainability/policies--statements-and-declarations/modern-slavery-and-human-trafficking-statement" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">7/10</td></tr>
+    <tr><td>No Labour or Human Rights Controversies</td><td style="color:#4A5568;">No adverse findings identified in public sources as of 2026-03-29. UFLPA monitoring only — no enforcement actions confirmed.</td>
+    <td class="src-cell"><a href="https://global.abb/group/en/sustainability/social-progress" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>Board Independence & Governance Quality</td><td style="color:#4A5568;">10-member board with experienced independent directors. All AGM 2025 proposals approved. Corporate Governance Report 2024 published.</td>
+    <td class="src-cell"><a href="https://new.abb.com/news/detail/124528/abb-shareholders-approve-all-proposals-at-annual-general-meeting-2025" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/8</td></tr>
+    <tr><td>CDP Climate Disclosure Score</td><td style="color:#4A5568;">ABB achieved CDP A score for Climate Change (2023 CDP cycle)</td>
+    <td class="src-cell"><a href="https://new.abb.com/news/detail/112326/abb-recognized-with-a-score-for-transparency-on-climate-change" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/8</td></tr>
+    <tr><td>No ESG Controversy History</td><td style="color:#4A5568;">ABB is the first company to resolve three FCPA enforcement actions (2004, 2010, 2022). Active US Congressional investigation into ZPMC crane</td>
+    <td class="src-cell"><a href="https://www.justice.gov/archives/opa/pr/abb-agrees-pay-over-315-million-resolve-coordinated-global-foreign-bribery-case" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">2/14</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-003</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P3 — REGULATORY & LEGAL ═══ -->
+<div class="page page-break" id="pillar-p3">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>ABB Ltd · SPEC-2026-003</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 06 · P3</p>
+      <p class="sh-title">Regulatory & Legal</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">77<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">The regulatory and legal compliance assessment produced a score of 77/100 (MEDIUM risk). Strengths include: Sanctions Clean; No PEP Ownership; GDPR Fines. Areas of concern or data gaps: No Material Active Litigation; Anti-Bribery — No FCPA / UK Bribery Act Actions.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>Sanctions Clean</td><td style="color:#4A5568;">Confirmed via OFAC, EU Consolidated List, OpenSanctions, UK OFSI — no match. Pipeline proceeds.</td>
+    <td class="src-cell"><a href="https://www.opensanctions.org/entities/NK-YEUhBwkbgKazg95shu26v7/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">25/25</td></tr>
+    <tr><td>No PEP Ownership</td><td style="color:#4A5568;">Investor AB (Wallenberg family) holds 14.4% — family members are not serving government officials. No FATF PEP classification applicable.</td>
+    <td class="src-cell"><a href="https://en.wikipedia.org/wiki/Investor_AB" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>GDPR Fines</td><td style="color:#4A5568;">No adverse findings identified in public sources as of 2026-03-29. May 2023 breach: DPA notification made, no GDPR fine confirmed.</td>
+    <td class="src-cell"><a href="https://www.enforcementtracker.com/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>No Material Active Litigation</td><td style="color:#4A5568;">Three-year DOJ DPA signed December 2 2022. SEC cease and desist order. DPA likely concluded by March 2026 assessment date but was material d</td>
+    <td class="src-cell"><a href="https://www.justice.gov/archives/opa/pr/abb-agrees-pay-over-315-million-resolve-coordinated-global-foreign-bribery-case" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">3/15</td></tr>
+    <tr><td>Anti-Bribery — No FCPA / UK Bribery Act Actions</td><td style="color:#4A5568;">ABB resolved its third FCPA action in December 2022 via three-year DPA. Triple recidivist. DPA concluded approximately December 2025.</td>
+    <td class="src-cell"><a href="https://fcpaprofessor.com/abb-becomes-first-company-resolve-three-fcpa-enforcement-actions/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">4/15</td></tr>
+    <tr><td>Relevant Operational Certifications</td><td style="color:#4A5568;">IEC 62443-4-1 ML-3 (exida certified); ISO 27001 (confirmed); ISO 9001/14001/45001 standard certifications for large industrial manufacturer</td>
+    <td class="src-cell"><a href="https://new.abb.com/news/detail/90956/abbs-capabilities-to-deliver-and-maintain-cyber-secure-automation-systems-acknowledged-with-exidas-globally-recognized-certification" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>Trade & Export Compliance</td><td style="color:#4A5568;">Russia exit completed July 2022. No export control violations identified 2023-2024. Formal trade controls policy in place.</td>
+    <td class="src-cell"><a href="https://new.abb.com/docs/librariesprovider27/default-document-library/2024-trade-controls-language-for-abb-tcs-sale.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-003</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P4 — CYBERSECURITY & DATA ═══ -->
+<div class="page page-break" id="pillar-p4">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>ABB Ltd · SPEC-2026-003</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B83B2E;">
+    <div>
+      <p class="sh-label">Section 07 · P4</p>
+      <p class="sh-title">Cybersecurity & Data</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B83B2E;">46<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">The cybersecurity and data protection assessment produced a score of 46/100 (HIGH risk). Strengths include: No CISA KEV Active Entries; Transparent Incident Disclosure. Areas of concern or data gaps: No Confirmed Data Breaches; SOC 2 Type II; No Ransomware/Destructive Attack.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>No Confirmed Data Breaches</td><td style="color:#4A5568;">Black Basta ransomware attack May 7 2023. Active Directory compromised via Qakbot trojan. Data exfiltrated (type not disclosed). DPAs notifi</td>
+    <td class="src-cell"><a href="https://new.abb.com/news/detail/103405/abb-provides-details-about-it-security-incident" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">8/25</td></tr>
+    <tr><td>ISO 27001 Certification</td><td style="color:#4A5568;">ISO 27001 confirmed via secondary source. Certificate scope and issuer not independently verified in accessible searches.</td>
+    <td class="src-cell"><a href="https://conformance1.com/cybersecurity-iso-27001/10-best-iso-27001-compliant-security-companies-in-2024/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">10/20</td></tr>
+    <tr><td>SOC 2 Type II</td><td style="color:#4A5568;">SOC2 not relevant for ABB's OT industrial equipment business. IEC 62443 is the applicable security standard. SOC2 N/A.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/15</td></tr>
+    <tr><td>No Ransomware/Destructive Attack</td><td style="color:#4A5568;">May 2023 Black Basta ransomware caused factory operations disruption and project delays. Data exfiltrated. Within 3-year window.</td>
+    <td class="src-cell"><a href="https://www.bleepingcomputer.com/news/security/us-govt-contractor-abb-confirms-ransomware-attack-data-theft/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/15</td></tr>
+    <tr><td>No CISA KEV Active Entries</td><td style="color:#4A5568;">No adverse findings identified in public sources as of 2026-03-29. CISA KEV direct database search recommended for formal verification.</td>
+    <td class="src-cell"><a href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>Bug Bounty / Responsible Disclosure</td><td style="color:#4A5568;">ABB has formal Vulnerability Handling Corporate Policy and ABB Cyber Security Requirements for Suppliers</td>
+    <td class="src-cell"><a href="https://www.abb.com/global/en/areas/motion/drives/expertise-technology/cyber-security" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">6/10</td></tr>
+    <tr><td>Transparent Incident Disclosure</td><td style="color:#4A5568;">ABB publicly disclosed May 2023 breach, notified law enforcement and DPAs, published incident details on corporate website</td>
+    <td class="src-cell"><a href="https://new.abb.com/news/detail/103405/abb-provides-details-about-it-security-incident" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">5/5</td></tr>
+  </tbody></table>
+  <div class="finding-card" style="border-left:4px solid #B5751A;background:#FAF4EA;">
+    <div class="finding-meta">
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+    <p class="finding-title">May 2023 Black Basta Ransomware Attack — Confirmed Data Exfiltration, Operational Disruption</p>
+    <p class="finding-detail">On May 7 2023, ABB suffered a confirmed Black Basta ransomware attack via a Qakbot trojan delivered through SEO poisoning and fake browser updates. The attack compromised Windows Active Directory and infected hundreds of <a href="https://new.abb.com/news/detail/103405/abb-provides-details-about-it-security-incident" target="_blank" style="font-size:10px;">[Source]</a></p>
+  </div>
+  <div class="finding-card" style="border-left:4px solid #B5751A;background:#FAF4EA;">
+    <div class="finding-meta">
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+    <p class="finding-title">ABB as Critical OT Vendor: Inherent Vulnerability Exposure as High-Profile ICS Target</p>
+    <p class="finding-detail">As a major industrial automation and electrification vendor serving critical infrastructure sectors (energy, utilities, data centres), ABB's products and systems are inherently high-value targets for state-sponsored thre <a href="https://global.abb/group/en/technology/cyber-security/nis-2-at-abb" target="_blank" style="font-size:10px;">[Source]</a></p>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-003</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P5 — OPERATIONAL & GEOPOLITICAL RESILIENCE ═══ -->
+<div class="page page-break" id="pillar-p5">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>ABB Ltd · SPEC-2026-003</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #2D7A4F;">
+    <div>
+      <p class="sh-label">Section 08 · P5</p>
+      <p class="sh-title">Operational & Geopolitical Resilience</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#2D7A4F;">86<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">The operational and geopolitical resilience assessment produced a score of 86/100 (LOW risk). Strengths include: Geographic Diversification; No Critical Workforce Reduction; Established Vendor Track Record. Areas of concern or data gaps: No Major Operational Outages; NIS2 / Critical Infrastructure Designation.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>BCP / DR Plan Disclosed</td><td style="color:#4A5568;">No formal public BCP disclosure found. ABB's global operations (100+ countries, local-for-local) provide de facto resilience. May 2023 incid</td>
+    <td class="src-cell"><a href="https://new.abb.com/news/detail/123065/q4-2024-results" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">12/20</td></tr>
+    <tr><td>No Major Operational Outages</td><td style="color:#4A5568;">May 2023 Black Basta attack disrupted factories and caused project delays. All systems restored within weeks. FY2024/FY2025 record performan</td>
+    <td class="src-cell"><a href="https://www.cayosoft.com/abbs-may-2023-active-directory-ransomware-attack/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">6/20</td></tr>
+    <tr><td>No Critical Single-Source Dependencies</td><td style="color:#4A5568;">~85% China revenue from local production; 75-80% US from domestic. No confirmed supply disruptions. Single-source supplier data not publicly</td>
+    <td class="src-cell"><a href="https://global.abb/group/en/stories/industries/china-sustainable-growth" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">9/15</td></tr>
+    <tr><td>Geographic Diversification</td><td style="color:#4A5568;">ABB operates across 100+ countries with 4 global business divisions. Local-for-local manufacturing in major markets.</td>
+    <td class="src-cell"><a href="https://global.abb/group/en" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>CEO / Leadership Stability</td><td style="color:#4A5568;">Morten Wierod succeeded Björn Rosengren as CEO August 2024. Internal promotion — ABB since 1998. Record FY2025 performance confirms effectiv</td>
+    <td class="src-cell"><a href="https://new.abb.com/news/detail/112917/abb-appoints-morten-wierod-to-succeed-bjorn-rosengren-as-ceo" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">10/15</td></tr>
+    <tr><td>No Critical Workforce Reduction</td><td style="color:#4A5568;">No adverse findings identified in public sources as of 2026-03-29. Normal operational restructuring only.</td>
+    <td class="src-cell"><a href="https://library.e.abb.com/public/e209b7a3e9854897844845807632dcea/Financial%20Report%202024.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>Established Vendor Track Record</td><td style="color:#4A5568;">ABB formed 1988 from ASEA AB and BBC Brown Boveri merger. ABB Ltd incorporated 1999. Over 35 years of continuous operations.</td>
+    <td class="src-cell"><a href="https://en.wikipedia.org/wiki/ABB" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>Geopolitical Exposure</td><td style="color:#4A5568;">Russia: fully exited July 2022. China: $4.3B revenue (13%) with active US Congressional investigation (ZPMC). China not sanctioned but creat</td>
+    <td class="src-cell"><a href="https://new.abb.com/news/detail/93368/abb-to-exit-russian-market" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">10/15</td></tr>
+    <tr><td>Data Sovereignty / CLOUD Act</td><td style="color:#4A5568;">ABB Ltd incorporated in Switzerland (Canton of Zurich). Not US-incorporated. No CLOUD Act jurisdictional issue for EU data.</td>
+    <td class="src-cell"><a href="https://www.moneyhouse.ch/en/company/abb-ltd-1991747691" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>NIS2 / Critical Infrastructure Designation</td><td style="color:#4A5568;">ABB supplies critical energy infrastructure (NIS2 essential entities). ABB proactively analyzing NIS2 impact. ZPMC investigation adds critic</td>
+    <td class="src-cell"><a href="https://global.abb/group/en/technology/cyber-security/nis-2-at-abb" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">4/10</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-003</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P6 — REPUTATIONAL INTELLIGENCE ═══ -->
+<div class="page page-break" id="pillar-p6">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>ABB Ltd · SPEC-2026-003</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 09 · P6</p>
+      <p class="sh-title">Reputational Intelligence</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">68<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">The reputational intelligence assessment produced a score of 68/100 (MEDIUM risk). Strengths include: No NGO Adverse Campaigns; No Executive Misconduct; No Product Safety Recalls. Areas of concern or data gaps: No Regulatory Watchdog Adverse Coverage.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>Overall Media Sentiment</td><td style="color:#4A5568;">Predominantly positive: record FY2024/FY2025 results, sustainability leadership. Negative: ZPMC Congressional investigation (Reuters, CNN, S</td>
+    <td class="src-cell"><a href="https://www.swissinfo.ch/eng/business/abb-s-china-operations-under-investigation-by-us-congress/49142870" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">16/25</td></tr>
+    <tr><td>No Regulatory Watchdog Adverse Coverage</td><td style="color:#4A5568;">US House Homeland Security Committee and Select Committee on CCP actively investigating ABB's role in ZPMC crane supply chain. US Coast Guar</td>
+    <td class="src-cell"><a href="https://homeland.house.gov/2024/03/12/wtas-joint-investigation-intoccp-backed-company-supplying-cranes-to-u-s-ports-reveals-shocking-findings/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">4/20</td></tr>
+    <tr><td>No NGO Adverse Campaigns</td><td style="color:#4A5568;">No adverse findings identified in public sources as of 2026-03-29. No active Amnesty, HRW, Greenpeace campaigns against ABB identified.</td>
+    <td class="src-cell"><a href="https://global.abb/group/en/sustainability" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>No Executive Misconduct</td><td style="color:#4A5568;">No adverse findings identified in public sources as of 2026-03-29 involving senior leadership personal misconduct.</td>
+    <td class="src-cell"><a href="https://global.abb/group/en/about/corporate-governance" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>No Product Safety Recalls</td><td style="color:#4A5568;">No adverse findings identified in public sources as of 2026-03-29.</td>
+    <td class="src-cell"><a href="https://global.abb/group/en" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>Reputational Consistency</td><td style="color:#4A5568;">ABB presents as ESG leader (CDP A, SBTi validated) while being the world's first company to resolve three FCPA actions. The ZPMC investigati</td>
+    <td class="src-cell"><a href="https://fcpablog.com/2022/12/02/double-recidivist-abb-pays-327-million-to-settle-fcpa-offenses/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">8/15</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-003</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ FINDINGS REGISTER ════════════════════════════════════════════════ -->
+<div class="page page-break" id="findings-register">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>ABB Ltd · SPEC-2026-003</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 10</p><p class="sh-title">Findings Register</p></div>
+    <div class="sh-badge"><span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;">9 findings</span></div>
+  </div>
+  <div class="fr-summary">
+    <span class="fr-summary-item" style="color:#6B1E1E;">0 Critical</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#B83B2E;">2 High</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#B5751A;">4 Medium</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#2D7A4F;">3 Low/Info</span>
+  </div>
+  
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">1</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P3 — Regulatory & Legal</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2022-12-02</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;font-size:10px;padding:1px 8px;">monitoring</span>
+      </div>
+    </div>
+    <p class="fr-title">ABB — Triple FCPA Recidivist: $462.5M Settlement December 2022, Pattern of Targeting Energy Utilities</p>
+    <p class="fr-detail">ABB is the first company ever to resolve three FCPA enforcement actions (2004: Nigeria/Angola/Kazakhstan; 2010: Mexico/Iraq; 2022: South Africa). The December 2022 resolution invol</p>
+    <div class="fr-footer"><a href="https://www.justice.gov/archives/opa/pr/abb-agrees-pay-over-315-million-resolve-coordinated-global-foreign-bribery-case" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">2</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P5 — Operational & Geopolitical Resilience</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2024-03-12</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">active</span>
+      </div>
+    </div>
+    <p class="fr-title">ABB Components in ZPMC Cranes at US Ports — Active US Congressional Investigation for National Security Risk</p>
+    <p class="fr-detail">The US House Homeland Security Committee and Select Committee on the CCP launched an investigation in 2023-2024 into ABB's supply of operational components to ZPMC (Shanghai Zhenhu</p>
+    <div class="fr-footer"><a href="https://homeland.house.gov/2024/03/12/wtas-joint-investigation-intoccp-backed-company-supplying-cranes-to-u-s-ports-reveals-shocking-findings/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">3</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P4 — Cybersecurity & Data</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2023-05-07</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">resolved</span>
+      </div>
+    </div>
+    <p class="fr-title">May 2023 Black Basta Ransomware Attack — Confirmed Data Exfiltration, Operational Disruption</p>
+    <p class="fr-detail">On May 7 2023, ABB suffered a confirmed Black Basta ransomware attack via a Qakbot trojan delivered through SEO poisoning and fake browser updates. The attack compromised Windows A</p>
+    <div class="fr-footer"><a href="https://new.abb.com/news/detail/103405/abb-provides-details-about-it-security-incident" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">4</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P5 — Operational & Geopolitical Resilience</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;font-size:10px;padding:1px 8px;">monitoring</span>
+      </div>
+    </div>
+    <p class="fr-title">China Revenue Dependency ($4.3B, 13% of Revenue) Under US-China Trade War Escalation</p>
+    <p class="fr-detail">China is ABB's second-largest market with $4.3B revenue in FY2024 (~13% of total). ABB also sources components from China. US-China tariffs escalated to 145% under the Trump admini</p>
+    <div class="fr-footer"><a href="https://global.abb/group/en/stories/industries/china-sustainable-growth" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">5</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P3 — Regulatory & Legal</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;font-size:10px;padding:1px 8px;">monitoring</span>
+      </div>
+    </div>
+    <p class="fr-title">Internal Control Failure: 2014-2017 Eskom Bribery Undetected for Up to 8 Years</p>
+    <p class="fr-detail">The most recent FCPA conduct spanned 2014-2017 but was not detected and resolved until December 2022 — a gap of 5-8 years. This indicates that ABB's internal controls failed to det</p>
+    <div class="fr-footer"><a href="https://www.justice.gov/archives/opa/pr/abb-agrees-pay-over-315-million-resolve-coordinated-global-foreign-bribery-case" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">6</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P4 — Cybersecurity & Data</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;font-size:10px;padding:1px 8px;">monitoring</span>
+      </div>
+    </div>
+    <p class="fr-title">ABB as Critical OT Vendor: Inherent Vulnerability Exposure as High-Profile ICS Target</p>
+    <p class="fr-detail">As a major industrial automation and electrification vendor serving critical infrastructure sectors (energy, utilities, data centres), ABB's products and systems are inherently hig</p>
+    <div class="fr-footer"><a href="https://global.abb/group/en/technology/cyber-security/nis-2-at-abb" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #2D7A4F;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">7</span>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+        <span class="fr-pillar">P1 — Financial Stability</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">active</span>
+      </div>
+    </div>
+    <p class="fr-title">ABB Robotics Divestiture to SoftBank ($5.375B) — Structural Change, Closing Mid-Late 2026</p>
+    <p class="fr-detail">ABB has agreed to sell its Robotics & Discrete Automation business to SoftBank Group for an enterprise value of $5.375B, with closing anticipated mid-to-late 2026. This represents </p>
+    <div class="fr-footer"><a href="https://www.ainvest.com/news/abb-robotics-spin-china-expansion-play-dominance-130b-global-market-2507/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #2D7A4F;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">8</span>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+        <span class="fr-pillar">P2 — ESG & Sustainability</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;font-size:10px;padding:1px 8px;">monitoring</span>
+      </div>
+    </div>
+    <p class="fr-title">PFAS Presence in ABB Products — Disclosed, Being Managed</p>
+    <p class="fr-detail">ABB has disclosed that PFAS (per- and polyfluoroalkyl substances) are present in some of its products, identified through regulatory consultation processes. ABB manages this throug</p>
+    <div class="fr-footer"><a href="https://violationtracker.goodjobsfirst.org/parent/abb-ltd" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #2D7A4F;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">9</span>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+        <span class="fr-pillar">P5 — Operational & Geopolitical Resilience</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2024-08-01</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">resolved</span>
+      </div>
+    </div>
+    <p class="fr-title">Dual C-Suite Transition 2024-2026 — CEO and CFO Both Changed via Internal Promotions</p>
+    <p class="fr-detail">ABB undertook two significant leadership transitions: CEO (Morten Wierod, August 2024, internal promotion — ABB since 1998) and CFO (Christian Nilsson, February 2026, internal prom</p>
+    <div class="fr-footer"><a href="https://new.abb.com/news/detail/112917/abb-appoints-morten-wierod-to-succeed-bjorn-rosengren-as-ceo" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-003</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ CAPA PLAN ════════════════════════════════════════════════════════ -->
+<div class="page page-break" id="capa">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>ABB Ltd · SPEC-2026-003</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 11</p><p class="sh-title">Corrective & Preventive Action Plan</p></div></div>
+  <table class="data-table"><colgroup><col style="width:12%"/><col style="width:40%"/><col style="width:14%"/><col style="width:16%"/><col style="width:18%"/></colgroup><thead><tr>
+    <th>Priority</th><th>Action</th><th>Finding Ref</th><th>Owner</th><th>Timeline</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:700;color:#B83B2E;">IMMEDIATE</td>
+    <td style="font-weight:600;">Obtain written confirmation from ABB that the December 2022 DOJ Deferred Prosecution Agreement has been formally closed without new charges, and that the enhanced internal compliance programme mandated under the DPA remains in active operation with current leadership accountability.</td><td style="color:#4A5568;">F-001</td>
+    <td>Procurement Lead + Legal</td><td>Within 30 days of contract signature</td></tr>
+    <tr><td style="font-weight:700;color:#B83B2E;">IMMEDIATE</td>
+    <td style="font-weight:600;">Insert FCPA/Anti-Bribery clause in all ABB contracts requiring: (a) annual written FCPA compliance certification from ABB Group Compliance Officer; (b) 30-day notification obligation for any new anti-bribery investigation, charge, or enforcement action worldwide; (c) right to suspend payments and terminate for material anti-bribery violation.</td><td style="color:#4A5568;">F-001</td>
+    <td>Legal Counsel</td><td>Before contract execution</td></tr>
+    <tr><td style="font-weight:700;color:#B83B2E;">IMMEDIATE</td>
+    <td style="font-weight:600;">Confirm with Encevo procurement team which ABB business division(s) supply the products and services covered by Encevo's ABB contracts. Verify that no Encevo-critical products or services fall within the Robotics & Discrete Automation business being divested to SoftBank (closing mid-to-late 2026).</td><td style="color:#4A5568;">F-007</td>
+    <td>Procurement Lead</td><td>Within 14 days</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">SHORT_TERM</td>
+    <td style="font-weight:600;">Request from ABB a post-incident cybersecurity remediation report confirming: (a) scope of May 2023 data exfiltration and whether any Encevo-related data was affected; (b) remediation measures implemented post-breach; (c) current status of post-breach Active Directory hardening and endpoint protection upgrades.</td><td style="color:#4A5568;">F-003</td>
+    <td>CISO + Procurement Lead</td><td>Within 60 days</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">SHORT_TERM</td>
+    <td style="font-weight:600;">Include a Vulnerability Disclosure and Notification clause in ABB OT supply contracts requiring ABB to notify Encevo within 72 hours of any critical vulnerability disclosure affecting ABB products deployed in Encevo's infrastructure, and within 30 days for material vulnerabilities. Include right-to-audit clause for cybersecurity posture.</td><td style="color:#4A5568;">F-006</td>
+    <td>CISO</td><td>Within 60 days</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">SHORT_TERM</td>
+    <td style="font-weight:600;">Establish a monitoring alert for US House Homeland Security Committee and US Coast Guard publications related to the ZPMC/ABB investigation. Set escalation trigger: any US executive order, procurement restriction, or formal enforcement action naming ABB in connection with ZPMC or US critical infrastructure supply chain concerns.</td><td style="color:#4A5568;">F-002</td>
+    <td>Procurement Lead + Legal</td><td>Within 30 days — set up monitoring</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">MEDIUM_TERM</td>
+    <td style="font-weight:600;">Add ABB to annual supplier compliance review cycle with mandatory submission of: (a) FCPA compliance programme certificate; (b) any updated Integrity/Compliance reports; (c) declaration of no new enforcement actions. Conduct bi-annual risk review incorporating news monitoring.</td><td style="color:#4A5568;">F-001</td>
+    <td>Procurement Lead</td><td>Annual from contract execution</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">MEDIUM_TERM</td>
+    <td style="font-weight:600;">Request ABB Material Compliance report identifying PFAS-containing products in Encevo's ABB supply base, timelines for PFAS substitution, and ABB's roadmap for compliance with anticipated EU REACH PFAS restrictions (expected 2025-2027).</td><td style="color:#4A5568;">F-008</td>
+    <td>Procurement Lead + Sustainability</td><td>Within 90 days</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">ONGOING</td>
+    <td style="font-weight:600;">Monitor US-China trade policy developments affecting ABB's supply chain, including tariff escalation, UFLPA enforcement trends affecting ABB components, and any US government restrictions on China-linked industrial technology companies. Quarterly review.</td><td style="color:#4A5568;">F-004</td>
+    <td>Procurement Lead</td><td>Quarterly monitoring</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-003</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ CONTRACT PLAYBOOK ════════════════════════════════════════════════ -->
+<div class="page page-break" id="playbook">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>ABB Ltd · SPEC-2026-003</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 12</p><p class="sh-title">Contract Playbook</p></div></div>
+  <table class="data-table"><colgroup><col style="width:18%"/><col style="width:42%"/><col style="width:24%"/><col style="width:16%"/></colgroup><thead><tr>
+    <th>Clause Area</th><th>Recommendation</th><th>Risk Basis</th><th>Priority</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Anti-Bribery & Corruption</td>
+    <td>Insert FCPA/UK Bribery Act compliance representation and warranty with annual certification obligation. Require 30-day notification of any new investigation, charge, or enforcement action. Include right to suspend and terminate for material violation. Reference ABB's three FCPA enforcement history as basis for enhanced...</td><td style="color:#4A5568;">F-001 — Triple FCPA recidivist, $462.5M settlement 2022, pattern targeting energy utilities</td>
+    <td><span style="font-size:10px;font-weight:700;">CRITICAL</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Cybersecurity & Incident Notification</td>
+    <td>Require ABB to notify Encevo within 72 hours of any cybersecurity incident affecting systems that process or have access to Encevo data or that could affect ABB OT products deployed in Encevo infrastructure. Require annual ISO 27001 / IEC 62443 certification confirmation. Include right to audit cybersecurity posture.</td><td style="color:#4A5568;">F-003 — May 2023 Black Basta ransomware breach with data exfiltration</td>
+    <td><span style="font-size:10px;font-weight:700;">HIGH</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Geopolitical Compliance</td>
+    <td>Include representations that ABB's supply chain for products delivered to Encevo complies with all applicable export controls, sanctions, and trade restrictions. Require notification within 30 days of any US government investigation, executive order, or enforcement action concerning ABB's China supply chain operations.</td><td style="color:#4A5568;">F-002 — ZPMC Congressional investigation; F-004 — China revenue dependency</td>
+    <td><span style="font-size:10px;font-weight:700;">HIGH</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Business Continuity & Supply Continuity</td>
+    <td>Require ABB to provide written confirmation that Encevo's specific products/services are within the Electrification, Motion, or Process Automation retained divisions (not Robotics being divested). Include clause requiring 90-day advance notice of any material structural change (divestiture, spin-off) affecting Encevo's...</td><td style="color:#4A5568;">F-007 — Robotics divestiture to SoftBank, closing mid-to-late 2026</td>
+    <td><span style="font-size:10px;font-weight:700;">HIGH</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Vulnerability Disclosure</td>
+    <td>Insert OT Vulnerability Disclosure clause requiring ABB to notify Encevo of critical/high CVEs affecting ABB products deployed in Encevo's infrastructure within 72 hours of public disclosure, and of medium CVEs within 14 days, with remediation timelines provided.</td><td style="color:#4A5568;">F-006 — ABB as critical OT vendor and high-value ICS target</td>
+    <td><span style="font-size:10px;font-weight:700;">MEDIUM</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">ESG & Modern Slavery</td>
+    <td>Require ABB to provide annual LkSG compliance report for German operations and UFLPA compliance declaration for China-sourced components in products supplied to Encevo. Include right to terminate for confirmed UFLPA or forced labour violation in ABB supply chain.</td><td style="color:#4A5568;">F-004 — China supply chain exposure; P2 LkSG/UFLPA monitoring requirement</td>
+    <td><span style="font-size:10px;font-weight:700;">MEDIUM</span></td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-003</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ MONITORING DASHBOARD ═════════════════════════════════════════════ -->
+<div class="page page-break" id="monitoring">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>ABB Ltd · SPEC-2026-003</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 13</p><p class="sh-title">Ongoing Monitoring Dashboard</p></div></div>
+  <table class="data-table" style="font-size:11px;"><colgroup><col style="width:22%"/><col style="width:16%"/><col style="width:6%"/><col style="width:16%"/><col style="width:16%"/><col style="width:12%"/><col style="width:12%"/></colgroup><thead><tr>
+    <th>Key Risk Indicator</th><th>Current</th><th></th>
+    <th>Green</th><th>Amber</th><th>Red</th><th>Review</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:600;">FCPA / Anti-Bribery Status</td>
+    <td class="mono-cell">DPA likely concluded December 2025. No new enforcement actions identified as of March 2026.</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">No new investigations or charges filed</td>
+    <td style="color:#B5751A;">Media reports of new bribery investigation or regulatory inquiry</td>
+    <td style="color:#B83B2E;">Formal charge, enforcement action, or DPA breach confirmed</td>
+    <td style="color:#4A5568;">Monthly (news monitoring) + Annual (compliance certification)</td></tr>
+    <tr><td style="font-weight:600;">ZPMC Congressional Investigation Status</td>
+    <td class="mono-cell">Active investigation. No formal enforcement action as of March 2026. US Coast Guard 2025 advisory issued.</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">Investigation formally closed with no action against ABB</td>
+    <td style="color:#B5751A;">New Congressional hearings, subpoenas, or media escalation</td>
+    <td style="color:#B83B2E;">US executive order, procurement restriction, or formal enforcement action naming ABB</td>
+    <td style="color:#4A5568;">Monthly monitoring</td></tr>
+    <tr><td style="font-weight:600;">Cybersecurity Incident Status</td>
+    <td class="mono-cell">May 2023 breach resolved. No new confirmed incidents as of March 2026.</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">No new confirmed cyber incidents; ABB post-breach report received</td>
+    <td style="color:#B5751A;">Media reports of new cybersecurity incident affecting ABB</td>
+    <td style="color:#B83B2E;">Confirmed new breach affecting ABB systems with potential Encevo data exposure</td>
+    <td style="color:#4A5568;">Quarterly</td></tr>
+    <tr><td style="font-weight:600;">Robotics Divestiture Progress</td>
+    <td class="mono-cell">SoftBank deal announced. Closing expected mid-to-late 2026.</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">Encevo confirmed all supply is in retained divisions (Electrification/Motion/Process Automation)</td>
+    <td style="color:#B5751A;">Deal delayed or conditions changed affecting supply continuity planning</td>
+    <td style="color:#B83B2E;">Encevo-critical products confirmed in Robotics division with no continuity plan</td>
+    <td style="color:#4A5568;">Quarterly</td></tr>
+    <tr><td style="font-weight:600;">Credit Rating</td>
+    <td class="mono-cell">S&P: A/Stable; Moody's: A2/Stable (both upgraded March 2024, affirmed late 2024)</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">Ratings maintained at A- or above with stable outlook</td>
+    <td style="color:#B5751A;">Rating downgrade to BBB+ or outlook changed to Negative</td>
+    <td style="color:#B83B2E;">Rating downgraded to BBB- or below; CreditWatch Negative</td>
+    <td style="color:#4A5568;">Quarterly</td></tr>
+    <tr><td style="font-weight:600;">US-China Trade Restrictions Impact</td>
+    <td class="mono-cell">145% US tariffs in effect. ABB mitigating via local-for-local. Q2 2025 revenue +8%.</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">No new US restrictions on ABB products; tariff levels stable</td>
+    <td style="color:#B5751A;">New US restrictions on China-linked industrial technology affecting ABB product categories</td>
+    <td style="color:#B83B2E;">ABB placed on US Entity List or subject to sector-wide technology restrictions</td>
+    <td style="color:#4A5568;">Quarterly</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-003</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ DATA GAPS ════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>ABB Ltd · SPEC-2026-003</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Appendix</p><p class="sh-title">Data Gaps & Limitations</p></div></div>
+  <div class="info-box gap-box">
+    <p class="info-box-title" style="color:#B5751A;">11 data gap(s) identified</p>
+    <ul style="padding-left:18px;font-size:12px;line-height:1.8;"><li><strong>pillar_details.financial_stability.current_ratio</strong>: not_publicly_disclosed — MEDIUM — Current ratio not accessible in search results. Strong FCF ($3.9B FY2024, $4.6B FY2025) and undrawn $2B revolving credit facility suggest robust liquidity. P1 neutral scoring band applied.</li>
+<li><strong>pillar_details.esg_sustainability.scope1_emissions_tco2e</strong>: not_publicly_disclosed_in_search_snippets — LOW — Percentage reduction confirmed (78% scope 1+2 vs 2019). Absolute figures in Sustainability Statement 2024 PDF.</li>
+<li><strong>pillar_details.esg_sustainability.scope2_emissions_tco2e</strong>: not_publicly_disclosed_in_search_snippets — LOW — Same as scope 1 above.</li>
+<li><strong>pillar_details.esg_sustainability.lksg_compliant</strong>: search_returned_nothing — MEDIUM — ABB's German operations should be subject to LkSG (Lieferkettensorgfaltspflichtengesetz). No public LkSG compliance report found in accessible search results.</li>
+<li><strong>pillar_details.esg_sustainability.sustainalytics_score</strong>: not_publicly_disclosed — LOW — Sustainalytics score not publicly accessible without subscription. CDP A and SBTi validation provide sufficient ESG quality signal.</li>
+<li><strong>pillar_details.cybersecurity.soc2_certified</strong>: not_applicable — LOW — SOC2 is not standard for industrial OT equipment suppliers. IEC 62443 ML-3 is the applicable standard and confirmed.</li>
+<li><strong>pillar_details.cybersecurity.confirmed_breaches.exfiltrated_data_types</strong>: not_publicly_disclosed — MEDIUM — Nature and volume of data exfiltrated in May 2023 breach not publicly disclosed. Relevant for GDPR Article 83 fine risk assessment.</li>
+<li><strong>pillar_details.operational_resilience.dr_plan_disclosed</strong>: not_publicly_disclosed — LOW — Standard for large multinational manufacturers not to publish BCP externally. Operational recovery post-2023 breach confirms continuity capability.</li>
+<li><strong>regulatory_legal.dpa_formal_closure_confirmation</strong>: search_returned_nothing — HIGH — The December 2022 DPA three-year term expired approximately December 2025. No public announcement of formal DPA dismissal or new charges found. Status as of March 2026 unconfirmed via public sources.</li>
+<li><strong>controversy.zpmc_investigation_2025_outcome</strong>: search_returned_nothing — HIGH — No confirmed outcome of the ZPMC/Congressional investigation found in accessible sources as of March 2026.</li>
+<li><strong>hunters_6b_6c_evidence</strong>: evidence_files_not_produced — MEDIUM — Hunter 6B (Regulatory Media) and Hunter 6C (NGO/Activist) evidence files not present in suppliers/abb_evidence/. Reputational scoring based on Hunter 6A and cross-pillar signals. P6 score may be conservative.</li>
+</ul>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-003</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ METHODOLOGY & SOURCES ════════════════════════════════════════════ -->
+<div class="page page-break" id="methodology">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>ABB Ltd · SPEC-2026-003</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 14</p><p class="sh-title">Methodology & Data Sources</p></div></div>
+  <div class="info-box" style="background:#F8F9FA;margin-bottom:20px;">
+    <p style="font-size:12px;line-height:1.7;"><strong>Data Currency:</strong> Data gathered March 2026. Searches conducted 2026-03-29. Most recent financial data: FY2025 (Q4 2025 results, February 2026). Most recent ESG data: Sustainability Statement 2024 (published February 2026).</p>
+    <p style="font-size:12px;line-height:1.7;margin-top:8px;"><strong>Methodology:</strong> This assessment was conducted using SPECTRUM's evidence-first multi-agent pipeline. All findings are sourced from publicly available information. Scores are derived by applying the SPECTRUM six-pillar rubric to verified evidence. No training-knowledge claims are made — every factual statement is linked to a source URL.</p>
+  </div>
+  <ol style="padding-left:20px;font-size:12px;line-height:1.8;"><li><span class="mono" style="color:#1B2B5E;font-weight:700;">[1]</span> <a href="https://www.justice.gov/archives/opa/pr/abb-agrees-pay-over-315-million-resolve-coordinated-global-foreign-bribery-case" target="_blank">https://www.justice.gov/archives/opa/pr/abb-agrees-pay-over-315-millio</a> <span style="color:#9CA3AF;font-size:10px;">(government)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[2]</span> <a href="https://www.sec.gov/newsroom/press-releases/2022-214" target="_blank">https://www.sec.gov/newsroom/press-releases/2022-214</a> <span style="color:#9CA3AF;font-size:10px;">(government)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[3]</span> <a href="https://homeland.house.gov/2024/03/12/wtas-joint-investigation-intoccp-backed-company-supplying-cranes-to-u-s-ports-reveals-shocking-findings/" target="_blank">https://homeland.house.gov/2024/03/12/wtas-joint-investigation-intoccp</a> <span style="color:#9CA3AF;font-size:10px;">(government)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[4]</span> <a href="https://new.abb.com/news/detail/103405/abb-provides-details-about-it-security-incident" target="_blank">https://new.abb.com/news/detail/103405/abb-provides-details-about-it-s</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[5]</span> <a href="https://library.e.abb.com/public/e209b7a3e9854897844845807632dcea/Financial%20Report%202024.pdf" target="_blank">https://library.e.abb.com/public/e209b7a3e9854897844845807632dcea/Fina</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[6]</span> <a href="https://new.abb.com/news/detail/132985/q4-2025-results" target="_blank">https://new.abb.com/news/detail/132985/q4-2025-results</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[7]</span> <a href="https://new.abb.com/news/detail/123065/q4-2024-results" target="_blank">https://new.abb.com/news/detail/123065/q4-2024-results</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[8]</span> <a href="https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3146001" target="_blank">https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTM</a> <span style="color:#9CA3AF;font-size:10px;">(financial)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[9]</span> <a href="https://www.moodys.com/research/Moodys-upgrades-ABBs-rating-to-A2-stable-outlook--PR_219839" target="_blank">https://www.moodys.com/research/Moodys-upgrades-ABBs-rating-to-A2-stab</a> <span style="color:#9CA3AF;font-size:10px;">(financial)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[10]</span> <a href="https://search.abb.com/library/Download.aspx?DocumentID=9AKK108470A7211&LanguageCode=en&DocumentPartId=&Action=Launch" target="_blank">https://search.abb.com/library/Download.aspx?DocumentID=9AKK108470A721</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[11]</span> <a href="https://new.abb.com/news/detail/116943/abbs-2030-and-2050-science-based-targets-approved-by-the-science-based-targets-initiative-sbti" target="_blank">https://new.abb.com/news/detail/116943/abbs-2030-and-2050-science-base</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[12]</span> <a href="https://new.abb.com/news/detail/112326/abb-recognized-with-a-score-for-transparency-on-climate-change" target="_blank">https://new.abb.com/news/detail/112326/abb-recognized-with-a-score-for</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[13]</span> <a href="https://www.bleepingcomputer.com/news/security/us-govt-contractor-abb-confirms-ransomware-attack-data-theft/" target="_blank">https://www.bleepingcomputer.com/news/security/us-govt-contractor-abb-</a> <span style="color:#9CA3AF;font-size:10px;">(media)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[14]</span> <a href="https://www.moneyhouse.ch/en/company/abb-ltd-1991747691" target="_blank">https://www.moneyhouse.ch/en/company/abb-ltd-1991747691</a> <span style="color:#9CA3AF;font-size:10px;">(registry)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[15]</span> <a href="https://global.abb/group/en/investors/investor-and-shareholder-resources/major-shareholders" target="_blank">https://global.abb/group/en/investors/investor-and-shareholder-resourc</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[16]</span> <a href="https://global.abb/group/en/about/corporate-governance/board-of-directors/peter-voser" target="_blank">https://global.abb/group/en/about/corporate-governance/board-of-direct</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[17]</span> <a href="https://new.abb.com/news/detail/124528/abb-shareholders-approve-all-proposals-at-annual-general-meeting-2025" target="_blank">https://new.abb.com/news/detail/124528/abb-shareholders-approve-all-pr</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[18]</span> <a href="https://new.abb.com/news/detail/112917/abb-appoints-morten-wierod-to-succeed-bjorn-rosengren-as-ceo" target="_blank">https://new.abb.com/news/detail/112917/abb-appoints-morten-wierod-to-s</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[19]</span> <a href="https://new.abb.com/news/detail/129997/abb-names-christian-nilsson-to-succeed-timo-ihamuotila-as-cfo" target="_blank">https://new.abb.com/news/detail/129997/abb-names-christian-nilsson-to-</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[20]</span> <a href="https://global.abb/group/en/stories/industries/china-sustainable-growth" target="_blank">https://global.abb/group/en/stories/industries/china-sustainable-growt</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[21]</span> <a href="https://new.abb.com/news/detail/128004/q2-2025-results" target="_blank">https://new.abb.com/news/detail/128004/q2-2025-results</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[22]</span> <a href="https://new.abb.com/news/detail/93368/abb-to-exit-russian-market" target="_blank">https://new.abb.com/news/detail/93368/abb-to-exit-russian-market</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[23]</span> <a href="https://www.swissinfo.ch/eng/business/abb-s-china-operations-under-investigation-by-us-congress/49142870" target="_blank">https://www.swissinfo.ch/eng/business/abb-s-china-operations-under-inv</a> <span style="color:#9CA3AF;font-size:10px;">(media)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[24]</span> <a href="https://www.uscg.mil/Portals/0/Images/cyber/2025CTIME_Chinese_Cranes_Special_Edition.pdf" target="_blank">https://www.uscg.mil/Portals/0/Images/cyber/2025CTIME_Chinese_Cranes_S</a> <span style="color:#9CA3AF;font-size:10px;">(government)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[25]</span> <a href="https://violationtracker.goodjobsfirst.org/parent/abb-ltd" target="_blank">https://violationtracker.goodjobsfirst.org/parent/abb-ltd</a> <span style="color:#9CA3AF;font-size:10px;">(watchdog)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[26]</span> <a href="https://fcpablog.com/2022/12/02/double-recidivist-abb-pays-327-million-to-settle-fcpa-offenses/" target="_blank">https://fcpablog.com/2022/12/02/double-recidivist-abb-pays-327-million</a> <span style="color:#9CA3AF;font-size:10px;">(media)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[27]</span> <a href="https://fcpaprofessor.com/abb-becomes-first-company-resolve-three-fcpa-enforcement-actions/" target="_blank">https://fcpaprofessor.com/abb-becomes-first-company-resolve-three-fcpa</a> <span style="color:#9CA3AF;font-size:10px;">(media)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[28]</span> <a href="https://new.abb.com/news/detail/90956/abbs-capabilities-to-deliver-and-maintain-cyber-secure-automation-systems-acknowledged-with-exidas-globally-recognized-certification" target="_blank">https://new.abb.com/news/detail/90956/abbs-capabilities-to-deliver-and</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[29]</span> <a href="https://global.abb/group/en/technology/cyber-security/nis-2-at-abb" target="_blank">https://global.abb/group/en/technology/cyber-security/nis-2-at-abb</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[30]</span> <a href="https://global.abb/group/en/sustainability/social-progress" target="_blank">https://global.abb/group/en/sustainability/social-progress</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[31]</span> <a href="https://global.abb/group/en/sustainability/policies--statements-and-declarations/modern-slavery-and-human-trafficking-statement" target="_blank">https://global.abb/group/en/sustainability/policies--statements-and-de</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[32]</span> <a href="https://www.therobotreport.com/abb-announces-plans-to-spin-off-its-robotics-division-during-earnings-call/" target="_blank">https://www.therobotreport.com/abb-announces-plans-to-spin-off-its-rob</a> <span style="color:#9CA3AF;font-size:10px;">(media)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[33]</span> <a href="https://www.ainvest.com/news/abb-robotics-spin-china-expansion-play-dominance-130b-global-market-2507/" target="_blank">https://www.ainvest.com/news/abb-robotics-spin-china-expansion-play-do</a> <span style="color:#9CA3AF;font-size:10px;">(media)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[34]</span> <a href="https://www.opensanctions.org/entities/NK-YEUhBwkbgKazg95shu26v7/" target="_blank">https://www.opensanctions.org/entities/NK-YEUhBwkbgKazg95shu26v7/</a> <span style="color:#9CA3AF;font-size:10px;">(sanctions_database)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[35]</span> <a href="https://library.e.abb.com/public/daae2758e6a546efab24d3967aaa0f37/ABB-Q4-2024-financial-information.pdf" target="_blank">https://library.e.abb.com/public/daae2758e6a546efab24d3967aaa0f37/ABB-</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[36]</span> <a href="https://library.e.abb.com/public/587867a2fd79432dbff7ccaf967db23a/Compensation%20Report%202024.pdf" target="_blank">https://library.e.abb.com/public/587867a2fd79432dbff7ccaf967db23a/Comp</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[37]</span> <a href="https://new.abb.com/docs/librariesprovider27/default-document-library/2024-trade-controls-language-for-abb-tcs-sale.pdf" target="_blank">https://new.abb.com/docs/librariesprovider27/default-document-library/</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[38]</span> <a href="https://global.abb/group/en/about/integrity" target="_blank">https://global.abb/group/en/about/integrity</a> <span style="color:#9CA3AF;font-size:10px;">(company)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[39]</span> <a href="https://www.cayosoft.com/abbs-may-2023-active-directory-ransomware-attack/" target="_blank">https://www.cayosoft.com/abbs-may-2023-active-directory-ransomware-att</a> <span style="color:#9CA3AF;font-size:10px;">(media)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[40]</span> <a href="https://cbonds.com/news/2779847/" target="_blank">https://cbonds.com/news/2779847/</a> <span style="color:#9CA3AF;font-size:10px;">(financial)</span></li>
+</ol>
+  <div class="info-box methodology-box" style="margin-top:24px;">
+    <p style="font-size:11px;color:#4A5568;line-height:1.7;"><strong>Disclaimer:</strong> This report is based on publicly available information gathered as of 2026-03-29. It does not constitute legal advice, financial advice, or a comprehensive audit. SPECTRUM accepts no liability for decisions made based solely on this report. Users are advised to conduct additional due diligence as appropriate for their risk appetite and regulatory context.</p>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-003</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ BACK COVER ═══════════════════════════════════════════════════════ -->
+<div class="page page-break" style="background:#1B2B5E;min-height:280px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.03);"></div>
+  <div style="position:absolute;bottom:-40px;left:80px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.02);"></div>
+  <p style="color:#A5B4FC;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;">SPECTRUM</p>
+  <p style="color:rgba(255,255,255,.5);font-size:11px;margin-top:4px;letter-spacing:.08em;">Vendor Intelligence Platform</p>
+  <div style="width:48px;height:2px;background:rgba(255,255,255,.2);margin:28px auto;"></div>
+  <p style="color:#fff;font-size:22px;font-weight:700;">ABB Ltd</p>
+  <p style="color:#CBD5E1;font-size:12px;margin-top:6px;font-family:'JetBrains Mono',monospace;">SPEC-2026-003 · 2026-03-29</p>
+  <div style="width:48px;height:2px;background:rgba(255,255,255,.2);margin:28px auto;"></div>
+  <p style="color:rgba(255,255,255,.35);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;">CONFIDENTIAL — For Authorised Recipients Only</p>
+</div>
+
+</div><!-- .doc -->
+</body>
+</html>

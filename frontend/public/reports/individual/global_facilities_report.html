@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SPECTRUM — Global Facilities S.A. Vendor Intelligence Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 13px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: 'Inter', sans-serif; color: #0F1729; background: #F1F5F9; line-height: 1.6; }
+a { color: #1B2B5E; text-decoration: none; }
+a:hover { text-decoration: underline; color: #2A3F7E; }
+code, .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* ── Document container ───────────────────────────────────── */
+.doc { max-width: 900px; margin: 0 auto; background: #fff;
+  box-shadow: 0 4px 32px rgba(27,43,94,.10); }
+
+/* ── Page sections ────────────────────────────────────────── */
+.page { padding: 48px 56px; border-bottom: 1px solid #E2E8F0; position: relative; }
+.page:last-child { border-bottom: none; }
+.page-break { page-break-before: always; }
+.page-alt { background: #F0F2F5; }
+
+/* ── Section headers ──────────────────────────────────────── */
+.sh { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.sh-bar { width: 4px; height: 32px; background: #1B2B5E; border-radius: 2px; flex-shrink: 0; }
+.sh-label { font-size: 10px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: #4A5568; }
+.sh-title { font-size: 20px; font-weight: 700; color: #0F1729; }
+.sh-badge { margin-left: auto; }
+
+/* ── Cover page ───────────────────────────────────────────── */
+.cover { background: #1B2B5E; padding: 64px 56px 48px; color: #fff; position: relative; overflow: hidden; }
+.cover::before { content: ''; position: absolute; top: -80px; right: -80px;
+  width: 320px; height: 320px; border-radius: 50%; background: rgba(255,255,255,.03); }
+.cover-brand { font-size: 11px; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: #A5B4FC; margin-bottom: 6px; }
+.cover-subtitle { color: #CBD5E1; font-size: 15px; margin-bottom: 32px; }
+.cover-name { font-size: 32px; font-weight: 700; margin-bottom: 4px; }
+.cover-kpi { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+.cover-kpi-card { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 8px; padding: 14px 24px; }
+.cover-kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: #94A3B8; }
+.cover-meta { padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1);
+  display: flex; gap: 24px; flex-wrap: wrap; font-size: 11px; color: #64748B; }
+.cover-meta span { color: #94A3B8; }
+.cover-meta p { max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cover-meta p:last-child { max-width: none; margin-left: auto; }
+
+/* ── Table of contents ────────────────────────────────────── */
+.toc-list { list-style: none; padding: 0; }
+.toc-list li { display: flex; align-items: baseline; gap: 8px; padding: 8px 0;
+  border-bottom: 1px dotted #E2E8F0; font-size: 13px; }
+.toc-list li:last-child { border-bottom: none; }
+.toc-num { font-family: 'JetBrains Mono', monospace; font-weight: 700;
+  color: #1B2B5E; min-width: 28px; }
+.toc-link { color: #0F1729; font-weight: 500; }
+.toc-dots { flex: 1; border-bottom: 1px dotted #CBD5E1; margin: 0 4px; min-width: 20px; }
+.toc-page { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #4A5568; }
+
+/* ── KPI cards ────────────────────────────────────────────── */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0; }
+.kpi-card { background: #F8F9FA; border-radius: 8px; padding: 16px; text-align: center; }
+.kpi-val { font-size: 28px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.kpi-label { font-size: 11px; color: #4A5568; margin-top: 4px; }
+
+/* ── Pillar cards (scorecard grid) ────────────────────────── */
+.pillar-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.pillar-card { border-radius: 8px; padding: 16px; border: 1px solid #E2E8F0; }
+.pillar-card-label { font-size: 11px; color: #4A5568; margin-bottom: 4px; }
+.pillar-card-score { font-size: 24px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.pillar-card-max { font-size: 12px; color: #9CA3AF; }
+
+/* ── Pillar deep dive ─────────────────────────────────────── */
+.pillar-header { display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 16px; padding-left: 16px; }
+.pillar-score-big { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; }
+.pillar-score-max { font-size: 14px; color: #4A5568; }
+.pillar-narrative { font-size: 13px; line-height: 1.75; background: #F8F9FA;
+  padding: 16px 20px; border-radius: 6px; margin-bottom: 16px; }
+
+/* ── Risk / severity badges ───────────────────────────────── */
+.badge { display: inline-block; padding: 2px 12px; border-radius: 9999px;
+  font-size: 11px; font-weight: 700; border: 1px solid; }
+
+/* ── Tables ────────────────────────────────────────────────── */
+.data-table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+.data-table th { background: #1B2B5E; color: #FFFFFF; padding: 10px 14px; text-align: left;
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+.data-table th:first-child { border-radius: 4px 0 0 0; }
+.data-table th:last-child { border-radius: 0 4px 0 0; }
+.data-table td { padding: 10px 14px; border-bottom: 1px solid #E2E8F0; vertical-align: top; }
+.data-table tr:nth-child(even) td { background: #F8F9FA; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table .label-cell { color: #4A5568; width: 140px; }
+.data-table .mono-cell { font-family: 'JetBrains Mono', monospace; }
+.data-table .pts-cell { text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+.data-table .src-cell { text-align: center; font-size: 10px; }
+
+/* ── Finding cards (in pillar sections) ────────────────────── */
+.finding-card { border-radius: 0 6px 6px 0; padding: 14px 18px; margin-bottom: 10px;
+  page-break-inside: avoid; }
+.finding-title { font-size: 12px; font-weight: 600; margin: 4px 0 2px; }
+.finding-detail { font-size: 11px; color: #4A5568; line-height: 1.5; }
+.finding-meta { display: flex; justify-content: space-between; margin-bottom: 4px; }
+
+/* ── Findings Register (Section 10 — card layout) ─────────── */
+.fr-summary { display: flex; gap: 6px; align-items: center; margin-bottom: 20px;
+  font-size: 12px; font-weight: 600; }
+.fr-summary-sep { color: #CBD5E1; }
+.fr-card { background: #fff; border: 1px solid #E2E8F0; border-radius: 0 8px 8px 0;
+  padding: 16px 20px; margin-bottom: 12px; page-break-inside: avoid; }
+.fr-card-header { display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px; flex-wrap: wrap; gap: 6px; }
+.fr-card-left { display: flex; align-items: center; gap: 8px; }
+.fr-card-right { flex-shrink: 0; }
+.fr-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+  color: #4A5568; min-width: 20px; }
+.fr-pillar { font-size: 10px; font-weight: 700; color: #1B2B5E; text-transform: uppercase;
+  letter-spacing: .05em; background: #EFF6FF; padding: 2px 8px; border-radius: 4px; }
+.fr-title { font-size: 13px; font-weight: 700; color: #0F1729; line-height: 1.4; margin-bottom: 4px; }
+.fr-detail { font-size: 11px; color: #4A5568; line-height: 1.6; }
+.fr-footer { margin-top: 8px; }
+
+/* ── Info boxes ────────────────────────────────────────────── */
+.info-box { border-radius: 6px; padding: 16px 20px; margin-bottom: 16px; }
+.info-box-title { font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+.conditions-box { background: #FAF4EA; border: 1px solid #E5D5B8; }
+.methodology-box { background: #F8F9FA; border-left: 4px solid #E2E8F0; }
+.encevo-box { background: #EFF6FF; border-radius: 6px; padding: 14px; margin-top: 12px; }
+.gap-box { background: #FAF4EA; border: 1px solid #E5D5B8; }
+
+/* ── Running header & footer (print) ──────────────────────── */
+.page-header { display: none; }
+.page-footer { display: none; }
+
+/* ── Print styles ─────────────────────────────────────────── */
+@media print {
+  html { font-size: 12px; }
+  body { background: #fff; }
+  .doc { box-shadow: none; max-width: 100%; }
+  @page { size: A4; margin: 18mm 15mm 20mm 15mm; }
+  .page { padding: 32px 0; border-bottom: none; }
+  .page-break { page-break-before: always; }
+  .cover { margin: -18mm -15mm 0; padding: 48px 40px 36px; width: calc(100% + 30mm); }
+  .page-header, .page-footer { display: flex; justify-content: space-between;
+    font-size: 9px; color: #9CA3AF; padding: 0 0 8px; }
+  .page-footer { padding: 8px 0 0; border-top: 1px solid #E2E8F0; margin-top: auto; }
+  p, li { orphans: 3; widows: 3; }
+  .data-table tr { page-break-inside: avoid; }
+  .finding-card { page-break-inside: avoid; }
+  .pillar-card { page-break-inside: avoid; }
+  .no-print { display: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<!-- ═══ COVER PAGE ═══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <p class="cover-brand">SPECTRUM · VENDOR INTELLIGENCE</p>
+  <h1 class="cover-name">Global Facilities S.A.</h1>
+  <p class="cover-subtitle">Vendor Due Diligence Assessment</p>
+  <div class="cover-kpi">
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Overall Score</p>
+      <p style="color:#B5751A;font-size:36px;font-weight:700;letter-spacing:-.02em;" class="mono">60<span style="font-size:16px;color:#94A3B8;">/100</span></p>
+    </div>
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Verdict</p>
+      <p style="color:#B5751A;font-size:24px;font-weight:700;">CONDITIONAL</p>
+    </div>
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Risk Level</p>
+      <p style="color:#B5751A;font-size:24px;font-weight:700;">MEDIUM</p>
+    </div>
+  </div>
+  <div class="cover-meta">
+    <p>Report ID: <span>SPEC-2026-007</span></p>
+    <p>Generated: <span>2026-03-29</span></p>
+    <p>Sector: <span>Facilities Management (FM) Services</span></p>
+    <p style="margin-left:auto;">CONFIDENTIAL — For Authorised Recipients Only</p>
+  </div>
+</div>
+
+<!-- ═══ TABLE OF CONTENTS ════════════════════════════════════════════════ -->
+<div class="page page-break" id="toc">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Global Facilities S.A. · SPEC-2026-007</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Navigation</p><p class="sh-title">Table of Contents</p></div></div>
+  <ul class="toc-list">
+    <li><span class="toc-num">01</span><a class="toc-link" href="#exec-summary">Executive Summary</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">02</span><a class="toc-link" href="#scorecard">Risk Scorecard</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">03</span><a class="toc-link" href="#profile">Supplier Profile</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">04</span><a class="toc-link" href="#pillar-p1">P1 — Financial Stability</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">05</span><a class="toc-link" href="#pillar-p2">P2 — ESG & Sustainability</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">06</span><a class="toc-link" href="#pillar-p3">P3 — Regulatory & Legal</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">07</span><a class="toc-link" href="#pillar-p4">P4 — Cybersecurity & Data</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">08</span><a class="toc-link" href="#pillar-p5">P5 — Operational & Geopolitical Resilience</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">09</span><a class="toc-link" href="#pillar-p6">P6 — Reputational Intelligence</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">10</span><a class="toc-link" href="#findings-register">Findings Register</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">11</span><a class="toc-link" href="#capa">Corrective & Preventive Actions</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">12</span><a class="toc-link" href="#playbook">Contract Playbook</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">13</span><a class="toc-link" href="#monitoring">Monitoring Dashboard</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">14</span><a class="toc-link" href="#methodology">Methodology & Sources</a><span class="toc-dots"></span></li>
+  </ul>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-007</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ EXECUTIVE SUMMARY ════════════════════════════════════════════════ -->
+<div class="page page-break" id="exec-summary">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Global Facilities S.A. · SPEC-2026-007</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 01</p><p class="sh-title">Executive Summary</p></div></div>
+  <div style="display:grid;grid-template-columns:180px 1fr;gap:32px;align-items:start;margin-bottom:20px;">
+    <div style="text-align:center;">
+      <svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="90" cy="90" r="64" fill="none" stroke="#E2E8F0" stroke-width="12"/>
+  <circle cx="90" cy="90" r="64" fill="none" stroke="#B5751A" stroke-width="12"
+    stroke-dasharray="241.3 402.1" stroke-linecap="round" transform="rotate(-90 90 90)"/>
+  <text x="90" y="84" text-anchor="middle" font-family="'JetBrains Mono',monospace"
+    font-size="32" font-weight="700" fill="#B5751A">60</text>
+  <text x="90" y="104" text-anchor="middle" font-family="Inter,sans-serif"
+    font-size="12" fill="#4A5568">/100</text>
+</svg>
+      <p style="margin-top:8px;font-size:12px;font-weight:700;color:#B5751A;">CONDITIONAL</p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+    <div>
+      <div class="info-box" style="background:#F8F9FA;">
+        <p style="font-size:13px;line-height:1.8;">Global Facilities S.A. scores 60.3/100 overall. The company has a 25-year operational track record, clean regulatory and legal record (P3: 92/100), strong reputational standing (P6: 100/100), and no adverse findings across most pillars. The primary risk factors are: (1) near-complete financial opacity as a private subsidiary (P1: 39/100 — data gap, not distress), (2) absence of ISO 27001 given physical access to NIS2 critical infrastructure (P4: 55/100), (3) indirect Chinese SOE ownership creating geopolitical sensitivity, and (4) NIS2 supply chain security obligations not publicly confirmed. A critical structural note: Global Facilities is an Encevo-owned subsidiary — the due diligence effectively assesses an intra-group entity.</p>
+      </div>
+      <div class="info-box" style="background:#1B2B5E;">
+        <p style="color:#A5B4FC;font-size:10px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">Primary Recommendation</p>
+        <p style="color:#fff;font-size:13px;line-height:1.6;">Retain Global Facilities as intra-group FM service provider subject to implementation of ISO 27001 and formal NIS2 supply chain security assessment. Given the entity is wholly owned by Encevo, the primary governance action is to ensure Encevo Group's internal governance adequately addresses the Chinese SOE ownership risk at board level.</p>
+      </div>
+    </div>
+  </div>
+  <div class="info-box conditions-box">
+    <p class="info-box-title" style="color:#B5751A;">CONDITIONS FOR QUALIFICATION</p>
+    <ul style="padding-left:18px;font-size:12px;"><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>Obtain ISO 27001 certification or equivalent for information security management —</strong> required given physical access to Encevo/Creos NIS2 critical infrastructure</li><li style='margin-bottom:8px;line-height:1.6;'>Confirm NIS2 Article 21 supply chain security obligations have been assessed and documented by Encevo as the essential entity parent</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>Address Chinese SOE ownership transparency —</strong> document whether China Southern Power Grid International has board-level influence at Encevo that could affect strategic decisions</li><li style='margin-bottom:8px;line-height:1.6;'>Encevo procurement team to confirm transfer pricing and intra-group service agreement governance for Global Facilities contracts</li><li style='margin-bottom:8px;line-height:1.6;'>Request standalone financial accounts or parent guarantee confirming ongoing financial support</li></ul>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi-card" style="border-top:3px solid #6B1E1E;"><p class="kpi-val" style="color:#6B1E1E;">0</p><p class="kpi-label">Critical Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #B83B2E;"><p class="kpi-val" style="color:#B83B2E;">0</p><p class="kpi-label">High Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #B5751A;"><p class="kpi-val" style="color:#B5751A;">5</p><p class="kpi-label">Medium Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #2D7A4F;"><p class="kpi-val" style="color:#2D7A4F;">2</p><p class="kpi-label">Low / Info</p></div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-007</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+
+<!-- ═══ RISK SCORECARD ═══════════════════════════════════════════════════ -->
+<div class="page page-break" id="scorecard">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Global Facilities S.A. · SPEC-2026-007</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 02</p><p class="sh-title">Risk Scorecard</p></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+    <div style="text-align:center;"><svg width="280" height="280" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+<polygon points="140.0,115.0 161.7,127.5 161.7,152.5 140.0,165.0 118.3,152.5 118.3,127.5" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,90.0 183.3,115.0 183.3,165.0 140.0,190.0 96.7,165.0 96.7,115.0" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,65.0 205.0,102.5 205.0,177.5 140.0,215.0 75.0,177.5 75.0,102.5" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,40.0 226.6,90.0 226.6,190.0 140.0,240.0 53.4,190.0 53.4,90.0" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="140.0" y2="40.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="226.6" y2="90.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="226.6" y2="190.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="140.0" y2="240.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="53.4" y2="190.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="53.4" y2="90.0" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,101.0 176.4,119.0 219.7,186.0 140.0,195.0 79.4,175.0 53.4,90.0" fill="#B5751A" fill-opacity="0.15" stroke="#B5751A" stroke-width="2"/>
+<text x="140.0" y="18.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Financial</text>
+<text x="140.0" y="4.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#6B1E1E">39</text>
+<text x="245.7" y="79.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">ESG</text>
+<text x="257.8" y="72.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B83B2E">42</text>
+<text x="245.7" y="201.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Regulatory</text>
+<text x="257.8" y="208.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#2D7A4F">92</text>
+<text x="140.0" y="262.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Cyber</text>
+<text x="140.0" y="276.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B83B2E">55</text>
+<text x="34.3" y="201.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Operational</text>
+<text x="22.2" y="208.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">70</text>
+<text x="34.3" y="79.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Reputation</text>
+<text x="22.2" y="72.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#2D7A4F">100</text>
+</svg></div>
+    <div class="pillar-grid">
+      <div class="pillar-card" style="border-top:3px solid #6B1E1E;">
+        <p class="pillar-card-label">Financial Stability</p>
+        <p class="pillar-card-score" style="color:#6B1E1E;">39<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#6B1E1E;background:#F9EEEE;border-color:#6B1E1E;">CRITICAL</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B83B2E;">
+        <p class="pillar-card-label">ESG & Sustainability</p>
+        <p class="pillar-card-score" style="color:#B83B2E;">42<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #2D7A4F;">
+        <p class="pillar-card-label">Regulatory & Legal</p>
+        <p class="pillar-card-score" style="color:#2D7A4F;">92<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B83B2E;">
+        <p class="pillar-card-label">Cybersecurity & Data</p>
+        <p class="pillar-card-score" style="color:#B83B2E;">55<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">Operational & Geopolitical Resilience</p>
+        <p class="pillar-card-score" style="color:#B5751A;">70<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #2D7A4F;">
+        <p class="pillar-card-label">Reputational Intelligence</p>
+        <p class="pillar-card-score" style="color:#2D7A4F;">100<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#4A5568;margin-top:4px;" class="mono">(39 × 0.25) + (42 × 0.20) + (92 × 0.20) + (55 × 0.15) + (70 × 0.15) + (100 × 0.05) = 9.75 + 8.40 + 18.40 + 8.25 + 10.50 + 5.00 = 60.30</p>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-007</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ SUPPLIER PROFILE ═════════════════════════════════════════════════ -->
+<div class="page page-break" id="profile">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Global Facilities S.A. · SPEC-2026-007</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 03</p><p class="sh-title">Supplier Profile</p></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+    <table class="data-table"><tbody>
+      <tr><td class="label-cell">Legal Name</td><td style="font-weight:600;">Global Facilities S.A.</td></tr>
+      <tr><td class="label-cell">HQ Address</td><td>24, rue Léon Laval, L-3372 Leudelange, Luxembourg</td></tr>
+      <tr><td class="label-cell">Country</td><td>Luxembourg</td></tr>
+      <tr><td class="label-cell">Ownership</td><td>subsidiary</td></tr>
+      <tr><td class="label-cell">Exchange</td><td>—</td></tr>
+      <tr><td class="label-cell">Ticker</td><td class="mono-cell">—</td></tr>
+      <tr><td class="label-cell">Sector</td><td>Facilities Management (FM) Services</td></tr>
+      <tr><td class="label-cell">Employees</td><td class="mono-cell">165</td></tr>
+      <tr><td class="label-cell">Founded</td><td class="mono-cell">2001</td></tr>
+      <tr><td class="label-cell">Parent</td><td>Teseos Luxembourg S.A. (formerly Enovos Services Luxembourg S.A.) — direct 100% parent</td></tr>
+    </tbody></table>
+    <div>
+      <p style="font-size:10px;color:#1B2B5E;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:10px;">Key Executives</p>
+      <table class="data-table"><tbody>
+        <tr><td style="font-weight:600;">Victor Goedert</td><td style="color:#4A5568;">Chief Executive Officer <a href="https://www.linkedin.com/in/victor-goedert-82b7ba5/" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+        <tr><td style="font-weight:600;">Christophe Jacob</td><td style="color:#4A5568;">Chief Operating Officer <a href="https://www.teseos.lu/en/our-team/" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+        <tr><td style="font-weight:600;">Olivier Auchet</td><td style="color:#4A5568;">Commercial Manager <a href="https://en.paperjam.lu/guide/organisation/01298351909/global-facilities" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+      </tbody></table>
+      <div class="encevo-box">
+        <p style="font-size:11px;font-weight:700;color:#1B2B5E;margin-bottom:4px;">Encevo Relationship</p>
+        <p style="font-size:12px;">Global Facilities S.A. is a 100% wholly-owned subsidiary of Teseos Luxembourg S.A. (Encevo Group). It provides facility management services to Encevo Group buildings including Enovos and Creos facilities. This is an intra-group captive FM provider relationship, not an arm's-length supplier. Assessing Global Facilities as a 'supplier' should be unde</p>
+        <p style="font-size:11px;color:#4A5568;margin-top:6px;">Criticality: Important · Spend: Unknown</p>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-007</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P1 — FINANCIAL STABILITY ═══ -->
+<div class="page page-break" id="pillar-p1">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Global Facilities S.A. · SPEC-2026-007</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #6B1E1E;">
+    <div>
+      <p class="sh-label">Section 04 · P1</p>
+      <p class="sh-title">Financial Stability</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#6B1E1E;">39<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#6B1E1E;background:#F9EEEE;border-color:#6B1E1E;">CRITICAL</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">The financial stability assessment produced a score of 39/100 (CRITICAL risk). Strengths include: P1-C06; P1-C07; P1-C08. Areas of concern or data gaps: P1-C01; P1-C02; P1-C03.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P1-C01</td><td style="color:#4A5568;">Global Facilities S.A. is a private subsidiary of Teseos/Encevo. No credit rating found from any agency.</td>
+    <td class="src-cell"><a href="https://en.paperjam.lu/guide/organisation/01298351909/global-facilities" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">8/20</td></tr>
+    <tr><td>P1-C02</td><td style="color:#4A5568;">No revenue data publicly available. Company not subject to account publication obligation under Luxembourg law.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/15</td></tr>
+    <tr><td>P1-C03</td><td style="color:#4A5568;">No EBITDA or profitability data publicly available.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/15</td></tr>
+    <tr><td>P1-C04</td><td style="color:#4A5568;">No balance sheet data. Rubric: 'If debt data unavailable for private company: award 8 points (neutral band)'</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#B83B2E;">8/15</td></tr>
+    <tr><td>P1-C05</td><td style="color:#4A5568;">No current assets/liabilities data. Private company.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/10</td></tr>
+    <tr><td>P1-C06</td><td style="color:#4A5568;">Private company does not publish audit opinion. No going concern or qualification found in any public source. Rubric: 'Award 8 points and no</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/10</td></tr>
+    <tr><td>P1-C07</td><td style="color:#4A5568;">No restructuring, layoffs, or workforce reduction found across all public sources. Office relocation and IT upgrade in 2025 indicates normal</td>
+    <td class="src-cell"><a href="https://www.proximusnxt.lu/en/global-facilities" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P1-C08</td><td style="color:#4A5568;">No insolvency, bankruptcy, or default events found in any public source within 36-month lookback window.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">5/5</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-007</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P2 — ESG & SUSTAINABILITY ═══ -->
+<div class="page page-break" id="pillar-p2">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Global Facilities S.A. · SPEC-2026-007</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B83B2E;">
+    <div>
+      <p class="sh-label">Section 05 · P2</p>
+      <p class="sh-title">ESG & Sustainability</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B83B2E;">42<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">The ESG and sustainability assessment produced a score of 42/100 (HIGH risk). Strengths include: P2-C05; P2-C07; P2-C10. Areas of concern or data gaps: P2-C01; P2-C02; P2-C03.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P2-C01</td><td style="color:#4A5568;">Global Facilities S.A. does not publish a standalone sustainability report.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/10</td></tr>
+    <tr><td>P2-C02</td><td style="color:#4A5568;">ESR certification (Luxembourg national CSR label) provides some ESG disclosure. No CSRD, GRI, or TCFD alignment.</td>
+    <td class="src-cell"><a href="https://www.encevo.eu/press/the-encevo-group-successfully-renews-its-esr-certification/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">3/12</td></tr>
+    <tr><td>P2-C03</td><td style="color:#4A5568;">No standalone Scope 1 or Scope 2 emissions data found for Global Facilities S.A.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/8</td></tr>
+    <tr><td>P2-C04</td><td style="color:#4A5568;">No SBTi commitment, net zero target, or CDP disclosure found.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/8</td></tr>
+    <tr><td>P2-C05</td><td style="color:#4A5568;">No environmental violations or enforcement actions found. Standard null language applies.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">12/12</td></tr>
+    <tr><td>P2-C06</td><td style="color:#4A5568;">No LkSG compliance programme or Modern Slavery Act statement found. LkSG not directly applicable to this entity.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/10</td></tr>
+    <tr><td>P2-C07</td><td style="color:#4A5568;">No labour controversies, strikes, or human rights violations found. PSF certification provides minimum employee governance assurance.</td>
+    <td class="src-cell"><a href="https://en.moovijob.com/company/global-facilities" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P2-C08</td><td style="color:#4A5568;">Private subsidiary — no board composition or independent director disclosure available.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">3/8</td></tr>
+    <tr><td>P2-C09</td><td style="color:#4A5568;">Not covered by CDP. Very common for private FM subsidiaries — 0 points per rubric note.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/8</td></tr>
+    <tr><td>P2-C10</td><td style="color:#4A5568;">No ESG controversies found across all hunters. No Sustainalytics/RepRisk coverage (private company).</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">14/14</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-007</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P3 — REGULATORY & LEGAL ═══ -->
+<div class="page page-break" id="pillar-p3">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Global Facilities S.A. · SPEC-2026-007</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #2D7A4F;">
+    <div>
+      <p class="sh-label">Section 06 · P3</p>
+      <p class="sh-title">Regulatory & Legal</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#2D7A4F;">92<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">The regulatory and legal compliance assessment produced a score of 92/100 (LOW risk). Strengths include: P3-C01; P3-C03; P3-C04.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P3-C01</td><td style="color:#4A5568;">All major sanctions lists searched via WebSearch. No designations found for Global Facilities S.A. Note: direct portal queries recommended a</td>
+    <td class="src-cell"><a href="https://sanctionssearch.ofac.treas.gov/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">25/25</td></tr>
+    <tr><td>P3-C02</td><td style="color:#4A5568;">China Southern Power Grid International (Chinese SOE) holds 24.92% of Encevo S.A. (ultimate parent). Not direct PEP control at company level</td>
+    <td class="src-cell"><a href="https://www.encevo.eu/en/who-we-are/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">5/10</td></tr>
+    <tr><td>P3-C03</td><td style="color:#4A5568;">No CNPD enforcement actions found. PSF certification provides positive CSSF-regulated data governance assurance.</td>
+    <td class="src-cell"><a href="https://cnpd.public.lu/en/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P3-C04</td><td style="color:#4A5568;">No lawsuits, regulatory enforcement, or court judgments found in public sources.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P3-C05</td><td style="color:#4A5568;">No FCPA, UK Bribery Act, or local corruption investigation found. Luxembourg is a low-corruption jurisdiction.</td>
+    <td class="src-cell"><a href="https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/03/implementing-the-oecd-anti-bribery-convention-in-luxembourg_43a6beb2/c328b3e7-en.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P3-C06</td><td style="color:#4A5568;">ISO 9001 confirmed (Paperjam). PSF/CSSF confirmed (Moovijob, multiple sources). ESR certification confirmed. 3 certifications found but only</td>
+    <td class="src-cell"><a href="https://en.paperjam.lu/guide/organisation/01298351909/global-facilities" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">7/10</td></tr>
+    <tr><td>P3-C07</td><td style="color:#4A5568;">Trade compliance not applicable — domestic Luxembourg FM services company, no export-controlled goods.</td>
+    <td class="src-cell"><a href="https://globalfacilities.lu/en/about-us/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-007</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P4 — CYBERSECURITY & DATA ═══ -->
+<div class="page page-break" id="pillar-p4">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Global Facilities S.A. · SPEC-2026-007</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B83B2E;">
+    <div>
+      <p class="sh-label">Section 07 · P4</p>
+      <p class="sh-title">Cybersecurity & Data</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B83B2E;">55<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">The cybersecurity and data protection assessment produced a score of 55/100 (HIGH risk). Strengths include: P4-C01; P4-C04; P4-C05. Areas of concern or data gaps: P4-C02; P4-C03; P4-C06.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P4-C01</td><td style="color:#4A5568;">No data breaches, ransomware incidents, or CNPD notifications found in public sources.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">25/25</td></tr>
+    <tr><td>P4-C02</td><td style="color:#4A5568;">No ISO 27001 certification found. This is a gap given physical access to critical infrastructure sites.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/20</td></tr>
+    <tr><td>P4-C03</td><td style="color:#4A5568;">Not applicable for FM company. 0 points.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/15</td></tr>
+    <tr><td>P4-C04</td><td style="color:#4A5568;">No ransomware incidents identified in public sources.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P4-C05</td><td style="color:#4A5568;">No CISA KEV entries found for Global Facilities or GlobalTrace system.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P4-C06</td><td style="color:#4A5568;">No bug bounty programme or responsible disclosure policy found.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/10</td></tr>
+    <tr><td>P4-C07</td><td style="color:#4A5568;">No incidents found. Rubric: 'No incidents = no disclosure to assess. Award 5 points.'</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">5/5</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-007</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P5 — OPERATIONAL & GEOPOLITICAL RESILIENCE ═══ -->
+<div class="page page-break" id="pillar-p5">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Global Facilities S.A. · SPEC-2026-007</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 08 · P5</p>
+      <p class="sh-title">Operational & Geopolitical Resilience</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">70<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">The operational and geopolitical resilience assessment produced a score of 70/100 (MEDIUM risk). Strengths include: P5-C02; P5-C04; P5-C05. Areas of concern or data gaps: P5-C01; P5-C08; P5-C10.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P5-C01</td><td style="color:#4A5568;">No ISO 22301 or public BCP found.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">4/20</td></tr>
+    <tr><td>P5-C02</td><td style="color:#4A5568;">No service outages or failures found in public sources. Standard null language applies.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">20/20</td></tr>
+    <tr><td>P5-C03</td><td style="color:#4A5568;">High Encevo Group client concentration (intra-group captive). Some external clients (ArcelorMittal, Lunex University). Managed via group str</td>
+    <td class="src-cell"><a href="https://www.teseos.lu/en/homepage/global-facilities/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">9/15</td></tr>
+    <tr><td>P5-C04</td><td style="color:#4A5568;">Luxembourg only. Stable EU member state, low geopolitical risk.</td>
+    <td class="src-cell"><a href="https://lu.kompass.com/c/global-facilities-sa/lu0402349/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">7/10</td></tr>
+    <tr><td>P5-C05</td><td style="color:#4A5568;">Victor Goedert confirmed as CEO with no controversy or abrupt departure. Stable team including COO Christophe Jacob.</td>
+    <td class="src-cell"><a href="https://www.linkedin.com/in/victor-goedert-82b7ba5/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P5-C06</td><td style="color:#4A5568;">No layoffs or restructuring found. Office relocation and IT upgrade indicate investment, not cost reduction.</td>
+    <td class="src-cell"><a href="https://www.proximusnxt.lu/en/global-facilities" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P5-C07</td><td style="color:#4A5568;">Founded 2001 — 25 years of continuous operation.</td>
+    <td class="src-cell"><a href="https://globalfacilities.lu/fr/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P5-C08</td><td style="color:#4A5568;">Indirect Chinese SOE ownership via Encevo (24.92% CSPG stake). No direct Russia/Iran/Belarus exposure. Chinese SOE ownership is an indirect </td>
+    <td class="src-cell"><a href="https://www.cliffordchance.com/news/news/2018/10/clifford-chance-advises-china-southern-power-grid-on-acquisition0.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">5/15</td></tr>
+    <tr><td>P5-C09</td><td style="color:#4A5568;">Luxembourg EU-incorporated entity. No US operations or US parent.</td>
+    <td class="src-cell"><a href="https://globalfacilities.lu/en/about-us/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P5-C10</td><td style="color:#4A5568;">FM supplier to Creos Luxembourg (NIS2 essential entity — grid operator). Subject to Article 21 supply chain security flow-down. Compliance s</td>
+    <td class="src-cell"><a href="https://www.nis-2-directive.com/Transposition/Luxembourg.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">4/10</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-007</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P6 — REPUTATIONAL INTELLIGENCE ═══ -->
+<div class="page page-break" id="pillar-p6">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Global Facilities S.A. · SPEC-2026-007</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #2D7A4F;">
+    <div>
+      <p class="sh-label">Section 09 · P6</p>
+      <p class="sh-title">Reputational Intelligence</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#2D7A4F;">100<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">The reputational intelligence assessment produced a score of 100/100 (LOW risk). Strengths include: P6-C01; P6-C02; P6-C03.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P6-C01</td><td style="color:#4A5568;">Proximus NXT case study, ArcelorMittal energy savings reference, Lunex University case study. No adverse media.</td>
+    <td class="src-cell"><a href="https://www.proximusnxt.lu/en/global-facilities" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">25/25</td></tr>
+    <tr><td>P6-C02</td><td style="color:#4A5568;">No CSSF, CNPD, or other regulatory adverse coverage found.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">20/20</td></tr>
+    <tr><td>P6-C03</td><td style="color:#4A5568;">No NGO campaigns, Amnesty/Greenpeace adverse reports, or activist actions found.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P6-C04</td><td style="color:#4A5568;">No misconduct, fraud, or controversy found for Victor Goedert (CEO) or Christophe Jacob (COO).</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P6-C05</td><td style="color:#4A5568;">No service failures or contract terminations found.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P6-C06</td><td style="color:#4A5568;">ArcelorMittal 60% energy cost savings claim corroborated by independent case study references. No greenwashing indicators.</td>
+    <td class="src-cell"><a href="https://globalfacilities.lu/fr/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-007</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ FINDINGS REGISTER ════════════════════════════════════════════════ -->
+<div class="page page-break" id="findings-register">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Global Facilities S.A. · SPEC-2026-007</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 10</p><p class="sh-title">Findings Register</p></div>
+    <div class="sh-badge"><span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;">7 findings</span></div>
+  </div>
+  <div class="fr-summary">
+    <span class="fr-summary-item" style="color:#6B1E1E;">0 Critical</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#B83B2E;">0 High</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#B5751A;">5 Medium</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#2D7A4F;">2 Low/Info</span>
+  </div>
+  
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">1</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P5</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;font-size:10px;padding:1px 8px;">OPEN</span>
+      </div>
+    </div>
+    <p class="fr-title">Chinese state-linked indirect ownership (24.92% of Encevo) — geopolitical flag</p>
+    <p class="fr-detail">China Southern Power Grid International (HK) Co., Ltd., a subsidiary of Chinese state-owned enterprise China Southern Power Grid Co., Ltd., holds 24.92% of Encevo S.A. — the ultima</p>
+    <div class="fr-footer"><a href="https://www.cliffordchance.com/news/news/2018/10/clifford-chance-advises-china-southern-power-grid-on-acquisition0.html" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">2</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P4</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;font-size:10px;padding:1px 8px;">OPEN</span>
+      </div>
+    </div>
+    <p class="fr-title">No ISO 27001 certification — physical access to critical infrastructure without confirmed information security standard</p>
+    <p class="fr-detail">Global Facilities S.A. does not appear to hold ISO 27001 information security certification. As an FM provider with physical access to Encevo/Creos operational buildings and a prop</p>
+    <div class="fr-footer"><a href="https://www.nis-2-directive.com/Transposition/Luxembourg.html" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">3</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P5</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;font-size:10px;padding:1px 8px;">OPEN</span>
+      </div>
+    </div>
+    <p class="fr-title">NIS2 Article 21 supply chain security obligations — compliance status unconfirmed</p>
+    <p class="fr-detail">Global Facilities provides FM services to Encevo/Creos (NIS2 essential entity). Under NIS2 Article 21, essential entities must impose security requirements on their supply chain. W</p>
+    <div class="fr-footer"><a href="https://www.encevo.eu/en/who-we-are/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">4</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P1</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;font-size:10px;padding:1px 8px;">OPEN</span>
+      </div>
+    </div>
+    <p class="fr-title">Complete financial opacity — private subsidiary with no public accounts</p>
+    <p class="fr-detail">Global Facilities S.A. is not subject to the obligation to publish its accounts under Luxembourg law. All financial performance fields return null. Financial health cannot be indep</p>
+    <div class="fr-footer"><a href="https://www.societe.com/societe/global-facilities-501782957.html" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">5</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P5</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;font-size:10px;padding:1px 8px;">OPEN</span>
+      </div>
+    </div>
+    <p class="fr-title">Intra-group captive supplier — high client concentration on parent Encevo</p>
+    <p class="fr-detail">Global Facilities S.A. is a wholly-owned subsidiary of Teseos (Encevo Group) and provides FM services primarily to Encevo Group buildings. Revenue is substantially dependent on par</p>
+    <div class="fr-footer"><a href="https://www.teseos.lu/en/homepage/global-facilities/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #2D7A4F;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">6</span>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+        <span class="fr-pillar">P2</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;font-size:10px;padding:1px 8px;">OPEN</span>
+      </div>
+    </div>
+    <p class="fr-title">No standalone ESG reporting framework</p>
+    <p class="fr-detail">Global Facilities S.A. does not publish a standalone ESG report aligned to CSRD, GRI, or TCFD. ESG credentials only visible at Encevo Group consolidated level via ESR certification</p>
+    <div class="fr-footer"><a href="https://www.encevo.eu/press/the-encevo-group-successfully-renews-its-esr-certification/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #2D7A4F;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">7</span>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+        <span class="fr-pillar">P5</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;font-size:10px;padding:1px 8px;">OPEN</span>
+      </div>
+    </div>
+    <p class="fr-title">No BCP/DR plan publicly disclosed</p>
+    <p class="fr-detail">No ISO 22301 certification or public business continuity / disaster recovery plan found. For an FM company servicing Encevo critical infrastructure, absence of disclosed BCP is a m</p>
+    <div class="fr-footer"></div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-007</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ CAPA PLAN ════════════════════════════════════════════════════════ -->
+<div class="page page-break" id="capa">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Global Facilities S.A. · SPEC-2026-007</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 11</p><p class="sh-title">Corrective & Preventive Action Plan</p></div></div>
+  <table class="data-table"><colgroup><col style="width:12%"/><col style="width:40%"/><col style="width:14%"/><col style="width:16%"/><col style="width:18%"/></colgroup><thead><tr>
+    <th>Priority</th><th>Action</th><th>Finding Ref</th><th>Owner</th><th>Timeline</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:700;color:#4A5568;">SHORT_TERM</td>
+    <td style="font-weight:600;">Require Global Facilities S.A. to obtain ISO 27001 certification or equivalent within 12 months</td><td style="color:#4A5568;">F-002</td>
+    <td>Encevo CISO / Procurement</td><td>Within 12 months</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">SHORT_TERM</td>
+    <td style="font-weight:600;">Conduct and document formal NIS2 Article 21 supply chain security assessment for Global Facilities S.A.</td><td style="color:#4A5568;">F-003</td>
+    <td>Encevo/Creos Compliance / CISO</td><td>Within 90 days</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">MEDIUM_TERM</td>
+    <td style="font-weight:600;">Obtain board-level assurance that China Southern Power Grid International (CSPG) does not have undue influence over Encevo strategic decisions affecting Global Facilities and critical infrastructure access</td><td style="color:#4A5568;">F-001</td>
+    <td>Encevo Board / General Counsel</td><td>Within 6 months</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">ONGOING</td>
+    <td style="font-weight:600;">Request annual financial health certificate or parent (Teseos/Encevo) group-level guarantee for Global Facilities service continuity</td><td style="color:#4A5568;">F-004</td>
+    <td>Procurement / Finance</td><td>Annual review cycle</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">MEDIUM_TERM</td>
+    <td style="font-weight:600;">Request Global Facilities to publish basic sustainability metrics (energy consumed, carbon from fleet, waste) aligned to Encevo Group ESG framework</td><td style="color:#4A5568;">F-006</td>
+    <td>Encevo Sustainability</td><td>Within 18 months</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-007</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ CONTRACT PLAYBOOK ════════════════════════════════════════════════ -->
+<div class="page page-break" id="playbook">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Global Facilities S.A. · SPEC-2026-007</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 12</p><p class="sh-title">Contract Playbook</p></div></div>
+  <table class="data-table"><colgroup><col style="width:18%"/><col style="width:42%"/><col style="width:24%"/><col style="width:16%"/></colgroup><thead><tr>
+    <th>Clause Area</th><th>Recommendation</th><th>Risk Basis</th><th>Priority</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Information Security & NIS2 Compliance</td>
+    <td>Include explicit clause requiring Global Facilities to maintain ISO 27001 certification (or equivalent) and to comply with NIS2 Article 21 supply chain security measures as defined by Encevo/Creos as essential entity. Include right to audit.</td><td style="color:#4A5568;">F-002, F-003 — no ISO 27001, NIS2 supply chain obligations unconfirmed</td>
+    <td><span style="font-size:10px;font-weight:700;">MUST_HAVE</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Building Management System (GlobalTrace) Security</td>
+    <td>Require annual penetration testing of GlobalTrace system with results shared with Encevo CISO. Require responsible disclosure of any vulnerabilities discovered.</td><td style="color:#4A5568;">F-002 — proprietary BMS deployed at critical infrastructure without public security audit</td>
+    <td><span style="font-size:10px;font-weight:700;">MUST_HAVE</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Physical Security & Access Control</td>
+    <td>Specify access control requirements for Global Facilities personnel accessing Creos/Enovos operational buildings, substations, and control rooms. Require background checks for personnel with critical infrastructure access.</td><td style="color:#4A5568;">F-001, F-003 — Chinese SOE indirect ownership, NIS2 supply chain risk</td>
+    <td><span style="font-size:10px;font-weight:700;">MUST_HAVE</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Financial Continuity & Service Guarantee</td>
+    <td>Include Teseos/Encevo parent guarantee for service continuity. Define transition assistance obligations in the event of service termination.</td><td style="color:#4A5568;">F-004 — financial opacity, captive intra-group structure</td>
+    <td><span style="font-size:10px;font-weight:700;">RECOMMENDED</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Data Protection & GDPR</td>
+    <td>Formal Data Processing Agreement (DPA) confirming EU data residency, data minimisation, and CNPD notification obligations. Reference PSF/CSSF compliance where financial sector clients are involved.</td><td style="color:#4A5568;">General GDPR compliance — PSF certification already in place</td>
+    <td><span style="font-size:10px;font-weight:700;">RECOMMENDED</span></td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-007</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ MONITORING DASHBOARD ═════════════════════════════════════════════ -->
+<div class="page page-break" id="monitoring">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Global Facilities S.A. · SPEC-2026-007</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 13</p><p class="sh-title">Ongoing Monitoring Dashboard</p></div></div>
+  <table class="data-table" style="font-size:11px;"><colgroup><col style="width:22%"/><col style="width:16%"/><col style="width:6%"/><col style="width:16%"/><col style="width:16%"/><col style="width:12%"/><col style="width:12%"/></colgroup><thead><tr>
+    <th>Key Risk Indicator</th><th>Current</th><th></th>
+    <th>Green</th><th>Amber</th><th>Red</th><th>Review</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:600;">ISO 27001 Certification Status</td>
+    <td class="mono-cell">Not certified</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">Certified (certificate verified online)</td>
+    <td style="color:#B5751A;">In progress — certification expected within 6 months</td>
+    <td style="color:#B83B2E;">Not certified and no programme in place</td>
+    <td style="color:#4A5568;">Quarterly until certified, then annual</td></tr>
+    <tr><td style="font-weight:600;">Encevo CSPG Ownership Change</td>
+    <td class="mono-cell">24.92% (China Southern Power Grid International)</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">CSPG stake below 15% or sold</td>
+    <td style="color:#B5751A;">CSPG stake maintained at current level with no board influence</td>
+    <td style="color:#B83B2E;">CSPG stake increases above 30% or gains board representation</td>
+    <td style="color:#4A5568;">Annual (Encevo shareholder announcements)</td></tr>
+    <tr><td style="font-weight:600;">NIS2 Supply Chain Assessment</td>
+    <td class="mono-cell">Not confirmed</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">Formal NIS2 supply chain security assessment completed and documented</td>
+    <td style="color:#B5751A;">Assessment in progress</td>
+    <td style="color:#B83B2E;">No assessment and NIS2 compliance date passed</td>
+    <td style="color:#4A5568;">Immediate then annual</td></tr>
+    <tr><td style="font-weight:600;">Parent Encevo Financial Health</td>
+    <td class="mono-cell">ESR 84% score 2024, EUR 288M investments</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">Encevo Group maintains investment grade equivalent and stable investment programme</td>
+    <td style="color:#B5751A;">Encevo Group signals investment reduction or strategic review affecting technical services</td>
+    <td style="color:#B83B2E;">Encevo Group announces restructuring, asset sale of Teseos/Global Facilities, or financial distress</td>
+    <td style="color:#4A5568;">Annual (Encevo Annual Report)</td></tr>
+    <tr><td style="font-weight:600;">Key Person Risk — CEO</td>
+    <td class="mono-cell">Victor Goedert (CEO, stable)</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">Stable leadership, no departure announced</td>
+    <td style="color:#B5751A;">CEO departure announced with planned succession</td>
+    <td style="color:#B83B2E;">Abrupt CEO departure during service period with no succession plan</td>
+    <td style="color:#4A5568;">Annual</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-007</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ DATA GAPS ════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Global Facilities S.A. · SPEC-2026-007</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Appendix</p><p class="sh-title">Data Gaps & Limitations</p></div></div>
+  <div class="info-box gap-box">
+    <p class="info-box-title" style="color:#B5751A;">10 data gap(s) identified</p>
+    <ul style="padding-left:18px;font-size:12px;line-height:1.8;"><li><strong>revenue</strong>: private_company_no_public_accounts — HIGH — cannot assess financial performance</li>
+<li><strong>ebitda_margin</strong>: private_company_no_public_accounts — HIGH — cannot assess profitability</li>
+<li><strong>credit_rating</strong>: private_company_unrated — MEDIUM — creditworthiness unverifiable</li>
+<li><strong>scope1_emissions</strong>: not_publicly_disclosed — MEDIUM — environmental performance unverifiable</li>
+<li><strong>iso_27001_certification</strong>: not_found_in_searches — HIGH — critical gap for NIS2 supply chain compliance</li>
+<li><strong>nис2_compliance_documentation</strong>: not_publicly_disclosed — HIGH — supply chain security obligations unconfirmed</li>
+<li><strong>bcp_dr_plan</strong>: not_publicly_disclosed — LOW — 25yr track record partially mitigates</li>
+<li><strong>standalone_sustainability_report</strong>: not_published — MEDIUM — ESG performance unverifiable standalone</li>
+<li><strong>ofac_direct_portal_verification</strong>: webfetch_unavailable — MEDIUM — web search only; direct portal check recommended</li>
+<li><strong>cspg_board_influence_at_encevo</strong>: not_publicly_disclosed — MEDIUM — cannot assess strategic influence of Chinese SOE shareholder</li>
+</ul>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-007</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ METHODOLOGY & SOURCES ════════════════════════════════════════════ -->
+<div class="page page-break" id="methodology">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Global Facilities S.A. · SPEC-2026-007</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 14</p><p class="sh-title">Methodology & Data Sources</p></div></div>
+  <div class="info-box" style="background:#F8F9FA;margin-bottom:20px;">
+    <p style="font-size:12px;line-height:1.7;"><strong>Data Currency:</strong> Data gathered March 2026. Searches conducted 2026-03-29. All sources retrieved on this date.</p>
+    <p style="font-size:12px;line-height:1.7;margin-top:8px;"><strong>Methodology:</strong> This assessment was conducted using SPECTRUM's evidence-first multi-agent pipeline. All findings are sourced from publicly available information. Scores are derived by applying the SPECTRUM six-pillar rubric to verified evidence. No training-knowledge claims are made — every factual statement is linked to a source URL.</p>
+  </div>
+  <ol style="padding-left:20px;font-size:12px;line-height:1.8;"><li><span class="mono" style="color:#1B2B5E;font-weight:700;">[1]</span> <a href="https://globalfacilities.lu/" target="_blank">https://globalfacilities.lu/</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[2]</span> <a href="https://en.paperjam.lu/guide/organisation/01298351909/global-facilities" target="_blank">https://en.paperjam.lu/guide/organisation/01298351909/global-facilitie</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[3]</span> <a href="https://www.teseos.lu/en/homepage/global-facilities/" target="_blank">https://www.teseos.lu/en/homepage/global-facilities/</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[4]</span> <a href="https://www.encevo.eu/en/who-we-are/" target="_blank">https://www.encevo.eu/en/who-we-are/</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[5]</span> <a href="https://www.encevo.eu/press/the-encevo-group-successfully-renews-its-esr-certification/" target="_blank">https://www.encevo.eu/press/the-encevo-group-successfully-renews-its-e</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[6]</span> <a href="https://www.encevo.eu/wp-content/uploads/2025/05/Encevo-Annual-Report-2024.pdf" target="_blank">https://www.encevo.eu/wp-content/uploads/2025/05/Encevo-Annual-Report-</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[7]</span> <a href="https://www.proximusnxt.lu/en/global-facilities" target="_blank">https://www.proximusnxt.lu/en/global-facilities</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[8]</span> <a href="https://chronicle.lu/category/energy/38958-enovos-services-becomes-teseos" target="_blank">https://chronicle.lu/category/energy/38958-enovos-services-becomes-tes</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[9]</span> <a href="https://www.cliffordchance.com/news/news/2018/10/clifford-chance-advises-china-southern-power-grid-on-acquisition0.html" target="_blank">https://www.cliffordchance.com/news/news/2018/10/clifford-chance-advis</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[10]</span> <a href="https://www.europarl.europa.eu/RegData/etudes/IDAN/2023/702592/EXPO_IDA(2023)702592_EN.pdf" target="_blank">https://www.europarl.europa.eu/RegData/etudes/IDAN/2023/702592/EXPO_ID</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[11]</span> <a href="https://fedil.lu/en/members/690c5bb5-ece6-e611-80f5-c4346bac8ce8/" target="_blank">https://fedil.lu/en/members/690c5bb5-ece6-e611-80f5-c4346bac8ce8/</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[12]</span> <a href="https://en.moovijob.com/company/global-facilities" target="_blank">https://en.moovijob.com/company/global-facilities</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[13]</span> <a href="https://www.linkedin.com/in/victor-goedert-82b7ba5/" target="_blank">https://www.linkedin.com/in/victor-goedert-82b7ba5/</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[14]</span> <a href="https://www.teseos.lu/en/our-team/" target="_blank">https://www.teseos.lu/en/our-team/</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[15]</span> <a href="https://lu.kompass.com/c/global-facilities-sa/lu0402349/" target="_blank">https://lu.kompass.com/c/global-facilities-sa/lu0402349/</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[16]</span> <a href="https://www.nis-2-directive.com/Transposition/Luxembourg.html" target="_blank">https://www.nis-2-directive.com/Transposition/Luxembourg.html</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[17]</span> <a href="https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/03/implementing-the-oecd-anti-bribery-convention-in-luxembourg_43a6beb2/c328b3e7-en.pdf" target="_blank">https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/03/</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[18]</span> <a href="https://globalfacilities.lu/fr/case-studies/lunex/" target="_blank">https://globalfacilities.lu/fr/case-studies/lunex/</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[19]</span> <a href="https://www.societe.com/societe/global-facilities-501782957.html" target="_blank">https://www.societe.com/societe/global-facilities-501782957.html</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[20]</span> <a href="https://cnpd.public.lu/en/professionnels/obligations/violation-de-donnees/violation-donnees-rgpd.html" target="_blank">https://cnpd.public.lu/en/professionnels/obligations/violation-de-donn</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+</ol>
+  <div class="info-box methodology-box" style="margin-top:24px;">
+    <p style="font-size:11px;color:#4A5568;line-height:1.7;"><strong>Disclaimer:</strong> This report is based on publicly available information gathered as of 2026-03-29. It does not constitute legal advice, financial advice, or a comprehensive audit. SPECTRUM accepts no liability for decisions made based solely on this report. Users are advised to conduct additional due diligence as appropriate for their risk appetite and regulatory context.</p>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-007</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ BACK COVER ═══════════════════════════════════════════════════════ -->
+<div class="page page-break" style="background:#1B2B5E;min-height:280px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.03);"></div>
+  <div style="position:absolute;bottom:-40px;left:80px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.02);"></div>
+  <p style="color:#A5B4FC;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;">SPECTRUM</p>
+  <p style="color:rgba(255,255,255,.5);font-size:11px;margin-top:4px;letter-spacing:.08em;">Vendor Intelligence Platform</p>
+  <div style="width:48px;height:2px;background:rgba(255,255,255,.2);margin:28px auto;"></div>
+  <p style="color:#fff;font-size:22px;font-weight:700;">Global Facilities S.A.</p>
+  <p style="color:#CBD5E1;font-size:12px;margin-top:6px;font-family:'JetBrains Mono',monospace;">SPEC-2026-007 · 2026-03-29</p>
+  <div style="width:48px;height:2px;background:rgba(255,255,255,.2);margin:28px auto;"></div>
+  <p style="color:rgba(255,255,255,.35);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;">CONFIDENTIAL — For Authorised Recipients Only</p>
+</div>
+
+</div><!-- .doc -->
+</body>
+</html>

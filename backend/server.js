@@ -99,7 +99,7 @@ app.listen(PORT, HOST, () => {
   console.log('===========================================');
   console.log(`Server running on: http://${HOST}:${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`Model: ${process.env.OPENAI_MODEL || 'gpt-4-turbo-preview'}`);
+  console.log(`Model: ${process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-20250514'}`);
   console.log('===========================================\n');
 });
 

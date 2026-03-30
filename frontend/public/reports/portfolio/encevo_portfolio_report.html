@@ -1,0 +1,2436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SPECTRUM — Supplier Portfolio Intelligence Report | Encevo S.A.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand:       #1B2B5E;
+      --brand-light: #2A3F7E;
+      --text-primary: #0F1729;
+      --text-secondary: #4A5568;
+      --bg:          #FFFFFF;
+      --bg-section:  #F8F9FA;
+      --border:      #E2E8F0;
+
+      /* Institutional palette — desaturated, ink-friendly */
+      --high-fg:     #B83B2E;
+      --high-bg:     #FAF0EE;
+      --high-border: #E5C4BF;
+      --med-fg:      #B5751A;
+      --med-bg:      #FAF4EA;
+      --med-border:  #E5D5B8;
+      --low-fg:      #2D7A4F;
+      --low-bg:      #EEF5F1;
+      --low-border:  #BDD9C8;
+      --critical-fg: #6B1E1E;
+      --critical-bg: #F9EEEE;
+      --critical-border: #E0BFBF;
+      --info-fg:     #3B6A9A;
+      --info-bg:     #EDF2F7;
+      --info-border: #BFD0E0;
+
+      --radius-sm:   4px;
+      --radius:      8px;
+      --radius-lg:   12px;
+      --shadow-sm:   0 1px 3px rgba(0,0,0,.08);
+      --shadow:      0 4px 12px rgba(0,0,0,.10);
+    }
+
+    html { font-size: 14px; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #EEF0F5;
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* ─── Page wrapper ─────────────────────────────────────────── */
+    .page-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--bg);
+    }
+
+    /* ─── Section common ───────────────────────────────────────── */
+    .section {
+      padding: 52px 52px 44px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-child { border-bottom: none; }
+
+    .section-alt { background: var(--bg-section); }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--brand);
+      margin-bottom: 8px;
+      padding-left: 14px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 28px;
+      padding-left: 14px;
+      border-left: 4px solid var(--brand);
+      display: block;
+    }
+
+    /* Accent-bar section header (consistent with individual report) */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .section-accent {
+      width: 4px;
+      min-height: 36px;
+      background: var(--brand);
+      border-radius: 2px;
+      flex-shrink: 0;
+      align-self: stretch;
+    }
+
+    /* ─── COVER PAGE — matches individual vendor report ───────── */
+    .cover {
+      background: #1B2B5E;
+      padding: 64px 56px 48px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      border-bottom: none;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 400px; height: 400px;
+      background: rgba(255,255,255,.03);
+      border-radius: 50%;
+    }
+    .cover-stripe {
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+      width: 200px;
+      background: rgba(255,255,255,.03);
+      clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+    .cover-inner { position: relative; z-index: 2; }
+    .cover-brand {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #A5B4FC;
+      margin-bottom: 16px;
+    }
+    .cover-name {
+      font-size: 42px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.1;
+    }
+    .cover-subtitle {
+      color: #CBD5E1;
+      font-size: 15px;
+      margin-bottom: 36px;
+    }
+    .cover-kpi {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .cover-kpi-card {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px;
+      padding: 14px 24px;
+      min-width: 130px;
+    }
+    .cover-kpi-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #94A3B8;
+      margin-bottom: 4px;
+    }
+    .cover-meta {
+      display: flex;
+      gap: 32px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,.1);
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: #CBD5E1;
+    }
+    .cover-meta span { color: #94A3B8; }
+
+    /* ─── KPI TILES ────────────────────────────────────────────── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .kpi-tile {
+      background: var(--bg-section);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 18px;
+      text-align: center;
+    }
+
+    .kpi-tile.kpi-score {
+      background: var(--brand);
+      border-color: var(--brand);
+    }
+
+    .kpi-tile.kpi-high   { background: var(--high-bg);  border-color: var(--high-border); }
+    .kpi-tile.kpi-medium { background: var(--med-bg);   border-color: var(--med-border); }
+    .kpi-tile.kpi-low    { background: var(--low-bg);   border-color: var(--low-border); }
+
+    .kpi-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+    .kpi-tile.kpi-score .kpi-label { color: rgba(255,255,255,.7); }
+    .kpi-tile.kpi-high   .kpi-label { color: var(--high-fg); }
+    .kpi-tile.kpi-medium .kpi-label { color: var(--med-fg); }
+    .kpi-tile.kpi-low    .kpi-label { color: var(--low-fg); }
+
+    .kpi-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+    .kpi-tile.kpi-score .kpi-value { color: #fff; }
+    .kpi-tile.kpi-high   .kpi-value { color: var(--high-fg); }
+    .kpi-tile.kpi-medium .kpi-value { color: var(--med-fg); }
+    .kpi-tile.kpi-low    .kpi-value { color: var(--low-fg); }
+
+    .kpi-sub {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+    .kpi-tile.kpi-score .kpi-sub { color: rgba(255,255,255,.6); }
+
+    /* ─── SUMMARY PARAGRAPH ────────────────────────────────────── */
+    .summary-para {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 28px;
+      padding: 20px 24px;
+      background: var(--bg-section);
+      border-left: 3px solid var(--brand);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+    .summary-para p { margin-bottom: 12px; }
+    .summary-para p:last-child { margin-bottom: 0; }
+    .summary-para ul {
+      margin: 10px 0 10px 20px;
+      padding: 0;
+    }
+    .summary-para ul li {
+      margin-bottom: 6px;
+      line-height: 1.7;
+      list-style: disc;
+    }
+
+    /* ─── ALERT CARDS ──────────────────────────────────────────── */
+    .alert-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .alert-card {
+      background: var(--high-bg);
+      border: 1px solid var(--high-border);
+      border-radius: var(--radius);
+      padding: 20px 20px;
+    }
+
+    .alert-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--high-fg);
+      background: rgba(220,38,38,.12);
+      border-radius: 3px;
+      padding: 3px 7px;
+      margin-bottom: 10px;
+    }
+
+    .alert-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--high-fg);
+      border-radius: 50%;
+    }
+
+    .alert-text {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.65;
+    }
+
+    .alert-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--high-fg);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .alert-section-title::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--high-fg);
+      border-radius: 50%;
+    }
+
+    /* ─── RISK MATRIX TABLE ─────────────────────────────────────── */
+    .matrix-wrap {
+      overflow-x: auto;
+      margin-bottom: 16px;
+    }
+
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .matrix-table th,
+    .matrix-table td {
+      border: 1px solid var(--border);
+      text-align: center;
+      vertical-align: middle;
+      padding: 0;
+    }
+
+    .matrix-table thead th {
+      background: var(--brand);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 10px 6px;
+      white-space: nowrap;
+    }
+
+    .matrix-table thead th.col-supplier {
+      text-align: left;
+      padding-left: 12px;
+      min-width: 140px;
+      background: #141f45;
+    }
+
+    .matrix-table tbody td.td-supplier {
+      text-align: left;
+      padding: 0 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 140px;
+      height: 38px;
+    }
+
+    .score-cell {
+      width: 72px;
+      height: 38px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: default;
+    }
+
+    .score-cell.score-high  { background: var(--high-bg); color: var(--high-fg); }
+    .score-cell.score-med   { background: var(--med-bg);  color: var(--med-fg); }
+    .score-cell.score-low   { background: var(--low-bg);  color: var(--low-fg); }
+
+    .td-total {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 0 10px;
+      height: 38px;
+      background: #fff;
+    }
+    .td-total.score-high  { color: var(--high-fg); background: var(--high-bg); }
+    .td-total.score-med   { color: var(--med-fg);  background: var(--med-bg); }
+    .td-total.score-low   { color: var(--low-fg);  background: var(--low-bg); }
+
+    .tr-avg td {
+      background: var(--bg-section);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 9px 6px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .tr-avg td.col-label {
+      text-align: left;
+      padding-left: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .matrix-legend {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-top: 14px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+
+    /* ─── CHARTS ROW ────────────────────────────────────────────── */
+    .charts-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .chart-card {
+      background: var(--bg-section);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px 22px;
+    }
+
+    .chart-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .chart-svg-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* ─── STANDARD TABLES ───────────────────────────────────────── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 13px;
+    }
+
+    .data-table thead tr {
+      background: var(--brand);
+    }
+
+    .data-table thead th {
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 12px 14px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .data-table tbody tr:nth-child(odd)  { background: #fff; }
+    .data-table tbody tr:nth-child(even) { background: var(--bg-section); }
+    .data-table tbody tr:hover           { background: #EDF2F7; }
+
+    .data-table tbody td {
+      padding: 12px 14px;
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.6;
+    }
+
+    /* ─── SEVERITY / VERDICT PILLS ─────────────────────────────── */
+    /* ─── FLAGS TABLE (Section 06) ─────────────────────────────── */
+    .flags-table { table-layout: fixed; }
+    .flags-table col.col-finding   { width: 42%; }
+    .flags-table col.col-suppliers { width: 18%; }
+    .flags-table col.col-severity  { width: 10%; }
+    .flags-table col.col-action    { width: 30%; }
+
+    .flags-table td { vertical-align: top; word-wrap: break-word; white-space: normal; }
+    .flags-table .finding-title {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--text-primary);
+      line-height: 1.45;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .flags-table .finding-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .flags-table .suppliers-cell {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .flags-table .action-cell {
+      font-size: 12px;
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* ─── INVESTIGATIONS TABLE (Section 06B) ───────────────────── */
+    .invest-table { table-layout: fixed; }
+    .invest-table col.col-supplier  { width: 13%; }
+    .invest-table col.col-body      { width: 17%; }
+    .invest-table col.col-matter    { width: 36%; }
+    .invest-table col.col-dim       { width: 13%; }
+    .invest-table col.col-sev       { width: 10%; }
+    .invest-table col.col-status    { width: 11%; }
+    .invest-table td { word-wrap: break-word; white-space: normal; font-size: 12px; }
+
+    /* ─── ACTIONS TABLE (Section 08) ───────────────────────────── */
+    .actions-table { table-layout: fixed; }
+    .actions-table col.col-pri      { width: 9%; }
+    .actions-table col.col-cat      { width: 14%; }
+    .actions-table col.col-act      { width: 37%; }
+    .actions-table col.col-sup      { width: 18%; }
+    .actions-table col.col-own      { width: 12%; }
+    .actions-table col.col-tl       { width: 10%; }
+    .actions-table td { word-wrap: break-word; white-space: normal; font-size: 12px; }
+
+    .pill {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .pill-high   { background: var(--high-bg);  color: var(--high-fg);  border: 1px solid var(--high-border); }
+    .pill-medium { background: var(--med-bg);   color: var(--med-fg);   border: 1px solid var(--med-border); }
+    .pill-low    { background: var(--low-bg);   color: var(--low-fg);   border: 1px solid var(--low-border); }
+    .pill-info   { background: #EDF2F7; color: #3B6A9A; border: 1px solid #BFD0E0; }
+
+    /* ─── SUPPLIER SNAPSHOT CARDS ──────────────────────────────── */
+    .snapshot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .snap-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .snap-header {
+      background: var(--brand);
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .snap-supplier-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .snap-meta {
+      font-size: 11px;
+      color: rgba(255,255,255,.65);
+      margin-top: 3px;
+    }
+
+    .snap-score-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 26px;
+      font-weight: 700;
+      min-width: 56px;
+      height: 56px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-left: 12px;
+    }
+    .snap-score-badge.score-high  { background: var(--high-bg); color: var(--high-fg); }
+    .snap-score-badge.score-med   { background: var(--med-bg);  color: var(--med-fg); }
+    .snap-score-badge.score-low   { background: var(--low-bg);  color: var(--low-fg); }
+
+    .snap-body {
+      padding: 16px 18px;
+    }
+
+    .snap-verdict-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .snap-verdict-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .snap-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .pillar-mini {
+      background: var(--bg-section);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 7px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pillar-mini-name {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .pillar-mini-score {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .pillar-mini-score.score-high  { color: var(--high-fg); }
+    .pillar-mini-score.score-med   { color: var(--med-fg); }
+    .pillar-mini-score.score-low   { color: var(--low-fg); }
+
+    .snap-flags {
+      margin-bottom: 12px;
+      list-style: none;
+    }
+
+    .snap-flags li {
+      font-size: 12px;
+      color: var(--text-secondary);
+      padding: 4px 0 4px 0;
+      position: relative;
+      line-height: 1.5;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .snap-flags li::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 5px;
+      position: static;
+    }
+    .snap-flags li.flag-high::before   { background: var(--high-fg); }
+    .snap-flags li.flag-medium::before { background: var(--med-fg); }
+    .snap-flags li.flag-low::before    { background: var(--low-fg); }
+
+    .snap-narrative {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 14px;
+      padding: 12px 14px;
+      background: var(--bg-section);
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--border);
+    }
+
+    .snap-link {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--brand);
+      text-decoration: none;
+      letter-spacing: .04em;
+    }
+    .snap-link:hover { text-decoration: underline; }
+
+    /* ─── METHODOLOGY SECTION ───────────────────────────────────── */
+    .method-body {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    .method-disclaimer {
+      margin-top: 20px;
+      padding: 14px 18px;
+      background: var(--bg-section);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────────────── */
+    .report-footer {
+      background: var(--brand);
+      color: rgba(255,255,255,.5);
+      padding: 20px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      letter-spacing: .06em;
+    }
+
+    .footer-brand {
+      font-weight: 700;
+      color: rgba(255,255,255,.75);
+      letter-spacing: .12em;
+    }
+
+    /* ── Evidence Quote ─────────────────────────────────────────────── */
+    .evidence-quote {
+      margin: 12px 0 16px;
+      padding: 12px 16px 12px 20px;
+      border-left: 3px solid #CBD5E0;
+      background: #F8FAFC;
+      border-radius: 0 6px 6px 0;
+      font-size: 12px;
+      font-style: italic;
+      color: #4A5568;
+      line-height: 1.65;
+      position: relative;
+    }
+    .evidence-quote::before {
+      content: '"';
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      font-size: 24px;
+      color: #CBD5E0;
+      font-style: normal;
+      line-height: 1;
+    }
+    .evidence-quote-source {
+      display: block;
+      margin-top: 6px;
+      font-size: 11px;
+      font-style: normal;
+      font-weight: 600;
+      color: #94A3B8;
+    }
+
+    /* ── Data Quality Badges ─────────────────────────────────────────── */
+    .confidence-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 3px;
+    }
+    .confidence-HIGH   { background: #EEF5F1; color: #2D7A4F; border: 1px solid #BDD9C8; }
+    .confidence-MEDIUM { background: #FAF4EA; color: #B5751A; border: 1px solid #E5D5B8; }
+    .confidence-LOW    { background: #FAF0EE; color: #B83B2E; border: 1px solid #E5C4BF; }
+    .confidence-UNVERIFIED { background: #F8FAFC; color: #64748B; border: 1px solid #CBD5E0; }
+    .confidence-NOT_FOUND  { background: #F1F5F9; color: #94A3B8; border: 1px solid #E2E8F0; }
+
+    .stale-flag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #B5751A;
+      background: #FAF4EA;
+      border: 1px solid #E5D5B8;
+      border-radius: 3px;
+      padding: 2px 7px;
+    }
+    .stale-flag::before { content: '⚠ '; }
+
+    .source-ref {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      color: #1B2B5E;
+      background: #EEF2FF;
+      border: 1px solid #C7D2FE;
+      border-radius: 3px;
+      padding: 1px 5px;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .source-ref:hover { background: #C7D2FE; }
+
+    /* ── Data Gap Notice ─────────────────────────────────────────────── */
+    .data-gap-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 14px;
+      background: #F1F5F9;
+      border: 1px solid #CBD5E0;
+      border-left: 3px solid #94A3B8;
+      border-radius: 0 6px 6px 0;
+      font-size: 12px;
+      color: #4A5568;
+      line-height: 1.5;
+      margin: 8px 0;
+    }
+    .data-gap-notice::before {
+      content: 'DATA GAP';
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: #94A3B8;
+      white-space: nowrap;
+      padding-top: 1px;
+    }
+
+    /* ── Pending Investigation Alert ─────────────────────────────────── */
+    .pending-investigation {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 12px 16px;
+      background: #FAF4EA;
+      border: 1px solid #E5D5B8;
+      border-left: 4px solid #B5751A;
+      border-radius: 0 6px 6px 0;
+      margin: 8px 0;
+    }
+    .pending-investigation-icon {
+      font-size: 16px;
+      line-height: 1.4;
+      flex-shrink: 0;
+    }
+    .pending-investigation-body { flex: 1; }
+    .pending-investigation-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #B5751A;
+      margin-bottom: 3px;
+    }
+    .pending-investigation-text {
+      font-size: 13px;
+      color: #713F12;
+      line-height: 1.5;
+    }
+
+    /* ── ESG Trend Indicator ─────────────────────────────────────────── */
+    .trend-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .trend-ESCALATING        { background: #FAF0EE; color: #B83B2E; border: 1px solid #E5C4BF; }
+    .trend-STABLE            { background: #FAF4EA; color: #B5751A; border: 1px solid #E5D5B8; }
+    .trend-IMPROVING         { background: #EEF5F1; color: #2D7A4F; border: 1px solid #BDD9C8; }
+    .trend-INSUFFICIENT_DATA { background: #F1F5F9; color: #64748B; border: 1px solid #CBD5E0; }
+    .trend-ESCALATING::before        { content: '↑ '; }
+    .trend-STABLE::before            { content: '→ '; }
+    .trend-IMPROVING::before         { content: '↓ '; }
+    .trend-INSUFFICIENT_DATA::before { content: '? '; }
+
+    /* ── Controversy Timeline ────────────────────────────────────────── */
+    .controversy-timeline { margin: 16px 0; }
+    .timeline-item {
+      display: flex;
+      gap: 16px;
+      padding-bottom: 20px;
+      position: relative;
+    }
+    .timeline-item:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 32px;
+      bottom: 0;
+      width: 2px;
+      background: #E2E8F0;
+    }
+    .timeline-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 10px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      background: #fff;
+      z-index: 1;
+    }
+    .timeline-dot-CRITICAL { color: #6B1E1E; border-color: #6B1E1E; background: #FAF0EE; }
+    .timeline-dot-HIGH     { color: #B83B2E; border-color: #B83B2E; }
+    .timeline-dot-MEDIUM   { color: #B5751A; border-color: #B5751A; }
+    .timeline-dot-LOW      { color: #2D7A4F; border-color: #2D7A4F; }
+    .timeline-content { flex: 1; padding-top: 4px; }
+    .timeline-date {
+      font-size: 11px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      color: #94A3B8;
+      margin-bottom: 2px;
+    }
+    .timeline-headline {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0F1729;
+      margin-bottom: 4px;
+    }
+    .timeline-body {
+      font-size: 12px;
+      color: #4A5568;
+      line-height: 1.5;
+    }
+    .timeline-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      margin-top: 6px;
+      padding: 2px 7px;
+      border-radius: 3px;
+    }
+    .status-resolved  { background: #EEF5F1; color: #2D7A4F; }
+    .status-ongoing   { background: #FAF0EE; color: #B83B2E; }
+    .status-contested { background: #FAF4EA; color: #B5751A; }
+    .status-unknown   { background: #F1F5F9; color: #64748B; }
+
+    /* ── Subsidiary / Shareholder Tags ──────────────────────────────── */
+    .entity-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      margin: 2px 3px 2px 0;
+      background: #EEF2FF;
+      color: #1B2B5E;
+      border: 1px solid #C7D2FE;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* ── Inherited Risk Banner ───────────────────────────────────────── */
+    .inherited-risk-banner {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 16px;
+      background: #FAF0EE;
+      border: 1px solid #E5C4BF;
+      border-left: 4px solid #B83B2E;
+      border-radius: 0 6px 6px 0;
+      font-size: 12px;
+      color: #6B1E1E;
+      font-weight: 600;
+      margin: 12px 0;
+    }
+    .inherited-risk-banner::before {
+      content: 'INHERITED RISK';
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      background: #B83B2E;
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    /* ─── PRIORITY ACTION BOX ──────────────────────────────────── */
+    .priority-action-box {
+      margin-top: 12px;
+      padding: 12px 14px;
+      background: #EEF2FF;
+      border-radius: 4px;
+      border-left: 3px solid var(--brand);
+    }
+    .priority-action-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--brand);
+      margin-bottom: 5px;
+    }
+    .priority-action-text {
+      font-size: 12px;
+      color: #1B2B5E;
+      line-height: 1.6;
+    }
+
+    /* ─── PRINT STYLES ──────────────────────────────────────────── */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 12mm 14mm;
+      }
+
+      body { background: #fff; }
+      .page-wrap { max-width: 100%; }
+      .section { padding: 24px 32px 20px; page-break-before: always; break-before: page; }
+      .section:first-child { page-break-before: avoid; break-before: avoid; }
+
+      .cover { padding: 48px 52px 36px; }
+      .cover-name { font-size: 32px; }
+      .cover-kpi { gap: 12px; }
+      .cover-kpi-card { padding: 10px 16px; }
+
+      .kpi-grid { gap: 10px; }
+      .kpi-value { font-size: 28px; }
+
+      .alert-grid { grid-template-columns: repeat(3, 1fr); }
+      .alert-card { break-inside: avoid; page-break-inside: avoid; }
+
+      .snapshot-grid { grid-template-columns: 1fr; gap: 12px; }
+      .snap-card { break-inside: avoid; }
+
+      .charts-row { grid-template-columns: 1fr 1fr; }
+      .chart-card { break-inside: avoid; }
+
+      .data-table tbody tr:hover { background: inherit; }
+
+      .report-footer { padding: 12px 32px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 1. COVER PAGE                                               -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="section cover">
+    <div class="cover-stripe"></div>
+    <div class="cover-inner">
+
+      <p class="cover-brand">SPECTRUM · PORTFOLIO INTELLIGENCE</p>
+      <h1 class="cover-name">Encevo S.A.</h1>
+      <p class="cover-subtitle">Supplier Portfolio Risk Assessment — Top 10 Suppliers by Procurement Value</p>
+
+      <div class="cover-kpi">
+        <div class="cover-kpi-card">
+          <p class="cover-kpi-label">Portfolio Score</p>
+          <p style="color:#B5751A;font-size:28px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:-0.02em;">69.2/100</p>
+        </div>
+        <div class="cover-kpi-card">
+          <p class="cover-kpi-label">Risk Level</p>
+          <p style="color:#B5751A;font-size:22px;font-weight:700;">MEDIUM</p>
+        </div>
+        <div class="cover-kpi-card">
+          <p class="cover-kpi-label">Suppliers Assessed</p>
+          <p style="color:#fff;font-size:22px;font-weight:700;font-family:'JetBrains Mono',monospace;">10</p>
+        </div>
+        <div class="cover-kpi-card">
+          <p class="cover-kpi-label">High Risk Suppliers</p>
+          <p style="color:#B83B2E;font-size:22px;font-weight:700;font-family:'JetBrains Mono',monospace;">1</p>
+        </div>
+      </div>
+
+      <div class="cover-meta">
+        <p>Report ID: <span>ENC-PORTFOLIO-2026-001</span></p>
+        <p>Generated: <span>2026-03-29</span></p>
+        <p>Client: <span>Encevo S.A., Luxembourg</span></p>
+        <p style="margin-left:auto;">CONFIDENTIAL — For Authorised Recipients Only</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 2. PORTFOLIO EXECUTIVE SUMMARY                              -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Section 01</div>
+    <div class="section-title">Portfolio Executive Summary</div>
+
+    <!-- KPI Tiles -->
+    <div class="kpi-grid">
+      <div class="kpi-tile kpi-score">
+        <div class="kpi-label">Portfolio Risk Score</div>
+        <div class="kpi-value">69.2</div>
+        <div class="kpi-sub">Weighted Average / 100</div>
+      </div>
+      <div class="kpi-tile kpi-high">
+        <div class="kpi-label">High Risk Suppliers</div>
+        <div class="kpi-value">1</div>
+        <div class="kpi-sub">Score below 60</div>
+      </div>
+      <div class="kpi-tile kpi-medium">
+        <div class="kpi-label">Medium Risk Suppliers</div>
+        <div class="kpi-value">9</div>
+        <div class="kpi-sub">Score 60 – 79</div>
+      </div>
+      <div class="kpi-tile kpi-low">
+        <div class="kpi-label">Low Risk Suppliers</div>
+        <div class="kpi-value">0</div>
+        <div class="kpi-sub">Score 80 and above</div>
+      </div>
+    </div>
+
+    <!-- Summary Paragraph -->
+    <div class="summary-para">
+      <p>Encevo S.A.'s top-10 supplier portfolio scores <strong>69.2/100</strong> (MEDIUM risk — CONDITIONAL). All ten assessed suppliers are in the CONDITIONAL band (60–79), with the exception of OpenAI (48/100 — REVIEW REQUIRED), which is the portfolio's sole high-risk entity.</p>
+      <p>The portfolio exhibits three structural vulnerabilities that require board-level attention:</p>
+      <ul>
+        <li>CLOUD Act exposure affecting four suppliers (Microsoft, DocuSign, OpenAI, Schneider IT) — creates an irremovable legal conflict with Encevo's GDPR obligations as a Luxembourg energy utility.</li>
+        <li>Systemic cybersecurity weakness (portfolio P4 average: 59.7) — confirmed ransomware pattern at Schneider Electric across three incidents in 18 months, plus active ICS CVEs in critical infrastructure suppliers.</li>
+        <li>Financial opacity in the FM segment — Global Facilities and Félix Giorgetti operate without public financial disclosure, both scoring HIGH risk on Financial Stability.</li>
+      </ul>
+      <p>No supplier is currently disqualified. Encevo may continue all ten engagements conditional on the ten recommended portfolio actions in Section 08.</p>
+    </div>
+
+    <!-- Immediate Action Alerts -->
+    <div class="alert-section-title">Immediate Action Required</div>
+    <div class="alert-grid">
+      <div class="alert-card">
+        <div class="alert-badge"><div class="alert-dot"></div>Critical Finding</div>
+        <div class="alert-text">Schneider Electric IT — Three ransomware incidents in 18 months (Jun 2023, Jan 2024, Nov 2024). Only CRITICAL-severity finding in portfolio. Request formal remediation roadmap within 30 days.</div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-badge"><div class="alert-dot"></div>Critical Finding</div>
+        <div class="alert-text">US CLOUD Act affects four suppliers (Microsoft, DocuSign, OpenAI, Schneider IT). Structural GDPR conflict: US government can compel EU data access. US court has already overridden GDPR erasure rights. Insert notification clauses urgently.</div>
+      </div>
+      <div class="alert-card">
+        <div class="alert-badge"><div class="alert-dot"></div>Critical Finding</div>
+        <div class="alert-text">OpenAI scores 48/100 (REVIEW REQUIRED) — the only sub-60 supplier. Cumulative losses exceed $18B through H1 2025. Musk v. OpenAI $135B trial begins April 27, 2026. Confirm contract entity and negotiate continuity protections immediately.</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 3. PORTFOLIO RISK MATRIX                                    -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="section section-alt">
+    <div class="section-label">Section 02</div>
+    <div class="section-title">Portfolio Risk Matrix</div>
+
+    <div class="matrix-wrap">
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th class="col-supplier">Supplier</th>
+            <th>Financial</th>
+            <th>ESG</th>
+            <th>Regulatory</th>
+            <th>Cyber</th>
+            <th>Operational</th>
+            <th>Reputation</th>
+            <th>Overall</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-supplier" title="Amprion">Amprion</td>
+            <td class="score-cell score-low">82</td>
+            <td class="score-cell score-low">88</td>
+            <td class="score-cell score-low">87</td>
+            <td class="score-cell score-med">62</td>
+            <td class="score-cell score-med">72</td>
+            <td class="score-cell score-low">82</td>
+            <td class="td-total score-med">76</td>
+          </tr>
+          <tr>
+            <td class="td-supplier" title="Siemens Aktiengesellschaft">Siemens Aktiengesellschaft</td>
+            <td class="score-cell score-med">70</td>
+            <td class="score-cell score-med">64</td>
+            <td class="score-cell score-low">86</td>
+            <td class="score-cell score-low">80</td>
+            <td class="score-cell score-low">84</td>
+            <td class="score-cell score-med">60</td>
+            <td class="td-total score-med">76</td>
+          </tr>
+          <tr>
+            <td class="td-supplier" title="ABB">ABB</td>
+            <td class="score-cell score-low">80</td>
+            <td class="score-cell score-med">79</td>
+            <td class="score-cell score-med">77</td>
+            <td class="score-cell score-high">46</td>
+            <td class="score-cell score-low">86</td>
+            <td class="score-cell score-med">68</td>
+            <td class="td-total score-med">75</td>
+          </tr>
+          <tr>
+            <td class="td-supplier" title="Microsoft Corporation">Microsoft Corporation</td>
+            <td class="score-cell score-low">88</td>
+            <td class="score-cell score-med">66</td>
+            <td class="score-cell score-high">56</td>
+            <td class="score-cell score-high">39</td>
+            <td class="score-cell score-med">70</td>
+            <td class="score-cell score-high">43</td>
+            <td class="td-total score-med">62</td>
+          </tr>
+          <tr>
+            <td class="td-supplier" title="Docusign">Docusign</td>
+            <td class="score-cell score-med">74</td>
+            <td class="score-cell score-med">77</td>
+            <td class="score-cell score-low">88</td>
+            <td class="score-cell score-low">87</td>
+            <td class="score-cell score-med">76</td>
+            <td class="score-cell score-med">68</td>
+            <td class="td-total score-med">79</td>
+          </tr>
+          <tr>
+            <td class="td-supplier" title="OpenAI">OpenAI</td>
+            <td class="score-cell score-high">51</td>
+            <td class="score-cell score-high">15</td>
+            <td class="score-cell score-med">68</td>
+            <td class="score-cell score-high">58</td>
+            <td class="score-cell score-high">50</td>
+            <td class="score-cell score-high">10</td>
+            <td class="td-total score-high">48</td>
+          </tr>
+          <tr>
+            <td class="td-supplier" title="Comarch">Comarch</td>
+            <td class="score-cell score-med">60</td>
+            <td class="score-cell score-med">69</td>
+            <td class="score-cell score-low">100</td>
+            <td class="score-cell score-med">78</td>
+            <td class="score-cell score-med">73</td>
+            <td class="score-cell score-low">84</td>
+            <td class="td-total score-med">76</td>
+          </tr>
+          <tr>
+            <td class="td-supplier" title="Global Facilities">Global Facilities</td>
+            <td class="score-cell score-high">39</td>
+            <td class="score-cell score-high">42</td>
+            <td class="score-cell score-low">92</td>
+            <td class="score-cell score-high">55</td>
+            <td class="score-cell score-med">70</td>
+            <td class="score-cell score-low">100</td>
+            <td class="td-total score-med">60</td>
+          </tr>
+          <tr>
+            <td class="td-supplier" title="Groupe Félix Giorgetti">Groupe Félix Giorgetti</td>
+            <td class="score-cell score-high">44</td>
+            <td class="score-cell score-high">51</td>
+            <td class="score-cell score-low">100</td>
+            <td class="score-cell score-high">55</td>
+            <td class="score-cell score-low">82</td>
+            <td class="score-cell score-low">100</td>
+            <td class="td-total score-med">67</td>
+          </tr>
+          <tr>
+            <td class="td-supplier" title="APC by Schneider Electric">APC by Schneider Electric</td>
+            <td class="score-cell score-low">83</td>
+            <td class="score-cell score-low">85</td>
+            <td class="score-cell score-med">70</td>
+            <td class="score-cell score-high">37</td>
+            <td class="score-cell score-med">77</td>
+            <td class="score-cell score-med">64</td>
+            <td class="td-total score-med">73</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="tr-avg">
+            <td class="col-label">Portfolio Avg.</td>
+            <td>67.1</td>
+            <td>63.6</td>
+            <td>82.4</td>
+            <td>59.7</td>
+            <td>74.0</td>
+            <td>67.9</td>
+            <td style="font-weight:800;">69.2</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- Legend -->
+    <div class="matrix-legend">
+      <span style="font-size:10px; font-weight:600; color:var(--text-secondary); letter-spacing:.06em; text-transform:uppercase;">Score legend:</span>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--low-bg); border:1px solid var(--low-border);"></div> 80–100 Low Risk</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--med-bg); border:1px solid var(--med-border);"></div> 60–79 Medium Risk</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--high-bg); border:1px solid var(--high-border);"></div> 0–59 High Risk</div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 4. RISK DISTRIBUTION CHARTS                                 -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Section 03</div>
+    <div class="section-title">Risk Distribution</div>
+
+    <div class="charts-row">
+
+      <!-- Left: Donut Chart -->
+      <div class="chart-card">
+        <div class="chart-title">High / Medium / Low Split</div>
+        <div class="chart-svg-wrap">
+          <!-- Donut SVG — replace stroke-dasharray/offset values based on 1, 9, 0 -->
+          <!-- Circumference of r=70 circle ≈ 439.82. Each segment = (count/total)*439.82 -->
+          <!-- Template values below use 3 high, 4 medium, 3 low out of 10 -->
+          <svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="110" cy="110" r="70" fill="none" stroke="#E2E8F0" stroke-width="28"/>
+            <circle cx="110" cy="110" r="70" fill="none"
+              stroke="#B83B2E" stroke-width="28"
+              stroke-dasharray="43.98 395.84"
+              stroke-dashoffset="0.00"
+              transform="rotate(-90 110 110)"/>
+            <circle cx="110" cy="110" r="70" fill="none"
+              stroke="#B5751A" stroke-width="28"
+              stroke-dasharray="395.84 43.98"
+              stroke-dashoffset="-43.98"
+              transform="rotate(-90 110 110)"/>
+            <circle cx="110" cy="110" r="70" fill="none"
+              stroke="#2D7A4F" stroke-width="28"
+              stroke-dasharray="0.00 439.82"
+              stroke-dashoffset="-439.82"
+              transform="rotate(-90 110 110)"/>
+            <text x="110" y="104" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="28" font-weight="700" fill="#0F1729">10</text>
+            <text x="110" y="122" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568" letter-spacing="1">SUPPLIERS</text>
+            <text x="38" y="76" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#B83B2E">1</text>
+            <text x="38" y="89" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#B83B2E">HIGH</text>
+            <text x="183" y="110" text-anchor="start" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#B5751A">9</text>
+            <text x="183" y="122" text-anchor="start" font-family="Inter,sans-serif" font-size="9" fill="#B5751A">MED</text>
+            <text x="38" y="152" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#2D7A4F">0</text>
+            <text x="38" y="165" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#2D7A4F">LOW</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Right: Horizontal Bar Chart -->
+      <div class="chart-card">
+        <div class="chart-title">Average Score by Risk Pillar</div>
+        <!-- Bar chart — bar widths are (score/100)*100% of a 220px track -->
+        <!-- Replace inline widths/colors/labels using template variables -->
+        <svg width="100%" height="230" viewBox="0 0 320 230" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;">
+  <text x="0" y="20" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Financial</text>
+  <rect x="80" y="8" width="220" height="14" rx="3" fill="#E2E8F0"/>
+  <rect x="80" y="8" width="148" height="14" rx="3" fill="#B5751A"/>
+  <text x="234" y="20" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#B5751A">67.1</text>
+  <text x="0" y="57" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">ESG</text>
+  <rect x="80" y="45" width="220" height="14" rx="3" fill="#E2E8F0"/>
+  <rect x="80" y="45" width="140" height="14" rx="3" fill="#B5751A"/>
+  <text x="226" y="57" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#B5751A">63.6</text>
+  <text x="0" y="94" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Regulatory</text>
+  <rect x="80" y="82" width="220" height="14" rx="3" fill="#E2E8F0"/>
+  <rect x="80" y="82" width="181" height="14" rx="3" fill="#2D7A4F"/>
+  <text x="267" y="94" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#2D7A4F">82.4</text>
+  <text x="0" y="131" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Cyber</text>
+  <rect x="80" y="119" width="220" height="14" rx="3" fill="#E2E8F0"/>
+  <rect x="80" y="119" width="131" height="14" rx="3" fill="#B83B2E"/>
+  <text x="217" y="131" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#B83B2E">59.7</text>
+  <text x="0" y="168" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Operational</text>
+  <rect x="80" y="156" width="220" height="14" rx="3" fill="#E2E8F0"/>
+  <rect x="80" y="156" width="163" height="14" rx="3" fill="#B5751A"/>
+  <text x="249" y="168" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#B5751A">74.0</text>
+  <text x="0" y="205" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Reputation</text>
+  <rect x="80" y="193" width="220" height="14" rx="3" fill="#E2E8F0"/>
+  <rect x="80" y="193" width="149" height="14" rx="3" fill="#B5751A"/>
+  <text x="235" y="205" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#B5751A">67.9</text>
+</svg>
+        <div style="margin-top:10px; font-size:10px; color:var(--text-secondary);">Bar width proportional to score (0–100). Color reflects risk band.</div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 5. SECTOR EXPOSURE ANALYSIS                                 -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="section section-alt">
+    <div class="section-label">Section 04</div>
+    <div class="section-title">Sector Exposure Analysis</div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Sector</th>
+          <th># Suppliers</th>
+          <th>Dominant Risk</th>
+          <th>Key Regulatory Exposure</th>
+        </tr>
+      </thead>
+      <tbody>
+                <tr>
+          <td><span class="finding-title">Critical Infrastructure</span><span class="finding-desc">Amprion, APC</span></td>
+          <td style="text-align:center;"><span class="pill pill-info">2</span></td>
+          <td><span class="pill pill-high">Cybersecurity</span></td>
+          <td style="font-size:12px;">NIS2 / KRITIS, EU CER Directive, CLOUD Act (Schneider)</td>
+          <td style="text-align:center;"><span class="pill score-med" style="font-family:'JetBrains Mono',monospace;font-size:12px;">74.5</span></td>
+        </tr>
+        <tr>
+          <td><span class="finding-title">Industrial / Manufacturing</span><span class="finding-desc">Siemens, ABB</span></td>
+          <td style="text-align:center;"><span class="pill pill-info">2</span></td>
+          <td><span class="pill pill-medium">Regulatory (FCPA / ICS)</span></td>
+          <td style="font-size:12px;">LkSG Supply Chain Act, FCPA / UK Bribery Act, CSRD, NIS2 OT</td>
+          <td style="text-align:center;"><span class="pill score-med" style="font-family:'JetBrains Mono',monospace;font-size:12px;">75.3</span></td>
+        </tr>
+        <tr>
+          <td><span class="finding-title">SaaS / Cloud / AI</span><span class="finding-desc">Microsoft, Docusign, OpenAI, Comarch</span></td>
+          <td style="text-align:center;"><span class="pill pill-info">4</span></td>
+          <td><span class="pill pill-high">Cyber / ESG / CLOUD Act</span></td>
+          <td style="font-size:12px;">GDPR, EU AI Act, CLOUD Act, NIS2 (MSPs), CSRD</td>
+          <td style="text-align:center;"><span class="pill score-med" style="font-family:'JetBrains Mono',monospace;font-size:12px;">66.3</span></td>
+        </tr>
+        <tr>
+          <td><span class="finding-title">FM / Services</span><span class="finding-desc">Global, Groupe</span></td>
+          <td style="text-align:center;"><span class="pill pill-info">2</span></td>
+          <td><span class="pill pill-high">Financial Opacity</span></td>
+          <td style="font-size:12px;">LkSG (labour / supply chain), CSRD, ISO 45001</td>
+          <td style="text-align:center;"><span class="pill score-med" style="font-family:'JetBrains Mono',monospace;font-size:12px;">63.6</span></td>
+        </tr>
+        <!-- Example row (replace with generated rows):
+        <tr>
+          <td>Energy Infrastructure</td>
+          <td><span class="pill pill-info">3</span></td>
+          <td><span class="pill pill-high">Financial Stability</span></td>
+          <td>EU Energy Regulation 2022/1032, ACER Guidelines</td>
+        </tr>
+        -->
+      </tbody>
+    </table>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 6. GEOGRAPHIC RISK INTELLIGENCE                             -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Section 05</div>
+    <div class="section-title">Geographic Risk Intelligence</div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Region / Country</th>
+          <th># Suppliers</th>
+          <th>GDPR Exposure</th>
+          <th>CSRD Scope</th>
+          <th>LkSG Relevance</th>
+          <th>Key Risk</th>
+        </tr>
+      </thead>
+      <tbody>
+                <tr>
+          <td><span class="finding-title">Germany</span><span class="finding-desc">Amprion</span></td>
+          <td style="text-align:center;"><span class="pill pill-info">1</span></td>
+          <td><span class="pill pill-medium">Medium</span></td>
+          <td><span class="pill pill-medium">In Scope</span></td>
+          <td><span class="pill pill-medium">Direct</span></td>
+          <td style="font-size:12px;">Grid investment leverage (net debt/EBITDA ~6.9x); BSI KRITIS cybersecurity obligations; NIS2 essential entity</td>
+        </tr>
+        <tr>
+          <td><span class="finding-title">United States</span><span class="finding-desc">Microsoft, DocuSign, OpenAI, Schneider IT</span></td>
+          <td style="text-align:center;"><span class="pill pill-info">4</span></td>
+          <td><span class="pill pill-high">Critical</span></td>
+          <td><span class="pill pill-low">Not in Scope</span></td>
+          <td><span class="pill pill-medium">Indirect</span></td>
+          <td style="font-size:12px;">CLOUD Act — compelled US government access to Encevo EU data; structural GDPR conflict; 4 suppliers affected</td>
+        </tr>
+        <tr>
+          <td><span class="finding-title">Switzerland</span><span class="finding-desc">ABB Ltd</span></td>
+          <td style="text-align:center;"><span class="pill pill-info">1</span></td>
+          <td><span class="pill pill-medium">Medium</span></td>
+          <td><span class="pill pill-medium">Voluntary</span></td>
+          <td><span class="pill pill-medium">Direct</span></td>
+          <td style="font-size:12px;">Triple FCPA recidivist status (DOJ DPA active); ZPMC crane Congressional investigation</td>
+        </tr>
+        <tr>
+          <td><span class="finding-title">Luxembourg</span><span class="finding-desc">Global Facilities, Félix Giorgetti</span></td>
+          <td style="text-align:center;"><span class="pill pill-info">2</span></td>
+          <td><span class="pill pill-low">Low</span></td>
+          <td><span class="pill pill-medium">In Scope (CSRD)</span></td>
+          <td><span class="pill pill-medium">Indirect</span></td>
+          <td style="font-size:12px;">Financial opacity (private entities, no public accounts); limited ESG disclosure</td>
+        </tr>
+        <tr>
+          <td><span class="finding-title">Poland</span><span class="finding-desc">Comarch SA</span></td>
+          <td style="text-align:center;"><span class="pill pill-info">1</span></td>
+          <td><span class="pill pill-medium">Medium</span></td>
+          <td><span class="pill pill-medium">In Scope</span></td>
+          <td><span class="pill pill-medium">Indirect</span></td>
+          <td style="font-size:12px;">CVC private equity ownership transition; ERP vulnerability CVE-2023-4537/4538/4539; NIS2 in-scope MSP</td>
+        </tr>
+        <tr>
+          <td><span class="finding-title">France (Parent)</span><span class="finding-desc">Schneider Electric SE (parent)</span></td>
+          <td style="text-align:center;"><span class="pill pill-info">1</span></td>
+          <td><span class="pill pill-low">Low</span></td>
+          <td><span class="pill pill-medium">In Scope</span></td>
+          <td><span class="pill pill-medium">Direct</span></td>
+          <td style="font-size:12px;">Three ransomware incidents 2023–2024; €207M competition fine Oct 2024; $11M DOJ FCA settlement Apr 2024</td>
+        </tr>
+        <!-- Example row:
+        <tr>
+          <td><span class="finding-title">Germany</td>
+          <td><span class="pill pill-info">2</span></td>
+          <td><span class="pill pill-high">High</span></td>
+          <td><span class="pill pill-medium">In Scope</span></td>
+          <td><span class="pill pill-high">Direct</span></td>
+          <td>Supply chain transparency obligations</td>
+        </tr>
+        -->
+      </tbody>
+    </table>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 7. CRITICAL PORTFOLIO FLAGS                                 -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="section section-alt">
+    <div class="section-label">Section 06</div>
+    <div class="section-title">Critical Portfolio Flags</div>
+
+    <table class="data-table flags-table">
+      <colgroup>
+        <col class="col-finding">
+        <col class="col-suppliers">
+        <col class="col-severity">
+        <col class="col-action">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Finding</th>
+          <th>Affected Suppliers</th>
+          <th>Severity</th>
+          <th>Recommended Action</th>
+        </tr>
+      </thead>
+      <tbody>
+                <tr>
+          <td>Schneider Electric — Ransomware Pattern: Three Incidents in 18 Months</span><span class="finding-desc">The only CRITICAL-severity finding in the portfolio. Three ransomware attacks (June 2023, January 2024, November 2024) expose a systemic security weakness in a critical infrastructure supplier with OT/ICS deployment at Encevo sites.</span></td>
+          <td class="suppliers-cell">Schneider Electric IT (APC)</td>
+          <td><span class="pill pill-high">CRITICAL</span></td>
+          <td class="action-cell">Request formal cybersecurity remediation roadmap within 30 days; confirm Encevo-facing systems isolated from previously breached environments</td>
+        </tr>
+        <tr>
+          <td><span class="finding-title">US CLOUD Act — Structural Data Sovereignty Risk Across Four Suppliers</span><span class="finding-desc">Microsoft, DocuSign, OpenAI, and Schneider Electric IT are US-incorporated entities subject to compelled government data access orders that override GDPR protections. US courts have already overridden GDPR erasure rights in OpenAI EU customer case.</span></td>
+          <td class="suppliers-cell">Microsoft, DocuSign, OpenAI, Schneider IT</td>
+          <td><span class="pill pill-high">HIGH</span></td>
+          <td class="action-cell">Require CLOUD Act notification clauses (24hr notice + right to contest) in all four contracts; mandate EU-sovereign data hosting for Encevo sensitive workloads</td>
+        </tr>
+        <tr>
+          <td><span class="finding-title">OpenAI — Structural Financial Distress and Only Sub-60 Supplier</span><span class="finding-desc">OpenAI is the sole HIGH risk supplier (48/100 — REVIEW REQUIRED). Cumulative losses exceed $18B through H1 2025; profitability deferred to 2029 at earliest. Ongoing Musk v. OpenAI litigation ($135B trial). Service viability risk.</span></td>
+          <td class="suppliers-cell">OpenAI OpCo LLC</td>
+          <td><span class="pill pill-high">HIGH</span></td>
+          <td style="font-size:12px;">Confirm contractual counterparty; negotiate service continuity protection; identify alternative AI platform as contingency</td>
+        </tr>
+        <tr>
+          <td><span class="finding-title">Cybersecurity Portfolio-Wide Weakness — Avg P4 Score 59.7</span><span class="finding-desc">Cybersecurity is the weakest pillar across the portfolio with an average score of 59.7. Five of ten suppliers have Cyber scores below 60. Multiple active ICS CVEs (Siemens, ABB, Schneider), Microsoft CSRB censure, and OpenAI security opacity.</span></td>
+          <td class="suppliers-cell">Schneider IT, Siemens, ABB, Microsoft, OpenAI, Global Facilities</td>
+          <td><span class="pill pill-high">HIGH</span></td>
+          <td style="font-size:12px;">Portfolio-level action: mandate ISO 27001 or SOC 2 Type II for all SaaS suppliers; require ICS vulnerability SLA for OT suppliers within 90 days</td>
+        </tr>
+        <tr>
+          <td><span class="finding-title">Financial Opacity — Luxembourg FM Suppliers (P1 Scores: 39 and 44)</span><span class="finding-desc">Global Facilities (P1=39) and Félix Giorgetti (P1=44) are private Luxembourg entities with no public financial disclosure. Both scored HIGH risk on Financial Stability. Concentration risk: two of Encevo's FM suppliers are financially opaque.</span></td>
+          <td class="suppliers-cell">Global Facilities S.A., Groupe Félix Giorgetti</td>
+          <td><span class="pill pill-high">HIGH</span></td>
+          <td class="action-cell">Require audited annual financial statements as contractual obligation at next renewal; impose financial covenant thresholds with service continuity protections</td>
+        </tr>
+        <tr>
+          <td><span class="finding-title">ESG Non-Disclosure Systemic Gap — Three Suppliers Below 60</span><span class="finding-desc">ESG is the second-weakest portfolio pillar (avg 63.6). OpenAI has zero ESG disclosure (P2=15). Global Facilities (P2=42) and Félix Giorgetti (P2=51) lack meaningful sustainability frameworks. Encevo's own CSRD obligations extend to its supply chain.</span></td>
+          <td class="suppliers-cell">OpenAI, Global Facilities, Félix Giorgetti</td>
+          <td><span class="pill pill-medium">MEDIUM</span></td>
+          <td class="action-cell">Embed CSRD Article 29-aligned minimum ESG disclosure requirements in all contract renewals within 90 days</td>
+        </tr>
+        <!-- Example row:
+        <tr>
+          <td><span class="finding-title">Systemic ESG Non-Disclosure</span><span class="finding-desc">3 of 10 suppliers have no published sustainability reports</span></td>
+          <td>Supplier 02, Supplier 03, Supplier 06</td>
+          <td><span class="pill pill-high">High</span></td>
+          <td>Issue mandatory ESG disclosure requirement in next contract renewal</td>
+        </tr>
+        -->
+      </tbody>
+    </table>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 7B. PENDING PORTFOLIO INVESTIGATIONS                         -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Section 06B</div>
+    <div class="section-title">Pending Regulatory Investigations</div>
+    <p style="font-size:13px; color:var(--text-secondary); margin-bottom:16px; line-height:1.6;">
+      The following investigations are currently active or unconfirmed as of the assessment date. They have not resulted in a finding or fine and therefore do not affect current pillar scores. They represent potential future risk that procurement teams should monitor.
+    </p>
+            <table class="data-table invest-table">
+          <colgroup>
+            <col class="col-supplier"><col class="col-body"><col class="col-matter">
+            <col class="col-dim"><col class="col-sev"><col class="col-status">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Supplier</th>
+              <th>Investigating Body</th>
+              <th>Matter</th>
+              <th>Dimension</th>
+              <th>Potential Severity</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>OpenAI</strong></td>
+              <td>US Federal Court (SDNY)</td>
+              <td>Musk v. OpenAI — $135B fraud &amp; breach of contract (trial starts Apr 27, 2026)</td>
+              <td><span class="pill pill-info">Governance</span></td>
+              <td><span class="pill pill-high">HIGH</span></td>
+              <td><span class="trend-badge trend-ESCALATING" style="font-size:10px;">Active</span></td>
+            </tr>
+            <tr>
+              <td><strong>OpenAI</strong></td>
+              <td>Multiple federal courts (US)</td>
+              <td>50+ copyright infringement lawsuits — training data legal basis unresolved until 2026+</td>
+              <td><span class="pill pill-info">IP / Data Ethics</span></td>
+              <td><span class="pill pill-high">HIGH</span></td>
+              <td><span class="trend-badge trend-ESCALATING" style="font-size:10px;">Active</span></td>
+            </tr>
+            <tr>
+              <td><strong>Microsoft</strong></td>
+              <td>EU Commission DG COMP</td>
+              <td>Teams bundling antitrust investigation — potential fine €1B+ if found in breach</td>
+              <td><span class="pill pill-info">Governance</span></td>
+              <td><span class="pill pill-medium">MEDIUM</span></td>
+              <td><span class="trend-badge trend-STABLE" style="font-size:10px;">Ongoing</span></td>
+            </tr>
+            <tr>
+              <td><strong>ABB</strong></td>
+              <td>US DOJ / SEC</td>
+              <td>FCPA DPA monitoring period — compliance programme under DOJ supervision post-December 2022 settlement</td>
+              <td><span class="pill pill-info">Corruption</span></td>
+              <td><span class="pill pill-medium">MEDIUM</span></td>
+              <td><span class="trend-badge trend-STABLE" style="font-size:10px;">Monitoring</span></td>
+            </tr>
+            <tr>
+              <td><strong>Siemens</strong></td>
+              <td>US NLRB</td>
+              <td>Unfair labour practice charge — Siemens Mobility Sacramento (unresolved as of assessment)</td>
+              <td><span class="pill pill-info">Labour Rights</span></td>
+              <td><span class="pill pill-low">LOW</span></td>
+              <td><span class="trend-badge trend-STABLE" style="font-size:10px;">Pending</span></td>
+            </tr>
+          </tbody>
+        </table>
+    <!--
+      Expected table structure:
+      <table class="data-table">
+        <thead><tr><th>Supplier</th><th>Investigating Body</th><th>Matter</th><th>ESG Dimension</th><th>Potential Severity</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Supplier Name</td>
+            <td>European Commission DG COMP</td>
+            <td>Antitrust investigation into market bundling practices</td>
+            <td><span class="pill pill-info">Governance</span></td>
+            <td><span class="pill pill-medium">HIGH</span></td>
+            <td><span class="trend-badge trend-ESCALATING" style="font-size:10px;">Active</span></td>
+          </tr>
+        </tbody>
+      </table>
+    -->
+    <p style="font-size:11px; color:var(--text-secondary); margin-top:12px;">
+      If no pending investigations were identified for any supplier in this portfolio, this section will be empty. Source: Hunter 2E forward-looking investigation queries (FW1–FW5).
+    </p>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 8. SUPPLIER SNAPSHOTS                                       -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Section 07</div>
+    <div class="section-title">Supplier Snapshots</div>
+
+    <div class="snapshot-grid">
+      <div class="snap-card">
+        <div class="snap-header">
+          <div>
+            <div class="snap-supplier-name">Amprion</div>
+            <div class="snap-meta">Critical Infrastructure · Germany</div>
+          </div>
+          <div class="snap-score-badge score-med">76</div>
+        </div>
+        <div class="snap-body">
+          <div class="snap-verdict-row">
+            <span class="snap-verdict-label">Verdict:</span>
+            <span class="pill pill-medium">Medium Risk — Conditional Engagement</span>
+          </div>
+          <div class="snap-pillars">
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Financial</span>
+              <span class="pillar-mini-score score-low">82</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">ESG</span>
+              <span class="pillar-mini-score score-low">88</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Regulatory</span>
+              <span class="pillar-mini-score score-low">87</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Cyber</span>
+              <span class="pillar-mini-score score-med">62</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Operational</span>
+              <span class="pillar-mini-score score-med">72</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Reputation</span>
+              <span class="pillar-mini-score score-low">82</span>
+            </div>
+          </div>
+          <ul class="snap-flags">
+              <li class="flag-medium">Moody's Outlook Changed to Negative (April 2025) — Elevated Capex Leverage</li>
+              <li class="flag-medium">ISO 27001 Certification and BSI §8a Attestation Not Publicly Disclosed</li>
+          </ul>
+          <div class="snap-narrative">Amprion GmbH is a financially sound, ESG-leading German TSO (score 76/100). The CONDITIONAL verdict reflects two structural concerns: elevated financial leverage (net debt/EBITDA ~6.9x) driven by a €36.4B grid investment programme, and unverified cybersecurity certification posture despite KRITIS designation. All sanctions, AML, GDPR, and ESG checks returned clean.</div>
+          <div class="priority-action-box">
+            <div class="priority-action-label">Priority Action</div>
+            <div class="priority-action-text">Request BSI §8a KRITIS IT security attestation and any ISO 27001 certificates from Amprion's compliance team. Review attestation scope, audit date, and any findings.</div>
+          </div>
+        </div>
+      </div>
+      <div class="snap-card">
+        <div class="snap-header">
+          <div>
+            <div class="snap-supplier-name">Siemens Aktiengesellschaft</div>
+            <div class="snap-meta">Industrial / Manufacturing · Germany</div>
+          </div>
+          <div class="snap-score-badge score-med">76</div>
+        </div>
+        <div class="snap-body">
+          <div class="snap-verdict-row">
+            <span class="snap-verdict-label">Verdict:</span>
+            <span class="pill pill-medium">Medium Risk — Conditional Engagement</span>
+          </div>
+          <div class="snap-pillars">
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Financial</span>
+              <span class="pillar-mini-score score-med">70</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">ESG</span>
+              <span class="pillar-mini-score score-med">64</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Regulatory</span>
+              <span class="pillar-mini-score score-low">86</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Cyber</span>
+              <span class="pillar-mini-score score-low">80</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Operational</span>
+              <span class="pillar-mini-score score-low">84</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Reputation</span>
+              <span class="pillar-mini-score score-med">60</span>
+            </div>
+          </div>
+          <ul class="snap-flags">
+              <li class="flag-high">TeleControl Server Basic — Critical SQL Injection CVEs (CVSS 9.8) with energy sector deployment footprint</li>
+              <li class="flag-high">Gridscale X Prepay — Critical Vulnerability (CVSS 9.5) in energy management / smart metering product — patch status unconfirmed</li>
+              <li class="flag-medium">Austrian KHBG hospital fraud investigation — former Siemens Vorarlberg subsidiary employee, ongoing WKStA proceedings</li>
+          </ul>
+          <div class="snap-narrative">Siemens AG scores 75.6/100 (CONDITIONAL) with triple investment-grade ratings, a clean sanctions record, and 179 years of operational continuity. The score is constrained by 966 documented ICS CVEs — including a CVSS 9.8 vulnerability in TeleControl Server Basic with direct energy-sector deployment — and an unresolved NLRB unfair labour practice charge. No CRITICAL findings identified.</div>
+        </div>
+      </div>
+      <div class="snap-card">
+        <div class="snap-header">
+          <div>
+            <div class="snap-supplier-name">ABB</div>
+            <div class="snap-meta">Industrial / Manufacturing · Switzerland</div>
+          </div>
+          <div class="snap-score-badge score-med">75</div>
+        </div>
+        <div class="snap-body">
+          <div class="snap-verdict-row">
+            <span class="snap-verdict-label">Verdict:</span>
+            <span class="pill pill-medium">Medium Risk — Conditional Engagement</span>
+          </div>
+          <div class="snap-pillars">
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Financial</span>
+              <span class="pillar-mini-score score-low">80</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">ESG</span>
+              <span class="pillar-mini-score score-med">79</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Regulatory</span>
+              <span class="pillar-mini-score score-med">77</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Cyber</span>
+              <span class="pillar-mini-score score-high">46</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Operational</span>
+              <span class="pillar-mini-score score-low">86</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Reputation</span>
+              <span class="pillar-mini-score score-med">68</span>
+            </div>
+          </div>
+          <ul class="snap-flags">
+              <li class="flag-high">ABB — Triple FCPA Recidivist: $462.5M Settlement December 2022, Pattern of Targeting Energy Utilities</li>
+              <li class="flag-high">ABB Components in ZPMC Cranes at US Ports — Active US Congressional Investigation for National Security Risk</li>
+              <li class="flag-medium">May 2023 Black Basta Ransomware Attack — Confirmed Data Exfiltration, Operational Disruption</li>
+          </ul>
+          <div class="snap-narrative">ABB Ltd is financially strong (S&amp;P: A/Stable; record FY2025 revenues of $33.2B; near-zero net leverage) with sector-leading ESG credentials (CDP A, SBTi-validated targets). Two risks require mitigation: ABB is the world's first triple FCPA recidivist ($462.5M settlement December 2022 targeting state-owned energy utilities), and an active US Congressional investigation into ABB components in Chinese-made ZPMC cranes at US ports.</div>
+          <div class="priority-action-box">
+            <div class="priority-action-label">Priority Action</div>
+            <div class="priority-action-text">Obtain written confirmation from ABB that the December 2022 DOJ Deferred Prosecution Agreement enhanced compliance programme is on track and request the DPA monitoring period end date. Request quarterly updates on ZPMC Congressional investigation status.</div>
+          </div>
+        </div>
+      </div>
+      <div class="snap-card">
+        <div class="snap-header">
+          <div>
+            <div class="snap-supplier-name">Microsoft Corporation</div>
+            <div class="snap-meta">SaaS / Cloud · United States</div>
+          </div>
+          <div class="snap-score-badge score-med">62</div>
+        </div>
+        <div class="snap-body">
+          <div class="snap-verdict-row">
+            <span class="snap-verdict-label">Verdict:</span>
+            <span class="pill pill-medium">Medium Risk — Conditional Engagement</span>
+          </div>
+          <div class="snap-pillars">
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Financial</span>
+              <span class="pillar-mini-score score-low">88</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">ESG</span>
+              <span class="pillar-mini-score score-med">66</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Regulatory</span>
+              <span class="pillar-mini-score score-high">56</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Cyber</span>
+              <span class="pillar-mini-score score-high">39</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Operational</span>
+              <span class="pillar-mini-score score-med">70</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Reputation</span>
+              <span class="pillar-mini-score score-high">43</span>
+            </div>
+          </div>
+          <ul class="snap-flags">
+              <li class="flag-high">CSRB Official Finding: Microsoft Security 'Subpar' — Exchange Online Breach 'Preventable'</li>
+              <li class="flag-high">Russian SVR (Midnight Blizzard) Breached Microsoft Corporate Email and Source Code — January-March 2024</li>
+              <li class="flag-medium">EU Commission Teams Antitrust — Settled September 2025 with 7-10 Year Binding Obligations</li>
+          </ul>
+          <div class="snap-narrative">Microsoft Corporation scores 62/100 (MEDIUM risk — CONDITIONAL). Despite exceptional financial strength (P1: 88) and irreplaceable enterprise platform position, engagement requires four contractual protections: Cloud for Sovereignty deployment, SFI remediation evidence (CSRB censure), updated GDPR Data Processing Agreement, and Azure SLA enhancements with financial penalties for outages exceeding 4 hours.</div>
+          <div class="priority-action-box">
+            <div class="priority-action-label">Priority Action</div>
+            <div class="priority-action-text">Require Microsoft Cloud for Sovereignty deployment for all Encevo workloads — with NIS2-compliant Supply Chain Security Agreement as a binding contract annex</div>
+          </div>
+        </div>
+      </div>
+      <div class="snap-card">
+        <div class="snap-header">
+          <div>
+            <div class="snap-supplier-name">Docusign</div>
+            <div class="snap-meta">SaaS / e-Signature · United States</div>
+          </div>
+          <div class="snap-score-badge score-med">79</div>
+        </div>
+        <div class="snap-body">
+          <div class="snap-verdict-row">
+            <span class="snap-verdict-label">Verdict:</span>
+            <span class="pill pill-medium">Medium Risk — Conditional Engagement</span>
+          </div>
+          <div class="snap-pillars">
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Financial</span>
+              <span class="pillar-mini-score score-med">74</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">ESG</span>
+              <span class="pillar-mini-score score-med">77</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Regulatory</span>
+              <span class="pillar-mini-score score-low">88</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Cyber</span>
+              <span class="pillar-mini-score score-low">87</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Operational</span>
+              <span class="pillar-mini-score score-med">76</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Reputation</span>
+              <span class="pillar-mini-score score-med">68</span>
+            </div>
+          </div>
+          <ul class="snap-flags">
+              <li class="flag-high">US CLOUD Act exposure: DocuSign subject to US government compelled data access for EU customer data</li>
+              <li class="flag-high">Recurring service outages: 483 incidents in ~25 months including 7hr 42min outage March 2026</li>
+              <li class="flag-medium">DocuSign API platform abused by threat actors for large-scale phishing invoice fraud (November 2024)</li>
+          </ul>
+          <div class="snap-narrative">DocuSign scores 79/100 (upper boundary of CONDITIONAL) with strong fundamentals: debt-free, $920M free cash flow, ISO 27001:2022, SOC 2 Type II. Two material risks require contractual mitigation: US CLOUD Act exposure creating an irresolvable data sovereignty conflict for EU client Encevo, and a documented pattern of 483 service outages in ~25 months including a 7hr 42min outage in March 2026.</div>
+          <div class="priority-action-box">
+            <div class="priority-action-label">Priority Action</div>
+            <div class="priority-action-text">Negotiate CLOUD Act notification clause into DocuSign service agreement before contract execution. Clause must require 24-hour notice of any US government compelled-access request relating to Encevo data, with right to contest and EU law override provisions.</div>
+          </div>
+        </div>
+      </div>
+      <div class="snap-card">
+        <div class="snap-header">
+          <div>
+            <div class="snap-supplier-name">OpenAI</div>
+            <div class="snap-meta">AI Platform · United States</div>
+          </div>
+          <div class="snap-score-badge score-high">48</div>
+        </div>
+        <div class="snap-body">
+          <div class="snap-verdict-row">
+            <span class="snap-verdict-label">Verdict:</span>
+            <span class="pill pill-high">High Risk — Immediate Review Required</span>
+          </div>
+          <div class="snap-pillars">
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Financial</span>
+              <span class="pillar-mini-score score-high">51</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">ESG</span>
+              <span class="pillar-mini-score score-high">15</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Regulatory</span>
+              <span class="pillar-mini-score score-med">68</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Cyber</span>
+              <span class="pillar-mini-score score-high">58</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Operational</span>
+              <span class="pillar-mini-score score-high">50</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Reputation</span>
+              <span class="pillar-mini-score score-high">10</span>
+            </div>
+          </div>
+          <ul class="snap-flags">
+              <li class="flag-high">Structural unprofitability — $5B+ losses FY2024, $13.5B losses H1 2025, $14B projected 2026</li>
+              <li class="flag-high">Musk v. OpenAI $135B fraud trial begins April 27, 2026 — CEO personally named</li>
+              <li class="flag-medium">Data labeller supply chain — modern slavery risk in content moderation outsourcing</li>
+          </ul>
+          <div class="snap-narrative">OpenAI scores 48/100 (REVIEW REQUIRED) reflecting three converging risk clusters: structural financial distress ($5B FY2024 losses, ~$13.5B H1 2025, profitability deferred to 2029–2030); confirmed CLOUD Act conflict with a US court order overriding GDPR erasure rights; and safety/reputational deterioration including deliberate weakening of its AI safety framework and a $135B fraud trial beginning April 2026.</div>
+          <div class="priority-action-box">
+            <div class="priority-action-label">Priority Action</div>
+            <div class="priority-action-text">Verify contractual counterparty entity name on all Encevo-OpenAI agreements (OpenAI OpCo LLC, OpenAI Group PBC, or OpenAI Ireland Limited) and negotiate CLOUD Act addendum specifying data handling, notification obligations, and service continuity protections given $18B+ accumulated losses.</div>
+          </div>
+        </div>
+      </div>
+      <div class="snap-card">
+        <div class="snap-header">
+          <div>
+            <div class="snap-supplier-name">Comarch</div>
+            <div class="snap-meta">IT Systems / ERP · Poland</div>
+          </div>
+          <div class="snap-score-badge score-med">76</div>
+        </div>
+        <div class="snap-body">
+          <div class="snap-verdict-row">
+            <span class="snap-verdict-label">Verdict:</span>
+            <span class="pill pill-medium">Medium Risk — Conditional Engagement</span>
+          </div>
+          <div class="snap-pillars">
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Financial</span>
+              <span class="pillar-mini-score score-med">60</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">ESG</span>
+              <span class="pillar-mini-score score-med">69</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Regulatory</span>
+              <span class="pillar-mini-score score-low">100</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Cyber</span>
+              <span class="pillar-mini-score score-med">78</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Operational</span>
+              <span class="pillar-mini-score score-med">73</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Reputation</span>
+              <span class="pillar-mini-score score-low">84</span>
+            </div>
+          </div>
+          <ul class="snap-flags">
+              <li class="flag-high">Near-Complete Senior Leadership Replacement Under CVC Ownership</li>
+              <li class="flag-medium">Net Income Collapsed 42.8% in FY2024 Despite Operating Profit Growth</li>
+              <li class="flag-medium">Three CVEs in Comarch ERP XL: Hard-Coded Shared Password Across All Installations</li>
+          </ul>
+          <div class="snap-narrative">Comarch SA scores 76/100 (CONDITIONAL). The risk profile is dominated by CVC private equity transformation: near-complete senior leadership replacement, active asset disposals, and an opaque debt structure. Three ERP XL CVEs including a hard-coded shared database password (CVE-2023-4539) require urgent patch verification. The regulatory/legal pillar is the strongest in the portfolio (P3: 100/100) with no adverse findings.</div>
+          <div class="priority-action-box">
+            <div class="priority-action-label">Priority Action</div>
+            <div class="priority-action-text">Run emergency patch verification: confirm Comarch ERP XL version in Encevo production environment is post-2023.2 (patched for CVE-2023-4537/4538/4539)</div>
+          </div>
+        </div>
+      </div>
+      <div class="snap-card">
+        <div class="snap-header">
+          <div>
+            <div class="snap-supplier-name">Global Facilities</div>
+            <div class="snap-meta">FM Services · Luxembourg</div>
+          </div>
+          <div class="snap-score-badge score-med">60</div>
+        </div>
+        <div class="snap-body">
+          <div class="snap-verdict-row">
+            <span class="snap-verdict-label">Verdict:</span>
+            <span class="pill pill-medium">Medium Risk — Conditional Engagement</span>
+          </div>
+          <div class="snap-pillars">
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Financial</span>
+              <span class="pillar-mini-score score-high">39</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">ESG</span>
+              <span class="pillar-mini-score score-high">42</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Regulatory</span>
+              <span class="pillar-mini-score score-low">92</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Cyber</span>
+              <span class="pillar-mini-score score-high">55</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Operational</span>
+              <span class="pillar-mini-score score-med">70</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Reputation</span>
+              <span class="pillar-mini-score score-low">100</span>
+            </div>
+          </div>
+          <ul class="snap-flags">
+              <li class="flag-medium">Chinese state-linked indirect ownership (24.92% of Encevo) — geopolitical flag</li>
+              <li class="flag-medium">No ISO 27001 certification — physical access to critical infrastructure without confirmed information security standard</li>
+              <li class="flag-medium">NIS2 Article 21 supply chain security obligations — compliance status unconfirmed</li>
+          </ul>
+          <div class="snap-narrative">Global Facilities S.A. scores 60.3/100 with a 25-year track record, clean regulatory record (P3: 92/100), and strong reputational standing (P6: 100/100). Primary risks are near-complete financial opacity as a private subsidiary (P1: 39/100), absence of ISO 27001 despite physical access to NIS2 critical infrastructure (P4: 55/100), and indirect Chinese SOE ownership creating geopolitical sensitivity.</div>
+          <div class="priority-action-box">
+            <div class="priority-action-label">Priority Action</div>
+            <div class="priority-action-text">Require Global Facilities S.A. to obtain ISO 27001 certification or equivalent within 12 months</div>
+          </div>
+        </div>
+      </div>
+      <div class="snap-card">
+        <div class="snap-header">
+          <div>
+            <div class="snap-supplier-name">Groupe Félix Giorgetti</div>
+            <div class="snap-meta">FM / Construction · Luxembourg</div>
+          </div>
+          <div class="snap-score-badge score-med">67</div>
+        </div>
+        <div class="snap-body">
+          <div class="snap-verdict-row">
+            <span class="snap-verdict-label">Verdict:</span>
+            <span class="pill pill-medium">Medium Risk — Conditional Engagement</span>
+          </div>
+          <div class="snap-pillars">
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Financial</span>
+              <span class="pillar-mini-score score-high">44</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">ESG</span>
+              <span class="pillar-mini-score score-high">51</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Regulatory</span>
+              <span class="pillar-mini-score score-low">100</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Cyber</span>
+              <span class="pillar-mini-score score-high">55</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Operational</span>
+              <span class="pillar-mini-score score-low">82</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Reputation</span>
+              <span class="pillar-mini-score score-low">100</span>
+            </div>
+          </div>
+          <ul class="snap-flags">
+              <li class="flag-medium">Luxembourg Construction Sector State of Crisis (2024) — Sector-Level Financial and Operational Risk</li>
+              <li class="flag-medium">Concentrated Family Ownership — No Independent Governance Oversight</li>
+              <li class="flag-medium">Key-Person Concentration: Marc Giorgetti High-Profile CEO Dependency</li>
+          </ul>
+          <div class="snap-narrative">Félix Giorgetti Sàrl scores 67/100 (CONDITIONAL). Strongest pillars are Regulatory &amp; Legal (100) and Reputational Intelligence (100), reflecting a clean sanctions record and strong ISO certifications. The CONDITIONAL verdict reflects Financial Stability (44/100) — constrained by private status with no public accounts — ESG gaps (no sustainability report or science-based targets), and absent cybersecurity certification (P4: 55/100) for an FM supplier with site access.</div>
+          <div class="priority-action-box">
+            <div class="priority-action-label">Priority Action</div>
+            <div class="priority-action-text">Request audited financial accounts or an independent banker's reference letter confirming Félix Giorgetti Sàrl's financial soundness as of FY2024. Establish a contractual mechanism for annual financial health disclosure at next contract renewal.</div>
+          </div>
+        </div>
+      </div>
+      <div class="snap-card">
+        <div class="snap-header">
+          <div>
+            <div class="snap-supplier-name">APC by Schneider Electric</div>
+            <div class="snap-meta">Critical Infrastructure · France / United States</div>
+          </div>
+          <div class="snap-score-badge score-med">73</div>
+        </div>
+        <div class="snap-body">
+          <div class="snap-verdict-row">
+            <span class="snap-verdict-label">Verdict:</span>
+            <span class="pill pill-medium">Medium Risk — Conditional Engagement</span>
+          </div>
+          <div class="snap-pillars">
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Financial</span>
+              <span class="pillar-mini-score score-low">83</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">ESG</span>
+              <span class="pillar-mini-score score-low">85</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Regulatory</span>
+              <span class="pillar-mini-score score-med">70</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Cyber</span>
+              <span class="pillar-mini-score score-high">37</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Operational</span>
+              <span class="pillar-mini-score score-med">77</span>
+            </div>
+            <div class="pillar-mini">
+              <span class="pillar-mini-name">Reputation</span>
+              <span class="pillar-mini-score score-med">64</span>
+            </div>
+          </div>
+          <ul class="snap-flags">
+              <li class="flag-high">Three Ransomware Incidents in 18 Months — Systemic Security Pattern (2023-2024)</li>
+              <li class="flag-high">French Competition Authority — €207M Price-Fixing Fine (October 2024)</li>
+              <li class="flag-high">US DOJ False Claims Act Settlement — $11M (April 2024)</li>
+          </ul>
+          <div class="snap-narrative">Schneider Electric IT Corporation (APC brand) scores 73/100 with exceptional financial stability (A2/A rated, record FY2024 revenues) and best-in-class ESG credentials. However, three ransomware incidents within 18 months — including a November 2024 developer platform breach with stolen data published on the dark web — drive cybersecurity to CRITICAL (P4: 37/100), requiring formal remediation assurance before continued engagement.</div>
+          <div class="priority-action-box">
+            <div class="priority-action-label">Priority Action</div>
+            <div class="priority-action-text">Request written cybersecurity remediation plan from Schneider Electric covering all three ransomware incidents (June 2023, January 2024, November 2024). Plan must include root cause analysis, remediation steps taken, and confirmation that Encevo-facing systems are isolated from previously breached environments.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 9. RECOMMENDED PORTFOLIO ACTIONS                            -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="section section-alt">
+    <div class="section-label">Section 08</div>
+    <div class="section-title">Recommended Portfolio Actions</div>
+
+    <table class="data-table actions-table">
+      <colgroup>
+        <col style="width:4%">
+        <col style="width:9%">
+        <col style="width:37%">
+        <col style="width:18%">
+        <col style="width:18%">
+        <col style="width:14%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Priority</th>
+          <th>Action</th>
+          <th>Affected Suppliers</th>
+          <th>Owner</th>
+          <th>Timeline</th>
+        </tr>
+      </thead>
+      <tbody>
+                <tr>
+          <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">1</td>
+          <td><span class="pill pill-high">IMMEDIATE</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">Schneider IT — Request formal cybersecurity remediation roadmap covering all 3 ransomware incidents (Jun 2023, Jan 2024, Nov 2024). Confirm Encevo-facing systems isolated from breached environments.</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Schneider IT</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Encevo CISO / Procurement</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Within 30 days</td>
+        </tr>
+        <tr>
+          <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">2</td>
+          <td><span class="pill pill-high">IMMEDIATE</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">OpenAI — Confirm contractual counterparty entity (OpenAI OpCo LLC vs OpenAI Ireland Limited); negotiate CLOUD Act addendum and service continuity protections given $18B+ accumulated losses.</td>
+          <td style="font-size:11px;color:var(--text-secondary);">OpenAI</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Encevo Legal / Procurement</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Within 30 days</td>
+        </tr>
+        <tr>
+          <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">3</td>
+          <td><span class="pill pill-high">URGENT</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">Comarch — Emergency patch verification: confirm Comarch ERP XL version in Encevo production is post-2023.2 (patched for CVE-2023-4537/4538/4539 including hard-coded shared database password).</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Comarch</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Encevo IT Security</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Within 30 days</td>
+        </tr>
+        <tr>
+          <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">4</td>
+          <td><span class="pill pill-high">URGENT</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">CLOUD Act Portfolio Action — Insert notification clauses (24hr notice, right to contest, EU law override) in contracts with all four US-headquartered suppliers. Mandate EU-sovereign hosting for sensitive workloads.</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Microsoft, DocuSign, OpenAI, Schneider IT</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Encevo Legal</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Within 60 days</td>
+        </tr>
+        <tr>
+          <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">5</td>
+          <td><span class="pill pill-medium">HIGH</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">Microsoft — Require Microsoft Cloud for Sovereignty deployment for all Encevo workloads. Execute NIS2-compliant Supply Chain Security Agreement as binding contract annex.</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Microsoft Corporation</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Encevo IT / Legal</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Within 90 days</td>
+        </tr>
+        <tr>
+          <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">6</td>
+          <td><span class="pill pill-medium">HIGH</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">ABB — Obtain written confirmation that December 2022 DOJ FCPA Deferred Prosecution Agreement enhanced compliance programme is on track. Request DOJ monitoring period end date.</td>
+          <td style="font-size:11px;color:var(--text-secondary);">ABB Ltd</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Encevo Legal / Procurement</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Within 60 days</td>
+        </tr>
+        <tr>
+          <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">7</td>
+          <td><span class="pill pill-medium">HIGH</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">Global Facilities + Félix Giorgetti — Require annual audited financial statements as contractual obligation. Impose financial covenant thresholds (minimum current ratio, net debt ceiling) with service continuity triggers.</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Global Facilities, Félix Giorgetti</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Encevo Procurement / Finance</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Next contract renewal</td>
+        </tr>
+        <tr>
+          <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">8</td>
+          <td><span class="pill pill-medium">HIGH</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">Amprion — Request BSI §8a KRITIS IT security attestation and ISO 27001 certificates. Review attestation scope and any findings (cybersecurity is the only conditional pillar at P4=62).</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Amprion GmbH</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Encevo IT Security / Procurement</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Within 60 days</td>
+        </tr>
+        <tr>
+          <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">9</td>
+          <td><span class="pill pill-medium">MEDIUM</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">ESG Minimum Standards — Embed CSRD Article 29-aligned disclosure requirements in all contract renewals with OpenAI, Global Facilities, and Félix Giorgetti. Tie ESG reporting to contract milestones.</td>
+          <td style="font-size:11px;color:var(--text-secondary);">OpenAI, Global Facilities, Gorgetti</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Encevo ESG / Procurement</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Within 90 days</td>
+        </tr>
+        <tr>
+          <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">10</td>
+          <td><span class="pill pill-low">STANDARD</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">Portfolio Monitoring — Establish quarterly KRI review cadence for all 10 suppliers. Integrate supplier risk scores into Encevo ERM dashboard. Re-assess OpenAI financial viability every quarter given burn rate.</td>
+          <td style="font-size:11px;color:var(--text-secondary);">All 10 suppliers</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Encevo Procurement Risk</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Ongoing (Q2 2026)</td>
+        </tr>
+        <!-- Example rows:
+        <tr>
+          <td style="font-family:'JetBrains Mono',monospace; font-weight:700;">P1</td>
+          <td><strong>Initiate emergency review of Supplier 03 and Supplier 09</strong><br>
+            <span style="font-size:11px;color:var(--text-secondary);">Convene risk committee, assess continuity options and issue formal remediation notice</span></td>
+          <td>Supplier 03, Supplier 09</td>
+          <td><span class="pill pill-high">Immediate</span></td>
+          <td>CPO / Legal</td>
+        </tr>
+        <tr>
+          <td style="font-family:'JetBrains Mono',monospace; font-weight:700;">P2</td>
+          <td><strong>Mandate ESG disclosure for non-compliant suppliers</strong><br>
+            <span style="font-size:11px;color:var(--text-secondary);">Issue contractual addendum requiring CSRD-aligned sustainability reporting by Q3</span></td>
+          <td>Supplier 02, Supplier 03, Supplier 06</td>
+          <td><span class="pill pill-medium">30 Days</span></td>
+          <td>Sustainability Team</td>
+        </tr>
+        -->
+      </tbody>
+    </table>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 10. METHODOLOGY                                             -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Section 09</div>
+    <div class="section-title">Methodology &amp; Data Currency</div>
+
+    <div class="method-body">
+      This portfolio report was generated on 29 March 2026 from the individual supplier assessments of Encevo S.A.'s top ten suppliers by procurement value. Each supplier was assessed across six pillars (Financial Stability 25%, ESG &amp; Sustainability 20%, Regulatory &amp; Legal 20%, Cybersecurity 15%, Operational &amp; Geopolitical Resilience 15%, Reputational Intelligence 5%) using rubric-based scoring derived exclusively from publicly available sources. SaaS/cloud suppliers (Microsoft, DocuSign, OpenAI, Comarch) and critical infrastructure suppliers (Amprion, Siemens, ABB, Schneider IT) use sector-adjusted weighting profiles. All findings are evidence-based and traceable to source URLs. Portfolio score is the unweighted mean of all ten overall scores. Risk distribution thresholds: HIGH &lt;60, MEDIUM 60–79, LOW &ge;80. No supplier score reflects Encevo-provided information — all data sourced from public filings, regulatory disclosures, and verified media as of the assessment date. This report does not constitute a legal opinion or financial advice.
+
+      <p style="margin-top:14px;">
+        SPECTRUM's Supplier Intelligence Platform assesses each supplier across six risk pillars:
+        <strong>Financial Health</strong>, <strong>ESG &amp; Sustainability</strong>,
+        <strong>Regulatory Compliance</strong>, <strong>Cyber Security</strong>,
+        <strong>Operational Resilience</strong>, and <strong>Reputational Risk</strong>.
+        Each pillar is scored 0–100 based on a weighted model combining structured data, public records,
+        regulatory filings, open-source intelligence and proprietary analyst review.
+        Portfolio scores represent a procurement-value-weighted average across all assessed suppliers.
+      </p>
+
+      <p style="margin-top:12px;">
+        <strong>Score Bands:</strong> 80–100 = Low Risk (green); 60–79 = Medium Risk (amber); 0–59 = High Risk (red).
+        Data currency: assessments reflect information available as of <strong>29 March 2026</strong>.
+        Scores may change materially as new information becomes available.
+      </p>
+    </div>
+
+    <div class="method-disclaimer">
+      <strong>Disclaimer:</strong> This report has been prepared by SPECTRUM Risk Intelligence for the exclusive use of
+      Encevo S.A.. The findings, scores and recommendations contained herein are based on information
+      available at the time of assessment and are provided for informational purposes only. SPECTRUM does not
+      warrant the completeness or accuracy of third-party source data. This report does not constitute legal,
+      financial or regulatory advice. Recipients should conduct independent verification before acting on any
+      finding. Distribution of this report outside of Encevo S.A.'s authorised personnel is strictly prohibited.
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- FOOTER                                                       -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <footer class="report-footer">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <svg width="13" height="19" viewBox="0 0 22 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <polygon points="0,8  11,2  11,6  0,12" fill="rgba(255,255,255,.6)"/>
+        <polygon points="0,12 11,6  11,10 0,16" fill="rgba(255,255,255,.45)"/>
+        <polygon points="0,16 11,10 11,14 0,20" fill="rgba(255,255,255,.3)"/>
+        <polygon points="11,14 22,20 22,24 11,18" fill="rgba(255,255,255,.6)"/>
+        <polygon points="11,18 22,24 22,28 11,22" fill="rgba(255,255,255,.45)"/>
+        <polygon points="11,22 22,28 22,32 11,26" fill="rgba(255,255,255,.3)"/>
+      </svg>
+      <span class="footer-brand">SPECTRUM</span> &nbsp;Risk Intelligence Platform
+    </div>
+    <div>Encevo S.A. &nbsp;·&nbsp; ENC-PORTFOLIO-2026-001 &nbsp;·&nbsp; 29 March 2026</div>
+    <div>Confidential — Do Not Distribute</div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SPECTRUM — OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025) Vendor Intelligence Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 13px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: 'Inter', sans-serif; color: #0F1729; background: #F1F5F9; line-height: 1.6; }
+a { color: #1B2B5E; text-decoration: none; }
+a:hover { text-decoration: underline; color: #2A3F7E; }
+code, .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* ── Document container ───────────────────────────────────── */
+.doc { max-width: 900px; margin: 0 auto; background: #fff;
+  box-shadow: 0 4px 32px rgba(27,43,94,.10); }
+
+/* ── Page sections ────────────────────────────────────────── */
+.page { padding: 48px 56px; border-bottom: 1px solid #E2E8F0; position: relative; }
+.page:last-child { border-bottom: none; }
+.page-break { page-break-before: always; }
+.page-alt { background: #F0F2F5; }
+
+/* ── Section headers ──────────────────────────────────────── */
+.sh { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.sh-bar { width: 4px; height: 32px; background: #1B2B5E; border-radius: 2px; flex-shrink: 0; }
+.sh-label { font-size: 10px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: #4A5568; }
+.sh-title { font-size: 20px; font-weight: 700; color: #0F1729; }
+.sh-badge { margin-left: auto; }
+
+/* ── Cover page ───────────────────────────────────────────── */
+.cover { background: #1B2B5E; padding: 64px 56px 48px; color: #fff; position: relative; overflow: hidden; }
+.cover::before { content: ''; position: absolute; top: -80px; right: -80px;
+  width: 320px; height: 320px; border-radius: 50%; background: rgba(255,255,255,.03); }
+.cover-brand { font-size: 11px; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: #A5B4FC; margin-bottom: 6px; }
+.cover-subtitle { color: #CBD5E1; font-size: 15px; margin-bottom: 32px; }
+.cover-name { font-size: 32px; font-weight: 700; margin-bottom: 4px; }
+.cover-kpi { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+.cover-kpi-card { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 8px; padding: 14px 24px; }
+.cover-kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: #94A3B8; }
+.cover-meta { padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1);
+  display: flex; gap: 24px; flex-wrap: wrap; font-size: 11px; color: #64748B; }
+.cover-meta span { color: #94A3B8; }
+.cover-meta p { max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cover-meta p:last-child { max-width: none; margin-left: auto; }
+
+/* ── Table of contents ────────────────────────────────────── */
+.toc-list { list-style: none; padding: 0; }
+.toc-list li { display: flex; align-items: baseline; gap: 8px; padding: 8px 0;
+  border-bottom: 1px dotted #E2E8F0; font-size: 13px; }
+.toc-list li:last-child { border-bottom: none; }
+.toc-num { font-family: 'JetBrains Mono', monospace; font-weight: 700;
+  color: #1B2B5E; min-width: 28px; }
+.toc-link { color: #0F1729; font-weight: 500; }
+.toc-dots { flex: 1; border-bottom: 1px dotted #CBD5E1; margin: 0 4px; min-width: 20px; }
+.toc-page { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #4A5568; }
+
+/* ── KPI cards ────────────────────────────────────────────── */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0; }
+.kpi-card { background: #F8F9FA; border-radius: 8px; padding: 16px; text-align: center; }
+.kpi-val { font-size: 28px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.kpi-label { font-size: 11px; color: #4A5568; margin-top: 4px; }
+
+/* ── Pillar cards (scorecard grid) ────────────────────────── */
+.pillar-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.pillar-card { border-radius: 8px; padding: 16px; border: 1px solid #E2E8F0; }
+.pillar-card-label { font-size: 11px; color: #4A5568; margin-bottom: 4px; }
+.pillar-card-score { font-size: 24px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.pillar-card-max { font-size: 12px; color: #9CA3AF; }
+
+/* ── Pillar deep dive ─────────────────────────────────────── */
+.pillar-header { display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 16px; padding-left: 16px; }
+.pillar-score-big { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; }
+.pillar-score-max { font-size: 14px; color: #4A5568; }
+.pillar-narrative { font-size: 13px; line-height: 1.75; background: #F8F9FA;
+  padding: 16px 20px; border-radius: 6px; margin-bottom: 16px; }
+
+/* ── Risk / severity badges ───────────────────────────────── */
+.badge { display: inline-block; padding: 2px 12px; border-radius: 9999px;
+  font-size: 11px; font-weight: 700; border: 1px solid; }
+
+/* ── Tables ────────────────────────────────────────────────── */
+.data-table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+.data-table th { background: #1B2B5E; color: #FFFFFF; padding: 10px 14px; text-align: left;
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+.data-table th:first-child { border-radius: 4px 0 0 0; }
+.data-table th:last-child { border-radius: 0 4px 0 0; }
+.data-table td { padding: 10px 14px; border-bottom: 1px solid #E2E8F0; vertical-align: top; }
+.data-table tr:nth-child(even) td { background: #F8F9FA; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table .label-cell { color: #4A5568; width: 140px; }
+.data-table .mono-cell { font-family: 'JetBrains Mono', monospace; }
+.data-table .pts-cell { text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+.data-table .src-cell { text-align: center; font-size: 10px; }
+
+/* ── Finding cards (in pillar sections) ────────────────────── */
+.finding-card { border-radius: 0 6px 6px 0; padding: 14px 18px; margin-bottom: 10px;
+  page-break-inside: avoid; }
+.finding-title { font-size: 12px; font-weight: 600; margin: 4px 0 2px; }
+.finding-detail { font-size: 11px; color: #4A5568; line-height: 1.5; }
+.finding-meta { display: flex; justify-content: space-between; margin-bottom: 4px; }
+
+/* ── Findings Register (Section 10 — card layout) ─────────── */
+.fr-summary { display: flex; gap: 6px; align-items: center; margin-bottom: 20px;
+  font-size: 12px; font-weight: 600; }
+.fr-summary-sep { color: #CBD5E1; }
+.fr-card { background: #fff; border: 1px solid #E2E8F0; border-radius: 0 8px 8px 0;
+  padding: 16px 20px; margin-bottom: 12px; page-break-inside: avoid; }
+.fr-card-header { display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px; flex-wrap: wrap; gap: 6px; }
+.fr-card-left { display: flex; align-items: center; gap: 8px; }
+.fr-card-right { flex-shrink: 0; }
+.fr-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+  color: #4A5568; min-width: 20px; }
+.fr-pillar { font-size: 10px; font-weight: 700; color: #1B2B5E; text-transform: uppercase;
+  letter-spacing: .05em; background: #EFF6FF; padding: 2px 8px; border-radius: 4px; }
+.fr-title { font-size: 13px; font-weight: 700; color: #0F1729; line-height: 1.4; margin-bottom: 4px; }
+.fr-detail { font-size: 11px; color: #4A5568; line-height: 1.6; }
+.fr-footer { margin-top: 8px; }
+
+/* ── Info boxes ────────────────────────────────────────────── */
+.info-box { border-radius: 6px; padding: 16px 20px; margin-bottom: 16px; }
+.info-box-title { font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+.conditions-box { background: #FAF4EA; border: 1px solid #E5D5B8; }
+.methodology-box { background: #F8F9FA; border-left: 4px solid #E2E8F0; }
+.encevo-box { background: #EFF6FF; border-radius: 6px; padding: 14px; margin-top: 12px; }
+.gap-box { background: #FAF4EA; border: 1px solid #E5D5B8; }
+
+/* ── Running header & footer (print) ──────────────────────── */
+.page-header { display: none; }
+.page-footer { display: none; }
+
+/* ── Print styles ─────────────────────────────────────────── */
+@media print {
+  html { font-size: 12px; }
+  body { background: #fff; }
+  .doc { box-shadow: none; max-width: 100%; }
+  @page { size: A4; margin: 18mm 15mm 20mm 15mm; }
+  .page { padding: 32px 0; border-bottom: none; }
+  .page-break { page-break-before: always; }
+  .cover { margin: -18mm -15mm 0; padding: 48px 40px 36px; width: calc(100% + 30mm); }
+  .page-header, .page-footer { display: flex; justify-content: space-between;
+    font-size: 9px; color: #9CA3AF; padding: 0 0 8px; }
+  .page-footer { padding: 8px 0 0; border-top: 1px solid #E2E8F0; margin-top: auto; }
+  p, li { orphans: 3; widows: 3; }
+  .data-table tr { page-break-inside: avoid; }
+  .finding-card { page-break-inside: avoid; }
+  .pillar-card { page-break-inside: avoid; }
+  .no-print { display: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<!-- ═══ COVER PAGE ═══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <p class="cover-brand">SPECTRUM · VENDOR INTELLIGENCE</p>
+  <h1 class="cover-name">OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025)</h1>
+  <p class="cover-subtitle">Vendor Due Diligence Assessment</p>
+  <div class="cover-kpi">
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Overall Score</p>
+      <p style="color:#B83B2E;font-size:36px;font-weight:700;letter-spacing:-.02em;" class="mono">48<span style="font-size:16px;color:#94A3B8;">/100</span></p>
+    </div>
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Verdict</p>
+      <p style="color:#B83B2E;font-size:24px;font-weight:700;">REVIEW REQUIRED</p>
+    </div>
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Risk Level</p>
+      <p style="color:#B83B2E;font-size:24px;font-weight:700;">HIGH</p>
+    </div>
+  </div>
+  <div class="cover-meta">
+    <p>Report ID: <span>SPEC-2026-005</span></p>
+    <p>Generated: <span>2026-03-29</span></p>
+    <p>Sector: <span>Artificial Intelligence Platform / AI-as-a-Service / SaaS</span></p>
+    <p style="margin-left:auto;">CONFIDENTIAL — For Authorised Recipients Only</p>
+  </div>
+</div>
+
+<!-- ═══ TABLE OF CONTENTS ════════════════════════════════════════════════ -->
+<div class="page page-break" id="toc">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025) · SPEC-2026-005</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Navigation</p><p class="sh-title">Table of Contents</p></div></div>
+  <ul class="toc-list">
+    <li><span class="toc-num">01</span><a class="toc-link" href="#exec-summary">Executive Summary</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">02</span><a class="toc-link" href="#scorecard">Risk Scorecard</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">03</span><a class="toc-link" href="#profile">Supplier Profile</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">04</span><a class="toc-link" href="#pillar-p1">P1 — Financial Stability</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">05</span><a class="toc-link" href="#pillar-p2">P2 — ESG & Sustainability</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">06</span><a class="toc-link" href="#pillar-p3">P3 — Regulatory & Legal</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">07</span><a class="toc-link" href="#pillar-p4">P4 — Cybersecurity & Data</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">08</span><a class="toc-link" href="#pillar-p5">P5 — Operational & Geopolitical Resilience</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">09</span><a class="toc-link" href="#pillar-p6">P6 — Reputational Intelligence</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">10</span><a class="toc-link" href="#findings-register">Findings Register</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">11</span><a class="toc-link" href="#capa">Corrective & Preventive Actions</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">12</span><a class="toc-link" href="#playbook">Contract Playbook</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">13</span><a class="toc-link" href="#monitoring">Monitoring Dashboard</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">14</span><a class="toc-link" href="#methodology">Methodology & Sources</a><span class="toc-dots"></span></li>
+  </ul>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-005</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ EXECUTIVE SUMMARY ════════════════════════════════════════════════ -->
+<div class="page page-break" id="exec-summary">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025) · SPEC-2026-005</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 01</p><p class="sh-title">Executive Summary</p></div></div>
+  <div style="display:grid;grid-template-columns:180px 1fr;gap:32px;align-items:start;margin-bottom:20px;">
+    <div style="text-align:center;">
+      <svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="90" cy="90" r="64" fill="none" stroke="#E2E8F0" stroke-width="12"/>
+  <circle cx="90" cy="90" r="64" fill="none" stroke="#B83B2E" stroke-width="12"
+    stroke-dasharray="193.0 402.1" stroke-linecap="round" transform="rotate(-90 90 90)"/>
+  <text x="90" y="84" text-anchor="middle" font-family="'JetBrains Mono',monospace"
+    font-size="32" font-weight="700" fill="#B83B2E">48</text>
+  <text x="90" y="104" text-anchor="middle" font-family="Inter,sans-serif"
+    font-size="12" fill="#4A5568">/100</text>
+</svg>
+      <p style="margin-top:8px;font-size:12px;font-weight:700;color:#B83B2E;">REVIEW REQUIRED</p>
+      <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+    </div>
+    <div>
+      <div class="info-box" style="background:#F8F9FA;">
+        <p style="font-size:13px;line-height:1.8;">OpenAI scores 48/100 on a SaaS-adjusted weighting model, placing it in the REVIEW REQUIRED band (40-59). The score reflects three converging risk clusters: (1) structural financial distress — persistent and accelerating losses ($5B in FY2024, ~$13.5B in H1 2025) with profitability deferred to 2029-2030 and a $135B fraud trial beginning April 2026; (2) data sovereignty and privacy risk — CLOUD Act conflict is active and confirmed by a US court order overriding GDPR erasure rights in spring 2025; and (3) safety and reputational deterioration — deliberate weakening of AI safety framework, acknowledgement of 1.2M users seeking self-harm advice, legal intimidation of AI safety critics, and Pentagon military AI controversy. Strong points include excellent enterprise security certifications (ISO 27001, SOC 2), clean sanctions record, explosive revenue growth, and a clean anti-bribery record.</p>
+      </div>
+      <div class="info-box" style="background:#1B2B5E;">
+        <p style="color:#A5B4FC;font-size:10px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">Primary Recommendation</p>
+        <p style="color:#fff;font-size:13px;line-height:1.6;">Continue engagement with OpenAI subject to immediate contractual remediation of CLOUD Act/GDPR data sovereignty gap and EU AI Act deployer compliance programme. Maintain active monitoring of Musk v. OpenAI trial and financial trajectory. Do not expand usage to consumer tiers or high-risk AI contexts without completing EU AI Act risk assessment.</p>
+      </div>
+    </div>
+  </div>
+  <div class="info-box conditions-box">
+    <p class="info-box-title" style="color:#B5751A;">CONDITIONS FOR QUALIFICATION</p>
+    <ul style="padding-left:18px;font-size:12px;"><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>IMMEDIATE:</strong> Encevo legal must verify contractual counterparty entity name (OpenAI OpCo LLC vs OpenAI Group PBC vs OpenAI Ireland Limited) on all active agreements.</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>IMMEDIATE: Encevo must negotiate EU data residency clause and CLOUD Act addendum in the OpenAI services agreement —</strong> current US court order confirms data may be retained against GDPR erasure requests.</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>SHORT_TERM (30 days): Encevo must confirm it is contracted on OpenAI API or ChatGPT Enterprise tier —</strong> NOT consumer tiers — to benefit from ISO 27001 and SOC 2 certifications.</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>SHORT_TERM (30 days):</strong> Encevo must assess whether its use of OpenAI constitutes 'high-risk AI system' deployment under EU AI Act and implement required deployer obligations (risk assessment, human oversight, transparency).</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>MEDIUM_TERM (90 days):</strong> Encevo must request OpenAI provide EU AI Act GPAI technical documentation and model cards required for deployer compliance.</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>MEDIUM_TERM (90 days):</strong> Encevo must assess whether it received notification from OpenAI regarding the November 2025 Mixpanel breach.</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>ONGOING: Monitor Musk v. OpenAI trial progress (begins April 27, 2026) —</strong> adverse judgment could cause material disruption to OpenAI operations.</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>ONGOING: Monitor OpenAI's revenue trajectory and investor capital position —</strong> $14B projected 2026 losses require continued investor confidence.</li><li style='margin-bottom:8px;line-height:1.6;'><strong style='color:#92400E;'>ONGOING:</strong> Request annual ESG data from OpenAI to fulfil Encevo's CSRD supply chain reporting obligations.</li></ul>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi-card" style="border-top:3px solid #6B1E1E;"><p class="kpi-val" style="color:#6B1E1E;">0</p><p class="kpi-label">Critical Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #B83B2E;"><p class="kpi-val" style="color:#B83B2E;">12</p><p class="kpi-label">High Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #B5751A;"><p class="kpi-val" style="color:#B5751A;">7</p><p class="kpi-label">Medium Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #2D7A4F;"><p class="kpi-val" style="color:#2D7A4F;">1</p><p class="kpi-label">Low / Info</p></div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-005</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+
+<!-- ═══ RISK SCORECARD ═══════════════════════════════════════════════════ -->
+<div class="page page-break" id="scorecard">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025) · SPEC-2026-005</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 02</p><p class="sh-title">Risk Scorecard</p></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+    <div style="text-align:center;"><svg width="280" height="280" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+<polygon points="140.0,115.0 161.7,127.5 161.7,152.5 140.0,165.0 118.3,152.5 118.3,127.5" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,90.0 183.3,115.0 183.3,165.0 140.0,190.0 96.7,165.0 96.7,115.0" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,65.0 205.0,102.5 205.0,177.5 140.0,215.0 75.0,177.5 75.0,102.5" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,40.0 226.6,90.0 226.6,190.0 140.0,240.0 53.4,190.0 53.4,90.0" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="140.0" y2="40.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="226.6" y2="90.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="226.6" y2="190.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="140.0" y2="240.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="53.4" y2="190.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="53.4" y2="90.0" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,89.0 153.0,132.5 198.9,174.0 140.0,198.0 96.7,165.0 131.3,135.0" fill="#B83B2E" fill-opacity="0.15" stroke="#B83B2E" stroke-width="2"/>
+<text x="140.0" y="18.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Financial</text>
+<text x="140.0" y="4.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B83B2E">51</text>
+<text x="245.7" y="79.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">ESG</text>
+<text x="257.8" y="72.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#6B1E1E">15</text>
+<text x="245.7" y="201.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Regulatory</text>
+<text x="257.8" y="208.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">68</text>
+<text x="140.0" y="262.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Cyber</text>
+<text x="140.0" y="276.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B83B2E">58</text>
+<text x="34.3" y="201.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Operational</text>
+<text x="22.2" y="208.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B83B2E">50</text>
+<text x="34.3" y="79.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Reputation</text>
+<text x="22.2" y="72.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#6B1E1E">10</text>
+</svg></div>
+    <div class="pillar-grid">
+      <div class="pillar-card" style="border-top:3px solid #B83B2E;">
+        <p class="pillar-card-label">Financial Stability</p>
+        <p class="pillar-card-score" style="color:#B83B2E;">51<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #6B1E1E;">
+        <p class="pillar-card-label">ESG & Sustainability</p>
+        <p class="pillar-card-score" style="color:#6B1E1E;">15<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#6B1E1E;background:#F9EEEE;border-color:#6B1E1E;">CRITICAL</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">Regulatory & Legal</p>
+        <p class="pillar-card-score" style="color:#B5751A;">68<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B83B2E;">
+        <p class="pillar-card-label">Cybersecurity & Data</p>
+        <p class="pillar-card-score" style="color:#B83B2E;">58<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B83B2E;">
+        <p class="pillar-card-label">Operational & Geopolitical Resilience</p>
+        <p class="pillar-card-score" style="color:#B83B2E;">50<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #6B1E1E;">
+        <p class="pillar-card-label">Reputational Intelligence</p>
+        <p class="pillar-card-score" style="color:#6B1E1E;">10<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#6B1E1E;background:#F9EEEE;border-color:#6B1E1E;">CRITICAL</span>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#4A5568;margin-top:4px;" class="mono">SaaS/data processor weight adjustment applied per CLAUDE.md: P1×0.20 + P2×0.15 + P3×0.18 + P4×0.22 + P5×0.20 + P6×0.05 = (51×0.20)+(15×0.15)+(68×0.18)+(58×0.22)+(50×0.20)+(10×0.05) = 10.2+2.25+12.24+12.76+10.0+0.5 = 47.95 ≈ 48</p>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-005</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ SUPPLIER PROFILE ═════════════════════════════════════════════════ -->
+<div class="page page-break" id="profile">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025) · SPEC-2026-005</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 03</p><p class="sh-title">Supplier Profile</p></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+    <table class="data-table"><tbody>
+      <tr><td class="label-cell">Legal Name</td><td style="font-weight:600;">OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025)</td></tr>
+      <tr><td class="label-cell">HQ Address</td><td>1455 3rd Street, San Francisco, CA 94158, United States</td></tr>
+      <tr><td class="label-cell">Country</td><td>United States (Delaware)</td></tr>
+      <tr><td class="label-cell">Ownership</td><td>private</td></tr>
+      <tr><td class="label-cell">Exchange</td><td>—</td></tr>
+      <tr><td class="label-cell">Ticker</td><td class="mono-cell">—</td></tr>
+      <tr><td class="label-cell">Sector</td><td>Artificial Intelligence Platform / AI-as-a-Service / SaaS</td></tr>
+      <tr><td class="label-cell">Employees</td><td class="mono-cell">—</td></tr>
+      <tr><td class="label-cell">Founded</td><td class="mono-cell">2015</td></tr>
+      <tr><td class="label-cell">Parent</td><td>OpenAI Foundation (formerly OpenAI Inc.) — US nonprofit, holds 26% of OpenAI Group PBC and controls board appointment rights</td></tr>
+    </tbody></table>
+    <div>
+      <p style="font-size:10px;color:#1B2B5E;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:10px;">Key Executives</p>
+      <table class="data-table"><tbody>
+        <tr><td style="font-weight:600;">Sam Altman</td><td style="color:#4A5568;">Chief Executive Officer, Co-Founder <a href="https://openai.com/index/sam-altman-returns-as-ceo-openai-has-a-new-initial-board/" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+        <tr><td style="font-weight:600;">Greg Brockman</td><td style="color:#4A5568;">President, Co-Founder <a href="https://openai.com/index/leadership-updates-march-2025/" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+        <tr><td style="font-weight:600;">Sarah Friar</td><td style="color:#4A5568;">Chief Financial Officer <a href="https://digitaldefynd.com/IQ/meet-the-c-suite-executive-team-of-openai/" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+        <tr><td style="font-weight:600;">Brad Lightcap</td><td style="color:#4A5568;">Chief Operating Officer <a href="https://openai.com/index/leadership-updates-march-2025/" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+        <tr><td style="font-weight:600;">Kevin Weil</td><td style="color:#4A5568;">Chief Product Officer <a href="https://openai.com/index/leadership-updates-march-2025/" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+      </tbody></table>
+      <div class="encevo-box">
+        <p style="font-size:11px;font-weight:700;color:#1B2B5E;margin-bottom:4px;">Encevo Relationship</p>
+        <p style="font-size:12px;">AI platform and API services supplier for Encevo S.A., Luxembourg. Encevo contracts with OpenAI Ireland Limited as EU-facing entity. Used for AI-powered applications and API integrations.</p>
+        <p style="font-size:11px;color:#4A5568;margin-top:6px;">Criticality: Important · Spend: Unknown</p>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-005</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P1 — FINANCIAL STABILITY ═══ -->
+<div class="page page-break" id="pillar-p1">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025) · SPEC-2026-005</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B83B2E;">
+    <div>
+      <p class="sh-label">Section 04 · P1</p>
+      <p class="sh-title">Financial Stability</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B83B2E;">51<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">OpenAI's financial profile is dominated by extraordinary revenue growth (+118% YoY to ~$13.1B in FY2025) alongside structural and accelerating losses ($5B in FY2024, ~$13.5B in H1 2025 alone). The company is entirely dependent on continued investor capital injections — most recently a $40B SoftBank-led round in March 2025 at a $300B valuation. No audited financial statements are publicly available. The company's own internal forecasts project continuing losses through 2028 and profitability only in 2029-2030. Private company cap of 65 applies; raw score 51 reflects genuine uncertainty.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P1-C01: Credit Rating</td><td style="color:#4A5568;">Not rated — private company. No credit rating from Moody's, S&P, or Fitch found. Applied 'Not rated (private company)' band (8pts neutral).</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#B83B2E;">8/20</td></tr>
+    <tr><td>P1-C02: Revenue Trend</td><td style="color:#4A5568;">Revenue growth +118% YoY (FY2024 $3.7B → FY2025 ~$13.1B). Annualized run-rate exceeded $20B by end of 2025.</td>
+    <td class="src-cell"><a href="https://finance.yahoo.com/news/openai-cfo-says-annualized-revenue-173519097.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P1-C03: EBITDA Margin</td><td style="color:#4A5568;">EBITDA not publicly disclosed. Net loss $5B in FY2024 on $3.7B revenue. H1 2025: $4.3B revenue vs $13.5B net loss. Clearly negative operatin</td>
+    <td class="src-cell"><a href="https://fortune.com/2025/11/12/openai-cash-burn-rate-annual-losses-2028-profitable-2030-financial-documents/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/15</td></tr>
+    <tr><td>P1-C04: Net Debt/EBITDA</td><td style="color:#4A5568;">Debt data unavailable for private company. Applied neutral band (8pts). Note: company has $17.5B cash at H1 2025, minimal on-balance-sheet d</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#B83B2E;">8/15</td></tr>
+    <tr><td>P1-C05: Current Ratio</td><td style="color:#4A5568;">Current ratio not available — private company. Recorded as data gap.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/10</td></tr>
+    <tr><td>P1-C06: Audit Opinion</td><td style="color:#4A5568;">No audited financial statements publicly available (private company). Applied 8-point 'not verified' band. CANNOT confirm clean audit — this</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/10</td></tr>
+    <tr><td>P1-C07: No Material Restructuring (24 months)</td><td style="color:#4A5568;">No formal restructuring programme announced. Minor layoffs of 'insider risk' employees. Senior leadership departures (CTO, Chief Scientist, </td>
+    <td class="src-cell"><a href="https://openai.com/index/leadership-updates-march-2025/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">7/10</td></tr>
+    <tr><td>P1-C08: No Bankruptcy/Default Events</td><td style="color:#4A5568;">No adverse findings on bankruptcy, insolvency, or default in public sources as of 2026-03-29.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">5/5</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-005</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P2 — ESG & SUSTAINABILITY ═══ -->
+<div class="page page-break" id="pillar-p2">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025) · SPEC-2026-005</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #6B1E1E;">
+    <div>
+      <p class="sh-label">Section 05 · P2</p>
+      <p class="sh-title">ESG & Sustainability</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#6B1E1E;">15<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#6B1E1E;background:#F9EEEE;border-color:#6B1E1E;">CRITICAL</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">OpenAI's ESG posture is critically deficient. The company publishes no sustainability report, no emissions data, no CDP score, and no modern slavery statement. It has acknowledged ~1.2M users seek self-harm advice via ChatGPT, deliberately weakened its safety framework to remove manipulation/disinformation as critical risks, and faces active NGO campaigns and whistleblower claims of research suppression. For Encevo as an EU entity subject to CSRD, OpenAI's complete absence of ESG disclosure creates a supply chain reporting gap that must be addressed contractually.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P2-C01: Publishes Annual Sustainability/ESG Report</td><td style="color:#4A5568;">No public ESG/sustainability report found after 2 targeted searches. OpenAI does not publish an annual sustainability report.</td>
+    <td class="src-cell"><a href="https://ditchcarbon.com/organizations/openai" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/10</td></tr>
+    <tr><td>P2-C02: CSRD/GRI/TCFD Alignment</td><td style="color:#4A5568;">No ESG framework alignment found. OpenAI has no CSRD programme and no GRI/TCFD alignment.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/12</td></tr>
+    <tr><td>P2-C03: Scope 1 & 2 Emissions Disclosed</td><td style="color:#4A5568;">OpenAI has published zero verified Scope 1, 2, or 3 emissions figures as of March 2026.</td>
+    <td class="src-cell"><a href="https://ditchcarbon.com/organizations/openai" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/8</td></tr>
+    <tr><td>P2-C04: Net Zero/SBTi Target</td><td style="color:#4A5568;">Aspirational 2030 carbon neutrality target stated without measurement baseline or SBTi validation.</td>
+    <td class="src-cell"><a href="https://thesustainableinnovation.com/open-ai/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">1/8</td></tr>
+    <tr><td>P2-C05: No Material Environmental Violations (5 years)</td><td style="color:#4A5568;">No material environmental violations found in public sources as of 2026-03-29. This does not constitute a clean bill of health.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">12/12</td></tr>
+    <tr><td>P2-C06: LkSG/Modern Slavery Act Compliance</td><td style="color:#4A5568;">No LkSG compliance programme, Modern Slavery Act statement, or supply chain due diligence policy found.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/10</td></tr>
+    <tr><td>P2-C07: No Labour/Human Rights Controversies (3 years)</td><td style="color:#4A5568;">Material controversy: ~100 Kenyan data labellers described conditions as 'modern-day slavery' in 2024 open letter. Psychological trauma repo</td>
+    <td class="src-cell"><a href="https://triplepundit.com/2025/ai-humans-loop-human-rights-digital-sweatshops/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">2/10</td></tr>
+    <tr><td>P2-C08: Board Independence & Governance Quality</td><td style="color:#4A5568;">Governance controversy: board fired CEO Altman in November 2023 citing lack of candor. Board was entirely replaced. Multiple safety leadersh</td>
+    <td class="src-cell"><a href="https://en.wikipedia.org/wiki/Removal_of_Sam_Altman_from_OpenAI" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/8</td></tr>
+    <tr><td>P2-C09: CDP Score</td><td style="color:#4A5568;">No CDP submission found for OpenAI.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/8</td></tr>
+    <tr><td>P2-C10: No ESG Controversy History</td><td style="color:#4A5568;">Multiple ongoing high-profile ESG controversies: safety framework weakening, 1.2M user self-harm acknowledgement, Pentagon military AI deal,</td>
+    <td class="src-cell"><a href="https://fortune.com/2025/04/16/openai-safety-framework-manipulation-deception-critical-risk/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/14</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-005</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P3 — REGULATORY & LEGAL ═══ -->
+<div class="page page-break" id="pillar-p3">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025) · SPEC-2026-005</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 06 · P3</p>
+      <p class="sh-title">Regulatory & Legal</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">68<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">Regulatory and legal risk is MEDIUM overall, with a clean sanctions record and no anti-bribery findings but material litigation exposure. The Musk fraud trial ($135B) beginning April 2026 and 50+ copyright lawsuits represent extraordinary legal uncertainty. The Italy GDPR fine (annulled procedurally but violations substantiated) and active CLOUD Act data sovereignty conflict are the dominant data protection risks for Encevo. Strong certifications (ISO 27001, SOC 2) partially offset these concerns.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P3-C01: Sanctions Clean — OFAC/EU/UN</td><td style="color:#4A5568;">No match on OFAC SDN, EU Consolidated, UN Consolidated, or UK OFSI lists. Searched via WebSearch against official portal references and Open</td>
+    <td class="src-cell"><a href="https://sanctionssearch.ofac.treas.gov/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">25/25</td></tr>
+    <tr><td>P3-C02: No PEP Ownership/Control</td><td style="color:#4A5568;">No PEP ownership identified. Sam Altman and Greg Brockman have political proximity (White House events, $25M MAGA donation) but neither hold</td>
+    <td class="src-cell"><a href="https://en.wikipedia.org/wiki/Sam_Altman" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P3-C03: GDPR Fines (5 years)</td><td style="color:#4A5568;">Italy Garante issued €15M GDPR fine December 2024 (>€10M threshold). Fine annulled by Rome court March 2026 on procedural grounds — but viol</td>
+    <td class="src-cell"><a href="https://thehackernews.com/2024/12/italy-fines-openai-15-million-for.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">3/15</td></tr>
+    <tr><td>P3-C04: No Material Active Litigation</td><td style="color:#4A5568;">Multiple active material lawsuits: (1) Musk v. OpenAI $135B fraud trial begins April 27, 2026; (2) 50+ copyright infringement cases; (3) 7 u</td>
+    <td class="src-cell"><a href="https://www.cnbc.com/2026/01/17/musk-lawsuit-opena-microsoft.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/15</td></tr>
+    <tr><td>P3-C05: No FCPA/Anti-Bribery Violations</td><td style="color:#4A5568;">No FCPA, UK Bribery Act, or equivalent enforcement actions found for OpenAI in public sources as of 2026-03-29.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P3-C06: Relevant Certifications Held</td><td style="color:#4A5568;">Multiple verified certifications: ISO 27001:2022, SOC 2 Type II (H1 2025), ISO 27701:2019, ISO 42001:2023, PCI-DSS. Source: OpenAI Trust Por</td>
+    <td class="src-cell"><a href="https://trust.openai.com/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P3-C07: Trade & Export Compliance — No Violations</td><td style="color:#4A5568;">No direct export control or customs violations found for OpenAI. Indirect risk via NVIDIA GPU supply chain subject to US export controls.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-005</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P4 — CYBERSECURITY & DATA ═══ -->
+<div class="page page-break" id="pillar-p4">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025) · SPEC-2026-005</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B83B2E;">
+    <div>
+      <p class="sh-label">Section 07 · P4</p>
+      <p class="sh-title">Cybersecurity & Data</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B83B2E;">58<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">OpenAI's enterprise security posture is strong (ISO 27001:2022, SOC 2 Type II H1 2025, ISO 42001, PCI-DSS). However, two confirmed security incidents in the assessment window — a 2023 unreported internal breach and the November 2025 Mixpanel supply-chain breach that exposed business customer data — drag the score down significantly. The supply-chain breach deduction applies (-20pts). Breach notification practices have been inadequate. Consumer ChatGPT tiers are not covered by enterprise certifications.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P4-C01: No Confirmed Data Breaches (5 years)</td><td style="color:#4A5568;">Two confirmed incidents: (1) 2023 internal breach, unreported to Italian DPA (cited in GDPR fine); (2) November 2025 Mixpanel third-party br</td>
+    <td class="src-cell"><a href="https://www.euronews.com/next/2025/11/27/openai-confirms-chatgpt-data-breach-here-is-everything-we-know" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">8/25</td></tr>
+    <tr><td>P4-C02: ISO 27001 Certification</td><td style="color:#4A5568;">ISO/IEC 27001:2022 certified for API, ChatGPT Enterprise, and ChatGPT Edu. Also ISO 27701:2019, ISO 27017:2015, ISO 27018:2019.</td>
+    <td class="src-cell"><a href="https://trust.openai.com/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">20/20</td></tr>
+    <tr><td>P4-C03: SOC 2 Type II</td><td style="color:#4A5568;">SOC 2 Type II current — covers January 1 to June 30, 2025. Covers API Platform, ChatGPT Enterprise, ChatGPT Edu, ChatGPT Team.</td>
+    <td class="src-cell"><a href="https://trust.openai.com/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P4-C04: No Ransomware/Destructive Attack</td><td style="color:#4A5568;">No ransomware or destructive cyberattack incidents found in public sources as of 2026-03-29.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P4-C05: No CISA KEV Entries</td><td style="color:#4A5568;">No active CISA Known Exploited Vulnerability entries identified for OpenAI software/infrastructure components.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P4-C06: Bug Bounty Programme</td><td style="color:#4A5568;">OpenAI operates a bug bounty programme via HackerOne and publishes security and responsible disclosure policies.</td>
+    <td class="src-cell"><a href="https://openai.com/security-and-privacy/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>P4-C07: Transparent Incident Disclosure</td><td style="color:#4A5568;">Evidence of delayed/inadequate disclosure: 2023 breach not reported to Italian DPA (cited as GDPR violation). Pattern of breach notification</td>
+    <td class="src-cell"><a href="https://www.theregister.com/2024/07/08/infosec_in_brief/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/5</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-005</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P5 — OPERATIONAL & GEOPOLITICAL RESILIENCE ═══ -->
+<div class="page page-break" id="pillar-p5">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025) · SPEC-2026-005</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B83B2E;">
+    <div>
+      <p class="sh-label">Section 08 · P5</p>
+      <p class="sh-title">Operational & Geopolitical Resilience</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B83B2E;">50<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">Operational resilience is HIGH risk, driven by multiple major service outages (including a 12-hour event in June 2025), extraordinary leadership instability (CEO crisis, 3 senior C-suite departures in 2024), NVIDIA GPU supply chain concentration, and unresolved CLOUD Act data sovereignty conflict. The positive counterpoints are diversifying cloud infrastructure (AWS $38B deal), long operating track record (10 years), and no sanctions-adjacent geopolitical exposure.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P5-C01: BCP/DR Plan Disclosed</td><td style="color:#4A5568;">No formal BCP/DR plan publicly referenced. No ISO 22301 certification found. OpenAI publishes a status page (status.openai.com) but no BCP d</td>
+    <td class="src-cell"><a href="https://status.openai.com/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">4/20</td></tr>
+    <tr><td>P5-C02: No Major Outages (3 years)</td><td style="color:#4A5568;">Multiple major outages: December 2024 (4.5 hours — Kubernetes control plane failure); December 2024 (Azure power failure); June 2025 (12 hou</td>
+    <td class="src-cell"><a href="https://status.openai.com/incidents/01JMYB63BJ47J3SXV6KSCT4D2A" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/20</td></tr>
+    <tr><td>P5-C03: No Critical Single-Source Supply Chain Dependencies</td><td style="color:#4A5568;">Critical NVIDIA GPU single-source dependency. GPT-4.5 launch staggered due to GPU shortage (Feb 2025). Multi-cloud diversification underway </td>
+    <td class="src-cell"><a href="https://logisticsviewpoints.com/2025/11/03/33669/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">3/15</td></tr>
+    <tr><td>P5-C04: Geographic Diversification</td><td style="color:#4A5568;">HQ in San Francisco. EU-facing entity in Ireland. Stargate data centres being built across multiple US states. Multi-cloud providers in US/E</td>
+    <td class="src-cell"><a href="https://openai.com/our-structure/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">7/10</td></tr>
+    <tr><td>P5-C05: CEO/Leadership Stability</td><td style="color:#4A5568;">Multiple C-suite departures and governance instability: CEO fired and reinstated Nov 2023; CTO Murati departed 2024; Chief Scientist Sutskev</td>
+    <td class="src-cell"><a href="https://en.wikipedia.org/wiki/Removal_of_Sam_Altman_from_OpenAI" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/15</td></tr>
+    <tr><td>P5-C06: No Critical Workforce Reduction</td><td style="color:#4A5568;">Layoffs targeting 'insider risk' employees — limited scope, not a major reduction. Applied 'restructuring <10% workforce, managed' band.</td>
+    <td class="src-cell"><a href="https://swashenterprises.com/ai-startups-mask-as-saas-openai-lays-off-employees/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">6/10</td></tr>
+    <tr><td>P5-C07: Years in Operation</td><td style="color:#4A5568;">Founded December 2015 — operating 10 years as of assessment date. Applied '10-20 years' band (8pts).</td>
+    <td class="src-cell"><a href="https://en.wikipedia.org/wiki/OpenAI" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/10</td></tr>
+    <tr><td>P5-C08: Geopolitical — No Sanctions-Adjacent Exposure</td><td style="color:#4A5568;">No operations or revenue in Russia, Iran, Belarus, North Korea, or other OFAC-listed jurisdictions found. Pentagon contract is with US DoD, </td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>P5-C09: Data Sovereignty — CLOUD Act Risk</td><td style="color:#4A5568;">US-incorporated. EU data residency available for enterprise customers. However, CLOUD Act conflict is unresolved — US court in spring 2025 a</td>
+    <td class="src-cell"><a href="https://www.kennedyslaw.com/en/thought-leadership/article/2025/openai-and-the-cross-border-data-dilemma-us-litigation-holds-vs-gdpr-erasure-obligations-ukeu/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">3/10</td></tr>
+    <tr><td>P5-C10: NIS2/Critical Infrastructure Designation Risk</td><td style="color:#4A5568;">OpenAI likely in-scope as important/essential digital service provider under NIS2 (digital infrastructure). NIS2 compliance status not publi</td>
+    <td class="src-cell"><a href="https://www.nis-2-directive.com/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">4/10</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-005</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P6 — REPUTATIONAL INTELLIGENCE ═══ -->
+<div class="page page-break" id="pillar-p6">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025) · SPEC-2026-005</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #6B1E1E;">
+    <div>
+      <p class="sh-label">Section 09 · P6</p>
+      <p class="sh-title">Reputational Intelligence</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#6B1E1E;">10<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#6B1E1E;background:#F9EEEE;border-color:#6B1E1E;">CRITICAL</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">OpenAI's reputational intelligence score is CRITICAL — the lowest possible risk level. A convergent and accelerating negative narrative covers: the $135B fraud trial; acknowledged user harm (1.2M users seeking self-harm advice); deliberate safety framework weakening; legal intimidation of AI safety NGOs; Pentagon military AI deal triggering a senior resignation and mass user boycott; and a material gap between the company's stated AI safety mission and its actions. For Encevo as a European regulated utility, association with these controversies creates governance and reputational risk that must be proactively managed.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>P6-C01: Overall Media Sentiment (18 months)</td><td style="color:#4A5568;">Ongoing high-profile negative media campaign: Yahoo Finance '2026 Scorecard: A String of Lawsuits, Losses, and Broken Promises'; widespread </td>
+    <td class="src-cell"><a href="https://finance.yahoo.com/markets/stocks/articles/openai-2026-scorecard-string-lawsuits-135104297.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/25</td></tr>
+    <tr><td>P6-C02: No Regulatory Watchdog Adverse Coverage</td><td style="color:#4A5568;">Active regulatory scrutiny: FTC antitrust inquiry (staff report), EU DPA investigations (Italy fine), EU AI Office oversight commenced Augus</td>
+    <td class="src-cell"><a href="https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-issues-staff-report-ai-partnerships-investments-study" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">4/20</td></tr>
+    <tr><td>P6-C03: No NGO/Activist Adverse Campaigns</td><td style="color:#4A5568;">Active NGO campaigns: 7+ AI safety nonprofits subpoenaed and reportedly intimidated; Public Citizen demanding Sora 2 withdrawal; ChatGPT boy</td>
+    <td class="src-cell"><a href="https://www.nbcnews.com/tech/tech-news/openai-chatgpt-accused-using-subpoenas-silence-nonprofits-rcna237348" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">2/15</td></tr>
+    <tr><td>P6-C04: No Executive Misconduct/Personal Controversy</td><td style="color:#4A5568;">Sam Altman is personally named as defendant in Musk $135B fraud trial beginning April 2026. Former board stated he was 'not consistently can</td>
+    <td class="src-cell"><a href="https://www.cnbc.com/2026/01/17/musk-lawsuit-opena-microsoft.html" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/15</td></tr>
+    <tr><td>P6-C05: No Product/Service Safety Failures</td><td style="color:#4A5568;">Significant product liability concerns: 7 lawsuits for user harm (deaths), 1.2M users seeking self-harm advice via ChatGPT per company's own</td>
+    <td class="src-cell"><a href="https://chambers.com/articles/openai-s-report-triggers-ethical-ai-concerns-1-2-million-users-seek-self-harm-related-advice-from-c" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">2/10</td></tr>
+    <tr><td>P6-C06: Reputational Consistency — Claims vs Reality</td><td style="color:#4A5568;">Material discrepancy: Company claims to pursue safe and beneficial AI; simultaneously weakened safety framework (removed manipulation as cri</td>
+    <td class="src-cell"><a href="https://fortune.com/2025/04/16/openai-safety-framework-manipulation-deception-critical-risk/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">2/15</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-005</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ FINDINGS REGISTER ════════════════════════════════════════════════ -->
+<div class="page page-break" id="findings-register">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025) · SPEC-2026-005</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 10</p><p class="sh-title">Findings Register</p></div>
+    <div class="sh-badge"><span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;">20 findings</span></div>
+  </div>
+  <div class="fr-summary">
+    <span class="fr-summary-item" style="color:#6B1E1E;">0 Critical</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#B83B2E;">12 High</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#B5751A;">7 Medium</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#2D7A4F;">1 Low/Info</span>
+  </div>
+  
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">1</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P1</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2025-11-12</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">Structural unprofitability — $5B+ losses FY2024, $13.5B losses H1 2025, $14B projected 2026</p>
+    <p class="fr-detail">OpenAI reported approximately $5 billion in net losses for FY2024 on $3.7B revenue. In H1 2025 alone, losses reached $13.5B. The company's own internal financial documents project </p>
+    <div class="fr-footer"><a href="https://fortune.com/2025/11/12/openai-cash-burn-rate-annual-losses-2028-profitable-2030-financial-documents/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">2</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P1</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2026-04-27</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">Musk v. OpenAI $135B fraud trial begins April 27, 2026 — CEO personally named</p>
+    <p class="fr-detail">Elon Musk's fraud trial against OpenAI and Microsoft is scheduled to begin April 27, 2026 in Oakland, CA. Musk seeks up to $135 billion in damages related to the alleged breach of </p>
+    <div class="fr-footer"><a href="https://www.cnbc.com/2026/01/17/musk-lawsuit-opena-microsoft.html" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">3</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P1</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2023-11-17</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">Resolved</span>
+      </div>
+    </div>
+    <p class="fr-title">Sam Altman November 2023 governance crisis — key person risk unresolved</p>
+    <p class="fr-detail">Sam Altman was fired by the OpenAI board on November 17, 2023, and reinstated within 5 days after nearly all 800 employees threatened to quit. The entire board was replaced. The bo</p>
+    <div class="fr-footer"><a href="https://en.wikipedia.org/wiki/Removal_of_Sam_Altman_from_OpenAI" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">4</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P2</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">Zero ESG disclosure — no emissions data, no sustainability report, no CDP</p>
+    <p class="fr-detail">OpenAI has published no verified Scope 1, 2, or 3 greenhouse gas emissions figures as of March 2026. No annual sustainability report. No CDP submission. No SBTi commitment. Aspirat</p>
+    <div class="fr-footer"><a href="https://ditchcarbon.com/organizations/openai" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">5</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P2</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2025-04-16</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">Safety framework deliberately weakened — manipulation/deception removed as critical risk (April 2025)</p>
+    <p class="fr-detail">OpenAI updated its safety framework in April 2025 to remove persuasion, manipulation, and disinformation from critical risk categories. AI ethics experts criticised the decision as</p>
+    <div class="fr-footer"><a href="https://fortune.com/2025/04/16/openai-safety-framework-manipulation-deception-critical-risk/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">6</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P2</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2025-01-01</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">User harm — 1.2M users seeking self-harm advice; 7 product liability lawsuits for user deaths</p>
+    <p class="fr-detail">OpenAI's own report acknowledged that approximately 1.2 million of its 700-800M active ChatGPT users exhibit suicidal thoughts or seek self-harm advice via ChatGPT. Seven lawsuits </p>
+    <div class="fr-footer"><a href="https://chambers.com/articles/openai-s-report-triggers-ethical-ai-concerns-1-2-million-users-seek-self-harm-related-advice-from-c" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">7</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P3</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2024-12-01</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">Resolved</span>
+      </div>
+    </div>
+    <p class="fr-title">Italy GDPR €15M fine — violations confirmed in investigation, fine annulled on procedural grounds</p>
+    <p class="fr-detail">Italy's Garante issued a €15M GDPR fine in December 2024 for: (1) no legal basis for processing training data, (2) failure to notify a 2023 breach, (3) lack of transparency, (4) no</p>
+    <div class="fr-footer"><a href="https://thehackernews.com/2024/12/italy-fines-openai-15-million-for.html" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">8</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P3</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2025-04-01</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">CLOUD Act — US court order confirms data sovereignty conflict with GDPR for EU clients</p>
+    <p class="fr-detail">In spring 2025, a US court in New York ordered OpenAI to retain 'output log data' even where EU customers exercised their GDPR right to erasure. This is a live, confirmed example o</p>
+    <div class="fr-footer"><a href="https://www.kennedyslaw.com/en/thought-leadership/article/2025/openai-and-the-cross-border-data-dilemma-us-litigation-holds-vs-gdpr-erasure-obligations-ukeu/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">9</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P3</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2023-12-01</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">50+ copyright infringement lawsuits — training data legal basis unresolved until summer 2026+</p>
+    <p class="fr-detail">Over 50 copyright infringement lawsuits are pending in US federal courts, including the New York Times case (filed December 2023). No fair use summary judgment decisions are expect</p>
+    <div class="fr-footer"><a href="https://chatgptiseatingtheworld.com/2025/10/08/status-of-all-51-copyright-lawsuits-v-ai-oct-8-2025-no-more-decisions-on-fair-use-in-2025/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">10</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P5</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2023-11-17</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">Sam Altman extreme key person risk — demonstrated governance fragility and personal litigation</p>
+    <p class="fr-detail">The November 2023 crisis proved OpenAI's continued existence is dependent on Altman remaining CEO. His departure would likely trigger mass attrition and investor panic. He is perso</p>
+    <div class="fr-footer"><a href="https://en.wikipedia.org/wiki/Removal_of_Sam_Altman_from_OpenAI" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">11</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P5</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2025-04-01</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">CLOUD Act data sovereignty — US court has already overridden GDPR erasure for EU customer data</p>
+    <p class="fr-detail">A US court in spring 2025 issued an order preventing OpenAI from deleting output log data, even where EU companies requested erasure under GDPR. This is a confirmed, live instance </p>
+    <div class="fr-footer"><a href="https://www.kennedyslaw.com/en/thought-leadership/article/2025/openai-and-the-cross-border-data-dilemma-us-litigation-holds-vs-gdpr-erasure-obligations-ukeu/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">12</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P6</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2025-09-01</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">Systematic legal intimidation of AI safety nonprofits via litigation subpoenas</p>
+    <p class="fr-detail">OpenAI subpoenaed 7+ AI safety nonprofits as part of its Musk litigation. Representatives reportedly visited critics' homes to serve documents. A California nonprofit (Encode) accu</p>
+    <div class="fr-footer"><a href="https://www.nbcnews.com/tech/tech-news/openai-chatgpt-accused-using-subpoenas-silence-nonprofits-rcna237348" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">13</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P2</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2024-01-01</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">Data labeller supply chain — modern slavery risk in content moderation outsourcing</p>
+    <p class="fr-detail">~100 Kenyan data labellers contracted via Sama described working conditions as 'modern-day slavery' in an open letter to President Biden (2024), citing psychological harm from flag</p>
+    <div class="fr-footer"><a href="https://sites.uab.edu/humanrights/2025/10/23/economy-and-exploitation-the-ai-industrys-unjust-labor-practices/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">14</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P4</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2025-11-26</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">Resolved</span>
+      </div>
+    </div>
+    <p class="fr-title">Confirmed Mixpanel third-party breach (November 2025) — business customer data exposed</p>
+    <p class="fr-detail">OpenAI's analytics vendor Mixpanel was breached on November 26, 2025, exposing business customer names, emails, locations, and system details. OpenAI severed its relationship with </p>
+    <div class="fr-footer"><a href="https://www.euronews.com/next/2025/11/27/openai-confirms-chatgpt-data-breach-here-is-everything-we-know" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">15</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P4</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2023-03-01</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">2023 internal data breach unreported to Italian DPA — breach notification culture deficiency</p>
+    <p class="fr-detail">A 2023 internal breach was not reported to the Italian DPA within the GDPR-required 72-hour window, and was cited as a violation in Italy's December 2024 GDPR enforcement action. T</p>
+    <div class="fr-footer"><a href="https://www.theregister.com/2024/07/08/infosec_in_brief/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">16</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P5</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2025-06-01</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">Resolved</span>
+      </div>
+    </div>
+    <p class="fr-title">Multiple major service outages — 12-hour outage June 2025, recurring pattern</p>
+    <p class="fr-detail">OpenAI experienced two major outages in the look-back window: December 2024 (4.5 hours, Kubernetes control plane failure) and June 2025 (12 hours, routing layer memory limit failur</p>
+    <div class="fr-footer"><a href="https://www.educative.io/newsletter/system-design/openai-keeps-going-down" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">17</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P5</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2025-02-01</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">NVIDIA GPU single-source dependency — compute shortage demonstrated February 2025</p>
+    <p class="fr-detail">OpenAI's entire training and inference pipeline depends on NVIDIA GPU supply with no disclosed alternative. CEO Altman confirmed GPU shortage caused GPT-4.5 launch to be staggered </p>
+    <div class="fr-footer"><a href="https://logisticsviewpoints.com/2025/11/03/33669/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">18</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P6</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2026-03-07</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">Pentagon military AI contract (March 2026) — senior resignation, mass user boycott, EU client risk</p>
+    <p class="fr-detail">OpenAI's Pentagon classified-network deal (March 2026) triggered: (1) resignation of hardware chief Caitlin Kalinowski citing insufficient guardrails on lethal autonomy; (2) 295% s</p>
+    <div class="fr-footer"><a href="https://www.crescendo.ai/blog/ai-controversies" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">19</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P6</span>
+        <span style="color:#4A5568;font-size:10px;margin-left:8px;">2025-08-01</span>
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">EU AI Act deployer obligations on Encevo — must implement risk assessment and transparency requirements</p>
+    <p class="fr-detail">When Encevo deploys OpenAI's GPAI models (ChatGPT, API), Encevo becomes an 'AI deployer' under EU AI Act with obligations from August 2026 for high-risk system contexts. OpenAI sig</p>
+    <div class="fr-footer"><a href="https://openai.com/global-affairs/a-primer-on-the-eu-ai-act/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #2D7A4F;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">20</span>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+        <span class="fr-pillar">P4</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">Active</span>
+      </div>
+    </div>
+    <p class="fr-title">Consumer ChatGPT tiers (Free/Plus) NOT covered by enterprise security certifications</p>
+    <p class="fr-detail">OpenAI's SOC 2 Type II and ISO 27001 certifications explicitly exclude the ChatGPT Free and Plus consumer tiers. Only API Platform, ChatGPT Enterprise, ChatGPT Edu, and ChatGPT Tea</p>
+    <div class="fr-footer"><a href="https://trust.openai.com/" target="_blank" style="font-size:10px;color:#1B2B5E;">View source</a></div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-005</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ CAPA PLAN ════════════════════════════════════════════════════════ -->
+<div class="page page-break" id="capa">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025) · SPEC-2026-005</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 11</p><p class="sh-title">Corrective & Preventive Action Plan</p></div></div>
+  <table class="data-table"><colgroup><col style="width:12%"/><col style="width:40%"/><col style="width:14%"/><col style="width:16%"/><col style="width:18%"/></colgroup><thead><tr>
+    <th>Priority</th><th>Action</th><th>Finding Ref</th><th>Owner</th><th>Timeline</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:700;color:#B83B2E;">IMMEDIATE</td>
+    <td style="font-weight:600;">Verify contractual counterparty entity name on all Encevo-OpenAI agreements (OpenAI OpCo LLC, OpenAI Group PBC, or OpenAI Ireland Limited) and negotiate CLOUD Act addendum to services agreement specifying data handling obligations under US law.</td><td style="color:#4A5568;">F-009</td>
+    <td>Legal / Data Protection Officer</td><td>Within 30 days</td></tr>
+    <tr><td style="font-weight:700;color:#B83B2E;">IMMEDIATE</td>
+    <td style="font-weight:600;">Audit all Encevo staff use of OpenAI tools. Ensure all usage is through API or ChatGPT Enterprise accounts — NOT consumer Free/Plus tiers. Implement acceptable use policy.</td><td style="color:#4A5568;">F-013</td>
+    <td>CISO / IT Operations</td><td>Within 30 days</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">SHORT_TERM</td>
+    <td style="font-weight:600;">Conduct EU AI Act deployer risk assessment for all current and planned OpenAI use cases at Encevo. Document high-risk classifications, implement human oversight protocols, and prepare transparency disclosures for any customer-facing AI applications.</td><td style="color:#4A5568;">F-020</td>
+    <td>Legal / Compliance / AI Governance Officer</td><td>Within 90 days</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">SHORT_TERM</td>
+    <td style="font-weight:600;">Contact OpenAI to determine whether Encevo's business account data was included in the November 2025 Mixpanel breach. Review what data OpenAI analytics vendors have access to under the services agreement.</td><td style="color:#4A5568;">F-011</td>
+    <td>CISO / Procurement</td><td>Within 30 days</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">MEDIUM_TERM</td>
+    <td style="font-weight:600;">Request OpenAI provide annual ESG data (Scope 1/2/3 emissions, energy mix, human rights supply chain disclosure) to support Encevo's CSRD supply chain reporting obligations.</td><td style="color:#4A5568;">F-004</td>
+    <td>Sustainability / Procurement</td><td>At next contract renewal or within 90 days</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">ONGOING</td>
+    <td style="font-weight:600;">Monitor Musk v. OpenAI fraud trial outcomes (trial begins April 27, 2026). Assess impact on OpenAI operations, valuation, and leadership stability. Prepare contingency plan for service disruption.</td><td style="color:#4A5568;">F-002</td>
+    <td>Procurement / Legal</td><td>Monthly review from April 2026</td></tr>
+    <tr><td style="font-weight:700;color:#4A5568;">ONGOING</td>
+    <td style="font-weight:600;">Monitor OpenAI's financial trajectory quarterly — revenue run-rate, cash burn rate, and investor capital position. If annualized burn exceeds $20B without commensurate revenue growth, trigger vendor review.</td><td style="color:#4A5568;">F-001</td>
+    <td>Procurement / Finance</td><td>Quarterly review</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-005</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ CONTRACT PLAYBOOK ════════════════════════════════════════════════ -->
+<div class="page page-break" id="playbook">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025) · SPEC-2026-005</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 12</p><p class="sh-title">Contract Playbook</p></div></div>
+  <table class="data-table"><colgroup><col style="width:18%"/><col style="width:42%"/><col style="width:24%"/><col style="width:16%"/></colgroup><thead><tr>
+    <th>Clause Area</th><th>Recommendation</th><th>Risk Basis</th><th>Priority</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Data Residency & CLOUD Act Sovereignty</td>
+    <td>Insert explicit EU data residency clause (all Encevo data to remain in EU data centres). Add CLOUD Act addendum: supplier must notify Encevo within 24 hours of any US government demand for Encevo data; supplier must invoke all available legal challenge mechanisms before complying.</td><td style="color:#4A5568;">F-009, F-017 — US court already overrode EU GDPR erasure rights in 2025</td>
+    <td><span style="font-size:10px;font-weight:700;">MUST_HAVE</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Service Level Agreement</td>
+    <td>Negotiate minimum 99.9% monthly uptime SLA for API services with service credits for outages >1 hour. Current documented performance is ~99.3%. Include major outage definition (>2 hours affecting API availability) with automatic credit.</td><td style="color:#4A5568;">F-014 — Pattern of major outages including 12-hour event June 2025</td>
+    <td><span style="font-size:10px;font-weight:700;">MUST_HAVE</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">EU AI Act Compliance</td>
+    <td>Require OpenAI to provide GPAI technical documentation (model cards, capabilities/limitations disclosure) within 30 days of request and upon each major model update. Require transparency on training data provenance relevant to copyright risk.</td><td style="color:#4A5568;">F-020 — Encevo's EU AI Act deployer obligations require supplier technical documentation</td>
+    <td><span style="font-size:10px;font-weight:700;">MUST_HAVE</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Breach Notification</td>
+    <td>Insert 24-hour breach notification clause (stricter than GDPR 72 hours) given OpenAI's demonstrated pattern of delayed notifications. Require notification of any third-party vendor breach affecting Encevo data.</td><td style="color:#4A5568;">F-011, F-012 — Pattern of delayed/inadequate breach notification</td>
+    <td><span style="font-size:10px;font-weight:700;">MUST_HAVE</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">ESG Data Provision</td>
+    <td>Insert annual ESG data provision clause: supplier to provide verified Scope 1/2/3 emissions data, renewable energy percentage, and supply chain human rights due diligence summary within 60 days of each calendar year-end.</td><td style="color:#4A5568;">F-004 — Encevo's CSRD supply chain reporting obligation</td>
+    <td><span style="font-size:10px;font-weight:700;">RECOMMENDED</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Business Continuity</td>
+    <td>Require evidence of documented BCP/DR plan upon request. Include termination for convenience clause (90 days notice) and data export/portability rights to enable migration to an alternative AI vendor if required.</td><td style="color:#4A5568;">F-014, F-015 — Infrastructure instability and key person risk</td>
+    <td><span style="font-size:10px;font-weight:700;">RECOMMENDED</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Military/Government Use Restriction</td>
+    <td>Insert clause confirming OpenAI's Pentagon classified-network services are architecturally segregated from commercial API services and that no data processed by Encevo can be shared with US government or military applications without Encevo's explicit written consent.</td><td style="color:#4A5568;">F-019 — Pentagon AI deal controversy and EU regulatory exposure</td>
+    <td><span style="font-size:10px;font-weight:700;">RECOMMENDED</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">Consumer Tier Restriction</td>
+    <td>Confirm in contract that all Encevo access is via API or ChatGPT Enterprise tier only, with explicit prohibition on consumer tier (Free/Plus) usage by Encevo staff for business purposes.</td><td style="color:#4A5568;">F-013 — Consumer tiers not covered by enterprise security certifications</td>
+    <td><span style="font-size:10px;font-weight:700;">MUST_HAVE</span></td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-005</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ MONITORING DASHBOARD ═════════════════════════════════════════════ -->
+<div class="page page-break" id="monitoring">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025) · SPEC-2026-005</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 13</p><p class="sh-title">Ongoing Monitoring Dashboard</p></div></div>
+  <table class="data-table" style="font-size:11px;"><colgroup><col style="width:22%"/><col style="width:16%"/><col style="width:6%"/><col style="width:16%"/><col style="width:16%"/><col style="width:12%"/><col style="width:12%"/></colgroup><thead><tr>
+    <th>Key Risk Indicator</th><th>Current</th><th></th>
+    <th>Green</th><th>Amber</th><th>Red</th><th>Review</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:600;">OpenAI Annualized Revenue Run-Rate</td>
+    <td class="mono-cell">~$20B+ (end 2025)</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#2D7A4F;"></span></td>
+    <td style="color:#2D7A4F;">Revenue growing >30% YoY</td>
+    <td style="color:#B5751A;">Revenue growth 10-30% YoY</td>
+    <td style="color:#B83B2E;">Revenue growth <10% YoY or declining</td>
+    <td style="color:#4A5568;">Quarterly</td></tr>
+    <tr><td style="font-weight:600;">Musk v. OpenAI Trial Outcome</td>
+    <td class="mono-cell">Trial begins April 27, 2026</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#B5751A;"></span></td>
+    <td style="color:#2D7A4F;">Case dismissed or judgment <$1B</td>
+    <td style="color:#B5751A;">Case ongoing; partial adverse findings</td>
+    <td style="color:#B83B2E;">Judgment >$10B or management change triggered by verdict</td>
+    <td style="color:#4A5568;">Monthly from April 2026</td></tr>
+    <tr><td style="font-weight:600;">OpenAI API Service Uptime</td>
+    <td class="mono-cell">~99.3% (last 12 months)</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#B5751A;"></span></td>
+    <td style="color:#2D7A4F;">Uptime ≥99.9% with no outages >2 hours</td>
+    <td style="color:#B5751A;">Uptime 99.0-99.9%</td>
+    <td style="color:#B83B2E;">Uptime <99.0% or any outage >8 hours</td>
+    <td style="color:#4A5568;">Monthly</td></tr>
+    <tr><td style="font-weight:600;">GDPR/Data Sovereignty Regulatory Actions</td>
+    <td class="mono-cell">Italy fine annulled; CLOUD Act conflict active</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#B5751A;"></span></td>
+    <td style="color:#2D7A4F;">No active DPA investigations, CLOUD Act addendum in place</td>
+    <td style="color:#B5751A;">Active DPA investigation or unresolved CLOUD Act conflict</td>
+    <td style="color:#B83B2E;">New major GDPR fine (>€10M) or Schrems-III invalidating DPF</td>
+    <td style="color:#4A5568;">Quarterly</td></tr>
+    <tr><td style="font-weight:600;">Sam Altman CEO Status</td>
+    <td class="mono-cell">In role as of March 2026</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#B5751A;"></span></td>
+    <td style="color:#2D7A4F;">Altman confirmed in role, no significant governance dispute</td>
+    <td style="color:#B5751A;">Board tensions or personal legal distraction (current status)</td>
+    <td style="color:#B83B2E;">Altman departure for any reason</td>
+    <td style="color:#4A5568;">On-event</td></tr>
+    <tr><td style="font-weight:600;">OpenAI Investor Capital Position</td>
+    <td class="mono-cell">~$17.5B cash at H1 2025 + $40B Mar 2025 raise</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#2D7A4F;"></span></td>
+    <td style="color:#2D7A4F;">Cash reserves >$10B, next funding round secured</td>
+    <td style="color:#B5751A;">Cash reserves $5-10B or funding round >12 months away</td>
+    <td style="color:#B83B2E;">Cash reserves <$5B with no imminent funding</td>
+    <td style="color:#4A5568;">Quarterly</td></tr>
+    <tr><td style="font-weight:600;">EU AI Act Compliance Status</td>
+    <td class="mono-cell">GPAI Code of Practice signed Aug 2025</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#B5751A;"></span></td>
+    <td style="color:#2D7A4F;">GPAI technical documentation provided; high-risk obligations met</td>
+    <td style="color:#B5751A;">Code signed but documentation not provided to Encevo</td>
+    <td style="color:#B83B2E;">EU AI Office enforcement action against OpenAI or Encevo for deployer violations</td>
+    <td style="color:#4A5568;">Quarterly</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-005</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ DATA GAPS ════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025) · SPEC-2026-005</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Appendix</p><p class="sh-title">Data Gaps & Limitations</p></div></div>
+  <div class="info-box gap-box">
+    <p class="info-box-title" style="color:#B5751A;">6 data gap(s) identified</p>
+    <ul style="padding-left:18px;font-size:12px;line-height:1.8;"><li><strong>financial_statements_audited</strong>: private_company — All financial figures are from investor disclosures and CFO statements reported in media — not independently audited. Confidence capped at MEDIUM for all financial metrics.</li>
+<li><strong>ebitda_and_operating_margin</strong>: private_company — Cannot assess gross margin, EBITDA, or operating leverage.</li>
+<li><strong>scope_1_2_3_emissions</strong>: not_publicly_disclosed — Encevo cannot fulfil CSRD supply chain emissions reporting obligations without this data.</li>
+<li><strong>modern_slavery_statement</strong>: not_publicly_disclosed — Cannot assess OpenAI's labour risk in the data labelling supply chain.</li>
+<li><strong>bcp_dr_documentation</strong>: not_publicly_disclosed — Cannot assess formal BCP/DR maturity. Status page exists but formal plan not disclosed.</li>
+<li><strong>nis2_compliance_status</strong>: not_publicly_disclosed — Cannot confirm whether OpenAI has been designated as NIS2 essential/important entity and what obligations have been met.</li>
+</ul>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-005</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ METHODOLOGY & SOURCES ════════════════════════════════════════════ -->
+<div class="page page-break" id="methodology">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025) · SPEC-2026-005</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 14</p><p class="sh-title">Methodology & Data Sources</p></div></div>
+  <div class="info-box" style="background:#F8F9FA;margin-bottom:20px;">
+    <p style="font-size:12px;line-height:1.7;"><strong>Data Currency:</strong> Data gathered March 2026. All web searches conducted 2026-03-29. Private company — no audited financial statements available. All financial figures from investor disclosures and CFO statements as reported in credible media.</p>
+    <p style="font-size:12px;line-height:1.7;margin-top:8px;"><strong>Methodology:</strong> This assessment was conducted using SPECTRUM's evidence-first multi-agent pipeline. All findings are sourced from publicly available information. Scores are derived by applying the SPECTRUM six-pillar rubric to verified evidence. No training-knowledge claims are made — every factual statement is linked to a source URL.</p>
+  </div>
+  <ol style="padding-left:20px;font-size:12px;line-height:1.8;"><li><span class="mono" style="color:#1B2B5E;font-weight:700;">[1]</span> <a href="https://finance.yahoo.com/news/openai-cfo-says-annualized-revenue-173519097.html" target="_blank">OpenAI CFO says annualized revenue crosses $20 billion in 2025</a> <span style="color:#9CA3AF;font-size:10px;">(financial_press, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[2]</span> <a href="https://fortune.com/2025/11/12/openai-cash-burn-rate-annual-losses-2028-profitable-2030-financial-documents/" target="_blank">OpenAI says it plans to report stunning annual losses through 2028</a> <span style="color:#9CA3AF;font-size:10px;">(financial_press, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[3]</span> <a href="https://www.cnbc.com/2025/03/31/openai-closes-40-billion-in-funding-the-largest-private-fundraise-in-history-softbank-chatgpt.html" target="_blank">OpenAI closes $40 billion funding round</a> <span style="color:#9CA3AF;font-size:10px;">(financial_press, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[4]</span> <a href="https://www.cnbc.com/2025/10/28/open-ai-for-profit-microsoft.html" target="_blank">OpenAI completes restructure, solidifying Microsoft as major shareholder</a> <span style="color:#9CA3AF;font-size:10px;">(financial_press, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[5]</span> <a href="https://ditchcarbon.com/organizations/openai" target="_blank">OpenAI Emissions Breakdown & Climate Score</a> <span style="color:#9CA3AF;font-size:10px;">(other, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[6]</span> <a href="https://fortune.com/2025/04/16/openai-safety-framework-manipulation-deception-critical-risk/" target="_blank">OpenAI updated its safety framework — no longer sees mass manipulation as critical risk</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[7]</span> <a href="https://chambers.com/articles/openai-s-report-triggers-ethical-ai-concerns-1-2-million-users-seek-self-harm-related-advice-from-c" target="_blank">OpenAI's report triggers ethical AI concerns: 1.2 million users seek self-harm advice</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[8]</span> <a href="https://triplepundit.com/2025/ai-humans-loop-human-rights-digital-sweatshops/" target="_blank">People Are Working in Digital Sweatshops to Train AI</a> <span style="color:#9CA3AF;font-size:10px;">(ngo_report, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[9]</span> <a href="https://thehackernews.com/2024/12/italy-fines-openai-15-million-for.html" target="_blank">Italy Fines OpenAI €15 Million for ChatGPT GDPR Violations</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[10]</span> <a href="https://www.cnbc.com/2026/01/17/musk-lawsuit-opena-microsoft.html" target="_blank">Elon Musk seeks up to $134 billion from OpenAI and Microsoft</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[11]</span> <a href="https://chatgptiseatingtheworld.com/2025/10/08/status-of-all-51-copyright-lawsuits-v-ai-oct-8-2025-no-more-decisions-on-fair-use-in-2025/" target="_blank">Status of all 51 copyright lawsuits v. AI (Oct 8, 2025)</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[12]</span> <a href="https://trust.openai.com/" target="_blank">OpenAI Trust Portal — Security Certifications</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[13]</span> <a href="https://www.euronews.com/next/2025/11/27/openai-confirms-chatgpt-data-breach-here-is-everything-we-know" target="_blank">OpenAI confirms ChatGPT data breach (Mixpanel, Nov 2025)</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[14]</span> <a href="https://www.theregister.com/2024/07/08/infosec_in_brief/" target="_blank">2023 data breach at OpenAI allegedly went unreported</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[15]</span> <a href="https://openai.com/security-and-privacy/" target="_blank">Security and Privacy at OpenAI</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[16]</span> <a href="https://status.openai.com/incidents/01JMYB63BJ47J3SXV6KSCT4D2A" target="_blank">OpenAI Status — Major Outage across ChatGPT and API (Dec 2024)</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[17]</span> <a href="https://www.kennedyslaw.com/en/thought-leadership/article/2025/openai-and-the-cross-border-data-dilemma-us-litigation-holds-vs-gdpr-erasure-obligations-ukeu/" target="_blank">OpenAI and the cross-border data dilemma: US litigation holds vs GDPR erasure</a> <span style="color:#9CA3AF;font-size:10px;">(other, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[18]</span> <a href="https://logisticsviewpoints.com/2025/11/03/33669/" target="_blank">OpenAI and AWS Forge $38B Alliance, Microsoft Exclusivity Ends</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[19]</span> <a href="https://www.nbcnews.com/tech/tech-news/openai-chatgpt-accused-using-subpoenas-silence-nonprofits-rcna237348" target="_blank">OpenAI accused of using legal tactics to silence nonprofits</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[20]</span> <a href="https://finance.yahoo.com/markets/stocks/articles/openai-2026-scorecard-string-lawsuits-135104297.html" target="_blank">OpenAI's 2026 Scorecard: A String of Lawsuits, Losses, and Broken Promises</a> <span style="color:#9CA3AF;font-size:10px;">(financial_press, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[21]</span> <a href="https://openai.com/global-affairs/a-primer-on-the-eu-ai-act/" target="_blank">A Primer on the EU AI Act — What It Means for AI Providers and Deployers</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[22]</span> <a href="https://en.wikipedia.org/wiki/Removal_of_Sam_Altman_from_OpenAI" target="_blank">Removal of Sam Altman from OpenAI — Wikipedia</a> <span style="color:#9CA3AF;font-size:10px;">(other, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[23]</span> <a href="https://news.delaware.gov/2025/10/28/ag-jennings-completes-review-of-openai-recapitalization/" target="_blank">AG Jennings completes review of OpenAI recapitalization</a> <span style="color:#9CA3AF;font-size:10px;">(regulatory_database, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[24]</span> <a href="https://openai.com/our-structure/" target="_blank">Our Structure | OpenAI</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[25]</span> <a href="https://openai.com/policies/eu-terms-of-use/" target="_blank">Europe Terms of Use | OpenAI</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[26]</span> <a href="https://www.crescendo.ai/blog/ai-controversies" target="_blank">27 Biggest AI Controversies of 2025-2026</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[27]</span> <a href="https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-issues-staff-report-ai-partnerships-investments-study" target="_blank">FTC Issues Staff Report on AI Partnerships & Investments Study</a> <span style="color:#9CA3AF;font-size:10px;">(regulatory_database, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[28]</span> <a href="https://beeble.com/en/blog/a-win-for-the-giants-why-italy-s-court-just-scrapped-the-eur15-million-openai-fine" target="_blank">Italy Court Annuls €15 Million OpenAI Fine (March 2026)</a> <span style="color:#9CA3AF;font-size:10px;">(news_media, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[29]</span> <a href="https://fortune.com/2025/11/28/openai-partners-96-billion-debt/" target="_blank">OpenAI partners amass $96 billion debt pile</a> <span style="color:#9CA3AF;font-size:10px;">(financial_press, 2026-03-29)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[30]</span> <a href="https://openai.com/index/leadership-updates-march-2025/" target="_blank">Leadership updates | OpenAI (March 2025)</a> <span style="color:#9CA3AF;font-size:10px;">(company_website, 2026-03-29)</span></li>
+</ol>
+  <div class="info-box methodology-box" style="margin-top:24px;">
+    <p style="font-size:11px;color:#4A5568;line-height:1.7;"><strong>Disclaimer:</strong> This report is based on publicly available information gathered as of 2026-03-29. It does not constitute legal advice, financial advice, or a comprehensive audit. SPECTRUM accepts no liability for decisions made based solely on this report. Users are advised to conduct additional due diligence as appropriate for their risk appetite and regulatory context.</p>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-005</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ BACK COVER ═══════════════════════════════════════════════════════ -->
+<div class="page page-break" style="background:#1B2B5E;min-height:280px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.03);"></div>
+  <div style="position:absolute;bottom:-40px;left:80px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.02);"></div>
+  <p style="color:#A5B4FC;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;">SPECTRUM</p>
+  <p style="color:rgba(255,255,255,.5);font-size:11px;margin-top:4px;letter-spacing:.08em;">Vendor Intelligence Platform</p>
+  <div style="width:48px;height:2px;background:rgba(255,255,255,.2);margin:28px auto;"></div>
+  <p style="color:#fff;font-size:22px;font-weight:700;">OpenAI Group PBC (formerly OpenAI OpCo, LLC — restructured October 28, 2025)</p>
+  <p style="color:#CBD5E1;font-size:12px;margin-top:6px;font-family:'JetBrains Mono',monospace;">SPEC-2026-005 · 2026-03-29</p>
+  <div style="width:48px;height:2px;background:rgba(255,255,255,.2);margin:28px auto;"></div>
+  <p style="color:rgba(255,255,255,.35);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;">CONFIDENTIAL — For Authorised Recipients Only</p>
+</div>
+
+</div><!-- .doc -->
+</body>
+</html>

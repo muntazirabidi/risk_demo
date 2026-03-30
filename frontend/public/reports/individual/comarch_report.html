@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SPECTRUM — Comarch Spółka Akcyjna (Comarch S.A.) Vendor Intelligence Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 13px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: 'Inter', sans-serif; color: #0F1729; background: #F1F5F9; line-height: 1.6; }
+a { color: #1B2B5E; text-decoration: none; }
+a:hover { text-decoration: underline; color: #2A3F7E; }
+code, .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* ── Document container ───────────────────────────────────── */
+.doc { max-width: 900px; margin: 0 auto; background: #fff;
+  box-shadow: 0 4px 32px rgba(27,43,94,.10); }
+
+/* ── Page sections ────────────────────────────────────────── */
+.page { padding: 48px 56px; border-bottom: 1px solid #E2E8F0; position: relative; }
+.page:last-child { border-bottom: none; }
+.page-break { page-break-before: always; }
+.page-alt { background: #F0F2F5; }
+
+/* ── Section headers ──────────────────────────────────────── */
+.sh { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.sh-bar { width: 4px; height: 32px; background: #1B2B5E; border-radius: 2px; flex-shrink: 0; }
+.sh-label { font-size: 10px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: #4A5568; }
+.sh-title { font-size: 20px; font-weight: 700; color: #0F1729; }
+.sh-badge { margin-left: auto; }
+
+/* ── Cover page ───────────────────────────────────────────── */
+.cover { background: #1B2B5E; padding: 64px 56px 48px; color: #fff; position: relative; overflow: hidden; }
+.cover::before { content: ''; position: absolute; top: -80px; right: -80px;
+  width: 320px; height: 320px; border-radius: 50%; background: rgba(255,255,255,.03); }
+.cover-brand { font-size: 11px; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: #A5B4FC; margin-bottom: 6px; }
+.cover-subtitle { color: #CBD5E1; font-size: 15px; margin-bottom: 32px; }
+.cover-name { font-size: 32px; font-weight: 700; margin-bottom: 4px; }
+.cover-kpi { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+.cover-kpi-card { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 8px; padding: 14px 24px; }
+.cover-kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: #94A3B8; }
+.cover-meta { padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1);
+  display: flex; gap: 24px; flex-wrap: wrap; font-size: 11px; color: #64748B; }
+.cover-meta span { color: #94A3B8; }
+.cover-meta p { max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cover-meta p:last-child { max-width: none; margin-left: auto; }
+
+/* ── Table of contents ────────────────────────────────────── */
+.toc-list { list-style: none; padding: 0; }
+.toc-list li { display: flex; align-items: baseline; gap: 8px; padding: 8px 0;
+  border-bottom: 1px dotted #E2E8F0; font-size: 13px; }
+.toc-list li:last-child { border-bottom: none; }
+.toc-num { font-family: 'JetBrains Mono', monospace; font-weight: 700;
+  color: #1B2B5E; min-width: 28px; }
+.toc-link { color: #0F1729; font-weight: 500; }
+.toc-dots { flex: 1; border-bottom: 1px dotted #CBD5E1; margin: 0 4px; min-width: 20px; }
+.toc-page { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #4A5568; }
+
+/* ── KPI cards ────────────────────────────────────────────── */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0; }
+.kpi-card { background: #F8F9FA; border-radius: 8px; padding: 16px; text-align: center; }
+.kpi-val { font-size: 28px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.kpi-label { font-size: 11px; color: #4A5568; margin-top: 4px; }
+
+/* ── Pillar cards (scorecard grid) ────────────────────────── */
+.pillar-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.pillar-card { border-radius: 8px; padding: 16px; border: 1px solid #E2E8F0; }
+.pillar-card-label { font-size: 11px; color: #4A5568; margin-bottom: 4px; }
+.pillar-card-score { font-size: 24px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.pillar-card-max { font-size: 12px; color: #9CA3AF; }
+
+/* ── Pillar deep dive ─────────────────────────────────────── */
+.pillar-header { display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 16px; padding-left: 16px; }
+.pillar-score-big { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; }
+.pillar-score-max { font-size: 14px; color: #4A5568; }
+.pillar-narrative { font-size: 13px; line-height: 1.75; background: #F8F9FA;
+  padding: 16px 20px; border-radius: 6px; margin-bottom: 16px; }
+
+/* ── Risk / severity badges ───────────────────────────────── */
+.badge { display: inline-block; padding: 2px 12px; border-radius: 9999px;
+  font-size: 11px; font-weight: 700; border: 1px solid; }
+
+/* ── Tables ────────────────────────────────────────────────── */
+.data-table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+.data-table th { background: #1B2B5E; color: #FFFFFF; padding: 10px 14px; text-align: left;
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+.data-table th:first-child { border-radius: 4px 0 0 0; }
+.data-table th:last-child { border-radius: 0 4px 0 0; }
+.data-table td { padding: 10px 14px; border-bottom: 1px solid #E2E8F0; vertical-align: top; }
+.data-table tr:nth-child(even) td { background: #F8F9FA; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table .label-cell { color: #4A5568; width: 140px; }
+.data-table .mono-cell { font-family: 'JetBrains Mono', monospace; }
+.data-table .pts-cell { text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+.data-table .src-cell { text-align: center; font-size: 10px; }
+
+/* ── Finding cards (in pillar sections) ────────────────────── */
+.finding-card { border-radius: 0 6px 6px 0; padding: 14px 18px; margin-bottom: 10px;
+  page-break-inside: avoid; }
+.finding-title { font-size: 12px; font-weight: 600; margin: 4px 0 2px; }
+.finding-detail { font-size: 11px; color: #4A5568; line-height: 1.5; }
+.finding-meta { display: flex; justify-content: space-between; margin-bottom: 4px; }
+
+/* ── Findings Register (Section 10 — card layout) ─────────── */
+.fr-summary { display: flex; gap: 6px; align-items: center; margin-bottom: 20px;
+  font-size: 12px; font-weight: 600; }
+.fr-summary-sep { color: #CBD5E1; }
+.fr-card { background: #fff; border: 1px solid #E2E8F0; border-radius: 0 8px 8px 0;
+  padding: 16px 20px; margin-bottom: 12px; page-break-inside: avoid; }
+.fr-card-header { display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px; flex-wrap: wrap; gap: 6px; }
+.fr-card-left { display: flex; align-items: center; gap: 8px; }
+.fr-card-right { flex-shrink: 0; }
+.fr-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+  color: #4A5568; min-width: 20px; }
+.fr-pillar { font-size: 10px; font-weight: 700; color: #1B2B5E; text-transform: uppercase;
+  letter-spacing: .05em; background: #EFF6FF; padding: 2px 8px; border-radius: 4px; }
+.fr-title { font-size: 13px; font-weight: 700; color: #0F1729; line-height: 1.4; margin-bottom: 4px; }
+.fr-detail { font-size: 11px; color: #4A5568; line-height: 1.6; }
+.fr-footer { margin-top: 8px; }
+
+/* ── Info boxes ────────────────────────────────────────────── */
+.info-box { border-radius: 6px; padding: 16px 20px; margin-bottom: 16px; }
+.info-box-title { font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+.conditions-box { background: #FAF4EA; border: 1px solid #E5D5B8; }
+.methodology-box { background: #F8F9FA; border-left: 4px solid #E2E8F0; }
+.encevo-box { background: #EFF6FF; border-radius: 6px; padding: 14px; margin-top: 12px; }
+.gap-box { background: #FAF4EA; border: 1px solid #E5D5B8; }
+
+/* ── Running header & footer (print) ──────────────────────── */
+.page-header { display: none; }
+.page-footer { display: none; }
+
+/* ── Print styles ─────────────────────────────────────────── */
+@media print {
+  html { font-size: 12px; }
+  body { background: #fff; }
+  .doc { box-shadow: none; max-width: 100%; }
+  @page { size: A4; margin: 18mm 15mm 20mm 15mm; }
+  .page { padding: 32px 0; border-bottom: none; }
+  .page-break { page-break-before: always; }
+  .cover { margin: -18mm -15mm 0; padding: 48px 40px 36px; width: calc(100% + 30mm); }
+  .page-header, .page-footer { display: flex; justify-content: space-between;
+    font-size: 9px; color: #9CA3AF; padding: 0 0 8px; }
+  .page-footer { padding: 8px 0 0; border-top: 1px solid #E2E8F0; margin-top: auto; }
+  p, li { orphans: 3; widows: 3; }
+  .data-table tr { page-break-inside: avoid; }
+  .finding-card { page-break-inside: avoid; }
+  .pillar-card { page-break-inside: avoid; }
+  .no-print { display: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<!-- ═══ COVER PAGE ═══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <p class="cover-brand">SPECTRUM · VENDOR INTELLIGENCE</p>
+  <h1 class="cover-name">Comarch Spółka Akcyjna (Comarch S.A.)</h1>
+  <p class="cover-subtitle">Vendor Due Diligence Assessment</p>
+  <div class="cover-kpi">
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Overall Score</p>
+      <p style="color:#B5751A;font-size:36px;font-weight:700;letter-spacing:-.02em;" class="mono">76<span style="font-size:16px;color:#94A3B8;">/100</span></p>
+    </div>
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Verdict</p>
+      <p style="color:#B5751A;font-size:24px;font-weight:700;">CONDITIONAL</p>
+    </div>
+    <div class="cover-kpi-card">
+      <p class="cover-kpi-label">Risk Level</p>
+      <p style="color:#B5751A;font-size:24px;font-weight:700;">MEDIUM</p>
+    </div>
+  </div>
+  <div class="cover-meta">
+    <p>Report ID: <span>SPEC-2026-006</span></p>
+    <p>Generated: <span>2026-03-29</span></p>
+    <p>Sector: <span>IT Systems / Enterprise Software / Managed IT Services</span></p>
+    <p style="margin-left:auto;">CONFIDENTIAL — For Authorised Recipients Only</p>
+  </div>
+</div>
+
+<!-- ═══ TABLE OF CONTENTS ════════════════════════════════════════════════ -->
+<div class="page page-break" id="toc">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Comarch Spółka Akcyjna (Comarch S.A.) · SPEC-2026-006</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Navigation</p><p class="sh-title">Table of Contents</p></div></div>
+  <ul class="toc-list">
+    <li><span class="toc-num">01</span><a class="toc-link" href="#exec-summary">Executive Summary</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">02</span><a class="toc-link" href="#scorecard">Risk Scorecard</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">03</span><a class="toc-link" href="#profile">Supplier Profile</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">04</span><a class="toc-link" href="#pillar-p1">P1 — Financial Stability</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">05</span><a class="toc-link" href="#pillar-p2">P2 — ESG & Sustainability</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">06</span><a class="toc-link" href="#pillar-p3">P3 — Regulatory & Legal</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">07</span><a class="toc-link" href="#pillar-p4">P4 — Cybersecurity & Data</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">08</span><a class="toc-link" href="#pillar-p5">P5 — Operational & Geopolitical Resilience</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">09</span><a class="toc-link" href="#pillar-p6">P6 — Reputational Intelligence</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">10</span><a class="toc-link" href="#findings-register">Findings Register</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">11</span><a class="toc-link" href="#capa">Corrective & Preventive Actions</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">12</span><a class="toc-link" href="#playbook">Contract Playbook</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">13</span><a class="toc-link" href="#monitoring">Monitoring Dashboard</a><span class="toc-dots"></span></li>
+    <li><span class="toc-num">14</span><a class="toc-link" href="#methodology">Methodology & Sources</a><span class="toc-dots"></span></li>
+  </ul>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-006</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ EXECUTIVE SUMMARY ════════════════════════════════════════════════ -->
+<div class="page page-break" id="exec-summary">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Comarch Spółka Akcyjna (Comarch S.A.) · SPEC-2026-006</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 01</p><p class="sh-title">Executive Summary</p></div></div>
+  <div style="display:grid;grid-template-columns:180px 1fr;gap:32px;align-items:start;margin-bottom:20px;">
+    <div style="text-align:center;">
+      <svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="90" cy="90" r="64" fill="none" stroke="#E2E8F0" stroke-width="12"/>
+  <circle cx="90" cy="90" r="64" fill="none" stroke="#B5751A" stroke-width="12"
+    stroke-dasharray="305.6 402.1" stroke-linecap="round" transform="rotate(-90 90 90)"/>
+  <text x="90" y="84" text-anchor="middle" font-family="'JetBrains Mono',monospace"
+    font-size="32" font-weight="700" fill="#B5751A">76</text>
+  <text x="90" y="104" text-anchor="middle" font-family="Inter,sans-serif"
+    font-size="12" fill="#4A5568">/100</text>
+</svg>
+      <p style="margin-top:8px;font-size:12px;font-weight:700;color:#B5751A;">CONDITIONAL</p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+    <div>
+      <div class="info-box" style="background:#F8F9FA;">
+        <p style="font-size:13px;line-height:1.8;">—</p>
+      </div>
+      <div class="info-box" style="background:#1B2B5E;">
+        <p style="color:#A5B4FC;font-size:10px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">Primary Recommendation</p>
+        <p style="color:#fff;font-size:13px;line-height:1.6;">—</p>
+      </div>
+    </div>
+  </div>
+  <div class="info-box conditions-box">
+    <p class="info-box-title" style="color:#B5751A;">CONDITIONS FOR QUALIFICATION</p>
+    <ul style="padding-left:18px;font-size:12px;"><li style='margin-bottom:8px;line-height:1.6;'>{'condition_id': 'CON-001', 'priority': 'URGENT', 'condition': 'Verify patched Comarch ERP XL version deployed in Encevo environment (CVE-2023-4537/4538/4539)', 'owner': 'Encevo IT Security', 'timeline': 'Within 30 days', 'rationale': 'Hard-coded shared database password (CVE-2023-4539) across all ERP XL installations creates systemic risk if unpatched version in production'}</li><li style='margin-bottom:8px;line-height:1.6;'>{'condition_id': 'CON-002', 'priority': 'URGENT', 'condition': 'Confirm which Comarch legal entity is the contract counterparty (Comarch SA vs. Comarch Luxembourg) and ensure change-of-control protections exist', 'owner': 'Encevo Legal/Procurement', 'timeline': 'Within 30 days', 'rationale': 'CVC is actively divesting Comarch business units. If the division supporting Encevo is sold, service continuity is at risk without contractual protections'}</li><li style='margin-bottom:8px;line-height:1.6;'>{'condition_id': 'CON-003', 'priority': 'HIGH', 'condition': "Request Comarch's NIS2 compliance declaration and evidence of conformity as IT provider to energy sector essential entity", 'owner': 'Encevo Compliance', 'timeline': 'Within 60 days', 'rationale': 'Comarch is in-scope as IT MSP to an energy sector essential entity. NIS2 compliance status not publicly confirmed.'}</li><li style='margin-bottom:8px;line-height:1.6;'>{'condition_id': 'CON-004', 'priority': 'HIGH', 'condition': 'Request SOC 2 Type II audit report or confirm ISAE 3402 TrustedProjects participation is in force', 'owner': 'Encevo IT/Procurement', 'timeline': 'Within 60 days', 'rationale': 'SOC 2 Type II not confirmed for Comarch as a data processor. ISO 27001 confirmed but SOC 2/ISAE 3402 provides additional assurance on control effectiveness.'}</li><li style='margin-bottom:8px;line-height:1.6;'>{'condition_id': 'CON-005', 'priority': 'MEDIUM', 'condition': "Obtain Comarch's FY2024 CSRD-compliant sustainability report when published", 'owner': 'Encevo ESG/Procurement', 'timeline': 'Within 90 days', 'rationale': "CSRD obligations apply to Comarch. Encevo's own sustainability reporting requires supply chain ESG data."}</li><li style='margin-bottom:8px;line-height:1.6;'>{'condition_id': 'CON-006', 'priority': 'MEDIUM', 'condition': 'Establish executive relationship with new Comarch CEO (Jarosław Mikos) to preserve institutional knowledge of the Encevo account', 'owner': 'Encevo Commercial/Procurement', 'timeline': 'Within 60 days', 'rationale': 'Near-complete leadership replacement means existing Comarch account relationships must be rebuilt at senior level'}</li></ul>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi-card" style="border-top:3px solid #6B1E1E;"><p class="kpi-val" style="color:#6B1E1E;">0</p><p class="kpi-label">Critical Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #B83B2E;"><p class="kpi-val" style="color:#B83B2E;">1</p><p class="kpi-label">High Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #B5751A;"><p class="kpi-val" style="color:#B5751A;">5</p><p class="kpi-label">Medium Findings</p></div>
+    <div class="kpi-card" style="border-top:3px solid #2D7A4F;"><p class="kpi-val" style="color:#2D7A4F;">2</p><p class="kpi-label">Low / Info</p></div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-006</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+
+<!-- ═══ RISK SCORECARD ═══════════════════════════════════════════════════ -->
+<div class="page page-break" id="scorecard">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Comarch Spółka Akcyjna (Comarch S.A.) · SPEC-2026-006</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 02</p><p class="sh-title">Risk Scorecard</p></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+    <div style="text-align:center;"><svg width="280" height="280" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+<polygon points="140.0,115.0 161.7,127.5 161.7,152.5 140.0,165.0 118.3,152.5 118.3,127.5" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,90.0 183.3,115.0 183.3,165.0 140.0,190.0 96.7,165.0 96.7,115.0" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,65.0 205.0,102.5 205.0,177.5 140.0,215.0 75.0,177.5 75.0,102.5" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,40.0 226.6,90.0 226.6,190.0 140.0,240.0 53.4,190.0 53.4,90.0" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="140.0" y2="40.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="226.6" y2="90.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="226.6" y2="190.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="140.0" y2="240.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="53.4" y2="190.0" stroke="#E2E8F0" stroke-width="1"/>
+<line x1="140" y1="140" x2="53.4" y2="90.0" stroke="#E2E8F0" stroke-width="1"/>
+<polygon points="140.0,80.0 199.8,105.5 226.6,190.0 140.0,218.0 76.8,176.5 67.3,98.0" fill="#B5751A" fill-opacity="0.15" stroke="#B5751A" stroke-width="2"/>
+<text x="140.0" y="18.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Financial</text>
+<text x="140.0" y="4.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">60</text>
+<text x="245.7" y="79.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">ESG</text>
+<text x="257.8" y="72.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">69</text>
+<text x="245.7" y="201.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Regulatory</text>
+<text x="257.8" y="208.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#2D7A4F">100</text>
+<text x="140.0" y="262.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Cyber</text>
+<text x="140.0" y="276.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">78</text>
+<text x="34.3" y="201.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Operational</text>
+<text x="22.2" y="208.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#B5751A">73</text>
+<text x="34.3" y="79.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Reputation</text>
+<text x="22.2" y="72.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#2D7A4F">84</text>
+</svg></div>
+    <div class="pillar-grid">
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">Financial Stability</p>
+        <p class="pillar-card-score" style="color:#B5751A;">60<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">ESG & Sustainability</p>
+        <p class="pillar-card-score" style="color:#B5751A;">69<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #2D7A4F;">
+        <p class="pillar-card-label">Regulatory & Legal</p>
+        <p class="pillar-card-score" style="color:#2D7A4F;">100<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">Cybersecurity & Data</p>
+        <p class="pillar-card-score" style="color:#B5751A;">78<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #B5751A;">
+        <p class="pillar-card-label">Operational & Geopolitical Resilience</p>
+        <p class="pillar-card-score" style="color:#B5751A;">73<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+      </div>
+      <div class="pillar-card" style="border-top:3px solid #2D7A4F;">
+        <p class="pillar-card-label">Reputational Intelligence</p>
+        <p class="pillar-card-score" style="color:#2D7A4F;">84<span class="pillar-card-max">/100</span></p>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#4A5568;margin-top:16px;">Weight adjustment applied: <strong>SaaS/data processor weights applied per CLAUDE.md: cybersecurity (P4=22%) and operational/geopolitical (P5=20%) elevated given Comarch's role as IT systems vendor processing Encevo operational data. Standard P1 weight reduced to 20% and P2 to 15%.</strong></p>
+  <p style="font-size:11px;color:#4A5568;margin-top:4px;" class="mono">{'P1': '60 × 0.20 = 12.00', 'P2': '69 × 0.15 = 10.35', 'P3': '100 × 0.18 = 18.00', 'P4': '78 × 0.22 = 17.16', 'P5': '73 × 0.20 = 14.60', 'P6': '84 × 0.05 = 4.20', 'sum': '76.31 → rounded to 76'}</p>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-006</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ SUPPLIER PROFILE ═════════════════════════════════════════════════ -->
+<div class="page page-break" id="profile">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Comarch Spółka Akcyjna (Comarch S.A.) · SPEC-2026-006</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 03</p><p class="sh-title">Supplier Profile</p></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+    <table class="data-table"><tbody>
+      <tr><td class="label-cell">Legal Name</td><td style="font-weight:600;">Comarch Spółka Akcyjna (Comarch S.A.)</td></tr>
+      <tr><td class="label-cell">HQ Address</td><td>Aleja Jana Pawła II 39A, 31-864 Kraków, Poland</td></tr>
+      <tr><td class="label-cell">Country</td><td>Poland</td></tr>
+      <tr><td class="label-cell">Ownership</td><td>private</td></tr>
+      <tr><td class="label-cell">Exchange</td><td>DELISTED — formerly Warsaw Stock Exchange (WSE:CMR). Delisted 2025-03-26.</td></tr>
+      <tr><td class="label-cell">Ticker</td><td class="mono-cell">—</td></tr>
+      <tr><td class="label-cell">Sector</td><td>IT Systems / Enterprise Software / Managed IT Services</td></tr>
+      <tr><td class="label-cell">Employees</td><td class="mono-cell">6,500</td></tr>
+      <tr><td class="label-cell">Founded</td><td class="mono-cell">1993</td></tr>
+      <tr><td class="label-cell">Parent</td><td>Chamonix Investments S.à r.l. (Luxembourg) — CVC Capital Partners Fund IX vehicle</td></tr>
+    </tbody></table>
+    <div>
+      <p style="font-size:10px;color:#1B2B5E;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:10px;">Key Executives</p>
+      <table class="data-table"><tbody>
+        <tr><td style="font-weight:600;">Jarosław Mikos</td><td style="color:#4A5568;">President of the Management Board (CEO) <a href="https://www.comarch.com/press-center/news/corporate/jaroslaw-mikos-appointed-the-president-of-comarchs-management-board/" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+        <tr><td style="font-weight:600;">Piotr Korycki</td><td style="color:#4A5568;">Vice President — Chief Financial Officer <a href="https://www.comarch.com/press-center/news/corporate/piotr-korycki-is-the-new-cfo-at-comarch-group/" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+        <tr><td style="font-weight:600;">Marcin Kaleta</td><td style="color:#4A5568;">Vice President — Comarch Communications <a href="https://www.comarch.com/company/management-board/" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+        <tr><td style="font-weight:600;">Elżbieta Filipiak</td><td style="color:#4A5568;">Chairman of the Supervisory Board <a href="https://www.comarch.com/company/supervisory-board/" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+        <tr><td style="font-weight:600;">Krzysztof Krawczyk</td><td style="color:#4A5568;">Vice-Chairman of the Supervisory Board (CVC Capital Partners Partner) <a href="https://www.comarch.com/company/supervisory-board/" target="_blank" style="font-size:10px;">[Src]</a></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-006</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P1 — FINANCIAL STABILITY ═══ -->
+<div class="page page-break" id="pillar-p1">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Comarch Spółka Akcyjna (Comarch S.A.) · SPEC-2026-006</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 04 · P1</p>
+      <p class="sh-title">Financial Stability</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">60<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">Net income collapsed 42.8% in FY2024 (PLN 57.6M vs PLN 100.6M in 2023) despite 5% EBIT growth — consistent with PE acquisition-related costs. Financial transparency reduced by delisting.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>Credit Rating</td><td style="color:#4A5568;">No Moody's/S&P/Fitch rating found. Private company.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#B83B2E;">8/20</td></tr>
+    <tr><td>Revenue Trend YoY</td><td style="color:#4A5568;">Revenue +5.5% YoY in 2024 (PLN 1.916bn vs PLN 1.816bn)</td>
+    <td class="src-cell"><a href="https://www.comarch.com/files-com/file_932/Raport_Roczny_2024_EN.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">12/15</td></tr>
+    <tr><td>EBITDA Margin</td><td style="color:#4A5568;">EBITDA margin ~10.5% (PLN 201.9M / PLN 1,916M revenue)</td>
+    <td class="src-cell"><a href="https://www.comarch.com/files-com/file_932/Raport_Roczny_2024_EN.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">12/15</td></tr>
+    <tr><td>Net Debt / EBITDA</td><td style="color:#4A5568;">Post-LBO debt loading likely but unconfirmed. Balance sheet not available.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#B83B2E;">8/15</td></tr>
+    <tr><td>Current Ratio</td><td style="color:#4A5568;">Private company — balance sheet data not accessible</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#B5751A;">6/10</td></tr>
+    <tr><td>No Going Concern</td><td style="color:#4A5568;">No going concern language found in search results. Not independently verified from full audit report.</td>
+    <td class="src-cell"><a href="https://www.comarch.com/files-com/file_832/Consolidated_Annual_Report_of_Comarch_SA_excluding_non-financial_statement_for_2023.pdf" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/10</td></tr>
+    <tr><td>No Major Restructuring</td><td style="color:#4A5568;">Comarch Polska sold to CGI (460 employees, Jan 2026); CVC planning healthcare/telecoms disposals</td>
+    <td class="src-cell"><a href="https://www.cgi.com/en/cgi-completes-acquisition-comarch-polska-sa-accelerate-expansion-poland" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">1/10</td></tr>
+    <tr><td>No Bankruptcy/Default</td><td style="color:#4A5568;">No insolvency proceedings found. Comarch operationally sound.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">5/5</td></tr>
+  </tbody></table>
+  <div class="finding-card" style="border-left:4px solid #B5751A;background:#FAF4EA;">
+    <div class="finding-meta">
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+    <p class="finding-title">Net Income Collapsed 42.8% in FY2024 Despite Operating Profit Growth</p>
+    <p class="finding-detail">Comarch's net income fell from PLN 100.6M (2023) to PLN 57.6M (2024), a 42.8% decline, while EBIT grew 5% and EBITDA grew 5.2%. The divergence is consistent with PE acquisition costs (transaction fees, new interest burde</p>
+  </div>
+  <div class="finding-card" style="border-left:4px solid #B5751A;background:#FAF4EA;">
+    <div class="finding-meta">
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+    <p class="finding-title">CVC Break-Up Strategy Underway: Comarch Polska Sold, Healthcare/Telecoms Under Review</p>
+    <p class="finding-detail">CVC Capital Partners is executing a strategic break-up of Comarch. Comarch Polska SA (public administration IT subsidiary, 460 employees) sold to CGI Inc. (completed January 5, 2026). Healthcare and telecoms divisions re</p>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-006</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P2 — ESG & SUSTAINABILITY ═══ -->
+<div class="page page-break" id="pillar-p2">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Comarch Spółka Akcyjna (Comarch S.A.) · SPEC-2026-006</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 05 · P2</p>
+      <p class="sh-title">ESG & Sustainability</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">69<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">Governance sub-score dragged down by CVC board concentration and lack of independent directors. CDP non-disclosure is a gap for ESG-focused customers like Encevo.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>Sustainability Report Published</td><td style="color:#4A5568;">ESG/sustainability page active; Modern Slavery Statement FY2024 published</td>
+    <td class="src-cell"><a href="https://www.comarch.com/investors/corporate-governance/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>CSRD/GRI/TCFD Aligned</td><td style="color:#4A5568;">CSRD obligations apply; framework alignment not publicly confirmed from search results</td>
+    <td class="src-cell"><a href="https://www.comarch.com/erp/esg/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">3/12</td></tr>
+    <tr><td>Scope 1 & 2 Emissions Disclosed</td><td style="color:#4A5568;">S1: 3,811,000 kg CO2e; S2: 15,016,000 kg CO2e (2023)</td>
+    <td class="src-cell"><a href="https://ditchcarbon.com/organizations/comarch" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">8/8</td></tr>
+    <tr><td>Net Zero / SBTi</td><td style="color:#4A5568;">Net-zero by 2050, SBTi commitment claimed — not verified against official SBTi database</td>
+    <td class="src-cell"><a href="https://ditchcarbon.com/organizations/comarch" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">6/8</td></tr>
+    <tr><td>No Environmental Violations</td><td style="color:#4A5568;">No environmental fines or violations found as of 2026-03-29. This reflects the limits of publicly available information.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">12/12</td></tr>
+    <tr><td>Modern Slavery / LkSG Compliance</td><td style="color:#4A5568;">Modern Slavery and Human Trafficking Statement FY2024 published</td>
+    <td class="src-cell"><a href="https://www.comarch.com/investors/corporate-governance/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">7/10</td></tr>
+    <tr><td>No Labour/HR Controversies</td><td style="color:#4A5568;">No labour violations, discrimination cases, or worker rights disputes found as of 2026-03-29.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>Board Independence</td><td style="color:#4A5568;">Post-delisting board dominated by CVC representatives (2/4 known members). No independent directors identified. Private company standard.</td>
+    <td class="src-cell"><a href="https://www.comarch.com/company/supervisory-board/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">3/8</td></tr>
+    <tr><td>CDP Score</td><td style="color:#4A5568;">No CDP score found</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/8</td></tr>
+    <tr><td>No ESG Controversy History</td><td style="color:#4A5568;">Russia exit (March 2022) — resolved. Positive: Sustainalytics ESG management rated 'Strong'.</td>
+    <td class="src-cell"><a href="https://leave-russia.org/comarch" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">10/14</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-006</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P3 — REGULATORY & LEGAL ═══ -->
+<div class="page page-break" id="pillar-p3">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Comarch Spółka Akcyjna (Comarch S.A.) · SPEC-2026-006</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #2D7A4F;">
+    <div>
+      <p class="sh-label">Section 06 · P3</p>
+      <p class="sh-title">Regulatory & Legal</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#2D7A4F;">100<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">Cleanest pillar. No sanctions, no GDPR fines, no ABC findings, no material litigation at company level, extensive certifications including PSF authorization for Luxembourg operations.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>Sanctions Clear</td><td style="color:#4A5568;">OFAC, EU, UN, UK OFSI, OpenSanctions — all clear</td>
+    <td class="src-cell"><a href="https://sanctionssearch.ofac.treas.gov/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">25/25</td></tr>
+    <tr><td>No PEP Ownership</td><td style="color:#4A5568;">No PEP designations for Filipiak family, Mikos, Korycki, or CVC officers</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>No GDPR Fines</td><td style="color:#4A5568;">No UODO, DPA, or GDPR enforcement action against Comarch SA found</td>
+    <td class="src-cell"><a href="https://www.enforcementtracker.com/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>No Material Active Litigation</td><td style="color:#4A5568;">Civil fee dispute (Ascento Capital v. Filipiak heir, SDNY 2024) targets individual shareholder, not Comarch SA entity</td>
+    <td class="src-cell"><a href="https://dockets.justia.com/docket/new-york/nysdce/1:2024cv06392/627142" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>No Anti-Bribery/FCPA</td><td style="color:#4A5568;">No FCPA, UK Bribery Act, or domestic corruption allegations found</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>Operational Certifications</td><td style="color:#4A5568;">ISO 27001:2023, ISO 22301, PCI-DSS, ISO 9001, ISO 14001, ISO 45001, ISAE 3402</td>
+    <td class="src-cell"><a href="https://www.comarch.com/company/quality/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>Trade Compliance</td><td style="color:#4A5568;">No export control or customs violations. Russia exit compliant (March 2022).</td>
+    <td class="src-cell"><a href="https://leave-russia.org/comarch" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-006</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P4 — CYBERSECURITY & DATA ═══ -->
+<div class="page page-break" id="pillar-p4">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Comarch Spółka Akcyjna (Comarch S.A.) · SPEC-2026-006</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 07 · P4</p>
+      <p class="sh-title">Cybersecurity & Data</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">78<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">SOC 2 Type II absence is a gap — particularly relevant for SaaS/data processor classification. Three ERP XL CVEs (Feb 2024) patched. Encevo should request pen test results and confirm patched ERP XL version in production. No bug bounty programme limits community-driven security testing.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>No Confirmed Breaches</td><td style="color:#4A5568;">No company-level breach found. ERP XL product CVEs are product vulnerabilities, not breach events.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">25/25</td></tr>
+    <tr><td>ISO 27001 Certified</td><td style="color:#4A5568;">ISO/IEC 27001:2023-08 certified at Comarch SA HQ; Comarch AG and Comarch SAS also certified</td>
+    <td class="src-cell"><a href="https://www.comarch.com/company/quality/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">20/20</td></tr>
+    <tr><td>SOC 2 Type II</td><td style="color:#4A5568;">SOC 2 Type II not found. ISAE 3402 TrustedProjects programme exists (European equivalent) but SOC 2 not confirmed.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/15</td></tr>
+    <tr><td>No Ransomware Attack</td><td style="color:#4A5568;">No ransomware or destructive cyberattack incidents found as of 2026-03-29.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>No CISA KEV</td><td style="color:#4A5568;">Comarch ERP XL CVEs (2023-4537/4538/4539) not on CISA KEV list</td>
+    <td class="src-cell"><a href="https://cert.pl/en/posts/2024/02/CVE-2023-4537/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>Bug Bounty Programme</td><td style="color:#4A5568;">No public bug bounty programme found. Comarch has security contact on website.</td>
+    <td class="src-cell"><a href="https://www.comarch.com/cyber-security/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">3/10</td></tr>
+    <tr><td>Transparent Incident Disclosure</td><td style="color:#4A5568;">No incidents to assess. CERT Polska CVE disclosure handled responsibly by vendor.</td>
+    <td class="src-cell"><a href="https://cert.pl/en/posts/2024/02/CVE-2023-4537/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">5/5</td></tr>
+  </tbody></table>
+  <div class="finding-card" style="border-left:4px solid #B5751A;background:#FAF4EA;">
+    <div class="finding-meta">
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+    <p class="finding-title">Three CVEs in Comarch ERP XL: Hard-Coded Shared Password Across All Installations</p>
+    <p class="finding-detail">CERT Polska disclosed three vulnerabilities in Comarch ERP XL (versions 2020.2.2–2023.2) in February 2024: CVE-2023-4537 (SQL protocol downgrade), CVE-2023-4538 (shared credential encryption key), CVE-2023-4539 (hard-cod</p>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-006</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P5 — OPERATIONAL & GEOPOLITICAL RESILIENCE ═══ -->
+<div class="page page-break" id="pillar-p5">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Comarch Spółka Akcyjna (Comarch S.A.) · SPEC-2026-006</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #B5751A;">
+    <div>
+      <p class="sh-label">Section 08 · P5</p>
+      <p class="sh-title">Operational & Geopolitical Resilience</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#B5751A;">73<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">P5-C05 (Leadership Stability) scores 0 — near-complete C-suite replacement under CVC is the most severe single finding in this assessment. Compensated by strong BCP/DR certification, geographic diversification, and long operating history.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>BCP/DR Disclosed</td><td style="color:#4A5568;">ISO 22301:2020-04 certified. Multiple data centres (Kraków, France, Phoenix AZ).</td>
+    <td class="src-cell"><a href="https://www.comarch.com/company/quality/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">20/20</td></tr>
+    <tr><td>No Major Outages</td><td style="color:#4A5568;">No service outages found as of 2026-03-29.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">20/20</td></tr>
+    <tr><td>No Critical Supply Chain Dependencies</td><td style="color:#4A5568;">CVC disposal strategy creates uncertainty about which business units retained. Comarch Luxembourg key for Encevo.</td>
+    <td class="src-cell"><a href="https://wbj.pl/cvc-may-be-sold-to-comarch-in-pieces/post/144186" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">9/15</td></tr>
+    <tr><td>Geographic Diversification</td><td style="color:#4A5568;">31 countries, 53+ companies, 51.6% non-Poland revenue</td>
+    <td class="src-cell"><a href="https://en.wikipedia.org/wiki/Comarch" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>CEO/Leadership Stability</td><td style="color:#4A5568;">CEO (Pruska) resigned Oct 2024 after 9 months. Replaced by external FinTech CEO (Mikos, Feb 2025). New CFO, new People VP, new Chief M&A. On</td>
+    <td class="src-cell"><a href="https://biznes.pap.pl/wiadomosci/firmy/anna-pruska-resigns-ceo-comarch-it" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#6B1E1E;">0/15</td></tr>
+    <tr><td>No Critical Workforce Reduction</td><td style="color:#4A5568;">Comarch Polska sale (460 employees, ~7% of 6,500) transferred to CGI. Not a layoff per se, but operationally equivalent to workforce reducti</td>
+    <td class="src-cell"><a href="https://www.cgi.com/en/cgi-completes-acquisition-comarch-polska-sa-accelerate-expansion-poland" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">6/10</td></tr>
+    <tr><td>Years in Operation</td><td style="color:#4A5568;">Founded 1993 — 33 years of operation</td>
+    <td class="src-cell"><a href="https://en.wikipedia.org/wiki/Comarch" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>Geopolitical Exposure</td><td style="color:#4A5568;">Russia exit completed March 2022. Poland: NATO member, 4.7% GDP on defence. No current high-risk exposure.</td>
+    <td class="src-cell"><a href="https://leave-russia.org/comarch" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">10/15</td></tr>
+    <tr><td>CLOUD Act / Data Sovereignty</td><td style="color:#4A5568;">Polish company with EU incorporation. No US parent entity.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>NIS2 / Critical Infrastructure</td><td style="color:#4A5568;">Comarch provides IT to Encevo (energy sector essential entity). NIS2 obligations apply. Comarch's NIS2 compliance status not publicly confir</td>
+    <td class="src-cell"><a href="https://www.twobirds.com/en/insights/2025/poland/how-poland-is-shaping-its-nis2-implementation-and-what-is-so-special-about-highrisk-vendor" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B83B2E;">4/10</td></tr>
+  </tbody></table>
+  <div class="finding-card" style="border-left:4px solid #B5751A;background:#FAF4EA;">
+    <div class="finding-meta">
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+    <p class="finding-title">CVC Break-Up Strategy Underway: Comarch Polska Sold, Healthcare/Telecoms Under Review</p>
+    <p class="finding-detail">CVC Capital Partners is executing a strategic break-up of Comarch. Comarch Polska SA (public administration IT subsidiary, 460 employees) sold to CGI Inc. (completed January 5, 2026). Healthcare and telecoms divisions re</p>
+  </div>
+  <div class="finding-card" style="border-left:4px solid #B5751A;background:#FAF4EA;">
+    <div class="finding-meta">
+      <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+    </div>
+    <p class="finding-title">CVC-Dominated Board with No Independent Directors Post-Delisting</p>
+    <p class="finding-detail">Comarch's supervisory board is composed primarily of CVC-appointed representatives (Krzysztof Krawczyk, Vice-Chair; Maciej Godek, Member) and founding family chair (Elżbieta Filipiak). No independent directors identified</p>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-006</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ P6 — REPUTATIONAL INTELLIGENCE ═══ -->
+<div class="page page-break" id="pillar-p6">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Comarch Spółka Akcyjna (Comarch S.A.) · SPEC-2026-006</span>
+</div>
+  <div class="pillar-header" style="border-left:4px solid #2D7A4F;">
+    <div>
+      <p class="sh-label">Section 09 · P6</p>
+      <p class="sh-title">Reputational Intelligence</p>
+    </div>
+    <div style="text-align:right;">
+      <p class="pillar-score-big" style="color:#2D7A4F;">84<span class="pillar-score-max">/100</span></p>
+      <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+    </div>
+  </div>
+  <div class="pillar-narrative">Strong reputational pillar. PE-driven transformation creates minor messaging inconsistency but no adverse reputational findings.</div>
+  <table class="data-table"><colgroup><col style="width:22%"/><col style="width:50%"/><col style="width:8%"/><col style="width:20%"/></colgroup><thead><tr>
+    <th>Criterion</th><th>Evidence</th><th>Src</th><th style="text-align:right;">Points</th>
+  </tr></thead><tbody>
+    <tr><td>Media Sentiment</td><td style="color:#4A5568;">Positive: IT market leader 2025, Business Insider Digital Award, Gartner recognition. Negative/neutral: PE acquisition, leadership changes, </td>
+    <td class="src-cell"><a href="https://www.comarch.com/press-center/news/corporate/comarch-named-the-leader-of-the-polish-it-market-results-of-itwiz-best-100-report-2025/" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#B5751A;">16/25</td></tr>
+    <tr><td>No Regulatory Watchdog Coverage</td><td style="color:#4A5568;">No adverse KNF, UODO, or European Commission regulatory media coverage. KNF delisting approval was routine.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">20/20</td></tr>
+    <tr><td>No NGO Adverse Campaigns</td><td style="color:#4A5568;">LeaveRussia.org lists Comarch positively (Russia exit). No adverse NGO campaigns.</td>
+    <td class="src-cell"><a href="https://leave-russia.org/comarch" target="_blank">[Src]</a></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>No Executive Misconduct</td><td style="color:#4A5568;">Ascento Capital lawsuit targets Filipiak heir (fee dispute, civil, commercial) — not executive misconduct.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">15/15</td></tr>
+    <tr><td>No Product Recalls</td><td style="color:#4A5568;">No product recalls or major service failures found. ERP XL CVEs were proactively disclosed and patched.</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#2D7A4F;">10/10</td></tr>
+    <tr><td>Reputational Consistency</td><td style="color:#4A5568;">Company projects growth narrative (IT market leader, Gartner) while simultaneously executing PE break-up (healthcare/telecoms/public admin s</td>
+    <td class="src-cell"></td>
+    <td class="pts-cell" style="color:#B83B2E;">8/15</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-006</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ FINDINGS REGISTER ════════════════════════════════════════════════ -->
+<div class="page page-break" id="findings-register">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Comarch Spółka Akcyjna (Comarch S.A.) · SPEC-2026-006</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 10</p><p class="sh-title">Findings Register</p></div>
+    <div class="sh-badge"><span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;">8 findings</span></div>
+  </div>
+  <div class="fr-summary">
+    <span class="fr-summary-item" style="color:#6B1E1E;">0 Critical</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#B83B2E;">1 High</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#B5751A;">5 Medium</span>
+    <span class="fr-summary-sep">·</span>
+    <span class="fr-summary-item" style="color:#2D7A4F;">2 Low/Info</span>
+  </div>
+  
+  <div class="fr-card" style="border-left:4px solid #B83B2E;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">1</span>
+        <span class="badge" style="color:#B83B2E;background:#FAF0EE;border-color:#B83B2E;">HIGH</span>
+        <span class="fr-pillar">P5 — Operational & Geopolitical Resilience</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">UNRESOLVED — monitoring requir</span>
+      </div>
+    </div>
+    <p class="fr-title">Near-Complete Senior Leadership Replacement Under CVC Ownership</p>
+    <p class="fr-detail">In a 6-month period (Oct 2024 – Feb 2025), Comarch replaced CEO (Pruska resigned, Mikos — external FinTech hire — appointed), CFO (new), and VP People (new). Only VP Kaleta retaine</p>
+    <div class="fr-footer"></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">2</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P1 — Financial Stability</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">UNRESOLVED — financial transpa</span>
+      </div>
+    </div>
+    <p class="fr-title">Net Income Collapsed 42.8% in FY2024 Despite Operating Profit Growth</p>
+    <p class="fr-detail">Comarch's net income fell from PLN 100.6M (2023) to PLN 57.6M (2024), a 42.8% decline, while EBIT grew 5% and EBITDA grew 5.2%. The divergence is consistent with PE acquisition cos</p>
+    <div class="fr-footer"></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">3</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P4 — Cybersecurity & Data</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">PATCHED BY VENDOR — Encevo mus</span>
+      </div>
+    </div>
+    <p class="fr-title">Three CVEs in Comarch ERP XL: Hard-Coded Shared Password Across All Installations</p>
+    <p class="fr-detail">CERT Polska disclosed three vulnerabilities in Comarch ERP XL (versions 2020.2.2–2023.2) in February 2024: CVE-2023-4537 (SQL protocol downgrade), CVE-2023-4538 (shared credential </p>
+    <div class="fr-footer"></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">4</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P1 — Financial Stability / P5 — Operational Resilience</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">ONGOING — further disposals po</span>
+      </div>
+    </div>
+    <p class="fr-title">CVC Break-Up Strategy Underway: Comarch Polska Sold, Healthcare/Telecoms Under Review</p>
+    <p class="fr-detail">CVC Capital Partners is executing a strategic break-up of Comarch. Comarch Polska SA (public administration IT subsidiary, 460 employees) sold to CGI Inc. (completed January 5, 202</p>
+    <div class="fr-footer"></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">5</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P2 — ESG / P5 — Operational Resilience</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">ONGOING — structural issue of </span>
+      </div>
+    </div>
+    <p class="fr-title">CVC-Dominated Board with No Independent Directors Post-Delisting</p>
+    <p class="fr-detail">Comarch's supervisory board is composed primarily of CVC-appointed representatives (Krzysztof Krawczyk, Vice-Chair; Maciej Godek, Member) and founding family chair (Elżbieta Filipi</p>
+    <div class="fr-footer"></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #B5751A;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">6</span>
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;">MEDIUM</span>
+        <span class="fr-pillar">P5 — Critical Infrastructure</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;font-size:10px;padding:1px 8px;">UNRESOLVED — Encevo action req</span>
+      </div>
+    </div>
+    <p class="fr-title">NIS2 Obligations Apply — Compliance Status Unconfirmed</p>
+    <p class="fr-detail">Comarch provides IT systems to Encevo SA (energy sector essential entity). As an IT managed services provider to essential entities, Comarch is in scope for NIS2 cybersecurity obli</p>
+    <div class="fr-footer"></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #2D7A4F;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">7</span>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+        <span class="fr-pillar">P3 — Regulatory</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#B5751A;background:#FAF4EA;border-color:#B5751A;font-size:10px;padding:1px 8px;">ACTIVE CIVIL CASE — against in</span>
+      </div>
+    </div>
+    <p class="fr-title">Civil Fee Dispute Against Filipiak Family Heir (Ascento Capital v. Filipiak, SDNY 2024)</p>
+    <p class="fr-detail">Ascento Capital LLC filed a civil lawsuit against Janusz Jeremiasz Filipiak (Filipiak family heir, minor Comarch shareholder) in the Southern District of New York (Case 1:24-cv-063</p>
+    <div class="fr-footer"></div>
+  </div>
+  <div class="fr-card" style="border-left:4px solid #2D7A4F;">
+    <div class="fr-card-header">
+      <div class="fr-card-left">
+        <span class="fr-num">8</span>
+        <span class="badge" style="color:#2D7A4F;background:#EEF5F1;border-color:#2D7A4F;">LOW</span>
+        <span class="fr-pillar">P5 — Geopolitical</span>
+        
+      </div>
+      <div class="fr-card-right">
+        <span class="badge" style="color:#4A5568;background:#F8F9FA;border-color:#4A5568;font-size:10px;padding:1px 8px;">MONITOR — future ownership unc</span>
+      </div>
+    </div>
+    <p class="fr-title">Non-EU Ultimate Parent (CVC Jersey) — Minor Sovereignty Consideration for Future Sale</p>
+    <p class="fr-detail">Comarch's ultimate parent is Chamonix Holdings Jersey Limited (Jersey, British Crown Dependency — not EU). CVC Fund IX has a defined investment horizon (5-7 years); Comarch will li</p>
+    <div class="fr-footer"></div>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-006</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ CAPA PLAN ════════════════════════════════════════════════════════ -->
+<div class="page page-break" id="capa">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Comarch Spółka Akcyjna (Comarch S.A.) · SPEC-2026-006</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 11</p><p class="sh-title">Corrective & Preventive Action Plan</p></div></div>
+  <table class="data-table"><colgroup><col style="width:12%"/><col style="width:40%"/><col style="width:14%"/><col style="width:16%"/><col style="width:18%"/></colgroup><thead><tr>
+    <th>Priority</th><th>Action</th><th>Finding Ref</th><th>Owner</th><th>Timeline</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:700;color:#B83B2E;">P1 — URGENT</td>
+    <td style="font-weight:600;">Run emergency patch verification: confirm Comarch ERP XL version in Encevo production environment is post-2023.2 (patched for CVE-2023-4537/4538/4539)</td><td style="color:#4A5568;">—</td>
+    <td>Encevo IT Security / CISO</td><td>0-30 days</td></tr>
+    <tr><td style="font-weight:700;color:#B83B2E;">P1 — URGENT</td>
+    <td style="font-weight:600;">Legal review of Comarch contract: confirm which legal entity is counterparty, add change-of-control clause, ensure service continuity protection if Comarch business unit sold</td><td style="color:#4A5568;">—</td>
+    <td>Encevo Legal / CPO</td><td>0-30 days</td></tr>
+    <tr><td style="font-weight:700;color:#B5751A;">P2 — HIGH</td>
+    <td style="font-weight:600;">Request Comarch's NIS2 compliance declaration in writing, including security measures and incident reporting procedures applicable to Encevo's contract</td><td style="color:#4A5568;">—</td>
+    <td>Encevo CISO / Compliance</td><td>30-60 days</td></tr>
+    <tr><td style="font-weight:700;color:#B5751A;">P2 — HIGH</td>
+    <td style="font-weight:600;">Executive outreach to Comarch CEO Jarosław Mikos — schedule relationship meeting to brief on Encevo account context and strategic importance</td><td style="color:#4A5568;">—</td>
+    <td>Encevo CPO / CCO</td><td>30-60 days</td></tr>
+    <tr><td style="font-weight:700;color:#B5751A;">P2 — HIGH</td>
+    <td style="font-weight:600;">Request SOC 2 Type II audit report or confirmation of active ISAE 3402 TrustedProjects participation</td><td style="color:#4A5568;">—</td>
+    <td>Encevo IT Security</td><td>30-60 days</td></tr>
+    <tr><td style="font-weight:700;color:#2563EB;">P3 — MEDIUM</td>
+    <td style="font-weight:600;">Request Comarch's FY2024 CSRD-compliant sustainability report once published, and confirm supply chain due diligence practices</td><td style="color:#4A5568;">—</td>
+    <td>Encevo ESG / Procurement</td><td>60-90 days</td></tr>
+    <tr><td style="font-weight:700;color:#2563EB;">P3 — MEDIUM</td>
+    <td style="font-weight:600;">Annual review clause: add annual financial health review obligation in Comarch contract (audited accounts or CFO attestation) given private company opacity</td><td style="color:#4A5568;">—</td>
+    <td>Encevo Legal / Finance</td><td>60-90 days</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-006</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ CONTRACT PLAYBOOK ════════════════════════════════════════════════ -->
+<div class="page page-break" id="playbook">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Comarch Spółka Akcyjna (Comarch S.A.) · SPEC-2026-006</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 12</p><p class="sh-title">Contract Playbook</p></div></div>
+  <table class="data-table"><colgroup><col style="width:18%"/><col style="width:42%"/><col style="width:24%"/><col style="width:16%"/></colgroup><thead><tr>
+    <th>Clause Area</th><th>Recommendation</th><th>Risk Basis</th><th>Priority</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:600;color:#1B2B5E;">—</td>
+    <td>Require Comarch to notify Encevo of any ownership or corporate structure change within 30 days. Include Encevo's right to terminate with 90 days notice if change of control impairs service delivery.</td><td style="color:#4A5568;">CVC break-up strategy; potential future PE exit sale</td>
+    <td><span style="font-size:10px;font-weight:700;">URGENT</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">—</td>
+    <td>Require Comarch to apply critical security patches within 30 days of CVE disclosure. Include right to audit compliance.</td><td style="color:#4A5568;">CVE-2023-4537/4538/4539 ERP XL vulnerabilities</td>
+    <td><span style="font-size:10px;font-weight:700;">URGENT</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">—</td>
+    <td>Include clause requiring Comarch to comply with NIS2 obligations applicable to IT providers of essential entities and provide annual compliance attestation.</td><td style="color:#4A5568;">NIS2 in-scope — Encevo energy sector essential entity</td>
+    <td><span style="font-size:10px;font-weight:700;">HIGH</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">—</td>
+    <td>Include right for Encevo (or independent auditor) to audit Comarch security controls and GDPR compliance annually.</td><td style="color:#4A5568;">Post-delisting transparency reduction; SaaS/data processor classification</td>
+    <td><span style="font-size:10px;font-weight:700;">HIGH</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">—</td>
+    <td>Annual CFO attestation of solvency and absence of material adverse change, given private company status</td><td style="color:#4A5568;">P1 financial opacity post-delisting</td>
+    <td><span style="font-size:10px;font-weight:700;">MEDIUM</span></td></tr>
+    <tr><td style="font-weight:600;color:#1B2B5E;">—</td>
+    <td>Require notification of any change in which Comarch entity or subcontractor delivers services to Encevo</td><td style="color:#4A5568;">Business unit disposals may shift service delivery entity</td>
+    <td><span style="font-size:10px;font-weight:700;">MEDIUM</span></td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-006</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ MONITORING DASHBOARD ═════════════════════════════════════════════ -->
+<div class="page page-break" id="monitoring">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Comarch Spółka Akcyjna (Comarch S.A.) · SPEC-2026-006</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 13</p><p class="sh-title">Ongoing Monitoring Dashboard</p></div></div>
+  <table class="data-table" style="font-size:11px;"><colgroup><col style="width:22%"/><col style="width:16%"/><col style="width:6%"/><col style="width:16%"/><col style="width:16%"/><col style="width:12%"/><col style="width:12%"/></colgroup><thead><tr>
+    <th>Key Risk Indicator</th><th>Current</th><th></th>
+    <th>Green</th><th>Amber</th><th>Red</th><th>Review</th>
+  </tr></thead><tbody>
+    <tr><td style="font-weight:600;">—</td>
+    <td class="mono-cell">UNVERIFIED</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">—</td>
+    <td style="color:#B5751A;">—</td>
+    <td style="color:#B83B2E;">—</td>
+    <td style="color:#4A5568;">Immediate</td></tr>
+    <tr><td style="font-weight:600;">—</td>
+    <td class="mono-cell">2 units sold/in progress (Polska, healthcare/telecoms)</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">—</td>
+    <td style="color:#B5751A;">—</td>
+    <td style="color:#B83B2E;">—</td>
+    <td style="color:#4A5568;">Monthly</td></tr>
+    <tr><td style="font-weight:600;">—</td>
+    <td class="mono-cell">New CEO 7 weeks in post</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">—</td>
+    <td style="color:#B5751A;">—</td>
+    <td style="color:#B83B2E;">—</td>
+    <td style="color:#4A5568;">Quarterly</td></tr>
+    <tr><td style="font-weight:600;">—</td>
+    <td class="mono-cell">Opaque — private company</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">—</td>
+    <td style="color:#B5751A;">—</td>
+    <td style="color:#B83B2E;">—</td>
+    <td style="color:#4A5568;">Annual</td></tr>
+    <tr><td style="font-weight:600;">—</td>
+    <td class="mono-cell">NOT RECEIVED</td>
+    <td style="text-align:center;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#9CA3AF;"></span></td>
+    <td style="color:#2D7A4F;">—</td>
+    <td style="color:#B5751A;">—</td>
+    <td style="color:#B83B2E;">—</td>
+    <td style="color:#4A5568;">One-time — then annual</td></tr>
+  </tbody></table>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-006</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ DATA GAPS ════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Comarch Spółka Akcyjna (Comarch S.A.) · SPEC-2026-006</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Appendix</p><p class="sh-title">Data Gaps & Limitations</p></div></div>
+  <div class="info-box gap-box">
+    <p class="info-box-title" style="color:#B5751A;">8 data gap(s) identified</p>
+    <ul style="padding-left:18px;font-size:12px;line-height:1.8;"><li><strong>balance_sheet_2024</strong>: private_company — Cannot assess leverage, liquidity, or net debt. PE LBO debt likely but unconfirmed.</li>
+<li><strong>credit_rating</strong>: rating_not_rated — No independent creditworthiness assessment available</li>
+<li><strong>current_ceo_relationship_with_encevo</strong>: not_publicly_accessible — Whether Mikos has been briefed on Encevo account is unknown</li>
+<li><strong>soc2_type2_certification</strong>: no_results_returned — SOC 2 not confirmed — relevant for data processing assurance</li>
+<li><strong>csrd_report_fy2024</strong>: not_yet_published — FY2024 CSRD report expected in 2025 but not yet confirmed published</li>
+<li><strong>nis2_compliance_declaration</strong>: not_publicly_accessible — NIS2 compliance status not confirmed — Encevo must request</li>
+<li><strong>erp_xl_patch_deployment_status</strong>: not_publicly_accessible — Cannot confirm Encevo's ERP XL version is patched for CVE-2023-4537/4538/4539</li>
+<li><strong>cvc_debt_quantum_post_lbo</strong>: private_company — Exact LBO debt level unknown. Net income decline consistent with new interest burden.</li>
+</ul>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-006</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ METHODOLOGY & SOURCES ════════════════════════════════════════════ -->
+<div class="page page-break" id="methodology">
+  <div class="page-header">
+  <span>CONFIDENTIAL</span>
+  <span>SPECTRUM — Vendor Intelligence Report</span>
+  <span>Comarch Spółka Akcyjna (Comarch S.A.) · SPEC-2026-006</span>
+</div>
+  <div class="sh"><div class="sh-bar"></div><div><p class="sh-label">Section 14</p><p class="sh-title">Methodology & Data Sources</p></div></div>
+  <div class="info-box" style="background:#F8F9FA;margin-bottom:20px;">
+    <p style="font-size:12px;line-height:1.7;"><strong>Data Currency:</strong> Data gathered March 2026. All web searches conducted 2026-03-29. Financial data primarily from Comarch Annual Report 2024 (latest available). Company delisted from Warsaw SE on 2025-03-26.</p>
+    <p style="font-size:12px;line-height:1.7;margin-top:8px;"><strong>Methodology:</strong> This assessment was conducted using SPECTRUM's evidence-first multi-agent pipeline. All findings are sourced from publicly available information. Scores are derived by applying the SPECTRUM six-pillar rubric to verified evidence. No training-knowledge claims are made — every factual statement is linked to a source URL.</p>
+  </div>
+  <ol style="padding-left:20px;font-size:12px;line-height:1.8;"><li><span class="mono" style="color:#1B2B5E;font-weight:700;">[1]</span> <a href="https://www.comarch.com/files-com/file_932/Raport_Roczny_2024_EN.pdf" target="_blank">Comarch Annual Report 2024</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[2]</span> <a href="https://biznes.pap.pl/wiadomosci/firmy/anna-pruska-resigns-ceo-comarch-it" target="_blank">PAP Biznes — Anna Pruska resigns as CEO</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[3]</span> <a href="https://www.comarch.com/press-center/news/corporate/jaroslaw-mikos-appointed-the-president-of-comarchs-management-board/" target="_blank">Comarch Press — Jarosław Mikos appointed CEO</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[4]</span> <a href="https://cert.pl/en/posts/2024/02/CVE-2023-4537/" target="_blank">CERT Polska — CVE-2023-4537 disclosure</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[5]</span> <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-4538" target="_blank">NVD — CVE-2023-4538</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[6]</span> <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-4539" target="_blank">NVD — CVE-2023-4539</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[7]</span> <a href="https://www.cgi.com/en/cgi-completes-acquisition-comarch-polska-sa-accelerate-expansion-poland" target="_blank">CGI — Comarch Polska SA acquisition completed</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[8]</span> <a href="https://wbj.pl/cvc-may-be-sold-to-comarch-in-pieces/post/144186" target="_blank">Warsaw Business Journal — CVC may sell Comarch in pieces</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[9]</span> <a href="https://www.comarch.com/company/supervisory-board/" target="_blank">Comarch SA — Supervisory Board</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[10]</span> <a href="https://www.twobirds.com/en/insights/2025/poland/how-poland-is-shaping-its-nis2-implementation-and-what-is-so-special-about-highrisk-vendor" target="_blank">Bird & Bird — Poland NIS2 Implementation</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[11]</span> <a href="https://dockets.justia.com/docket/new-york/nysdce/1:2024cv06392/627142" target="_blank">Justia — Ascento Capital v. Filipiak SDNY</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[12]</span> <a href="https://www.comarch.com/press-center/news/corporate/a-landmark-moment-in-the-history-of-the-comarch-group/" target="_blank">Comarch Press — Landmark Moment (CVC delisting)</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[13]</span> <a href="https://www.comarch.com/company/quality/" target="_blank">Comarch SA — Quality and Certifications</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[14]</span> <a href="https://www.comarch.com/finance/news/comarch-luxembourg-obtains-psf-authorization/" target="_blank">Comarch Luxembourg PSF Authorization</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[15]</span> <a href="https://ditchcarbon.com/organizations/comarch" target="_blank">DitchCarbon — Comarch Sustainability Report</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[16]</span> <a href="https://leave-russia.org/comarch" target="_blank">LeaveRussia.org — Comarch</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[17]</span> <a href="https://www.bnnbloomberg.ca/investing/2024/07/17/cvc-capital-partners-in-bid-to-buyout-and-delist-polish-software-company-comarch/" target="_blank">Bloomberg — CVC Comarch Buyout</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[18]</span> <a href="https://en.wikipedia.org/wiki/Comarch" target="_blank">Wikipedia — Comarch</a> <span style="color:#9CA3AF;font-size:10px;">(secondary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[19]</span> <a href="https://www.lei-lookup.com/record/2594001MNJ3BH1UVVG70/" target="_blank">LEI Lookup — Comarch SA</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+<li><span class="mono" style="color:#1B2B5E;font-weight:700;">[20]</span> <a href="https://www.comarch.com/files-com/file_832/Presentation_Q1Q4_2023_www.pdf" target="_blank">Comarch Q1-Q4 2023 Financial Results Presentation</a> <span style="color:#9CA3AF;font-size:10px;">(primary)</span></li>
+</ol>
+  <div class="info-box methodology-box" style="margin-top:24px;">
+    <p style="font-size:11px;color:#4A5568;line-height:1.7;"><strong>Disclaimer:</strong> This report is based on publicly available information gathered as of 2026-03-29. It does not constitute legal advice, financial advice, or a comprehensive audit. SPECTRUM accepts no liability for decisions made based solely on this report. Users are advised to conduct additional due diligence as appropriate for their risk appetite and regulatory context.</p>
+  </div>
+  <div class="page-footer">
+  <span>2026-03-29</span>
+  <span>SPEC-2026-006</span>
+  <span>CONFIDENTIAL — For Authorised Recipients Only</span>
+</div>
+</div>
+
+<!-- ═══ BACK COVER ═══════════════════════════════════════════════════════ -->
+<div class="page page-break" style="background:#1B2B5E;min-height:280px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.03);"></div>
+  <div style="position:absolute;bottom:-40px;left:80px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.02);"></div>
+  <p style="color:#A5B4FC;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;">SPECTRUM</p>
+  <p style="color:rgba(255,255,255,.5);font-size:11px;margin-top:4px;letter-spacing:.08em;">Vendor Intelligence Platform</p>
+  <div style="width:48px;height:2px;background:rgba(255,255,255,.2);margin:28px auto;"></div>
+  <p style="color:#fff;font-size:22px;font-weight:700;">Comarch Spółka Akcyjna (Comarch S.A.)</p>
+  <p style="color:#CBD5E1;font-size:12px;margin-top:6px;font-family:'JetBrains Mono',monospace;">SPEC-2026-006 · 2026-03-29</p>
+  <div style="width:48px;height:2px;background:rgba(255,255,255,.2);margin:28px auto;"></div>
+  <p style="color:rgba(255,255,255,.35);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;">CONFIDENTIAL — For Authorised Recipients Only</p>
+</div>
+
+</div><!-- .doc -->
+</body>
+</html>

@@ -1,16 +1,27 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { mockVendors } from '../data/mockVendors';
+import { mockVendors, portfolioReports, sampleReports } from '../data/mockVendors';
 import { useEffect, useState } from 'react';
 
 function ReportViewer() {
   const { vendorId } = useParams();
   const navigate = useNavigate();
   const [vendor, setVendor] = useState(null);
+  const [isPortfolio, setIsPortfolio] = useState(false);
 
   useEffect(() => {
-    const foundVendor = mockVendors.find(v => v.id === vendorId);
+    // Check if this is a portfolio report
+    const portfolioReport = portfolioReports.find(p => p.id === vendorId);
+    if (portfolioReport) {
+      setVendor(portfolioReport);
+      setIsPortfolio(true);
+      return;
+    }
+
+    // Otherwise look for individual vendor report (in mockVendors and sampleReports)
+    const foundVendor = mockVendors.find(v => v.id === vendorId) || sampleReports.find(v => v.id === vendorId);
     if (foundVendor && foundVendor.fullReport) {
       setVendor(foundVendor);
+      setIsPortfolio(false);
     } else {
       // If not a featured vendor with full report, redirect back to portfolio
       navigate('/portfolio');
@@ -28,6 +39,9 @@ function ReportViewer() {
     );
   }
 
+  const displayName = isPortfolio ? vendor.clientName : vendor.name;
+  const subtitle = isPortfolio ? 'Portfolio Intelligence Report' : 'Full Due Diligence Report';
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header with back button */}
@@ -42,8 +56,8 @@ function ReportViewer() {
             </button>
             <div className="h-4 w-px bg-gray-200"></div>
             <div>
-              <div className="text-sm font-medium text-black tracking-tight">{vendor.name}</div>
-              <div className="text-[10px] text-gray-500 uppercase tracking-wider">Full Due Diligence Report</div>
+              <div className="text-sm font-medium text-black tracking-tight">{displayName}</div>
+              <div className="text-[10px] text-gray-500 uppercase tracking-wider">{subtitle}</div>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -61,7 +75,7 @@ function ReportViewer() {
       <div className="w-full h-screen">
         <iframe
           src={vendor.reportUrl}
-          title={`${vendor.name} - Full Due Diligence Report`}
+          title={`${displayName} - ${subtitle}`}
           className="w-full h-full border-0"
           style={{ height: 'calc(100vh - 73px)' }}
         />
