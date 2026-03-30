@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { mockVendors, portfolioReports, sampleReports } from '../data/mockVendors';
 import { useEffect, useState } from 'react';
+import Logo from '../components/Logo';
 
 function ReportViewer() {
   const { vendorId } = useParams();
@@ -9,7 +10,6 @@ function ReportViewer() {
   const [isPortfolio, setIsPortfolio] = useState(false);
 
   useEffect(() => {
-    // Check if this is a portfolio report
     const portfolioReport = portfolioReports.find(p => p.id === vendorId);
     if (portfolioReport) {
       setVendor(portfolioReport);
@@ -17,13 +17,11 @@ function ReportViewer() {
       return;
     }
 
-    // Otherwise look for individual vendor report (in mockVendors and sampleReports)
     const foundVendor = mockVendors.find(v => v.id === vendorId) || sampleReports.find(v => v.id === vendorId);
     if (foundVendor && foundVendor.fullReport) {
       setVendor(foundVendor);
       setIsPortfolio(false);
     } else {
-      // If not a featured vendor with full report, redirect back to portfolio
       navigate('/portfolio');
     }
   }, [vendorId, navigate]);
@@ -32,54 +30,52 @@ function ReportViewer() {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
-          <p className="text-sm text-gray-500">Loading report...</p>
+          <div className="w-6 h-6 border-2 border-slate-900 border-t-transparent animate-spin mx-auto mb-4"></div>
+          <p className="text-sm text-slate-400">Loading report...</p>
         </div>
       </div>
     );
   }
 
   const displayName = isPortfolio ? vendor.clientName : vendor.name;
-  const subtitle = isPortfolio ? 'Portfolio Intelligence Report' : 'Full Due Diligence Report';
+  const subtitle = isPortfolio ? 'Portfolio Intelligence Report' : 'Vendor Intelligence Report';
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header with back button */}
-      <div className="border-b border-gray-200 sticky top-0 bg-white z-50">
-        <div className="max-w-[1600px] mx-auto px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
+      {/* Header */}
+      <div className="border-b border-slate-100 sticky top-0 bg-white z-50">
+        <div className="max-w-[1600px] mx-auto px-8 py-3.5 flex items-center justify-between">
+          <div className="flex items-center gap-5">
             <button
               onClick={() => navigate('/portfolio')}
-              className="flex items-center gap-2 text-xs font-medium text-gray-700 hover:text-black transition-colors uppercase tracking-wider"
+              className="text-sm text-slate-500 hover:text-slate-900 transition-colors"
             >
-              ← Back to Portfolio
+              ← Portfolio
             </button>
-            <div className="h-4 w-px bg-gray-200"></div>
+            <div className="h-4 w-px bg-slate-200"></div>
             <div>
-              <div className="text-sm font-medium text-black tracking-tight">{displayName}</div>
-              <div className="text-[10px] text-gray-500 uppercase tracking-wider">{subtitle}</div>
+              <div className="text-sm font-medium text-slate-900">{displayName}</div>
+              <div className="text-[10px] text-slate-400 uppercase tracking-widest">{subtitle}</div>
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <button className="px-4 py-1.5 text-xs font-medium border border-gray-300 hover:border-black transition-colors uppercase tracking-wider">
+          <div className="flex items-center gap-3">
+            <button className="px-4 py-2 text-sm text-slate-600 border border-slate-200 hover:border-slate-900 hover:text-slate-900 transition-colors">
               Download PDF
             </button>
-            <button className="px-4 py-1.5 text-xs font-medium bg-black text-white hover:bg-gray-900 transition-colors uppercase tracking-wider">
+            <button className="px-4 py-2 text-sm font-medium bg-slate-900 text-white hover:bg-slate-800 transition-colors">
               Export Excel
             </button>
           </div>
         </div>
       </div>
 
-      {/* Full report iframe */}
-      <div className="w-full h-screen">
-        <iframe
-          src={vendor.reportUrl}
-          title={`${displayName} - ${subtitle}`}
-          className="w-full h-full border-0"
-          style={{ height: 'calc(100vh - 73px)' }}
-        />
-      </div>
+      {/* Report iframe */}
+      <iframe
+        src={vendor.reportUrl}
+        title={`${displayName} - ${subtitle}`}
+        className="w-full border-0"
+        style={{ height: 'calc(100vh - 61px)' }}
+      />
     </div>
   );
 }

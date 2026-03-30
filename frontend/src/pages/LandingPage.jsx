@@ -63,27 +63,26 @@ function HeroFeed({ onNavigate }) {
         </div>
       </div>
 
-      {/* Queue — upcoming vendors */}
-      <div className="mt-3 space-y-2">
+      {/* Queue */}
+      <div className="mt-2 space-y-1">
         {HERO_VENDORS.filter((_, i) => i !== activeIndex).slice(0, 3).map((vendor) => (
           <div
             key={vendor.name}
-            className="flex items-center justify-between px-4 py-2.5 border border-slate-100 bg-white hover:border-slate-300 cursor-pointer transition-colors"
+            className="flex items-center justify-between px-4 py-2 border border-slate-100 hover:border-slate-300 cursor-pointer transition-colors"
             onClick={() => onNavigate(vendor.id)}
           >
             <div className="flex items-center gap-3">
-              <div className={`w-1.5 h-1.5 flex-shrink-0 ${vendor.score >= 80 ? 'bg-emerald-500' : vendor.score >= 60 ? 'bg-amber-500' : 'bg-orange-500'}`}></div>
-              <span className="text-sm text-slate-700">{vendor.name}</span>
+              <div className={`w-1 h-1 flex-shrink-0 ${vendor.score >= 80 ? 'bg-emerald-500' : vendor.score >= 60 ? 'bg-amber-500' : 'bg-orange-500'}`}></div>
+              <span className="text-sm text-slate-600">{vendor.name}</span>
             </div>
             <span className={`text-sm font-mono ${vendor.score >= 80 ? 'text-emerald-600' : vendor.score >= 60 ? 'text-amber-600' : 'text-orange-600'}`}>{vendor.score}</span>
           </div>
         ))}
       </div>
 
-      {/* Bottom text */}
-      <div className="mt-4 flex items-center gap-2">
+      <div className="mt-3 flex items-center gap-2">
         <div className="w-1.5 h-1.5 bg-emerald-500 animate-pulse"></div>
-        <span className="text-xs text-slate-400">10 vendors assessed this week</span>
+        <span className="text-xs text-slate-400">Assessing vendors continuously</span>
       </div>
     </div>
   );
