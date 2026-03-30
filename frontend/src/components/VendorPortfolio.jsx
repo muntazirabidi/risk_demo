@@ -122,34 +122,33 @@ function VendorPortfolio() {
       {/* ─── Portfolio Report Banner ─── */}
       <section className="max-w-[1200px] mx-auto px-8 pb-12">
         <div
-          className="border border-slate-200 hover:border-slate-400 transition-all cursor-pointer group"
+          className="bg-slate-900 hover:bg-slate-800 transition-all cursor-pointer group"
           onClick={() => navigate('/report/encevo-portfolio')}
         >
-          <div className="flex items-center justify-between px-6 py-5">
-            <div className="flex items-center gap-6">
-              <div>
-                <div className="text-[10px] text-slate-400 uppercase tracking-widest mb-1">Portfolio Report</div>
-                <div className="text-base font-semibold text-slate-900">Aggregated Risk Intelligence</div>
-              </div>
+          <div className="flex items-center justify-between px-8 py-6">
+            <div>
+              <div className="text-[10px] text-slate-500 uppercase tracking-widest mb-1">Portfolio Report</div>
+              <div className="text-lg font-medium text-white">Aggregated Risk Intelligence</div>
+              <div className="text-sm text-slate-400 mt-1">Cross-portfolio analysis with concentration risks, systemic flags, and remediation priorities</div>
             </div>
-            <div className="flex items-center gap-8">
+            <div className="flex items-center gap-10">
               <div className="text-center">
-                <div className={`text-2xl font-light font-mono ${getRiskColor(portfolioReport.portfolioScore)}`}>{portfolioReport.portfolioScore}</div>
-                <div className="text-[9px] text-slate-400 uppercase tracking-widest">Score</div>
+                <div className="text-3xl font-light font-mono text-amber-400">{portfolioReport.portfolioScore}</div>
+                <div className="text-[9px] text-slate-500 uppercase tracking-widest mt-1">Score</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-light font-mono text-slate-900">{portfolioReport.suppliersAssessed}</div>
-                <div className="text-[9px] text-slate-400 uppercase tracking-widest">Vendors</div>
+                <div className="text-3xl font-light font-mono text-white">{portfolioReport.suppliersAssessed}</div>
+                <div className="text-[9px] text-slate-500 uppercase tracking-widest mt-1">Vendors</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-light font-mono text-amber-700">{portfolioReport.highlights.conditional}</div>
-                <div className="text-[9px] text-slate-400 uppercase tracking-widest">Conditional</div>
+                <div className="text-3xl font-light font-mono text-amber-400">{portfolioReport.highlights.conditional}</div>
+                <div className="text-[9px] text-slate-500 uppercase tracking-widest mt-1">Conditional</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-light font-mono text-red-700">{portfolioReport.highlights.criticalFlags}</div>
-                <div className="text-[9px] text-slate-400 uppercase tracking-widest">Flags</div>
+                <div className="text-3xl font-light font-mono text-red-400">{portfolioReport.highlights.criticalFlags}</div>
+                <div className="text-[9px] text-slate-500 uppercase tracking-widest mt-1">Flags</div>
               </div>
-              <span className="text-sm text-slate-400 group-hover:text-slate-900 transition-colors">View report →</span>
+              <div className="text-sm text-slate-500 group-hover:text-white transition-colors whitespace-nowrap">View report →</div>
             </div>
           </div>
         </div>
@@ -160,73 +159,61 @@ function VendorPortfolio() {
         <div className="max-w-[1200px] mx-auto px-8 py-12">
           <p className="text-sm text-slate-400 uppercase tracking-widest mb-6">Individual Assessments</p>
           <div className="grid grid-cols-5 gap-4">
-            {featuredVendors.map((vendor) => (
-              <div
-                key={vendor.id}
-                className="border border-slate-200 hover:border-slate-400 transition-all cursor-pointer group"
-                onClick={() => navigate(`/report/${vendor.id}`)}
-              >
-                <div className="p-4">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="min-w-0 flex-1 pr-2">
-                      <h3 className="text-sm font-semibold text-slate-900 leading-tight group-hover:text-slate-700 transition-colors truncate">
+            {featuredVendors.map((vendor) => {
+              const borderColor = vendor.riskScore >= 80 ? 'border-l-emerald-500' :
+                                  vendor.riskScore >= 70 ? 'border-l-amber-500' :
+                                  vendor.riskScore >= 60 ? 'border-l-orange-500' : 'border-l-red-500';
+              return (
+                <div
+                  key={vendor.id}
+                  className={`border border-slate-200 border-l-[3px] ${borderColor} hover:border-slate-400 hover:border-l-[3px] ${borderColor} transition-all cursor-pointer group`}
+                  onClick={() => navigate(`/report/${vendor.id}`)}
+                >
+                  <div className="p-4">
+                    <div className="mb-3">
+                      <h3 className="text-sm font-semibold text-slate-900 leading-tight group-hover:text-slate-700 transition-colors">
                         {vendor.name}
                       </h3>
                       <p className="text-[10px] text-slate-400 mt-0.5 truncate">{vendor.industry}</p>
                     </div>
-                    <div className={`text-xl font-light font-mono flex-shrink-0 ${getRiskColor(vendor.riskScore)}`}>
+
+                    <div className={`text-2xl font-mono mb-2 ${getRiskColor(vendor.riskScore)}`}>
                       {vendor.riskScore}
                     </div>
-                  </div>
 
-                  <div className="flex items-center justify-between">
-                    <span className={`text-[9px] font-medium uppercase tracking-wider ${
-                      vendor.status === 'monitoring' ? 'text-orange-600' : vendor.status === 'qualified' ? 'text-emerald-600' : 'text-amber-600'
-                    }`}>
-                      {vendor.status}
-                    </span>
-                    <span className="text-[10px] text-slate-400 group-hover:text-slate-700 transition-colors">View →</span>
+                    <div className="flex items-center justify-between">
+                      <span className={`text-[9px] font-medium uppercase tracking-wider ${
+                        vendor.status === 'monitoring' ? 'text-orange-600' : vendor.status === 'qualified' ? 'text-emerald-600' : 'text-amber-600'
+                      }`}>
+                        {vendor.status}
+                      </span>
+                      <span className="text-[10px] text-slate-400 group-hover:text-slate-900 transition-colors">View →</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* ─── Stats Strip ─── */}
-      <section className="border-t border-slate-100 bg-slate-50/50">
-        <div className="max-w-[1200px] mx-auto px-8 py-10">
-          <div className="flex items-center gap-16">
-            <div>
-              <div className="text-3xl font-light text-slate-900 font-mono">{stats.total}</div>
-              <div className="text-sm text-slate-400 mt-1">Total vendors</div>
-            </div>
-            <div className="w-px h-10 bg-slate-200"></div>
-            <div>
-              <div className="text-3xl font-light text-emerald-700 font-mono">{stats.qualified}</div>
-              <div className="text-sm text-slate-400 mt-1">Qualified</div>
-            </div>
-            <div className="w-px h-10 bg-slate-200"></div>
-            <div>
-              <div className="text-3xl font-light text-amber-700 font-mono">{stats.conditional}</div>
-              <div className="text-sm text-slate-400 mt-1">Conditional</div>
-            </div>
-            <div className="w-px h-10 bg-slate-200"></div>
-            <div>
-              <div className="text-3xl font-light text-orange-700 font-mono">{stats.monitoring}</div>
-              <div className="text-sm text-slate-400 mt-1">Monitoring</div>
-            </div>
-            <div className="w-px h-10 bg-slate-200"></div>
-            <div>
-              <div className="text-3xl font-light text-red-700 font-mono">{stats.capaOverdue}</div>
-              <div className="text-sm text-slate-400 mt-1">Actions overdue</div>
-            </div>
-            <div className="w-px h-10 bg-slate-200"></div>
-            <div>
-              <div className="text-3xl font-light text-slate-900 font-mono">{stats.avgRiskScore}</div>
-              <div className="text-sm text-slate-400 mt-1">Avg score</div>
-            </div>
+      <section className="border-t border-slate-100">
+        <div className="max-w-[1200px] mx-auto px-8 py-12">
+          <div className="grid grid-cols-6 gap-8">
+            {[
+              { value: stats.total, label: 'Total vendors', color: 'text-slate-900' },
+              { value: stats.qualified, label: 'Qualified', color: 'text-emerald-600' },
+              { value: stats.conditional, label: 'Conditional', color: 'text-amber-600' },
+              { value: stats.monitoring, label: 'Monitoring', color: 'text-orange-600' },
+              { value: stats.capaOverdue, label: 'Actions overdue', color: 'text-red-600', urgent: true },
+              { value: stats.avgRiskScore, label: 'Avg score', color: getRiskColor(stats.avgRiskScore) },
+            ].map((stat) => (
+              <div key={stat.label} className={stat.urgent ? 'bg-red-50 -m-3 p-3 border border-red-100' : ''}>
+                <div className={`text-4xl font-light font-mono ${stat.color}`}>{stat.value}</div>
+                <div className={`text-sm mt-1 ${stat.urgent ? 'text-red-600 font-medium' : 'text-slate-400'}`}>{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
