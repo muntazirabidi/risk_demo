@@ -206,12 +206,12 @@ function LandingPage() {
                 {/* Left: copy */}
                 <div>
                   <h1 className="text-5xl md:text-6xl font-light text-slate-900 leading-[1.08] tracking-tight mb-6">
-                    Vendor intelligence<br />
-                    that <em className="not-italic" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: 'italic', color: '#2563eb' }}>protects</em> your<br />
-                    supply chain.
+                    Vendor due diligence<br />
+                    in <em className="not-italic" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: 'italic', color: '#2563eb' }}>minutes</em>,<br />
+                    not months.
                   </h1>
                   <p className="text-lg text-slate-500 max-w-xl mb-10 leading-relaxed">
-                    Autonomous AI agents that onboard, assess, monitor, and remediate vendor risk — replacing months of manual due diligence with decision-ready intelligence.
+                    Autonomous AI agents that research, analyze, and produce institutional-grade vendor risk reports — so your procurement team can make evidence-based decisions at the speed regulators now demand.
                   </p>
                   <div className="flex items-center gap-4 mb-16">
                     <button
@@ -253,8 +253,8 @@ function LandingPage() {
             <section className="border-t border-slate-100">
               <div className="max-w-[1200px] mx-auto px-8 py-20">
                 <div className="mb-12">
-                  <p className="text-sm text-slate-400 uppercase tracking-widest mb-3">Intelligence across every dimension</p>
-                  <h2 className="text-3xl font-light text-slate-900 tracking-tight">Six pillars of autonomous due diligence.</h2>
+                  <p className="text-sm text-slate-400 uppercase tracking-widest mb-3">What we assess</p>
+                  <h2 className="text-3xl font-light text-slate-900 tracking-tight">Every report covers six risk dimensions.</h2>
                 </div>
                 <div className="grid grid-cols-3 gap-x-12 gap-y-10">
                   {[
@@ -325,9 +325,9 @@ function LandingPage() {
               <div className="max-w-[1200px] mx-auto px-8 py-20">
                 <div className="mb-12">
                   <p className="text-sm text-slate-400 uppercase tracking-widest mb-3">Platform</p>
-                  <h2 className="text-3xl font-light text-slate-900 tracking-tight">The system of record for vendor risk.</h2>
+                  <h2 className="text-3xl font-light text-slate-900 tracking-tight">From reports to a complete vendor risk platform.</h2>
                   <p className="text-base text-slate-500 mt-3 max-w-2xl">
-                    Not a report generator — an autonomous intelligence layer for the entire supplier lifecycle. Every assessment makes the next one smarter.
+                    Start with due diligence reports. Scale into continuous monitoring, remediation workflows, and regulatory reporting — one platform for procurement, finance, compliance, and InfoSec.
                   </p>
                 </div>
 
@@ -439,7 +439,7 @@ function LandingPage() {
           <div className="flex items-center justify-between">
             <div>
               <Logo />
-              <p className="text-sm text-slate-400 mt-2">Lower risk. Faster onboarding. Higher confidence.</p>
+              <p className="text-sm text-slate-400 mt-2">Autonomous vendor due diligence for modern procurement teams.</p>
             </div>
             <div className="flex items-center gap-6 text-sm text-slate-400">
               <span>Evidence-based analysis</span>
