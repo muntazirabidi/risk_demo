@@ -81,6 +81,19 @@ h1, h2, h3, h4 {
   100% { background-position: 200% 0; }
 }
 
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-ticker {
+  animation: ticker 35s linear infinite;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
+
 .animate-fade-in {
   animation: fade-in 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }

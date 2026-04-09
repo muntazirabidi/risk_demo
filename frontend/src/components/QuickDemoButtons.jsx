@@ -11,11 +11,8 @@ const DEMO_COMPANIES = [
 
 export default function QuickDemoButtons({ onSelectCompany, isLoading }) {
   return (
-    <div className="max-w-3xl mx-auto mb-8 animate-fade-in">
-      <div className="text-center mb-4">
-        <p className="text-[10px] text-slate-400 uppercase tracking-[0.15em]">Quick start — select a vendor</p>
-      </div>
-      <div className="flex flex-wrap justify-center gap-2">
+    <div className="max-w-3xl mx-auto mb-4 animate-fade-in">
+      <div className="flex flex-wrap gap-1.5">
         {DEMO_COMPANIES.map((company, index) => (
           <button
             key={company.name}
@@ -26,7 +23,7 @@ export default function QuickDemoButtons({ onSelectCompany, isLoading }) {
               opacity: 0,
               animationFillMode: 'forwards'
             }}
-            className="px-3 py-1.5 bg-white border border-slate-200 text-[11px] font-medium text-slate-600 hover:border-slate-900 hover:text-slate-900 transition-all disabled:opacity-40 disabled:cursor-not-allowed animate-fade-in tracking-wide"
+            className="px-3 py-1.5 bg-white border border-slate-200 text-[11px] font-medium text-slate-600 hover:border-slate-900 hover:text-slate-900 transition-colors disabled:opacity-40 disabled:cursor-not-allowed animate-fade-in tracking-wide"
           >
             {company.name}
           </button>

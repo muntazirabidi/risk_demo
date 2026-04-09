@@ -3,15 +3,12 @@ import { useState } from 'react';
 function CapaRecommendations({ findings, companyName }) {
   const [expandedCapa, setExpandedCapa] = useState(null);
 
-  // Generate CAPA recommendations based on findings
   const generateCapas = () => {
     const capas = [];
     let capaId = 1;
 
     findings.forEach((finding) => {
       const riskLevel = (finding.riskLevel || '').toLowerCase();
-
-      // Generate CAPAs for High, Critical, and Medium risks
       if (riskLevel === 'high' || riskLevel === 'critical' || riskLevel === 'medium') {
         const capa = {
           id: `CAPA-${String(capaId).padStart(3, '0')}`,
@@ -74,22 +71,9 @@ function CapaRecommendations({ findings, companyName }) {
     return verifications[category] || ['Documentation of corrective actions', 'Evidence of compliance'];
   };
 
-  const getPriorityConfig = (priority) => {
-    const configs = {
-      HIGH: {
-        bgColor: 'bg-red-100',
-        textColor: 'text-red-800',
-        borderColor: 'border-red-300',
-        dotColor: 'bg-red-500'
-      },
-      MEDIUM: {
-        bgColor: 'bg-amber-100',
-        textColor: 'text-amber-800',
-        borderColor: 'border-amber-300',
-        dotColor: 'bg-amber-500'
-      }
-    };
-    return configs[priority] || configs.MEDIUM;
+  const getPriorityStyle = (priority) => {
+    if (priority === 'HIGH') return { badge: 'bg-red-50 text-red-800 border-red-200', dot: 'bg-red-500' };
+    return { badge: 'bg-amber-50 text-amber-800 border-amber-200', dot: 'bg-amber-500' };
   };
 
   const capas = generateCapas();
@@ -97,14 +81,14 @@ function CapaRecommendations({ findings, companyName }) {
   if (capas.length === 0) {
     return (
       <div className="mb-8">
-        <div className="bg-gradient-to-br from-emerald-50 to-green-50 border-2 border-emerald-200 rounded-2xl p-8 text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-500 rounded-full mb-4">
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="bg-emerald-50 border border-emerald-200 p-8 text-center">
+          <div className="w-10 h-10 bg-emerald-600 flex items-center justify-center mx-auto mb-4">
+            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h3 className="text-2xl font-bold text-emerald-900 mb-2">No Corrective Actions Required</h3>
-          <p className="text-emerald-700">
+          <h3 className="text-lg font-semibold text-emerald-900 mb-2">No Corrective Actions Required</h3>
+          <p className="text-sm text-emerald-700">
             {companyName} demonstrates strong performance across all risk dimensions with no critical findings requiring immediate action.
           </p>
         </div>
@@ -114,82 +98,76 @@ function CapaRecommendations({ findings, companyName }) {
 
   return (
     <div className="mb-8">
-      <div className="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
+      <div className="border border-slate-200 overflow-hidden">
         {/* Header */}
-        <div className="bg-slate-900 p-6">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-white/10 rounded">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-            <h3 className="text-2xl font-bold text-white">Corrective Action Plan (CAPA)</h3>
-          </div>
-          <p className="text-slate-300 text-sm">
+        <div className="bg-slate-900 px-6 py-5">
+          <h3 className="text-lg font-light text-white tracking-tight">Corrective Action Plan (CAPA)</h3>
+          <p className="text-sm text-slate-400 mt-1">
             Required actions to address identified risks. All CAPAs must be completed by specified deadlines.
           </p>
         </div>
 
         {/* CAPA List */}
         <div className="divide-y divide-slate-200">
-          {capas.map((capa, index) => {
+          {capas.map((capa) => {
             const isExpanded = expandedCapa === capa.id;
-            const priorityConfig = getPriorityConfig(capa.priority);
+            const priorityStyle = getPriorityStyle(capa.priority);
 
             return (
-              <div key={capa.id} className="p-6 hover:bg-slate-50 transition-colors">
+              <div key={capa.id} className="px-6 py-5 hover:bg-slate-50 transition-colors">
                 <div className="flex items-start gap-4">
                   {/* Priority Badge */}
-                  <div className={`flex-shrink-0 px-3 py-1 rounded-lg text-xs font-bold border-2 ${priorityConfig.bgColor} ${priorityConfig.textColor} ${priorityConfig.borderColor}`}>
+                  <span className={`flex-shrink-0 px-2.5 py-0.5 text-[10px] font-semibold border uppercase tracking-wider ${priorityStyle.badge}`}>
                     {capa.priority}
-                  </div>
+                  </span>
 
                   {/* CAPA Content */}
                   <div className="flex-1">
-                    {/* Title Row */}
-                    <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-start justify-between mb-2">
                       <div className="flex-1">
-                        <h4 className="text-lg font-bold text-slate-900 mb-1">{capa.id}: {capa.title}</h4>
-                        <p className="text-sm text-slate-600">{capa.description}</p>
+                        <h4 className="text-sm font-semibold text-slate-900 mb-1">
+                          <span className="font-mono text-slate-500">{capa.id}</span> {capa.title}
+                        </h4>
+                        <p className="text-sm text-slate-600 leading-relaxed">{capa.description}</p>
                       </div>
                       <button
                         onClick={() => setExpandedCapa(isExpanded ? null : capa.id)}
-                        className="ml-4 text-slate-700 hover:text-slate-900 font-semibold text-sm transition-colors"
+                        className="ml-4 text-xs text-slate-500 hover:text-slate-900 font-medium transition-colors"
                       >
-                        {isExpanded ? 'Show Less' : 'Show More'} →
+                        {isExpanded ? 'Collapse' : 'Expand'} →
                       </button>
                     </div>
 
                     {/* Metadata */}
-                    <div className="flex flex-wrap gap-4 text-sm mb-3">
-                      <div className="flex items-center gap-2">
-                        <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="flex flex-wrap gap-4 text-xs text-slate-500 mt-2">
+                      <div className="flex items-center gap-1.5">
+                        <svg className="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
-                        <span className="text-slate-600">Owner: <span className="font-semibold text-slate-900">{capa.owner}</span></span>
+                        <span>Owner: <span className="font-medium text-slate-900">{capa.owner}</span></span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="flex items-center gap-1.5">
+                        <svg className="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
-                        <span className="text-slate-600">Due: <span className="font-semibold text-red-700">{capa.dueDate}</span></span>
+                        <span>Due: <span className="font-medium text-red-700">{capa.dueDate}</span></span>
                       </div>
                     </div>
 
                     {/* Expanded Content */}
                     {isExpanded && (
-                      <div className="mt-4 space-y-4 bg-slate-50 rounded-lg p-4 border border-slate-200">
+                      <div className="mt-4 space-y-4 bg-slate-50 border border-slate-200 p-4">
                         <div>
-                          <h5 className="text-sm font-bold text-slate-900 mb-2">Recommended Actions:</h5>
+                          <h5 className="text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-2">Recommended Actions</h5>
                           <p className="text-sm text-slate-700 leading-relaxed">{capa.recommendation}</p>
                         </div>
                         <div>
-                          <h5 className="text-sm font-bold text-slate-900 mb-2">Verification Criteria:</h5>
-                          <ul className="space-y-1">
+                          <h5 className="text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-2">Verification Criteria</h5>
+                          <ul className="space-y-1.5">
                             {capa.verificationCriteria.map((criteria, idx) => (
                               <li key={idx} className="flex items-start gap-2 text-sm text-slate-700">
-                                <svg className="w-4 h-4 text-slate-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <svg className="w-3.5 h-3.5 text-slate-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                 </svg>
                                 <span>{criteria}</span>
                               </li>
@@ -206,8 +184,8 @@ function CapaRecommendations({ findings, companyName }) {
         </div>
 
         {/* Footer */}
-        <div className="bg-slate-50 p-4 border-t border-slate-200">
-          <p className="text-xs text-slate-600 text-center">
+        <div className="bg-slate-50 px-6 py-3 border-t border-slate-200">
+          <p className="text-[10px] text-slate-500 uppercase tracking-wider text-center">
             All CAPAs must be completed by specified deadlines. Monthly progress reviews required for HIGH priority items.
           </p>
         </div>

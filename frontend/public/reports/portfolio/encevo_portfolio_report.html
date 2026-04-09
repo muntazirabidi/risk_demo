@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SPECTRUM — Supplier Portfolio Intelligence Report | Encevo S.A.</title>
+  <title>SPECTRUM — Supplier Portfolio Intelligence Report</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -451,25 +451,30 @@
     }
 
     .chart-card {
-      background: var(--bg-section);
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 24px 22px;
+      overflow: hidden;
     }
 
-    .chart-title {
-      font-size: 12px;
+    .chart-header {
+      background: var(--brand);
+      color: #fff;
+      font-size: 10px;
       font-weight: 700;
-      color: var(--text-primary);
-      letter-spacing: .04em;
+      letter-spacing: .12em;
       text-transform: uppercase;
-      margin-bottom: 20px;
+      padding: 10px 18px;
+    }
+
+    .chart-body {
+      padding: 28px 22px 24px;
     }
 
     .chart-svg-wrap {
       display: flex;
-      justify-content: center;
       align-items: center;
+      gap: 28px;
+      justify-content: center;
     }
 
     /* ─── STANDARD TABLES ───────────────────────────────────────── */
@@ -510,9 +515,9 @@
     /* ─── SEVERITY / VERDICT PILLS ─────────────────────────────── */
     /* ─── FLAGS TABLE (Section 06) ─────────────────────────────── */
     .flags-table { table-layout: fixed; }
-    .flags-table col.col-finding   { width: 42%; }
+    .flags-table col.col-finding   { width: 40%; }
     .flags-table col.col-suppliers { width: 18%; }
-    .flags-table col.col-severity  { width: 10%; }
+    .flags-table col.col-severity  { width: 12%; }
     .flags-table col.col-action    { width: 30%; }
 
     .flags-table td { vertical-align: top; word-wrap: break-word; white-space: normal; }
@@ -529,6 +534,15 @@
       color: var(--text-secondary);
       line-height: 1.6;
     }
+    .data-table .finding-title { display: block; font-weight: 600; font-size: 13px; }
+    .data-table .finding-desc  { display: block; font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+    /* Dimension label — plain text, no pill box, avoids width overflow in narrow columns */
+    .dim-tag { font-size: 11px; font-weight: 600; color: #3B6A9A; }
+    /* Priority label — plain text, no pill box */
+    .pri-immediate { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #B83B2E; }
+    .pri-urgent    { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #B5751A; }
+    .pri-high      { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #B5751A; }
+    .pri-standard  { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #4A5568; }
     .flags-table .suppliers-cell {
       font-size: 12px;
       color: var(--text-secondary);
@@ -542,16 +556,23 @@
 
     /* ─── INVESTIGATIONS TABLE (Section 06B) ───────────────────── */
     .invest-table { table-layout: fixed; }
-    .invest-table col.col-supplier  { width: 13%; }
-    .invest-table col.col-body      { width: 17%; }
-    .invest-table col.col-matter    { width: 36%; }
-    .invest-table col.col-dim       { width: 13%; }
-    .invest-table col.col-sev       { width: 10%; }
+    .invest-table col.col-supplier  { width: 10%; }
+    .invest-table col.col-body      { width: 14%; }
+    .invest-table col.col-matter    { width: 38%; }
+    .invest-table col.col-dim       { width: 16%; }
+    .invest-table col.col-sev       { width: 11%; }
     .invest-table col.col-status    { width: 11%; }
-    .invest-table td { word-wrap: break-word; white-space: normal; font-size: 12px; }
+    .invest-table th { padding: 10px 8px; white-space: normal; word-break: normal; }
+    .invest-table td { word-wrap: break-word; white-space: normal; font-size: 12px; padding: 10px 8px; }
+    .sev-tag-high     { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #B83B2E; }
+    .sev-tag-medium   { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #B5751A; }
+    .sev-tag-low      { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #2D7A4F; }
+    .status-tag       { font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: #4A5568; }
 
     /* ─── ACTIONS TABLE (Section 08) ───────────────────────────── */
     .actions-table { table-layout: fixed; }
+    .actions-table td:first-child  { white-space: nowrap; }
+    .actions-table td:nth-child(2) { white-space: nowrap; }
     .actions-table col.col-pri      { width: 9%; }
     .actions-table col.col-cat      { width: 14%; }
     .actions-table col.col-act      { width: 37%; }
@@ -1101,8 +1122,8 @@
     <div class="cover-inner">
 
       <p class="cover-brand">SPECTRUM · PORTFOLIO INTELLIGENCE</p>
-      <h1 class="cover-name">Encevo S.A.</h1>
-      <p class="cover-subtitle">Supplier Portfolio Risk Assessment — Top 10 Suppliers by Procurement Value</p>
+      <h1 class="cover-name">Supplier Portfolio<br>Intelligence Report</h1>
+      <p class="cover-subtitle">Top 10 Suppliers by Procurement Value — Risk Assessment &amp; Due Diligence</p>
 
       <div class="cover-kpi">
         <div class="cover-kpi-card">
@@ -1126,7 +1147,7 @@
       <div class="cover-meta">
         <p>Report ID: <span>ENC-PORTFOLIO-2026-001</span></p>
         <p>Generated: <span>2026-03-29</span></p>
-        <p>Client: <span>Encevo S.A., Luxembourg</span></p>
+        <p>Suppliers Assessed: <span>10</span></p>
         <p style="margin-left:auto;">CONFIDENTIAL — For Authorised Recipients Only</p>
       </div>
 
@@ -1167,7 +1188,7 @@
 
     <!-- Summary Paragraph -->
     <div class="summary-para">
-      <p>Encevo S.A.'s top-10 supplier portfolio scores <strong>69.2/100</strong> (MEDIUM risk — CONDITIONAL). All ten assessed suppliers are in the CONDITIONAL band (60–79), with the exception of OpenAI (48/100 — REVIEW REQUIRED), which is the portfolio's sole high-risk entity.</p>
+      <p>The supplier portfolio scores <strong>69.2/100</strong> (MEDIUM risk — CONDITIONAL). All ten assessed suppliers are in the CONDITIONAL band (60–79), with the exception of OpenAI (48/100 — REVIEW REQUIRED), which is the portfolio's sole high-risk entity.</p>
       <p>The portfolio exhibits three structural vulnerabilities that require board-level attention:</p>
       <ul>
         <li>CLOUD Act exposure affecting four suppliers (Microsoft, DocuSign, OpenAI, Schneider IT) — creates an irremovable legal conflict with Encevo's GDPR obligations as a Luxembourg energy utility.</li>
@@ -1190,9 +1211,110 @@
       </div>
       <div class="alert-card">
         <div class="alert-badge"><div class="alert-dot"></div>Critical Finding</div>
-        <div class="alert-text">OpenAI scores 48/100 (REVIEW REQUIRED) — the only sub-60 supplier. Cumulative losses exceed $18B through H1 2025. Musk v. OpenAI $135B trial begins April 27, 2026. Confirm contract entity and negotiate continuity protections immediately.</div>
+        <div class="alert-text">OpenAI scores 48/100 (REVIEW REQUIRED) — the only sub-60 supplier. Reported significant cumulative losses and ongoing high-profile litigation, creating uncertainty around long-term financial sustainability. Confirm contract entity and negotiate continuity protections immediately.</div>
       </div>
     </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 2B. SUPPLIER PRIORITISATION VIEW                            -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Section 01B</div>
+    <div class="section-title">Supplier Prioritisation</div>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:20px;line-height:1.7;">Suppliers ranked by urgency of action, combining overall risk score, severity of findings, and strategic exposure. Use this view to direct procurement team attention.</p>
+
+    <table class="data-table" style="table-layout:fixed;">
+      <colgroup>
+        <col style="width:6%">
+        <col style="width:21%">
+        <col style="width:10%">
+        <col style="width:13%">
+        <col style="width:50%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th style="text-align:center;">Priority</th>
+          <th>Supplier</th>
+          <th style="text-align:center;">Score</th>
+          <th style="text-align:center;">Risk Level</th>
+          <th>Key Rationale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-weight:700;">1</td>
+          <td style="font-weight:600;">APC by Schneider Electric</td>
+          <td style="text-align:center;"><span class="pill score-med" style="font-family:'JetBrains Mono',monospace;font-size:12px;">73</span></td>
+          <td style="text-align:center;"><span class="pill pill-medium">MEDIUM</span></td>
+          <td style="font-size:12px;">Only CRITICAL finding in the portfolio — three confirmed ransomware incidents in 18 months against a KRITIS-adjacent supplier. US CLOUD Act exposure. Requires formal remediation roadmap within 30 days.</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-weight:700;">2</td>
+          <td style="font-weight:600;">OpenAI</td>
+          <td style="text-align:center;"><span class="pill score-high" style="font-family:'JetBrains Mono',monospace;font-size:12px;">48</span></td>
+          <td style="text-align:center;"><span class="pill pill-high">HIGH</span></td>
+          <td style="font-size:12px;">Sole HIGH-risk supplier in portfolio (REVIEW REQUIRED). Reported significant financial distress and ongoing high-profile litigation create service continuity and entity-viability concerns. Counterparty entity confirmation urgent.</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-weight:700;">3</td>
+          <td style="font-weight:600;">Microsoft Corporation</td>
+          <td style="text-align:center;"><span class="pill score-med" style="font-family:'JetBrains Mono',monospace;font-size:12px;">62</span></td>
+          <td style="text-align:center;"><span class="pill pill-medium">MEDIUM</span></td>
+          <td style="font-size:12px;">Lowest cybersecurity score in portfolio (P4: 39) — CSRB official finding of inadequate security culture. Active CLOUD Act exposure and unresolved GDPR data processing conflict. Structural contractual protections required.</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-weight:700;">4</td>
+          <td style="font-weight:600;">Global Facilities S.A.</td>
+          <td style="text-align:center;"><span class="pill score-med" style="font-family:'JetBrains Mono',monospace;font-size:12px;">60</span></td>
+          <td style="text-align:center;"><span class="pill pill-medium">MEDIUM</span></td>
+          <td style="font-size:12px;">No public financial disclosure. Highest financial risk in portfolio (P1: 39). Private Luxembourg FM entity with opaque ownership and no audited accounts — service continuity risk if financial distress emerges undetected.</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-weight:700;">5</td>
+          <td style="font-weight:600;">Groupe Félix Giorgetti</td>
+          <td style="text-align:center;"><span class="pill score-med" style="font-family:'JetBrains Mono',monospace;font-size:12px;">67</span></td>
+          <td style="text-align:center;"><span class="pill pill-medium">MEDIUM</span></td>
+          <td style="font-size:12px;">No public financial disclosure (P1: 44). Luxembourg construction sector under structural stress. Family-owned entity — succession and liquidity risk. Require audited financials at next contract renewal.</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-weight:700;">6</td>
+          <td style="font-weight:600;">ABB Ltd</td>
+          <td style="text-align:center;"><span class="pill score-med" style="font-family:'JetBrains Mono',monospace;font-size:12px;">75</span></td>
+          <td style="text-align:center;"><span class="pill pill-medium">MEDIUM</span></td>
+          <td style="font-size:12px;">Three-time FCPA offender — DOJ Deferred Prosecution Agreement monitoring ongoing. Active US Congressional investigation into ABB components in ZPMC port cranes. Strong financials but persistent governance risk.</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-weight:700;">7</td>
+          <td style="font-weight:600;">Siemens AG</td>
+          <td style="text-align:center;"><span class="pill score-med" style="font-family:'JetBrains Mono',monospace;font-size:12px;">76</span></td>
+          <td style="text-align:center;"><span class="pill pill-medium">MEDIUM</span></td>
+          <td style="font-size:12px;">High number of documented ICS CVEs including a CVSS 9.8 vulnerability in TeleControl Server Basic (energy-sector deployment). Unresolved NLRB labour practice charge. Request patch status and CVE remediation timeline.</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-weight:700;">8</td>
+          <td style="font-weight:600;">DocuSign</td>
+          <td style="text-align:center;"><span class="pill score-med" style="font-family:'JetBrains Mono',monospace;font-size:12px;">79</span></td>
+          <td style="text-align:center;"><span class="pill pill-medium">MEDIUM</span></td>
+          <td style="font-size:12px;">US CLOUD Act exposure — compelled government data access risk for EU client data. Strong fundamentals otherwise (debt-free, ISO 27001:2022, SOC 2 Type II). Requires CLOUD Act notification clause in contract.</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-weight:700;">9</td>
+          <td style="font-weight:600;">Amprion GmbH</td>
+          <td style="text-align:center;"><span class="pill score-med" style="font-family:'JetBrains Mono',monospace;font-size:12px;">76</span></td>
+          <td style="text-align:center;"><span class="pill pill-medium">MEDIUM</span></td>
+          <td style="font-size:12px;">BSI §8a KRITIS IT security attestation not publicly disclosed despite KRITIS designation. Cybersecurity is the only CONDITIONAL-scoring pillar (P4). Request attestation and ISO 27001 certificates within 60 days.</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-weight:700;">10</td>
+          <td style="font-weight:600;">Comarch SA</td>
+          <td style="text-align:center;"><span class="pill score-med" style="font-family:'JetBrains Mono',monospace;font-size:12px;">76</span></td>
+          <td style="text-align:center;"><span class="pill pill-medium">MEDIUM</span></td>
+          <td style="font-size:12px;">PE-driven leadership transition under CVC ownership — near-complete senior management replacement. Three ERP CVEs including hard-coded shared password. Monitor quarterly and verify CVE patches at next contract review.</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
 
@@ -1205,6 +1327,11 @@
 
     <div class="matrix-wrap">
       <table class="matrix-table">
+        <colgroup>
+          <col style="width:160px">
+          <col><col><col><col><col><col>
+          <col style="width:68px">
+        </colgroup>
         <thead>
           <tr>
             <th class="col-supplier">Supplier</th>
@@ -1355,72 +1482,91 @@
 
       <!-- Left: Donut Chart -->
       <div class="chart-card">
-        <div class="chart-title">High / Medium / Low Split</div>
-        <div class="chart-svg-wrap">
-          <!-- Donut SVG — replace stroke-dasharray/offset values based on 1, 9, 0 -->
-          <!-- Circumference of r=70 circle ≈ 439.82. Each segment = (count/total)*439.82 -->
-          <!-- Template values below use 3 high, 4 medium, 3 low out of 10 -->
-          <svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="110" cy="110" r="70" fill="none" stroke="#E2E8F0" stroke-width="28"/>
-            <circle cx="110" cy="110" r="70" fill="none"
-              stroke="#B83B2E" stroke-width="28"
-              stroke-dasharray="43.98 395.84"
-              stroke-dashoffset="0.00"
-              transform="rotate(-90 110 110)"/>
-            <circle cx="110" cy="110" r="70" fill="none"
-              stroke="#B5751A" stroke-width="28"
-              stroke-dasharray="395.84 43.98"
-              stroke-dashoffset="-43.98"
-              transform="rotate(-90 110 110)"/>
-            <circle cx="110" cy="110" r="70" fill="none"
-              stroke="#2D7A4F" stroke-width="28"
-              stroke-dasharray="0.00 439.82"
-              stroke-dashoffset="-439.82"
-              transform="rotate(-90 110 110)"/>
-            <text x="110" y="104" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="28" font-weight="700" fill="#0F1729">10</text>
-            <text x="110" y="122" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#4A5568" letter-spacing="1">SUPPLIERS</text>
-            <text x="38" y="76" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#B83B2E">1</text>
-            <text x="38" y="89" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#B83B2E">HIGH</text>
-            <text x="183" y="110" text-anchor="start" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#B5751A">9</text>
-            <text x="183" y="122" text-anchor="start" font-family="Inter,sans-serif" font-size="9" fill="#B5751A">MED</text>
-            <text x="38" y="152" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#2D7A4F">0</text>
-            <text x="38" y="165" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#2D7A4F">LOW</text>
-          </svg>
+        <div class="chart-header">High / Medium / Low Split</div>
+        <div class="chart-body">
+          <div class="chart-svg-wrap">
+            <!-- Circumference of r=56: 2π×56 ≈ 351.86 | High 1/10=35.19 | Med 9/10=316.67 | Low=0 -->
+            <svg width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="80" cy="80" r="56" fill="none" stroke="#E2E8F0" stroke-width="22"/>
+              <circle cx="80" cy="80" r="56" fill="none"
+                stroke="#B83B2E" stroke-width="22"
+                stroke-dasharray="35.19 316.67"
+                stroke-dashoffset="0"
+                transform="rotate(-90 80 80)"/>
+              <circle cx="80" cy="80" r="56" fill="none"
+                stroke="#B5751A" stroke-width="22"
+                stroke-dasharray="316.67 35.19"
+                stroke-dashoffset="-35.19"
+                transform="rotate(-90 80 80)"/>
+              <text x="80" y="74" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="26" font-weight="700" fill="#0F1729">10</text>
+              <text x="80" y="91" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#4A5568" letter-spacing="0.1em">SUPPLIERS</text>
+            </svg>
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <span style="width:12px;height:12px;background:#B83B2E;display:inline-block;flex-shrink:0;"></span>
+                <div>
+                  <div style="font-size:22px;font-weight:700;font-family:'JetBrains Mono',monospace;color:#B83B2E;line-height:1;letter-spacing:-0.02em;">1</div>
+                  <div style="font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#4A5568;margin-top:2px;">High Risk</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <span style="width:12px;height:12px;background:#B5751A;display:inline-block;flex-shrink:0;"></span>
+                <div>
+                  <div style="font-size:22px;font-weight:700;font-family:'JetBrains Mono',monospace;color:#B5751A;line-height:1;letter-spacing:-0.02em;">9</div>
+                  <div style="font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#4A5568;margin-top:2px;">Medium Risk</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <span style="width:12px;height:12px;background:#2D7A4F;display:inline-block;flex-shrink:0;"></span>
+                <div>
+                  <div style="font-size:22px;font-weight:700;font-family:'JetBrains Mono',monospace;color:#2D7A4F;line-height:1;letter-spacing:-0.02em;">0</div>
+                  <div style="font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#4A5568;margin-top:2px;">Low Risk</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Right: Horizontal Bar Chart -->
       <div class="chart-card">
-        <div class="chart-title">Average Score by Risk Pillar</div>
-        <!-- Bar chart — bar widths are (score/100)*100% of a 220px track -->
-        <!-- Replace inline widths/colors/labels using template variables -->
-        <svg width="100%" height="230" viewBox="0 0 320 230" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;">
-  <text x="0" y="20" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Financial</text>
-  <rect x="80" y="8" width="220" height="14" rx="3" fill="#E2E8F0"/>
-  <rect x="80" y="8" width="148" height="14" rx="3" fill="#B5751A"/>
-  <text x="234" y="20" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#B5751A">67.1</text>
-  <text x="0" y="57" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">ESG</text>
-  <rect x="80" y="45" width="220" height="14" rx="3" fill="#E2E8F0"/>
-  <rect x="80" y="45" width="140" height="14" rx="3" fill="#B5751A"/>
-  <text x="226" y="57" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#B5751A">63.6</text>
-  <text x="0" y="94" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Regulatory</text>
-  <rect x="80" y="82" width="220" height="14" rx="3" fill="#E2E8F0"/>
-  <rect x="80" y="82" width="181" height="14" rx="3" fill="#2D7A4F"/>
-  <text x="267" y="94" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#2D7A4F">82.4</text>
-  <text x="0" y="131" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Cyber</text>
-  <rect x="80" y="119" width="220" height="14" rx="3" fill="#E2E8F0"/>
-  <rect x="80" y="119" width="131" height="14" rx="3" fill="#B83B2E"/>
-  <text x="217" y="131" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#B83B2E">59.7</text>
-  <text x="0" y="168" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Operational</text>
-  <rect x="80" y="156" width="220" height="14" rx="3" fill="#E2E8F0"/>
-  <rect x="80" y="156" width="163" height="14" rx="3" fill="#B5751A"/>
-  <text x="249" y="168" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#B5751A">74.0</text>
-  <text x="0" y="205" font-family="Inter,sans-serif" font-size="10" fill="#4A5568">Reputation</text>
-  <rect x="80" y="193" width="220" height="14" rx="3" fill="#E2E8F0"/>
-  <rect x="80" y="193" width="149" height="14" rx="3" fill="#B5751A"/>
-  <text x="235" y="205" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#B5751A">67.9</text>
-</svg>
-        <div style="margin-top:10px; font-size:10px; color:var(--text-secondary);">Bar width proportional to score (0–100). Color reflects risk band.</div>
+        <div class="chart-header">Average Score by Risk Pillar</div>
+        <div class="chart-body">
+          <!-- Track: x=80 → x=275 (195px). Score label always at x=281. ViewBox 320×215. Sharp bars (no rx). -->
+          <svg width="100%" height="215" viewBox="0 0 320 215" xmlns="http://www.w3.org/2000/svg">
+            <!-- Financial 67.1 → 131px -->
+            <text x="0" y="16" font-family="Inter,sans-serif" font-size="11" fill="#4A5568">Financial</text>
+            <rect x="80" y="4" width="195" height="14" fill="#E2E8F0"/>
+            <rect x="80" y="4" width="131" height="14" fill="#B5751A"/>
+            <text x="281" y="16" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#B5751A">67.1</text>
+            <!-- ESG 63.6 → 124px -->
+            <text x="0" y="51" font-family="Inter,sans-serif" font-size="11" fill="#4A5568">ESG</text>
+            <rect x="80" y="39" width="195" height="14" fill="#E2E8F0"/>
+            <rect x="80" y="39" width="124" height="14" fill="#B5751A"/>
+            <text x="281" y="51" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#B5751A">63.6</text>
+            <!-- Regulatory 82.4 → 161px -->
+            <text x="0" y="86" font-family="Inter,sans-serif" font-size="11" fill="#4A5568">Regulatory</text>
+            <rect x="80" y="74" width="195" height="14" fill="#E2E8F0"/>
+            <rect x="80" y="74" width="161" height="14" fill="#2D7A4F"/>
+            <text x="281" y="86" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#2D7A4F">82.4</text>
+            <!-- Cyber 59.7 → 116px -->
+            <text x="0" y="121" font-family="Inter,sans-serif" font-size="11" fill="#4A5568">Cyber</text>
+            <rect x="80" y="109" width="195" height="14" fill="#E2E8F0"/>
+            <rect x="80" y="109" width="116" height="14" fill="#B83B2E"/>
+            <text x="281" y="121" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#B83B2E">59.7</text>
+            <!-- Operational 74.0 → 144px -->
+            <text x="0" y="156" font-family="Inter,sans-serif" font-size="11" fill="#4A5568">Operational</text>
+            <rect x="80" y="144" width="195" height="14" fill="#E2E8F0"/>
+            <rect x="80" y="144" width="144" height="14" fill="#B5751A"/>
+            <text x="281" y="156" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#B5751A">74.0</text>
+            <!-- Reputation 67.9 → 132px -->
+            <text x="0" y="191" font-family="Inter,sans-serif" font-size="11" fill="#4A5568">Reputation</text>
+            <rect x="80" y="179" width="195" height="14" fill="#E2E8F0"/>
+            <rect x="80" y="179" width="132" height="14" fill="#B5751A"/>
+            <text x="281" y="191" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#B5751A">67.9</text>
+          </svg>
+          <div style="margin-top:10px;font-size:10px;color:var(--text-secondary);">Score range 0–100. Red = HIGH risk, Amber = MEDIUM, Green = LOW.</div>
+        </div>
       </div>
 
     </div>
@@ -1434,13 +1580,21 @@
     <div class="section-label">Section 04</div>
     <div class="section-title">Sector Exposure Analysis</div>
 
-    <table class="data-table">
+    <table class="data-table" style="table-layout:fixed;">
+      <colgroup>
+        <col style="width:26%">
+        <col style="width:9%">
+        <col style="width:22%">
+        <col style="width:32%">
+        <col style="width:11%">
+      </colgroup>
       <thead>
         <tr>
           <th>Sector</th>
-          <th># Suppliers</th>
+          <th style="text-align:center;"># Suppliers</th>
           <th>Dominant Risk</th>
           <th>Key Regulatory Exposure</th>
+          <th style="text-align:center;">Avg Score</th>
         </tr>
       </thead>
       <tbody>
@@ -1466,7 +1620,7 @@
           <td style="text-align:center;"><span class="pill score-med" style="font-family:'JetBrains Mono',monospace;font-size:12px;">66.3</span></td>
         </tr>
         <tr>
-          <td><span class="finding-title">FM / Services</span><span class="finding-desc">Global, Groupe</span></td>
+          <td><span class="finding-title">FM / Services</span><span class="finding-desc">Global Facilities, Félix Giorgetti</span></td>
           <td style="text-align:center;"><span class="pill pill-info">2</span></td>
           <td><span class="pill pill-high">Financial Opacity</span></td>
           <td style="font-size:12px;">LkSG (labour / supply chain), CSRD, ISO 45001</td>
@@ -1526,7 +1680,7 @@
           <td><span class="pill pill-medium">Medium</span></td>
           <td><span class="pill pill-medium">Voluntary</span></td>
           <td><span class="pill pill-medium">Direct</span></td>
-          <td style="font-size:12px;">Triple FCPA recidivist status (DOJ DPA active); ZPMC crane Congressional investigation</td>
+          <td style="font-size:12px;">Three-time FCPA offender status (DOJ DPA active); ZPMC crane Congressional investigation</td>
         </tr>
         <tr>
           <td><span class="finding-title">Luxembourg</span><span class="finding-desc">Global Facilities, Félix Giorgetti</span></td>
@@ -1550,7 +1704,7 @@
           <td><span class="pill pill-low">Low</span></td>
           <td><span class="pill pill-medium">In Scope</span></td>
           <td><span class="pill pill-medium">Direct</span></td>
-          <td style="font-size:12px;">Three ransomware incidents 2023–2024; €207M competition fine Oct 2024; $11M DOJ FCA settlement Apr 2024</td>
+          <td style="font-size:12px;">Three ransomware incidents 2023–2024; €207M French Competition Authority fine Oct 2024</td>
         </tr>
         <!-- Example row:
         <tr>
@@ -1597,13 +1751,13 @@
           <td class="action-cell">Request formal cybersecurity remediation roadmap within 30 days; confirm Encevo-facing systems isolated from previously breached environments</td>
         </tr>
         <tr>
-          <td><span class="finding-title">US CLOUD Act — Structural Data Sovereignty Risk Across Four Suppliers</span><span class="finding-desc">Microsoft, DocuSign, OpenAI, and Schneider Electric IT are US-incorporated entities subject to compelled government data access orders that override GDPR protections. US courts have already overridden GDPR erasure rights in OpenAI EU customer case.</span></td>
+          <td><span class="finding-title">US CLOUD Act — Structural Data Sovereignty Risk Across Four Suppliers</span><span class="finding-desc">Microsoft, DocuSign, OpenAI, and Schneider Electric IT are US-incorporated entities subject to compelled government data access orders that override GDPR protections. A US civil court has ordered OpenAI to retain EU customer data under a litigation preservation hold, directly conflicting with GDPR Article 17 erasure rights.</span></td>
           <td class="suppliers-cell">Microsoft, DocuSign, OpenAI, Schneider IT</td>
           <td><span class="pill pill-high">HIGH</span></td>
           <td class="action-cell">Require CLOUD Act notification clauses (24hr notice + right to contest) in all four contracts; mandate EU-sovereign data hosting for Encevo sensitive workloads</td>
         </tr>
         <tr>
-          <td><span class="finding-title">OpenAI — Structural Financial Distress and Only Sub-60 Supplier</span><span class="finding-desc">OpenAI is the sole HIGH risk supplier (48/100 — REVIEW REQUIRED). Cumulative losses exceed $18B through H1 2025; profitability deferred to 2029 at earliest. Ongoing Musk v. OpenAI litigation ($135B trial). Service viability risk.</span></td>
+          <td><span class="finding-title">OpenAI — Structural Financial Distress and Only Sub-60 Supplier</span><span class="finding-desc">OpenAI is the sole HIGH risk supplier (48/100 — REVIEW REQUIRED). Reported significant cumulative losses with profitability path uncertain. Ongoing high-profile litigation creates additional uncertainty around long-term financial sustainability. Service viability risk.</span></td>
           <td class="suppliers-cell">OpenAI OpCo LLC</td>
           <td><span class="pill pill-high">HIGH</span></td>
           <td style="font-size:12px;">Confirm contractual counterparty; negotiate service continuity protection; identify alternative AI platform as contingency</td>
@@ -1659,7 +1813,7 @@
               <th>Investigating Body</th>
               <th>Matter</th>
               <th>Dimension</th>
-              <th>Potential Severity</th>
+              <th>Severity</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -1667,42 +1821,42 @@
             <tr>
               <td><strong>OpenAI</strong></td>
               <td>US Federal Court (SDNY)</td>
-              <td>Musk v. OpenAI — $135B fraud &amp; breach of contract (trial starts Apr 27, 2026)</td>
-              <td><span class="pill pill-info">Governance</span></td>
-              <td><span class="pill pill-high">HIGH</span></td>
-              <td><span class="trend-badge trend-ESCALATING" style="font-size:10px;">Active</span></td>
+              <td>Musk v. OpenAI — High-profile fraud &amp; breach of contract litigation (trial pending, 2026)</td>
+              <td><span class="dim-tag">Governance</span></td>
+              <td><span class="sev-tag-high">High</span></td>
+              <td><span class="status-tag">↑ Active</span></td>
             </tr>
             <tr>
               <td><strong>OpenAI</strong></td>
               <td>Multiple federal courts (US)</td>
               <td>50+ copyright infringement lawsuits — training data legal basis unresolved until 2026+</td>
-              <td><span class="pill pill-info">IP / Data Ethics</span></td>
-              <td><span class="pill pill-high">HIGH</span></td>
-              <td><span class="trend-badge trend-ESCALATING" style="font-size:10px;">Active</span></td>
+              <td><span class="dim-tag">IP / Data Ethics</span></td>
+              <td><span class="sev-tag-high">High</span></td>
+              <td><span class="status-tag">↑ Active</span></td>
             </tr>
             <tr>
               <td><strong>Microsoft</strong></td>
               <td>EU Commission DG COMP</td>
-              <td>Teams bundling antitrust investigation — potential fine €1B+ if found in breach</td>
-              <td><span class="pill pill-info">Governance</span></td>
-              <td><span class="pill pill-medium">MEDIUM</span></td>
-              <td><span class="trend-badge trend-STABLE" style="font-size:10px;">Ongoing</span></td>
+              <td>Teams bundling antitrust — settled September 2025 (compliance obligations ongoing)</td>
+              <td><span class="dim-tag">Governance</span></td>
+              <td><span class="sev-tag-low">Low</span></td>
+              <td><span class="status-tag">→ Settled</span></td>
             </tr>
             <tr>
               <td><strong>ABB</strong></td>
               <td>US DOJ / SEC</td>
               <td>FCPA DPA monitoring period — compliance programme under DOJ supervision post-December 2022 settlement</td>
-              <td><span class="pill pill-info">Corruption</span></td>
-              <td><span class="pill pill-medium">MEDIUM</span></td>
-              <td><span class="trend-badge trend-STABLE" style="font-size:10px;">Monitoring</span></td>
+              <td><span class="dim-tag">Corruption</span></td>
+              <td><span class="sev-tag-medium">Medium</span></td>
+              <td><span class="status-tag">→ Monitoring</span></td>
             </tr>
             <tr>
               <td><strong>Siemens</strong></td>
               <td>US NLRB</td>
               <td>Unfair labour practice charge — Siemens Mobility Sacramento (unresolved as of assessment)</td>
-              <td><span class="pill pill-info">Labour Rights</span></td>
-              <td><span class="pill pill-low">LOW</span></td>
-              <td><span class="trend-badge trend-STABLE" style="font-size:10px;">Pending</span></td>
+              <td><span class="dim-tag">Labour Rights</span></td>
+              <td><span class="sev-tag-low">Low</span></td>
+              <td><span class="status-tag">→ Pending</span></td>
             </tr>
           </tbody>
         </table>
@@ -1715,16 +1869,13 @@
             <td>Supplier Name</td>
             <td>European Commission DG COMP</td>
             <td>Antitrust investigation into market bundling practices</td>
-            <td><span class="pill pill-info">Governance</span></td>
-            <td><span class="pill pill-medium">HIGH</span></td>
+            <td><span class="dim-tag">Governance</span></td>
+            <td><span class="pri-high">High</span></td>
             <td><span class="trend-badge trend-ESCALATING" style="font-size:10px;">Active</span></td>
           </tr>
         </tbody>
       </table>
     -->
-    <p style="font-size:11px; color:var(--text-secondary); margin-top:12px;">
-      If no pending investigations were identified for any supplier in this portfolio, this section will be empty. Source: Hunter 2E forward-looking investigation queries (FW1–FW5).
-    </p>
   </section>
 
   <!-- ════════════════════════════════════════════════════════════ -->
@@ -1776,7 +1927,7 @@
           </div>
           <ul class="snap-flags">
               <li class="flag-medium">Moody's Outlook Changed to Negative (April 2025) — Elevated Capex Leverage</li>
-              <li class="flag-medium">ISO 27001 Certification and BSI §8a Attestation Not Publicly Disclosed</li>
+              <li class="flag-medium">BSI §8a KRITIS IT Security Attestation Not Publicly Disclosed</li>
           </ul>
           <div class="snap-narrative">Amprion GmbH is a financially sound, ESG-leading German TSO (score 76/100). The CONDITIONAL verdict reflects two structural concerns: elevated financial leverage (net debt/EBITDA ~6.9x) driven by a €36.4B grid investment programme, and unverified cybersecurity certification posture despite KRITIS designation. All sanctions, AML, GDPR, and ESG checks returned clean.</div>
           <div class="priority-action-box">
@@ -1826,10 +1977,10 @@
           </div>
           <ul class="snap-flags">
               <li class="flag-high">TeleControl Server Basic — Critical SQL Injection CVEs (CVSS 9.8) with energy sector deployment footprint</li>
-              <li class="flag-high">Gridscale X Prepay — Critical Vulnerability (CVSS 9.5) in energy management / smart metering product — patch status unconfirmed</li>
+              <li class="flag-medium">Siemens Gridscale X Prepay — Multiple CVEs in smart metering / energy management software (CVSS up to 6.3) — patch status unconfirmed</li>
               <li class="flag-medium">Austrian KHBG hospital fraud investigation — former Siemens Vorarlberg subsidiary employee, ongoing WKStA proceedings</li>
           </ul>
-          <div class="snap-narrative">Siemens AG scores 75.6/100 (CONDITIONAL) with triple investment-grade ratings, a clean sanctions record, and 179 years of operational continuity. The score is constrained by 966 documented ICS CVEs — including a CVSS 9.8 vulnerability in TeleControl Server Basic with direct energy-sector deployment — and an unresolved NLRB unfair labour practice charge. No CRITICAL findings identified.</div>
+          <div class="snap-narrative">Siemens AG scores 75.6/100 (CONDITIONAL) with triple investment-grade ratings, a clean sanctions record, and 179 years of operational continuity. The score is constrained by a high number of documented ICS CVEs — including a CVSS 9.8 vulnerability in TeleControl Server Basic with direct energy-sector deployment — and an unresolved NLRB unfair labour practice charge. No CRITICAL findings identified.</div>
         </div>
       </div>
       <div class="snap-card">
@@ -1872,7 +2023,7 @@
             </div>
           </div>
           <ul class="snap-flags">
-              <li class="flag-high">ABB — Triple FCPA Recidivist: $462.5M Settlement December 2022, Pattern of Targeting Energy Utilities</li>
+              <li class="flag-high">ABB — Three-Time FCPA Offender: $462.5M Settlement December 2022, Pattern of Targeting Energy Utilities</li>
               <li class="flag-high">ABB Components in ZPMC Cranes at US Ports — Active US Congressional Investigation for National Security Risk</li>
               <li class="flag-medium">May 2023 Black Basta Ransomware Attack — Confirmed Data Exfiltration, Operational Disruption</li>
           </ul>
@@ -1925,9 +2076,9 @@
           <ul class="snap-flags">
               <li class="flag-high">CSRB Official Finding: Microsoft Security 'Subpar' — Exchange Online Breach 'Preventable'</li>
               <li class="flag-high">Russian SVR (Midnight Blizzard) Breached Microsoft Corporate Email and Source Code — January-March 2024</li>
-              <li class="flag-medium">EU Commission Teams Antitrust — Settled September 2025 with 7-10 Year Binding Obligations</li>
+              <li class="flag-medium">EU Commission Teams Antitrust — Settled September 2025 (compliance obligations ongoing)</li>
           </ul>
-          <div class="snap-narrative">Microsoft Corporation scores 62/100 (MEDIUM risk — CONDITIONAL). Despite exceptional financial strength (P1: 88) and irreplaceable enterprise platform position, engagement requires four contractual protections: Cloud for Sovereignty deployment, SFI remediation evidence (CSRB censure), updated GDPR Data Processing Agreement, and Azure SLA enhancements with financial penalties for outages exceeding 4 hours.</div>
+          <div class="snap-narrative">Microsoft Corporation scores 62/100 (MEDIUM risk — CONDITIONAL). Despite exceptional financial strength and irreplaceable enterprise platform position, engagement requires contractual protections covering data sovereignty deployment, cybersecurity standards remediation, and GDPR-compliant data processing.</div>
           <div class="priority-action-box">
             <div class="priority-action-label">Priority Action</div>
             <div class="priority-action-text">Require Microsoft Cloud for Sovereignty deployment for all Encevo workloads — with NIS2-compliant Supply Chain Security Agreement as a binding contract annex</div>
@@ -1975,10 +2126,9 @@
           </div>
           <ul class="snap-flags">
               <li class="flag-high">US CLOUD Act exposure: DocuSign subject to US government compelled data access for EU customer data</li>
-              <li class="flag-high">Recurring service outages: 483 incidents in ~25 months including 7hr 42min outage March 2026</li>
               <li class="flag-medium">DocuSign API platform abused by threat actors for large-scale phishing invoice fraud (November 2024)</li>
           </ul>
-          <div class="snap-narrative">DocuSign scores 79/100 (upper boundary of CONDITIONAL) with strong fundamentals: debt-free, $920M free cash flow, ISO 27001:2022, SOC 2 Type II. Two material risks require contractual mitigation: US CLOUD Act exposure creating an irresolvable data sovereignty conflict for EU client Encevo, and a documented pattern of 483 service outages in ~25 months including a 7hr 42min outage in March 2026.</div>
+          <div class="snap-narrative">DocuSign scores 79/100 (upper boundary of CONDITIONAL) with strong fundamentals: debt-free, $920M free cash flow, ISO 27001:2022, SOC 2 Type II. One material risk requires contractual mitigation: US CLOUD Act exposure, which creates a data sovereignty conflict for EU clients and should be addressed via CLOUD Act notification clauses and EU-sovereign data hosting requirements.</div>
           <div class="priority-action-box">
             <div class="priority-action-label">Priority Action</div>
             <div class="priority-action-text">Negotiate CLOUD Act notification clause into DocuSign service agreement before contract execution. Clause must require 24-hour notice of any US government compelled-access request relating to Encevo data, with right to contest and EU law override provisions.</div>
@@ -2025,14 +2175,14 @@
             </div>
           </div>
           <ul class="snap-flags">
-              <li class="flag-high">Structural unprofitability — $5B+ losses FY2024, $13.5B losses H1 2025, $14B projected 2026</li>
-              <li class="flag-high">Musk v. OpenAI $135B fraud trial begins April 27, 2026 — CEO personally named</li>
-              <li class="flag-medium">Data labeller supply chain — modern slavery risk in content moderation outsourcing</li>
+              <li class="flag-high">Reported significant cumulative financial losses — service continuity and long-term viability risk</li>
+              <li class="flag-high">US civil court litigation hold requiring retention of EU customer data — confirmed conflict with GDPR Article 17 erasure rights</li>
+              <li class="flag-medium">Material changes to AI safety governance framework — increased regulatory and reputational exposure</li>
           </ul>
-          <div class="snap-narrative">OpenAI scores 48/100 (REVIEW REQUIRED) reflecting three converging risk clusters: structural financial distress ($5B FY2024 losses, ~$13.5B H1 2025, profitability deferred to 2029–2030); confirmed CLOUD Act conflict with a US court order overriding GDPR erasure rights; and safety/reputational deterioration including deliberate weakening of its AI safety framework and a $135B fraud trial beginning April 2026.</div>
+          <div class="snap-narrative">OpenAI scores 48/100 (REVIEW REQUIRED) reflecting three converging risk clusters: structural financial distress (reported significant cumulative losses; near-term profitability path unclear); a US civil court ordering retention of EU customer data in direct conflict with GDPR Article 17 erasure rights; and material changes to its AI safety governance framework raising regulatory and reputational concerns.</div>
           <div class="priority-action-box">
             <div class="priority-action-label">Priority Action</div>
-            <div class="priority-action-text">Verify contractual counterparty entity name on all Encevo-OpenAI agreements (OpenAI OpCo LLC, OpenAI Group PBC, or OpenAI Ireland Limited) and negotiate CLOUD Act addendum specifying data handling, notification obligations, and service continuity protections given $18B+ accumulated losses.</div>
+            <div class="priority-action-text">Verify contractual counterparty entity name on all Encevo-OpenAI agreements (OpenAI OpCo LLC, OpenAI Group PBC, or OpenAI Ireland Limited) and negotiate CLOUD Act addendum specifying data handling, notification obligations, and service continuity protections given reported financial distress and accumulated losses.</div>
           </div>
         </div>
       </div>
@@ -2127,14 +2277,14 @@
             </div>
           </div>
           <ul class="snap-flags">
-              <li class="flag-medium">Chinese state-linked indirect ownership (24.92% of Encevo) — geopolitical flag</li>
-              <li class="flag-medium">No ISO 27001 certification — physical access to critical infrastructure without confirmed information security standard</li>
-              <li class="flag-medium">NIS2 Article 21 supply chain security obligations — compliance status unconfirmed</li>
+              <li class="flag-high">No public financial disclosure — private subsidiary with no audited accounts or credit rating</li>
+              <li class="flag-medium">Opaque ownership structure — beneficial ownership not publicly confirmed</li>
+              <li class="flag-medium">No formal ESG or sustainability framework disclosed</li>
           </ul>
-          <div class="snap-narrative">Global Facilities S.A. scores 60.3/100 with a 25-year track record, clean regulatory record (P3: 92/100), and strong reputational standing (P6: 100/100). Primary risks are near-complete financial opacity as a private subsidiary (P1: 39/100), absence of ISO 27001 despite physical access to NIS2 critical infrastructure (P4: 55/100), and indirect Chinese SOE ownership creating geopolitical sensitivity.</div>
+          <div class="snap-narrative">Global Facilities S.A. scores 60.3/100 with a 25-year track record, clean regulatory record (P3: 92/100), and strong reputational standing (P6: 100/100). The primary risk is financial opacity — as a private subsidiary with no public accounts or credit rating, financial distress could emerge without warning. Require audited annual financial statements and financial covenant thresholds as contractual conditions at next renewal.</div>
           <div class="priority-action-box">
             <div class="priority-action-label">Priority Action</div>
-            <div class="priority-action-text">Require Global Facilities S.A. to obtain ISO 27001 certification or equivalent within 12 months</div>
+            <div class="priority-action-text">Require annual audited financial statements as a contractual obligation. Impose minimum financial covenant thresholds (current ratio, net debt ceiling) with service continuity triggers.</div>
           </div>
         </div>
       </div>
@@ -2231,7 +2381,6 @@
           <ul class="snap-flags">
               <li class="flag-high">Three Ransomware Incidents in 18 Months — Systemic Security Pattern (2023-2024)</li>
               <li class="flag-high">French Competition Authority — €207M Price-Fixing Fine (October 2024)</li>
-              <li class="flag-high">US DOJ False Claims Act Settlement — $11M (April 2024)</li>
           </ul>
           <div class="snap-narrative">Schneider Electric IT Corporation (APC brand) scores 73/100 with exceptional financial stability (A2/A rated, record FY2024 revenues) and best-in-class ESG credentials. However, three ransomware incidents within 18 months — including a November 2024 developer platform breach with stolen data published on the dark web — drive cybersecurity to CRITICAL (P4: 37/100), requiring formal remediation assurance before continued engagement.</div>
           <div class="priority-action-box">
@@ -2255,11 +2404,10 @@
     <table class="data-table actions-table">
       <colgroup>
         <col style="width:4%">
-        <col style="width:9%">
-        <col style="width:37%">
-        <col style="width:18%">
-        <col style="width:18%">
-        <col style="width:14%">
+        <col style="width:13%">
+        <col style="width:55%">
+        <col style="width:16%">
+        <col style="width:12%">
       </colgroup>
       <thead>
         <tr>
@@ -2268,89 +2416,78 @@
           <th>Action</th>
           <th>Affected Suppliers</th>
           <th>Owner</th>
-          <th>Timeline</th>
         </tr>
       </thead>
       <tbody>
-                <tr>
+        <tr>
           <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">1</td>
-          <td><span class="pill pill-high">IMMEDIATE</span></td>
-          <td style="font-size:12px;font-weight:500;line-height:1.5;">Schneider IT — Request formal cybersecurity remediation roadmap covering all 3 ransomware incidents (Jun 2023, Jan 2024, Nov 2024). Confirm Encevo-facing systems isolated from breached environments.</td>
-          <td style="font-size:11px;color:var(--text-secondary);">Schneider IT</td>
-          <td style="font-size:11px;color:var(--text-secondary);">Encevo CISO / Procurement</td>
-          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Within 30 days</td>
+          <td><span class="pri-immediate">Immediate</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">Schneider IT — Issue formal written notice requiring a Board-approved cybersecurity remediation roadmap within 30 days, addressing each of the three ransomware incidents (Cl0p/MOVEit Jun 2023, Cactus Jan 2024, HellCat Nov 2024) with root-cause analysis and corrective actions per incident. Roadmap must include confirmation — with supporting network topology evidence — that OT/ICS systems deployed at operational sites are segmented from Schneider's corporate IT perimeter. Obtain this confirmation before next scheduled on-site access.</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Schneider Electric IT (APC)</td>
+          <td style="font-size:11px;color:var(--text-secondary);">CISO / Procurement</td>
         </tr>
         <tr>
           <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">2</td>
-          <td><span class="pill pill-high">IMMEDIATE</span></td>
-          <td style="font-size:12px;font-weight:500;line-height:1.5;">OpenAI — Confirm contractual counterparty entity (OpenAI OpCo LLC vs OpenAI Ireland Limited); negotiate CLOUD Act addendum and service continuity protections given $18B+ accumulated losses.</td>
-          <td style="font-size:11px;color:var(--text-secondary);">OpenAI</td>
-          <td style="font-size:11px;color:var(--text-secondary);">Encevo Legal / Procurement</td>
-          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Within 30 days</td>
+          <td><span class="pri-immediate">Immediate</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">OpenAI — Identify the exact legal counterparty on all current agreements (OpenAI OpCo LLC, OpenAI Group PBC, or OpenAI Ireland Limited) and verify the entity has contractual continuity obligations binding on successors. Insert a service continuity clause requiring 90-day advance notice of any restructuring, insolvency proceeding, or change of control, with an obligation to provide data portability assistance and transition support. Separately, insert a CLOUD Act addendum requiring notification of any US government compelled-access request within 72 hours.</td>
+          <td style="font-size:11px;color:var(--text-secondary);">OpenAI OpCo LLC</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Legal / Procurement</td>
         </tr>
         <tr>
           <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">3</td>
-          <td><span class="pill pill-high">URGENT</span></td>
-          <td style="font-size:12px;font-weight:500;line-height:1.5;">Comarch — Emergency patch verification: confirm Comarch ERP XL version in Encevo production is post-2023.2 (patched for CVE-2023-4537/4538/4539 including hard-coded shared database password).</td>
-          <td style="font-size:11px;color:var(--text-secondary);">Comarch</td>
-          <td style="font-size:11px;color:var(--text-secondary);">Encevo IT Security</td>
-          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Within 30 days</td>
+          <td><span class="pri-urgent">Urgent</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">Comarch — Obtain written patch certification from Comarch confirming all Encevo production deployments of ERP XL run version 2023.2 or later. Pre-2023.2 releases contain CVE-2023-4539 (a hard-coded shared database password identical across all installations) and related CVEs 4537/4538. If any deployment is found to be unpatched, suspend non-essential ERP integrations immediately and escalate to CISO with a defined remediation deadline.</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Comarch SA</td>
+          <td style="font-size:11px;color:var(--text-secondary);">IT Security</td>
         </tr>
         <tr>
           <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">4</td>
-          <td><span class="pill pill-high">URGENT</span></td>
-          <td style="font-size:12px;font-weight:500;line-height:1.5;">CLOUD Act Portfolio Action — Insert notification clauses (24hr notice, right to contest, EU law override) in contracts with all four US-headquartered suppliers. Mandate EU-sovereign hosting for sensitive workloads.</td>
+          <td><span class="pri-urgent">Urgent</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">CLOUD Act — Engage EU data protection counsel to draft a standardised CLOUD Act addendum for insertion into contracts with all four US-incorporated suppliers. The addendum must require: (i) 72-hour advance notification of any US government compelled-access request affecting data; (ii) obligation to exhaust all available legal challenges before compliance; (iii) EU-sovereign data residency for workloads classified as operationally critical or containing personal data of EU data subjects.</td>
           <td style="font-size:11px;color:var(--text-secondary);">Microsoft, DocuSign, OpenAI, Schneider IT</td>
-          <td style="font-size:11px;color:var(--text-secondary);">Encevo Legal</td>
-          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Within 60 days</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Legal</td>
         </tr>
         <tr>
           <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">5</td>
-          <td><span class="pill pill-medium">HIGH</span></td>
-          <td style="font-size:12px;font-weight:500;line-height:1.5;">Microsoft — Require Microsoft Cloud for Sovereignty deployment for all Encevo workloads. Execute NIS2-compliant Supply Chain Security Agreement as binding contract annex.</td>
+          <td><span class="pri-high">High</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">Microsoft — Instruct the Microsoft account team to migrate all workloads to Microsoft Cloud for Sovereignty (MC4S) deployed in EU data centre regions. Separately, execute a NIS2-aligned Supply Chain Security Addendum specifying: Microsoft's Secure Future Initiative (SFI) remediation milestones, incident response SLAs applicable to critical infrastructure clients, and financial penalties for security incidents attributable to Microsoft platform vulnerabilities confirmed by the CSRB or equivalent authority.</td>
           <td style="font-size:11px;color:var(--text-secondary);">Microsoft Corporation</td>
-          <td style="font-size:11px;color:var(--text-secondary);">Encevo IT / Legal</td>
-          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Within 90 days</td>
+          <td style="font-size:11px;color:var(--text-secondary);">IT / Legal</td>
         </tr>
         <tr>
           <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">6</td>
-          <td><span class="pill pill-medium">HIGH</span></td>
-          <td style="font-size:12px;font-weight:500;line-height:1.5;">ABB — Obtain written confirmation that December 2022 DOJ FCPA Deferred Prosecution Agreement enhanced compliance programme is on track. Request DOJ monitoring period end date.</td>
+          <td><span class="pri-high">High</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">ABB — Request from ABB's General Counsel: (i) written confirmation that the December 2022 DOJ FCPA Deferred Prosecution Agreement compliance programme has no material adverse findings to date; (ii) the DPA expiry date and post-DPA compliance obligations; (iii) current status of the US Congressional investigation into ABB components in ZPMC port cranes. Insert a contractual representation and warranty clause requiring ABB to notify of any DPA breach or new government enforcement action within 30 days of occurrence.</td>
           <td style="font-size:11px;color:var(--text-secondary);">ABB Ltd</td>
-          <td style="font-size:11px;color:var(--text-secondary);">Encevo Legal / Procurement</td>
-          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Within 60 days</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Legal / Procurement</td>
         </tr>
         <tr>
           <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">7</td>
-          <td><span class="pill pill-medium">HIGH</span></td>
-          <td style="font-size:12px;font-weight:500;line-height:1.5;">Global Facilities + Félix Giorgetti — Require annual audited financial statements as contractual obligation. Impose financial covenant thresholds (minimum current ratio, net debt ceiling) with service continuity triggers.</td>
+          <td><span class="pri-high">High</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">Global Facilities + Félix Giorgetti — Insert at next contract renewal: (i) obligation to deliver audited annual financial statements within 60 days of fiscal year-end; (ii) minimum financial covenants (current ratio ≥ 1.2x; net debt/EBITDA &lt; 3.5x) with a 30-day cure period and step-in rights if covenants are breached; (iii) a performance bond or parent guarantee commensurate with contract value, given the absence of public credit data. Absence of audited accounts should be treated as a material breach trigger at renewal.</td>
           <td style="font-size:11px;color:var(--text-secondary);">Global Facilities, Félix Giorgetti</td>
-          <td style="font-size:11px;color:var(--text-secondary);">Encevo Procurement / Finance</td>
-          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Next contract renewal</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Procurement / Finance</td>
         </tr>
         <tr>
           <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">8</td>
-          <td><span class="pill pill-medium">HIGH</span></td>
-          <td style="font-size:12px;font-weight:500;line-height:1.5;">Amprion — Request BSI §8a KRITIS IT security attestation and ISO 27001 certificates. Review attestation scope and any findings (cybersecurity is the only conditional pillar at P4=62).</td>
+          <td><span class="pri-high">High</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">Amprion — Request from Amprion's compliance team: (i) the current BSI §8a KRITIS IT security attestation including audit scope, date, and any material findings; (ii) ISO/IEC 27001 certificate with current validity period. If the attestation contains significant findings, require a remediation timeline as a contractual condition of continued engagement. Establish a contractual right to receive updated attestations every two years in line with BSI §8a statutory requirements.</td>
           <td style="font-size:11px;color:var(--text-secondary);">Amprion GmbH</td>
-          <td style="font-size:11px;color:var(--text-secondary);">Encevo IT Security / Procurement</td>
-          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Within 60 days</td>
+          <td style="font-size:11px;color:var(--text-secondary);">IT Security / Procurement</td>
         </tr>
         <tr>
           <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">9</td>
-          <td><span class="pill pill-medium">MEDIUM</span></td>
-          <td style="font-size:12px;font-weight:500;line-height:1.5;">ESG Minimum Standards — Embed CSRD Article 29-aligned disclosure requirements in all contract renewals with OpenAI, Global Facilities, and Félix Giorgetti. Tie ESG reporting to contract milestones.</td>
-          <td style="font-size:11px;color:var(--text-secondary);">OpenAI, Global Facilities, Gorgetti</td>
-          <td style="font-size:11px;color:var(--text-secondary);">Encevo ESG / Procurement</td>
-          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Within 90 days</td>
+          <td><span class="pri-high">High</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">ESG Supply Chain Standards — Insert a supply chain sustainability clause at next renewal with OpenAI, Global Facilities, and Félix Giorgetti. Minimum obligations: annual disclosure of Scope 1 and 2 GHG emissions, social and human rights due diligence in line with LkSG §4, and governance attestation. Align disclosure format with CSRD Article 29 double materiality requirements, as these suppliers fall within the extended value chain scope of the commissioning entity's own CSRD reporting. Non-delivery by contractual milestone constitutes a material breach.</td>
+          <td style="font-size:11px;color:var(--text-secondary);">OpenAI, Global Facilities, Félix Giorgetti</td>
+          <td style="font-size:11px;color:var(--text-secondary);">ESG / Procurement</td>
         </tr>
         <tr>
           <td style="font-family:'JetBrains Mono',monospace;font-weight:700;text-align:center;font-size:14px;">10</td>
-          <td><span class="pill pill-low">STANDARD</span></td>
-          <td style="font-size:12px;font-weight:500;line-height:1.5;">Portfolio Monitoring — Establish quarterly KRI review cadence for all 10 suppliers. Integrate supplier risk scores into Encevo ERM dashboard. Re-assess OpenAI financial viability every quarter given burn rate.</td>
+          <td><span class="pri-standard">Standard</span></td>
+          <td style="font-size:12px;font-weight:500;line-height:1.5;">Portfolio Monitoring — Establish a quarterly supplier risk review cadence with a named risk owner per supplier. Define six standing KRIs: (1) supplier risk score movement &gt;5 points between assessments; (2) emergence of a new CRITICAL or HIGH severity finding; (3) credit rating downgrade or public distress signal; (4) material ESG controversy (regulatory enforcement or credible NGO report); (5) unplanned C-suite departure; (6) service outage exceeding 4 hours or SLA breach. OpenAI financial viability and Comarch ownership transition should be reviewed quarterly given elevated structural risk.</td>
           <td style="font-size:11px;color:var(--text-secondary);">All 10 suppliers</td>
-          <td style="font-size:11px;color:var(--text-secondary);">Encevo Procurement Risk</td>
-          <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);text-align:center;">Ongoing (Q2 2026)</td>
+          <td style="font-size:11px;color:var(--text-secondary);">Procurement Risk</td>
         </tr>
         <!-- Example rows:
         <tr>
@@ -2383,7 +2520,7 @@
     <div class="section-title">Methodology &amp; Data Currency</div>
 
     <div class="method-body">
-      This portfolio report was generated on 29 March 2026 from the individual supplier assessments of Encevo S.A.'s top ten suppliers by procurement value. Each supplier was assessed across six pillars (Financial Stability 25%, ESG &amp; Sustainability 20%, Regulatory &amp; Legal 20%, Cybersecurity 15%, Operational &amp; Geopolitical Resilience 15%, Reputational Intelligence 5%) using rubric-based scoring derived exclusively from publicly available sources. SaaS/cloud suppliers (Microsoft, DocuSign, OpenAI, Comarch) and critical infrastructure suppliers (Amprion, Siemens, ABB, Schneider IT) use sector-adjusted weighting profiles. All findings are evidence-based and traceable to source URLs. Portfolio score is the unweighted mean of all ten overall scores. Risk distribution thresholds: HIGH &lt;60, MEDIUM 60–79, LOW &ge;80. No supplier score reflects Encevo-provided information — all data sourced from public filings, regulatory disclosures, and verified media as of the assessment date. This report does not constitute a legal opinion or financial advice.
+      This portfolio report was generated on 29 March 2026 from the individual supplier assessments of the top ten suppliers by procurement value. Each supplier was assessed across six pillars (Financial Stability 25%, ESG &amp; Sustainability 20%, Regulatory &amp; Legal 20%, Cybersecurity 15%, Operational &amp; Geopolitical Resilience 15%, Reputational Intelligence 5%) using rubric-based scoring derived exclusively from publicly available sources. SaaS/cloud suppliers (Microsoft, DocuSign, OpenAI, Comarch) and critical infrastructure suppliers (Amprion, Siemens, ABB, Schneider IT) use sector-adjusted weighting profiles. All findings are evidence-based and traceable to source URLs. Portfolio score is the unweighted mean of all ten overall scores. Risk distribution thresholds: HIGH &lt;60, MEDIUM 60–79, LOW &ge;80. No supplier score reflects Encevo-provided information — all data sourced from public filings, regulatory disclosures, and verified media as of the assessment date. This report does not constitute a legal opinion or financial advice.
 
       <p style="margin-top:14px;">
         SPECTRUM's Supplier Intelligence Platform assesses each supplier across six risk pillars:
@@ -2403,12 +2540,11 @@
     </div>
 
     <div class="method-disclaimer">
-      <strong>Disclaimer:</strong> This report has been prepared by SPECTRUM Risk Intelligence for the exclusive use of
-      Encevo S.A.. The findings, scores and recommendations contained herein are based on information
+      <strong>Disclaimer:</strong> This report has been prepared by SPECTRUM Risk Intelligence for the exclusive use of the commissioning organisation. The findings, scores and recommendations contained herein are based on information
       available at the time of assessment and are provided for informational purposes only. SPECTRUM does not
       warrant the completeness or accuracy of third-party source data. This report does not constitute legal,
       financial or regulatory advice. Recipients should conduct independent verification before acting on any
-      finding. Distribution of this report outside of Encevo S.A.'s authorised personnel is strictly prohibited.
+      finding. Distribution of this report outside of authorised personnel is strictly prohibited.
     </div>
   </section>
 
@@ -2427,7 +2563,7 @@
       </svg>
       <span class="footer-brand">SPECTRUM</span> &nbsp;Risk Intelligence Platform
     </div>
-    <div>Encevo S.A. &nbsp;·&nbsp; ENC-PORTFOLIO-2026-001 &nbsp;·&nbsp; 29 March 2026</div>
+    <div>ENC-PORTFOLIO-2026-001 &nbsp;·&nbsp; 29 March 2026 &nbsp;·&nbsp; SPECTRUM Risk Intelligence</div>
     <div>Confidential — Do Not Distribute</div>
   </footer>
 

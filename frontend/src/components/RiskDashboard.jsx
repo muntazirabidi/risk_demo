@@ -42,12 +42,6 @@ export default function RiskDashboard({ assessment, metadata, onNewAssessment })
     }
   };
 
-  const getRiskColor = (score) => {
-    if (score >= 80) return 'text-emerald-700';
-    if (score >= 60) return 'text-amber-700';
-    return 'text-orange-700';
-  };
-
   return (
     <div className="max-w-[1200px] mx-auto animate-fade-in">
       {/* ─── Report Header ─── */}
@@ -67,7 +61,7 @@ export default function RiskDashboard({ assessment, metadata, onNewAssessment })
               <span className="text-slate-600">|</span>
               <span>{assessment.assessmentDate}</span>
               <span className="text-slate-600">|</span>
-              <span className="text-emerald-400">{metadata.processingTime}s</span>
+              <span className="text-emerald-400 font-mono">{metadata.processingTime}s</span>
               {metadata.cached && <span className="text-amber-400 text-xs">(cached)</span>}
             </div>
           </div>
@@ -102,12 +96,12 @@ export default function RiskDashboard({ assessment, metadata, onNewAssessment })
       {/* ─── Key Metrics ─── */}
       {assessment.keyMetrics && (
         <div className="px-8 mb-8">
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-4 gap-px bg-slate-200">
             {assessment.keyMetrics.estimatedAltmanZScore && (
-              <div className={`border p-4 ${
-                assessment.keyMetrics.estimatedAltmanZScore.includes('Safe') ? 'border-emerald-200 bg-emerald-50/50' :
-                assessment.keyMetrics.estimatedAltmanZScore.includes('Grey') ? 'border-amber-200 bg-amber-50/50' :
-                'border-red-200 bg-red-50/50'
+              <div className={`p-4 ${
+                assessment.keyMetrics.estimatedAltmanZScore.includes('Safe') ? 'bg-emerald-50' :
+                assessment.keyMetrics.estimatedAltmanZScore.includes('Grey') ? 'bg-amber-50' :
+                'bg-red-50'
               }`}>
                 <div className="text-[10px] text-slate-400 uppercase tracking-widest mb-1">Altman Z-Score</div>
                 <div className={`text-sm font-semibold ${
@@ -117,7 +111,7 @@ export default function RiskDashboard({ assessment, metadata, onNewAssessment })
               </div>
             )}
             {assessment.keyMetrics.paymentRiskLevel && (
-              <div className="border border-slate-200 p-4">
+              <div className="border-l border-slate-200 bg-white p-4">
                 <div className="text-[10px] text-slate-400 uppercase tracking-widest mb-1">Payment Risk</div>
                 <div className={`text-sm font-semibold ${
                   assessment.keyMetrics.paymentRiskLevel === 'Low' ? 'text-emerald-700' :
@@ -126,7 +120,7 @@ export default function RiskDashboard({ assessment, metadata, onNewAssessment })
               </div>
             )}
             {assessment.keyMetrics.supplyDisruptionRisk && (
-              <div className="border border-slate-200 p-4">
+              <div className="border-l border-slate-200 bg-white p-4">
                 <div className="text-[10px] text-slate-400 uppercase tracking-widest mb-1">Supply Disruption</div>
                 <div className={`text-sm font-semibold ${
                   assessment.keyMetrics.supplyDisruptionRisk === 'Low' ? 'text-emerald-700' :
@@ -135,7 +129,7 @@ export default function RiskDashboard({ assessment, metadata, onNewAssessment })
               </div>
             )}
             {assessment.keyMetrics.recommendedContractTerms && (
-              <div className="border border-slate-200 p-4">
+              <div className="border-l border-slate-200 bg-white p-4">
                 <div className="text-[10px] text-slate-400 uppercase tracking-widest mb-1">Contract Terms</div>
                 <div className="text-sm font-semibold text-slate-900">{assessment.keyMetrics.recommendedContractTerms}</div>
               </div>
@@ -144,7 +138,7 @@ export default function RiskDashboard({ assessment, metadata, onNewAssessment })
         </div>
       )}
 
-      {/* ─── Risk Score + Pillars ─── */}
+      {/* ─── Risk Pillars ─── */}
       <div className="px-8 mb-8">
         <FivePillars findings={assessment.findings} />
       </div>

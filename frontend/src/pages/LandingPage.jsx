@@ -38,14 +38,23 @@ function HeroFeed({ onNavigate }) {
 
   return (
     <div className="mt-8">
+      {/* Terminal-style header */}
+      <div className="bg-slate-900 px-4 py-2 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-1.5 h-1.5 bg-emerald-500 animate-pulse"></div>
+          <span className="text-[10px] text-slate-500 uppercase tracking-widest font-mono">Live Feed</span>
+        </div>
+        <span className="text-[10px] text-slate-600 font-mono">{HERO_VENDORS.length} vendors tracked</span>
+      </div>
+
       {/* Active card */}
       <div
-        className={`border border-slate-200 bg-white cursor-pointer hover:border-slate-400 transition-all duration-300 ${isTransitioning ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}
+        className={`border border-slate-200 border-t-0 bg-white cursor-pointer hover:border-slate-400 transition-all duration-300 ${isTransitioning ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}
         onClick={() => onNavigate(active.id)}
       >
         <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
           <div>
-            <div className="text-[9px] text-slate-400 uppercase tracking-widest mb-1">Live Assessment</div>
+            <div className="text-[9px] text-slate-400 uppercase tracking-widest mb-1">Active Assessment</div>
             <div className="text-base font-semibold text-slate-900">{active.name}</div>
             <div className="text-xs text-slate-400 mt-0.5">{active.industry}</div>
           </div>
@@ -64,16 +73,17 @@ function HeroFeed({ onNavigate }) {
       </div>
 
       {/* Queue */}
-      <div className="mt-2 space-y-1">
+      <div className="mt-1 space-y-px">
         {HERO_VENDORS.filter((_, i) => i !== activeIndex).slice(0, 3).map((vendor) => (
           <div
             key={vendor.name}
-            className="flex items-center justify-between px-4 py-2 border border-slate-100 hover:border-slate-300 cursor-pointer transition-colors"
+            className="flex items-center justify-between px-4 py-2.5 border border-slate-100 bg-white hover:border-slate-300 cursor-pointer transition-colors"
             onClick={() => onNavigate(vendor.id)}
           >
             <div className="flex items-center gap-3">
               <div className={`w-1 h-1 flex-shrink-0 ${vendor.score >= 80 ? 'bg-emerald-500' : vendor.score >= 60 ? 'bg-amber-500' : 'bg-orange-500'}`}></div>
               <span className="text-sm text-slate-600">{vendor.name}</span>
+              <span className="text-[10px] text-slate-300">{vendor.industry}</span>
             </div>
             <span className={`text-sm font-mono ${vendor.score >= 80 ? 'text-emerald-600' : vendor.score >= 60 ? 'text-amber-600' : 'text-orange-600'}`}>{vendor.score}</span>
           </div>
@@ -212,7 +222,7 @@ function LandingPage() {
                   <p className="text-lg text-slate-500 max-w-xl mb-10 leading-relaxed">
                     AI agents that autonomously research, assess, and monitor your vendors — producing institutional-grade risk intelligence in minutes, not months.
                   </p>
-                  <div className="flex items-center gap-4 mb-16">
+                  <div className="flex items-center gap-4 mb-10">
                     <button
                       onClick={() => navigate('/portfolio')}
                       className="px-6 py-3 text-sm font-medium bg-slate-900 text-white hover:bg-slate-800 transition-colors"
@@ -225,20 +235,20 @@ function LandingPage() {
                   </div>
 
                   {/* Metrics */}
-                  <div className="flex items-center gap-12">
+                  <div className="border-t border-slate-200 pt-8 flex items-center gap-10">
                     <div>
-                      <div className="text-3xl font-light text-slate-900 tracking-tight">30 min</div>
-                      <div className="text-sm text-slate-400 mt-1">vs. 90+ days traditional</div>
+                      <div className="text-3xl font-normal text-slate-900 tracking-tight font-mono whitespace-nowrap">30 min</div>
+                      <div className="text-xs text-slate-400 mt-1">vs. 90+ days traditional</div>
                     </div>
                     <div className="w-px h-10 bg-slate-200"></div>
                     <div>
-                      <div className="text-3xl font-light text-slate-900 tracking-tight">6 pillars</div>
-                      <div className="text-sm text-slate-400 mt-1">End-to-end risk coverage</div>
+                      <div className="text-3xl font-normal text-slate-900 tracking-tight font-mono whitespace-nowrap">6 pillars</div>
+                      <div className="text-xs text-slate-400 mt-1">End-to-end risk coverage</div>
                     </div>
                     <div className="w-px h-10 bg-slate-200"></div>
                     <div>
-                      <div className="text-3xl font-light text-slate-900 tracking-tight">24/7</div>
-                      <div className="text-sm text-slate-400 mt-1">Continuous monitoring</div>
+                      <div className="text-3xl font-normal text-slate-900 tracking-tight font-mono">24/7</div>
+                      <div className="text-xs text-slate-400 mt-1">Continuous monitoring</div>
                     </div>
                   </div>
                 </div>
@@ -248,25 +258,54 @@ function LandingPage() {
               </div>
             </section>
 
+            {/* ─── Capabilities ticker ─── */}
+            <section className="bg-slate-900 overflow-hidden">
+              <div className="py-3.5 relative">
+                <div className="animate-ticker flex items-center gap-12 whitespace-nowrap">
+                  {[...Array(2)].map((_, setIndex) => (
+                    <div key={setIndex} className="flex items-center gap-12 shrink-0">
+                      {[
+                        'Agent-native architecture',
+                        'Multi-lingual analysis',
+                        'Multi-source verification',
+                        'Evidence-cited findings',
+                        'Audit-ready documentation',
+                        'CSRD / LkSG / UFLPA compliant',
+                        'Real-time web intelligence',
+                      ].map((item) => (
+                        <span key={`${setIndex}-${item}`} className="flex items-center gap-2 text-[11px] text-slate-500 tracking-wide">
+                          <span className="w-1 h-1 bg-emerald-500 shrink-0"></span>
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
             {/* ─── What we cover ─── */}
             <section className="border-t border-slate-100">
               <div className="max-w-[1200px] mx-auto px-8 py-20">
                 <div className="mb-12">
-                  <p className="text-sm text-slate-400 uppercase tracking-widest mb-3">What we assess</p>
-                  <h2 className="text-3xl font-light text-slate-900 tracking-tight">Every report covers six risk dimensions.</h2>
+                  <p className="text-[10px] text-slate-400 uppercase tracking-[0.2em] mb-4">What we assess</p>
+                  <h2 className="text-4xl font-light text-slate-900 tracking-tight leading-[1.1]">Every report covers six<br />risk dimensions.</h2>
                 </div>
-                <div className="grid grid-cols-3 gap-x-12 gap-y-10">
+                <div className="grid grid-cols-3 gap-x-12 gap-y-8">
                   {[
-                    { name: 'Financial Health', desc: 'Cash flow analysis, Altman Z-scores, bankruptcy prediction, and liquidity ratios.' },
-                    { name: 'ESG & Sustainability', desc: 'Environmental compliance, CSRD readiness, and supply chain sustainability tracking.' },
-                    { name: 'Human Rights & Ethics', desc: 'Modern slavery screening, labor practices, UFLPA compliance, and ethical sourcing.' },
-                    { name: 'Sanctions & Anti-Bribery', desc: 'OFAC/UN/EU sanctions screening, FCPA compliance, and corruption risk indicators.' },
-                    { name: 'Cybersecurity', desc: 'Security posture assessment, breach history, and SOC2/ISO27001 certification verification.' },
-                    { name: 'Operational Resilience', desc: 'Business continuity, supply chain concentration, geopolitical exposure, and key person risk.' },
+                    { name: 'Financial Health', desc: 'Cash flow analysis, Altman Z-scores, bankruptcy prediction, and liquidity ratios.', metric: 'Altman Z-Score' },
+                    { name: 'ESG & Sustainability', desc: 'Environmental compliance, CSRD readiness, and supply chain sustainability tracking.', metric: 'Scope 1-3 Coverage' },
+                    { name: 'Human Rights & Ethics', desc: 'Modern slavery screening, labor practices, UFLPA compliance, and ethical sourcing.', metric: 'Tier 3 Mapping' },
+                    { name: 'Sanctions & Anti-Bribery', desc: 'OFAC/UN/EU sanctions screening, FCPA compliance, and corruption risk indicators.', metric: 'Real-time Screening' },
+                    { name: 'Cybersecurity', desc: 'Security posture assessment, breach history, and SOC2/ISO27001 certification verification.', metric: 'Posture Score' },
+                    { name: 'Operational Resilience', desc: 'Business continuity, supply chain concentration, geopolitical exposure, and key person risk.', metric: 'Disruption Risk' },
                   ].map((pillar) => (
-                    <div key={pillar.name}>
-                      <h3 className="text-base font-semibold text-slate-900 mb-2">{pillar.name}</h3>
-                      <p className="text-sm text-slate-500 leading-relaxed">{pillar.desc}</p>
+                    <div key={pillar.name} className="border-l-[2px] border-slate-200 pl-5">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="text-base font-semibold text-slate-900">{pillar.name}</h3>
+                      </div>
+                      <p className="text-sm text-slate-500 leading-relaxed mb-2">{pillar.desc}</p>
+                      <span className="text-[10px] text-slate-400 uppercase tracking-wider">{pillar.metric}</span>
                     </div>
                   ))}
                 </div>
@@ -277,9 +316,9 @@ function LandingPage() {
             <section className="border-t border-slate-100 bg-slate-50/50">
               <div className="max-w-[1200px] mx-auto px-8 py-20">
                 <div className="mb-12">
-                  <p className="text-sm text-slate-400 uppercase tracking-widest mb-3">Sample reports</p>
-                  <h2 className="text-3xl font-light text-slate-900 tracking-tight">See what you receive.</h2>
-                  <p className="text-base text-slate-500 mt-3 max-w-lg">
+                  <p className="text-[10px] text-slate-400 uppercase tracking-[0.2em] mb-4">Sample reports</p>
+                  <h2 className="text-4xl font-light text-slate-900 tracking-tight">See what you receive.</h2>
+                  <p className="text-base text-slate-500 mt-4 max-w-lg">
                     Not just risk scores — a strategy your risk committee can defend. Each report includes CAPA plans and contract clause recommendations.
                   </p>
                 </div>
@@ -299,7 +338,7 @@ function LandingPage() {
                             </h3>
                             <p className="text-sm text-slate-500">{report.industry}</p>
                           </div>
-                          <div className={`text-3xl font-light ${getRiskColor(report.riskScore)}`}>
+                          <div className={`text-3xl font-light font-mono ${getRiskColor(report.riskScore)}`}>
                             {report.riskScore}
                           </div>
                         </div>
@@ -330,14 +369,14 @@ function LandingPage() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-4 gap-6">
+                <div className="grid grid-cols-4 gap-px bg-slate-200">
                   {[
                     { stage: '01', name: 'Onboard', desc: 'Any vendor, any geography. Agentic research and structured risk profiling in 30 minutes.', live: false },
                     { stage: '02', name: 'Assess', desc: 'Institutional-grade due diligence. Ownership mapping, sanctions screening, audit-ready evidence.', live: true },
                     { stage: '03', name: 'Monitor', desc: 'Continuous intelligence. Real-time alerts on litigation, sanctions, ESG controversies, and leadership changes.', live: false },
                     { stage: '04', name: 'Remediate', desc: 'Structured workflows. CAPA plans, contract amendments, re-assessment scheduling with full audit trails.', live: false },
                   ].map((item) => (
-                    <div key={item.stage} className="border border-slate-200 p-6">
+                    <div key={item.stage} className="bg-white p-6">
                       <div className="flex items-center gap-3 mb-4">
                         <span className="text-sm font-mono text-slate-400">{item.stage}</span>
                         {item.live && <span className="text-[10px] px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium uppercase tracking-wider">Live</span>}
@@ -371,18 +410,18 @@ function LandingPage() {
             <section className="bg-slate-900">
               <div className="max-w-[1200px] mx-auto px-8 py-16">
                 <p className="text-sm text-slate-500 uppercase tracking-widest mb-3">Why now</p>
-                <h2 className="text-3xl font-light text-white tracking-tight mb-10">The regulatory pressure is live.</h2>
-                <div className="grid grid-cols-4 gap-8">
+                <h2 className="text-3xl font-light text-white tracking-tight mb-12">The regulatory pressure is <em className="not-italic text-white font-normal">live</em>.</h2>
+                <div className="grid grid-cols-4 gap-px bg-slate-800">
                   {[
                     { label: 'German LkSG', stat: '2%', desc: 'of global turnover in fines for supply chain due diligence failures' },
                     { label: 'EU CSRD', stat: '50K+', desc: 'companies now required to report value-chain ESG data' },
                     { label: 'UFLPA', stat: '$1.34B', desc: 'merchandise detained at US border, 4,000+ seizures' },
                     { label: 'Vendor Breaches', stat: '61%', desc: 'of organizations breached via a third-party vendor in 2024' },
                   ].map((item) => (
-                    <div key={item.label}>
-                      <div className="text-sm text-slate-500 mb-3">{item.label}</div>
-                      <div className="text-3xl font-light text-white tracking-tight mb-2">{item.stat}</div>
-                      <p className="text-sm text-slate-400 leading-relaxed">{item.desc}</p>
+                    <div key={item.label} className="bg-slate-900 p-6">
+                      <div className="text-[10px] text-slate-500 uppercase tracking-widest mb-4">{item.label}</div>
+                      <div className="text-5xl font-normal text-white tracking-tight font-mono mb-3">{item.stat}</div>
+                      <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -393,17 +432,17 @@ function LandingPage() {
             <section id="try-it" className="border-t border-slate-100">
               <div className="max-w-[1200px] mx-auto px-8 py-20">
                 <div className="max-w-3xl mx-auto">
-                  <div className="text-center mb-10">
-                    <h2 className="text-3xl font-light text-slate-900 tracking-tight mb-3">Try it live.</h2>
-                    <p className="text-base text-slate-500">
-                      Enter any company name to see our assessment engine in action.
+                  <div className="mb-6">
+                    <p className="text-sm text-slate-400 uppercase tracking-widest mb-3">Live assessment</p>
+                    <h2 className="text-3xl font-light text-slate-900 tracking-tight mb-3">Try it now.</h2>
+                    <p className="text-base text-slate-500 mb-6">
+                      Enter any company name or select one below to see our assessment engine in action.
                     </p>
+                    <QuickDemoButtons
+                      onSelectCompany={(company) => setSelectedCompany(company)}
+                      isLoading={state.isLoading}
+                    />
                   </div>
-
-                  <QuickDemoButtons
-                    onSelectCompany={(company) => setSelectedCompany(company)}
-                    isLoading={state.isLoading}
-                  />
 
                   <AssessmentForm
                     onSubmit={(formData) => assessCompanyRisk(formData)}
@@ -412,7 +451,7 @@ function LandingPage() {
                   />
 
                   {state.error && (
-                    <div className="mt-6 bg-red-50 border-l-4 border-red-500 p-4">
+                    <div className="mt-6 bg-red-50 border-l-[3px] border-red-500 p-4">
                       <h3 className="text-red-800 font-semibold text-sm mb-1">Assessment Error</h3>
                       <p className="text-red-700 text-sm">{state.error}</p>
                     </div>

@@ -110,13 +110,21 @@ function VendorPortfolio() {
 
       {/* ─── Hero ─── */}
       <section className="max-w-[1200px] mx-auto px-8 pt-16 pb-12">
-        <p className="text-sm text-slate-400 uppercase tracking-widest mb-3">Supplier Portfolio</p>
-        <h1 className="text-4xl font-light text-slate-900 tracking-tight mb-3">
-          {featuredVendors.length} vendors assessed. <span className="text-slate-400">Decision-ready intelligence.</span>
-        </h1>
-        <p className="text-base text-slate-500 max-w-2xl">
-          Each supplier assessed across Financial Stability, ESG, Regulatory & Legal, Cybersecurity, Operational Resilience, and Reputational Intelligence.
-        </p>
+        <div className="flex items-start justify-between">
+          <div>
+            <p className="text-sm text-slate-400 uppercase tracking-widest mb-3">Supplier Portfolio</p>
+            <h1 className="text-4xl font-light text-slate-900 tracking-tight mb-3">
+              {featuredVendors.length} vendors assessed. <span className="text-slate-400">Decision-ready intelligence.</span>
+            </h1>
+            <p className="text-base text-slate-500 max-w-2xl">
+              Each supplier assessed across Financial Stability, ESG, Regulatory & Legal, Cybersecurity, Operational Resilience, and Reputational Intelligence.
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 bg-emerald-500 animate-pulse"></div>
+            <span className="text-[10px] text-slate-400 uppercase tracking-widest">Monitoring active</span>
+          </div>
+        </div>
       </section>
 
       {/* ─── Portfolio Report Banner ─── */}
@@ -128,7 +136,7 @@ function VendorPortfolio() {
           <div className="flex items-center justify-between px-8 py-6">
             <div>
               <div className="text-[10px] text-slate-500 uppercase tracking-widest mb-1">Portfolio Report</div>
-              <div className="text-lg font-medium text-white">Aggregated Risk Intelligence</div>
+              <div className="text-lg font-light text-white tracking-tight">Aggregated Risk Intelligence</div>
               <div className="text-sm text-slate-400 mt-1">Cross-portfolio analysis with concentration risks, systemic flags, and remediation priorities</div>
             </div>
             <div className="flex items-center gap-10">
@@ -136,71 +144,31 @@ function VendorPortfolio() {
                 <div className="text-3xl font-light font-mono text-amber-400">{portfolioReport.portfolioScore}</div>
                 <div className="text-[9px] text-slate-500 uppercase tracking-widest mt-1">Score</div>
               </div>
+              <div className="w-px h-10 bg-slate-700"></div>
               <div className="text-center">
                 <div className="text-3xl font-light font-mono text-white">{portfolioReport.suppliersAssessed}</div>
                 <div className="text-[9px] text-slate-500 uppercase tracking-widest mt-1">Vendors</div>
               </div>
+              <div className="w-px h-10 bg-slate-700"></div>
               <div className="text-center">
                 <div className="text-3xl font-light font-mono text-amber-400">{portfolioReport.highlights.conditional}</div>
                 <div className="text-[9px] text-slate-500 uppercase tracking-widest mt-1">Conditional</div>
               </div>
+              <div className="w-px h-10 bg-slate-700"></div>
               <div className="text-center">
                 <div className="text-3xl font-light font-mono text-red-400">{portfolioReport.highlights.criticalFlags}</div>
                 <div className="text-[9px] text-slate-500 uppercase tracking-widest mt-1">Flags</div>
               </div>
-              <div className="text-sm text-slate-500 group-hover:text-white transition-colors whitespace-nowrap">View report →</div>
+              <div className="text-sm text-slate-500 group-hover:text-white transition-colors whitespace-nowrap ml-4">View report →</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ─── Vendor Cards ─── */}
-      <section className="border-t border-slate-100">
-        <div className="max-w-[1200px] mx-auto px-8 py-12">
-          <p className="text-sm text-slate-400 uppercase tracking-widest mb-6">Individual Assessments</p>
-          <div className="grid grid-cols-5 gap-4">
-            {featuredVendors.map((vendor) => {
-              const borderColor = vendor.riskScore >= 80 ? 'border-l-emerald-500' :
-                                  vendor.riskScore >= 70 ? 'border-l-amber-500' :
-                                  vendor.riskScore >= 60 ? 'border-l-orange-500' : 'border-l-red-500';
-              return (
-                <div
-                  key={vendor.id}
-                  className={`border border-slate-200 border-l-[3px] ${borderColor} hover:border-slate-400 hover:border-l-[3px] ${borderColor} transition-all cursor-pointer group`}
-                  onClick={() => navigate(`/report/${vendor.id}`)}
-                >
-                  <div className="p-4">
-                    <div className="mb-3">
-                      <h3 className="text-sm font-semibold text-slate-900 leading-tight group-hover:text-slate-700 transition-colors">
-                        {vendor.name}
-                      </h3>
-                      <p className="text-[10px] text-slate-400 mt-0.5 truncate">{vendor.industry}</p>
-                    </div>
-
-                    <div className={`text-2xl font-mono mb-2 ${getRiskColor(vendor.riskScore)}`}>
-                      {vendor.riskScore}
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <span className={`text-[9px] font-medium uppercase tracking-wider ${
-                        vendor.status === 'monitoring' ? 'text-orange-600' : vendor.status === 'qualified' ? 'text-emerald-600' : 'text-amber-600'
-                      }`}>
-                        {vendor.status}
-                      </span>
-                      <span className="text-[10px] text-slate-400 group-hover:text-slate-900 transition-colors">View →</span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* ─── Stats Strip ─── */}
-      <section className="border-t border-slate-100">
-        <div className="max-w-[1200px] mx-auto px-8 py-12">
-          <div className="grid grid-cols-6 gap-8">
+      <section className="border-t border-b border-slate-100">
+        <div className="max-w-[1200px] mx-auto px-8 py-8">
+          <div className="grid grid-cols-6 gap-px bg-slate-100">
             {[
               { value: stats.total, label: 'Total vendors', color: 'text-slate-900' },
               { value: stats.qualified, label: 'Qualified', color: 'text-emerald-600' },
@@ -209,11 +177,52 @@ function VendorPortfolio() {
               { value: stats.capaOverdue, label: 'Actions overdue', color: 'text-red-600', urgent: true },
               { value: stats.avgRiskScore, label: 'Avg score', color: getRiskColor(stats.avgRiskScore) },
             ].map((stat) => (
-              <div key={stat.label} className={stat.urgent ? 'bg-red-50 -m-3 p-3 border border-red-100' : ''}>
-                <div className={`text-4xl font-light font-mono ${stat.color}`}>{stat.value}</div>
-                <div className={`text-sm mt-1 ${stat.urgent ? 'text-red-600 font-medium' : 'text-slate-400'}`}>{stat.label}</div>
+              <div key={stat.label} className={`bg-white p-4 ${stat.urgent ? 'bg-red-50' : ''}`}>
+                <div className={`text-3xl font-light font-mono ${stat.color}`}>{stat.value}</div>
+                <div className={`text-[10px] mt-1 uppercase tracking-wider ${stat.urgent ? 'text-red-600 font-medium' : 'text-slate-400'}`}>{stat.label}</div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Vendor Cards ─── */}
+      <section>
+        <div className="max-w-[1200px] mx-auto px-8 py-12">
+          <p className="text-sm text-slate-400 uppercase tracking-widest mb-6">Individual Assessments</p>
+          <div className="grid grid-cols-5 gap-px bg-slate-200">
+            {featuredVendors.map((vendor) => {
+              const borderColor = vendor.riskScore >= 80 ? 'border-l-emerald-500' :
+                                  vendor.riskScore >= 70 ? 'border-l-amber-500' :
+                                  vendor.riskScore >= 60 ? 'border-l-orange-500' : 'border-l-red-500';
+              return (
+                <div
+                  key={vendor.id}
+                  className={`bg-white border-l-[3px] ${borderColor} hover:bg-slate-50 transition-colors cursor-pointer group p-4`}
+                  onClick={() => navigate(`/report/${vendor.id}`)}
+                >
+                  <div className="mb-3">
+                    <h3 className="text-sm font-semibold text-slate-900 leading-tight group-hover:text-slate-700 transition-colors">
+                      {vendor.name}
+                    </h3>
+                    <p className="text-[10px] text-slate-400 mt-0.5 truncate">{vendor.industry}</p>
+                  </div>
+
+                  <div className={`text-2xl font-light font-mono mb-2 ${getRiskColor(vendor.riskScore)}`}>
+                    {vendor.riskScore}
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <span className={`text-[9px] font-medium uppercase tracking-wider ${
+                      vendor.status === 'monitoring' ? 'text-orange-600' : vendor.status === 'qualified' ? 'text-emerald-600' : 'text-amber-600'
+                    }`}>
+                      {vendor.status}
+                    </span>
+                    <span className="text-[10px] text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">View →</span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -237,7 +246,7 @@ function VendorPortfolio() {
                     filterStatus === f.key ? f.color + ' font-medium' : 'text-slate-400 hover:text-slate-600'
                   }`}
                 >
-                  {f.label} <span className="text-xs">({f.count})</span>
+                  {f.label} <span className="text-xs font-mono">({f.count})</span>
                 </button>
               ))}
             </div>
@@ -254,7 +263,7 @@ function VendorPortfolio() {
           <div className="border border-slate-200">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-slate-200">
+                <tr className="border-b border-slate-200 bg-slate-50">
                   <th className="px-5 py-3 text-left text-[10px] font-medium text-slate-400 uppercase tracking-widest">Vendor</th>
                   <th className="px-5 py-3 text-left text-[10px] font-medium text-slate-400 uppercase tracking-widest">Industry</th>
                   <th className="px-5 py-3 text-right text-[10px] font-medium text-slate-400 uppercase tracking-widest">Score</th>
@@ -275,7 +284,7 @@ function VendorPortfolio() {
                       <div className="flex items-center gap-2">
                         <div>
                           <div className="text-sm font-medium text-slate-900">{vendor.name}</div>
-                          <div className="text-xs text-slate-400">{vendor.location}</div>
+                          <div className="text-[10px] text-slate-400">{vendor.location}</div>
                         </div>
                         {vendor.fullReport && (
                           <span className="px-1.5 py-0.5 bg-slate-900 text-white text-[8px] font-medium uppercase tracking-wider">Report</span>
@@ -306,7 +315,7 @@ function VendorPortfolio() {
                         <span className="text-slate-300">—</span>
                       )}
                     </td>
-                    <td className="px-5 py-3.5 text-xs text-slate-400">
+                    <td className="px-5 py-3.5 text-xs text-slate-400 font-mono">
                       {new Date(vendor.lastAssessment).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </td>
                     <td className="px-5 py-3.5 text-right">

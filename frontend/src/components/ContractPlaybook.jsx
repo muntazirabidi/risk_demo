@@ -3,12 +3,9 @@ import { useState } from 'react';
 function ContractPlaybook({ assessment, companyName }) {
   const [expandedSection, setExpandedSection] = useState(null);
 
-  // Generate contract recommendations based on risk assessment
   const generatePlaybook = () => {
     const riskScore = assessment.overallRiskScore;
-    const findings = assessment.findings;
 
-    // Determine contract strategy based on risk level
     let strategy = 'Standard';
     let strategyColor = 'emerald';
     if (riskScore < 70) {
@@ -173,25 +170,16 @@ function ContractPlaybook({ assessment, companyName }) {
 
   return (
     <div className="mb-8">
-      <div className="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
+      <div className="border border-slate-200 overflow-hidden">
         {/* Header */}
-        <div className="bg-slate-900 p-6">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-white/10 rounded">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-            <h3 className="text-2xl font-bold text-white">Contract Playbook</h3>
-          </div>
-          <p className="text-slate-300 text-sm mb-4">
-            Risk-based contract recommendations tailored to {companyName}'s risk profile
+        <div className="bg-slate-900 px-6 py-5">
+          <h3 className="text-lg font-light text-white tracking-tight">Contract Playbook</h3>
+          <p className="text-sm text-slate-400 mt-1 mb-3">
+            Risk-based contract recommendations tailored to {companyName}'s risk profile.
           </p>
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded border border-white/20">
-            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span className="text-white font-bold">Recommended Strategy: {playbook.strategy}</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 border border-white/20">
+            <span className="text-[10px] text-slate-400 uppercase tracking-wider">Strategy:</span>
+            <span className="text-sm text-white font-medium">{playbook.strategy}</span>
           </div>
         </div>
 
@@ -201,23 +189,20 @@ function ContractPlaybook({ assessment, companyName }) {
             const isExpanded = expandedSection === section.id;
 
             return (
-              <div key={section.id} className="p-6 hover:bg-slate-50 transition-colors">
+              <div key={section.id}>
                 <button
                   onClick={() => setExpandedSection(isExpanded ? null : section.id)}
-                  className="w-full flex items-center justify-between group"
+                  className="w-full flex items-center justify-between px-6 py-4 hover:bg-slate-50 transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-slate-100 rounded group-hover:bg-slate-200 transition-colors">
-                      <svg className="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        {section.icon}
-                      </svg>
-                    </div>
-                    <h4 className="text-lg font-bold text-slate-900 group-hover:text-slate-700 transition-colors">
-                      {section.title}
-                    </h4>
+                    <svg className="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      {section.icon}
+                    </svg>
+                    <h4 className="text-sm font-semibold text-slate-900">{section.title}</h4>
+                    <span className="text-[10px] text-slate-400">{section.clauses.length} clauses</span>
                   </div>
                   <svg
-                    className={`w-5 h-5 text-slate-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                    className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -227,18 +212,18 @@ function ContractPlaybook({ assessment, companyName }) {
                 </button>
 
                 {isExpanded && (
-                  <div className="mt-4 space-y-4">
+                  <div className="border-t border-slate-200">
                     {section.clauses.map((clause, idx) => (
-                      <div key={idx} className="bg-slate-50 rounded-lg p-4 border border-slate-200">
-                        <h5 className="text-sm font-bold text-slate-900 mb-2">{clause.title}</h5>
+                      <div key={idx} className="px-6 py-4 bg-slate-50 border-b border-slate-100 last:border-b-0">
+                        <h5 className="text-sm font-semibold text-slate-900 mb-2">{clause.title}</h5>
                         <div className="space-y-2">
                           <div>
-                            <p className="text-xs font-semibold text-slate-700 mb-1">RECOMMENDED CLAUSE:</p>
+                            <p className="text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-1">Recommended Clause</p>
                             <p className="text-sm text-slate-800 leading-relaxed">{clause.recommendation}</p>
                           </div>
                           <div>
-                            <p className="text-xs font-semibold text-slate-600 mb-1">RATIONALE:</p>
-                            <p className="text-xs text-slate-600 leading-relaxed italic">{clause.rationale}</p>
+                            <p className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-1">Rationale</p>
+                            <p className="text-xs text-slate-500 leading-relaxed italic">{clause.rationale}</p>
                           </div>
                         </div>
                       </div>
@@ -251,9 +236,9 @@ function ContractPlaybook({ assessment, companyName }) {
         </div>
 
         {/* Footer */}
-        <div className="bg-slate-50 p-4 border-t border-slate-200">
-          <p className="text-xs text-slate-600 text-center">
-            These recommendations should be reviewed by legal counsel and adapted to specific jurisdictional requirements and business needs.
+        <div className="bg-slate-50 px-6 py-3 border-t border-slate-200">
+          <p className="text-[10px] text-slate-500 uppercase tracking-wider text-center">
+            These recommendations should be reviewed by legal counsel and adapted to specific jurisdictional requirements.
           </p>
         </div>
       </div>

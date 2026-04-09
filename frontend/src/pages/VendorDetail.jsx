@@ -7,11 +7,9 @@ function VendorDetail() {
   const { vendorId } = useParams();
   const navigate = useNavigate();
 
-  // Try to find vendor in mock data first
   let vendor = mockVendors.find(v => v.id === vendorId);
   let isLiveVendor = false;
 
-  // If not found in mock data, check localStorage for live vendors
   if (!vendor) {
     const liveVendors = JSON.parse(localStorage.getItem('liveVendors') || '[]');
     vendor = liveVendors.find(v => v.id === vendorId);
@@ -20,12 +18,12 @@ function VendorDetail() {
 
   if (!vendor) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">Vendor Not Found</h2>
+          <h2 className="text-2xl font-light text-slate-900 mb-4">Vendor Not Found</h2>
           <button
             onClick={() => navigate('/portfolio')}
-            className="px-6 py-3 bg-slate-900 text-white font-semibold rounded-lg hover:bg-slate-800 transition-colors"
+            className="px-6 py-3 bg-slate-900 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
           >
             Back to Portfolio
           </button>
@@ -34,7 +32,6 @@ function VendorDetail() {
     );
   }
 
-  // Generate mock assessment data based on vendor
   const generateMockAssessment = (vendor) => {
     const findings = [
       {
@@ -98,7 +95,6 @@ function VendorDetail() {
     };
   };
 
-  // Use actual assessment data for live vendors, generate mock for sample vendors
   const assessment = isLiveVendor ? {
     overallRiskScore: vendor.riskScore,
     riskLevel: vendor.riskLevel,
@@ -121,16 +117,28 @@ function VendorDetail() {
     navigate('/');
   };
 
+  const statusStyle = vendor.status.toLowerCase() === 'qualified'
+    ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+    : vendor.status.toLowerCase() === 'conditional'
+    ? 'bg-amber-50 border-amber-200 text-amber-800'
+    : 'bg-orange-50 border-orange-200 text-orange-800';
+
+  const statusBadgeStyle = vendor.status.toLowerCase() === 'qualified'
+    ? 'bg-emerald-600'
+    : vendor.status.toLowerCase() === 'conditional'
+    ? 'bg-amber-600'
+    : 'bg-orange-600';
+
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+      <header className="bg-white border-b border-slate-100 sticky top-0 z-50">
+        <div className="max-w-[1200px] mx-auto px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <button
                 onClick={() => navigate('/portfolio')}
-                className="p-1.5 hover:bg-slate-100 transition-colors"
+                className="p-1.5 hover:bg-slate-50 transition-colors"
               >
                 <svg className="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -138,19 +146,19 @@ function VendorDetail() {
               </button>
               <Logo />
               <div className="border-l border-slate-200 pl-3">
-                <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Vendor Intelligence</p>
+                <p className="text-[10px] text-slate-400 uppercase tracking-widest">Vendor Intelligence</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <button
                 onClick={() => navigate('/portfolio')}
-                className="px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
+                className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
               >
                 ← Back to Portfolio
               </button>
               <button
                 onClick={() => navigate('/')}
-                className="px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
+                className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
               >
                 + New Assessment
               </button>
@@ -163,41 +171,37 @@ function VendorDetail() {
       </header>
 
       {/* Vendor Status Banner */}
-      <div className={`${
+      <div className={`border-b ${
         vendor.status.toLowerCase() === 'qualified' ? 'bg-emerald-50 border-emerald-200' :
         vendor.status.toLowerCase() === 'conditional' ? 'bg-amber-50 border-amber-200' :
         'bg-orange-50 border-orange-200'
-      } border-b`}>
-        <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
+      }`}>
+        <div className="max-w-[1200px] mx-auto px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <span className={`px-4 py-2 rounded-lg text-sm font-bold ${
-                vendor.status.toLowerCase() === 'qualified' ? 'bg-emerald-600 text-white' :
-                vendor.status.toLowerCase() === 'conditional' ? 'bg-amber-600 text-white' :
-                'bg-orange-600 text-white'
-              }`}>
+              <span className={`px-3 py-1 ${statusBadgeStyle} text-white text-[10px] font-medium uppercase tracking-wider`}>
                 {vendor.status.toUpperCase()}
               </span>
               {isLiveVendor && (
-                <span className="px-3 py-1 bg-green-600 text-white text-xs font-medium uppercase tracking-wider">
+                <span className="px-2 py-0.5 bg-emerald-600 text-white text-[9px] font-medium uppercase tracking-wider">
                   Live Assessment
                 </span>
               )}
               <div>
-                <div className="text-sm font-medium text-slate-600">Vendor Status</div>
-                <div className="text-lg font-bold text-slate-900">
+                <div className="text-xs text-slate-500">Vendor Status</div>
+                <div className="text-sm font-medium text-slate-900">
                   {isLiveVendor
                     ? `Risk Score: ${vendor.riskScore}/100`
-                    : `${vendor.tier} • ${vendor.annualSpend} Annual Spend`
+                    : `${vendor.tier} — ${vendor.annualSpend} Annual Spend`
                   }
                 </div>
               </div>
             </div>
             <div className="text-right">
-              <div className="text-sm font-medium text-slate-600">Last Assessment</div>
-              <div className="text-sm text-slate-900">
+              <div className="text-xs text-slate-500">Last Assessment</div>
+              <div className="text-sm text-slate-900 font-mono">
                 {new Date(vendor.lastAssessment || vendor.assessmentDate).toLocaleDateString('en-US', {
-                  month: 'long',
+                  month: 'short',
                   day: 'numeric',
                   year: 'numeric'
                 })}
@@ -208,7 +212,7 @@ function VendorDetail() {
       </div>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+      <main className="max-w-[1200px] mx-auto px-8 py-12">
         <RiskDashboard
           assessment={assessment}
           metadata={metadata}
